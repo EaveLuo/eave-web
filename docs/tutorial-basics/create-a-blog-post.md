@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: Eave Luo
+ * @Date: 2024-06-10 10:20:50
+ * @LastEditors: Eave Luo
+ * @LastEditTime: 2024-06-10 20:13:30
+ * @Copyright: Hunan University
+ * @FilePath: \eave-web\docs\tutorial-basics\create-a-blog-post.md
+-->
 ---
 sidebar_position: 3
 ---
@@ -22,7 +31,7 @@ authors:
   - name: Sébastien Lorber
     title: Docusaurus maintainer
     url: https://sebastienlorber.com
-    image_url: https://github.com/slorber.png
+    image_url: https://github.com/EaveLuo.png
 tags: [greetings]
 ---
 
