@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "Eave Luo",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Eave Luo Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Front end": {
+    "message": "前端",
+    "description": "Navbar item with label Front end"
+  },
+  "item.label.Blog": {
+    "message": "博客",
+    "description": "Navbar item with label Blog"
+  }
+}

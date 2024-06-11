@@ -1,0 +1,34 @@
+{
+  "link.title.Knowledge base": {
+    "message": "Knowledge base",
+    "description": "The title of the footer links column with title=Knowledge base in the footer"
+  },
+  "link.title.Community": {
+    "message": "Community",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.More": {
+    "message": "More",
+    "description": "The title of the footer links column with title=More in the footer"
+  },
+  "link.item.label.Front end": {
+    "message": "Front end",
+    "description": "The label of footer link with label=Front end linking to /docs/intro"
+  },
+  "link.item.label.X": {
+    "message": "X (Original Twitter)",
+    "description": "The label of footer link with label=X linking to https://x.com/EaveLuo"
+  },
+  "link.item.label.Bilibili": {
+    "message": "Bilibili",
+    "description": "The label of footer link with label=Bilibili linking to https://space.bilibili.com/179586356"
+  },
+  "link.item.label.Blog": {
+    "message": "Blog",
+    "description": "The label of footer link with label=Blog linking to /blog"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/facebook/docusaurus"
+  }
+}
