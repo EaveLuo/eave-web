@@ -1,4 +1,9 @@
 {
+  "homepage.meta.title": {
+    "message": "Homepage",
+    "description": "The title of the homepage"
+  },
+
   "theme.ErrorPageContent.title": {
     "message": "This page crashed.",
     "description": "The title of the fallback page when the page crashed"

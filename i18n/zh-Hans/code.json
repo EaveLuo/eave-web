@@ -1,4 +1,9 @@
 {
+  "homepage.meta.title": {
+    "message": "主页",
+    "description": "The title of the homepage"
+  },
+
   "theme.ErrorPageContent.title": {
     "message": "页面已崩溃。",
     "description": "The title of the fallback page when the page crashed"

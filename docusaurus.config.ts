@@ -41,15 +41,13 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -57,10 +55,30 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'description',
+        content: "Eave Luo's homepage, blog.",
+      },
+    },
+  ],
+  tagline: "Eave Luo's homepage, blog.",
   themeConfig: {
-    // Replace with your project's social card
+    metadata: [
+      {
+        name: 'author',
+        content: 'Eave Luo',
+      },
+      {
+        name: 'keywords',
+        content:
+          'software engineer, fullstack, frontend, backend, javascript, typescript, node, react, vue, python, linux, web, app',
+      },
+    ],
     navbar: {
+      hideOnScroll: true,
       title: 'Eave Luo',
       logo: {
         alt: 'Eave Luo Logo',
