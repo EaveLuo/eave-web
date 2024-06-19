@@ -3,7 +3,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import { translate } from '@docusaurus/Translate';
 
-import styles from './index.module.css';
+import Particles from '@site/src/components/magicui/particles';
+import Hero from '@site/src/components/Homepage/Hero';
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
@@ -15,6 +16,14 @@ export default function Home(): JSX.Element {
       description={siteConfig.tagline}
     >
       <main>
+        <Hero />
+        <Particles
+          className="absolute inset-0"
+          quantity={100}
+          ease={80}
+          color={'#ffffff'}
+          refresh
+        />
       </main>
     </Layout>
   );

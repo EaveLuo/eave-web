@@ -3,7 +3,22 @@
     "message": "主页",
     "description": "The title of the homepage"
   },
-
+  "homepage.hero.greet": {
+    "message": "你好! 我是 ",
+    "description": "The greeting message on the homepage hero"
+  },
+  "homepage.hero.name": {
+    "message": "Eave Luo",
+    "description": "The name of the author on the homepage hero"
+  },
+  "homepage.hero.text": {
+    "message": "一名全栈软件工程师，热衷于计算机软硬件相关技术。在这里我会分享实际项目中碰到的疑难杂症与解决方案，以及一些个人的技术观点，并拓展各类计算机软硬件相关的知识。",
+    "description": "The text message on the homepage hero"
+  },
+  "homepage.hero.button.text": {
+    "message": "了解更多",
+    "description": "The text of the button on the homepage hero"
+  },
   "theme.ErrorPageContent.title": {
     "message": "页面已崩溃。",
     "description": "The title of the fallback page when the page crashed"

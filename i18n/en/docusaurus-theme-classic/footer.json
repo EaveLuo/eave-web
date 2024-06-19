@@ -16,7 +16,7 @@
     "description": "The label of footer link with label=Front end linking to /docs/intro"
   },
   "link.item.label.X": {
-    "message": "X (Original Twitter)",
+    "message": "𝕏 (Original Twitter)",
     "description": "The label of footer link with label=X linking to https://x.com/EaveLuo"
   },
   "link.item.label.Bilibili": {
