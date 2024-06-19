@@ -62,7 +62,7 @@ export default function Hero() {
     <motion.div className={styles.hero}>
       <div className={styles.intro}>
         <Name />
-        <motion.p
+        <motion.div
           custom={2}
           initial="hidden"
           animate="visible"
@@ -74,7 +74,7 @@ export default function Hero() {
             duration={50}
             text={translate({ id: 'homepage.hero.text' })}
           />
-        </motion.p>
+        </motion.div>
 
         <motion.div
           className="mt-4 flex gap-2"
