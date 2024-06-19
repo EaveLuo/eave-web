@@ -9,9 +9,8 @@
   @apply p-4 pl-16 relative z-10;
 }
 
-.intro > p {
-  @apply my-6 text-[#6e7b8c] text-justify text-base leading-8;
-  letter-spacing: -0.04em;
+.intro_text {
+  @apply my-6 text-[#6e7b8c] text-justify text-base leading-8 tracking-[-0.04em];
   text-shadow: 0 0 #8c99ab;
 }
 

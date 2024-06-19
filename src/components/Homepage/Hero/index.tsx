@@ -1,9 +1,10 @@
 import { type Variants, motion } from 'framer-motion';
-import Translate from '@docusaurus/Translate';
+import Translate, { translate } from '@docusaurus/Translate';
 import { useColorMode } from '@docusaurus/theme-common';
 import HeroSvg from '@site/static/img/Homepage/undraw_hero.svg';
 import HeroSvgDark from '@site/static/img/Homepage/undraw_hero_dark.svg';
 import ShimmerButton from '@site/src/components/magicui/shimmer-button';
+import TypingAnimation from '@site/src/components/magicui/typing-animation';
 
 import styles from './styles.module.css';
 
@@ -68,7 +69,11 @@ export default function Hero() {
           variants={variants}
           className="max-md:px-4"
         >
-          <Translate id="homepage.hero.text"></Translate>
+          <TypingAnimation
+            className={styles.intro_text}
+            duration={50}
+            text={translate({ id: 'homepage.hero.text' })}
+          />
         </motion.p>
 
         <motion.div
