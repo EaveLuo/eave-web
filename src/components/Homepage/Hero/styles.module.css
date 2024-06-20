@@ -57,7 +57,7 @@
 }
 
 .button_text {
-  @apply whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight lg:text-lg;
+  @apply whitespace-pre-wrap text-center text-lg font-medium leading-none tracking-tight;
   color: var(--ifm-color-primary);
 }
 
