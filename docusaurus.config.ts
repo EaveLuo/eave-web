@@ -129,7 +129,7 @@ const config: Config = {
           items: [
             {
               label: 'Front end',
-              to: '/docs/intro',
+              to: '/docs/front-end/intro',
             },
           ],
         },
