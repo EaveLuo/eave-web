@@ -1,10 +1,9 @@
+import { memo } from 'react';
 import { type Variants, motion } from 'framer-motion';
 import Translate, { translate } from '@docusaurus/Translate';
-import { useColorMode } from '@docusaurus/theme-common';
-import HeroSvg from '@site/static/img/Homepage/undraw_hero.svg';
-import HeroSvgDark from '@site/static/img/Homepage/undraw_hero_dark.svg';
 import ShimmerButton from '@site/src/components/magicui/shimmer-button';
 import TypingAnimation from '@site/src/components/magicui/typing-animation';
+import ThemedImage from '@theme/ThemedImage';
 
 import styles from './styles.module.css';
 
@@ -56,8 +55,7 @@ function Name() {
   );
 }
 
-export default function Hero() {
-  const isDarkTheme = useColorMode().colorMode === 'dark';
+function Hero() {
   return (
     <motion.div className={styles.hero}>
       <div className={styles.intro}>
@@ -83,10 +81,7 @@ export default function Hero() {
           animate="visible"
           variants={variants}
         >
-          <ShimmerButton
-            background={isDarkTheme ? '#000000' : '#ffffff'}
-            className="shadow-md"
-          >
+          <ShimmerButton className="shadow-md">
             <span className={styles.button_text}>
               <Translate id="homepage.hero.button.text"></Translate>
             </span>
@@ -94,9 +89,17 @@ export default function Hero() {
         </motion.div>
       </div>
       <motion.div className={styles.background}>
-        {isDarkTheme ? <HeroSvgDark /> : <HeroSvg />}
+        <ThemedImage
+          alt="Homepage Hero"
+          sources={{
+            light: '/img/Homepage/undraw_hero.svg',
+            dark: '/img/Homepage/undraw_hero_dark.svg',
+          }}
+        />
         <Circle />
       </motion.div>
     </motion.div>
   );
 }
+
+export default memo(Hero);
