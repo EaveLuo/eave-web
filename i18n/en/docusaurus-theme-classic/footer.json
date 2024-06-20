@@ -13,7 +13,7 @@
   },
   "link.item.label.Front end": {
     "message": "Front end",
-    "description": "The label of footer link with label=Front end linking to /docs/intro"
+    "description": "The label of footer link with label=Front end linking to /docs/front-end/intro"
   },
   "link.item.label.X": {
     "message": "𝕏 (Original Twitter)",
