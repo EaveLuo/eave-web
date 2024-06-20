@@ -1,6 +1,6 @@
 {
-  "label": "Front end - Extras",
-  "position": 3,
+  "label": "base",
+  "position": 1,
   "link": {
     "type": "generated-index"
   }

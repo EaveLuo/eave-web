@@ -11,6 +11,10 @@
     "message": "前端",
     "description": "Navbar item with label Front end"
   },
+  "item.label.Operation": {
+    "message": "运维",
+    "description": "Navbar item with label Operation"
+  },
   "item.label.Blog": {
     "message": "博客",
     "description": "Navbar item with label Blog"

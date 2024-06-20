@@ -4,6 +4,7 @@ import Translate, { translate } from '@docusaurus/Translate';
 import ShimmerButton from '@site/src/components/magicui/shimmer-button';
 import TypingAnimation from '@site/src/components/magicui/typing-animation';
 import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 import styles from './styles.module.css';
 
@@ -92,8 +93,8 @@ function Hero() {
         <ThemedImage
           alt="Homepage Hero"
           sources={{
-            light: '/img/Homepage/undraw_hero.svg',
-            dark: '/img/Homepage/undraw_hero_dark.svg',
+            light: useBaseUrl('/img/Homepage/undraw_hero.svg'),
+            dark: useBaseUrl('/img/Homepage/undraw_hero_dark.svg'),
           }}
         />
         <Circle />

@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.operationSidebar.category.nginx": {
+    "message": "nginx",
+    "description": "The label for category nginx in sidebar operationSidebar"
+  },
+  "sidebar.operationSidebar.category.nginx.link.generated-index.description": {
+    "message": "This module organizes the nginx-related problems and solutions I encountered in actual projects, as well as some personal understanding of nginx, mainly involving ngin's configuration, use, optimization, architecture and other aspects.",
+    "description": "The generated-index page description for category nginx in sidebar operationSidebar"
+  }
+}

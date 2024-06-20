@@ -1,23 +1,18 @@
 {
   "homepage.meta.title": {
-    "message": "Home",
-    "description": "The title of the homepage"
+    "message": "Home"
   },
   "homepage.hero.greet": {
-    "message": "Hello! I am ",
-    "description": "The greeting message on the homepage hero"
+    "message": "Hello! I am "
   },
   "homepage.hero.name": {
-    "message": "Eave Luo",
-    "description": "The name of the author on the homepage hero"
+    "message": "Eave Luo"
   },
   "homepage.hero.text": {
-    "message": "A full-stack software engineer, passionate about computer hardware and software related technology. Here I will share the actual project encountered problems and solutions, as well as some personal technical views, and expand all kinds of computer hardware and software related knowledge.",
-    "description": "The text message on the homepage hero"
+    "message": "A full-stack software engineer, passionate about computer hardware and software related technology. Here I will share the actual project encountered problems and solutions, as well as some personal technical views, and expand all kinds of computer hardware and software related knowledge."
   },
   "homepage.hero.button.text": {
-    "message": "Learn More",
-    "description": "The text of the button on the homepage hero"
+    "message": "Learn More"
   },
   "theme.ErrorPageContent.title": {
     "message": "This page crashed.",
