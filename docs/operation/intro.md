@@ -1,9 +1,14 @@
 ---
 sidebar_position: 1
-slug: /operation
-date: 2024-06-20
-author: Eave Luo
-keywords: [运维, 服务器, 云计算, linux, nginx, 计算机网络, 路由器, 家庭组网]
+keywords:
+  - 运维
+  - 服务器
+  - 云计算
+  - linux
+  - nginx
+  - 计算机网络
+  - 路由器
+  - 家庭组网
 ---
 
 # 运维

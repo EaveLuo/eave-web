@@ -1,19 +1,14 @@
 ---
 sidebar_position: 1
-slug: /operation
-date: 2024-06-20
-author: Eave Luo
 keywords:
-  [
-    Operation and maintenance,
-    server,
-    cloud computing,
-    linux,
-    nginx,
-    computer network,
-    router,
-    home networking,
-  ]
+  - Operation and maintenance
+  - server
+  - cloud computing
+  - linux
+  - nginx
+  - computer network
+  - router
+  - home networking
 ---
 
 # Operation

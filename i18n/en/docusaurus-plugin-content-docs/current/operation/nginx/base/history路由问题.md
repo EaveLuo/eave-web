@@ -1,11 +1,12 @@
 ---
 sidebar_position: 1
-slug: /operation/nginx/base/history-router-problem
-date: 2024-06-20
-author: Eave Luo
+slug: history-router-problem
 title: history routing problem
 tags: [nginx, history routing, hash routing]
-keywords: [nginx, history routing, hash routing]
+keywords:
+  - nginx
+  - history routing
+  - hash routing
 ---
 
 The problem that nginx in `history` routing mode cannot match the routing of the project.

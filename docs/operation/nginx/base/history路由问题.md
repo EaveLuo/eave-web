@@ -1,11 +1,12 @@
 ---
 sidebar_position: 1
-slug: /operation/nginx/base/history-router-problem
-date: 2024-06-20
-author: Eave Luo
+slug: history-router-problem
 title: history路由问题
 tags: [nginx, history路由, hash路由]
-keywords: [nginx, history路由, hash路由]
+keywords:
+  - nginx
+  - history路由
+  - hash路由
 ---
 
 `history` 路由模式下的 nginx 匹配不到项目的路由问题。
