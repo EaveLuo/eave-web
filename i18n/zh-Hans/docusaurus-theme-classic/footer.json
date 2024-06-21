@@ -15,6 +15,10 @@
     "message": "前端",
     "description": "The label of footer link with label=Front end linking to /docs/front-end/intro"
   },
+  "link.item.label.Operation": {
+    "message": "运维",
+    "description": "The label of footer link with label=Operation linking to /docs/front-end/intro"
+  },
   "link.item.label.X": {
     "message": "𝕏 (原Twitter)",
     "description": "The label of footer link with label=X linking to https://x.com/EaveLuo"

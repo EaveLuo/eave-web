@@ -131,6 +131,10 @@ const config: Config = {
               label: 'Front end',
               to: '/docs/front-end/intro',
             },
+            {
+              label: 'Operation',
+              to: '/docs/operation/intro',
+            },
           ],
         },
         {

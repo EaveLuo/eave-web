@@ -66,7 +66,6 @@ function Hero() {
           initial="hidden"
           animate="visible"
           variants={variants}
-          className="max-md:px-4"
         >
           <TypingAnimation
             className={styles.intro_text}
@@ -97,6 +96,7 @@ function Hero() {
         variants={variants}
       >
         <ThemedImage
+          className={styles.background_svg}
           alt="Homepage Hero"
           sources={{
             light: useBaseUrl('/img/Homepage/undraw_hero.svg'),
