@@ -16,8 +16,8 @@ const variants: Variants = {
       type: 'spring',
       damping: 25,
       stiffness: 100,
-      duration: 0.3,
-      delay: i * 0.3,
+      duration: 0.2,
+      delay: i * 0.2,
     },
   }),
   hidden: { opacity: 0, y: 30 },
@@ -77,7 +77,7 @@ function Hero() {
 
         <motion.div
           className="mt-4 flex gap-2"
-          custom={4}
+          custom={3}
           initial="hidden"
           animate="visible"
           variants={variants}
@@ -89,7 +89,13 @@ function Hero() {
           </ShimmerButton>
         </motion.div>
       </div>
-      <motion.div className={styles.background}>
+      <motion.div
+        className={styles.background}
+        custom={4}
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+      >
         <ThemedImage
           alt="Homepage Hero"
           sources={{
