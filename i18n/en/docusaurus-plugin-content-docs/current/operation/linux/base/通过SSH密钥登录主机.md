@@ -32,6 +32,10 @@ $ cat ~/.ssh/id_rsa.pub
 $ ssh-copy-id user@remote_host
 ```
 
+![202406211504662](https://tecent-oss-shanghai.eaveluo.com/img/202406211504662.png?imageSlim)
+
+![202406211511766](https://tecent-oss-shanghai.eaveluo.com/img/202406211511766.png?imageSlim)
+
 ### Log in to the remote host
 
 ```bash
@@ -40,6 +44,10 @@ $ ssh user@remote_host
 
 # No need to enter a password, use SSH key for authentication
 ```
+
+Or use shell tools such as Finalshell, Xshell, etc. to import the private key into the key manager:
+
+![202406211509276](https://tecent-oss-shanghai.eaveluo.com/img/202406211509276.png?imageSlim)
 
 ### Notes
 

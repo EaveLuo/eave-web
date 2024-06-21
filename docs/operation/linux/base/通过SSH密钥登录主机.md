@@ -32,7 +32,13 @@ $ cat ~/.ssh/id_rsa.pub
 $ ssh-copy-id user@remote_host
 ```
 
+![202406211504662](https://tecent-oss-shanghai.eaveluo.com/img/202406211504662.png?imageSlim)
+
+![202406211511766](https://tecent-oss-shanghai.eaveluo.com/img/202406211511766.png?imageSlim)
+
 ### 登录远程主机
+
+使用终端，输入以下命令登录远程主机：
 
 ```bash
 # 登录远程主机
@@ -41,9 +47,11 @@ $ ssh user@remote_host
 # 之后无需输入密码，直接使用 SSH 密钥进行身份验证
 ```
 
-### 注意事项
+或使用 shell 工具，例如 Finalshell、Xshell 等，将私钥导入到密钥管理器中:
 
-![测试图片](https://tecent-oss-shanghai.eaveluo.com/img/202406211152018.png?imageSlim '测试图片')
+![202406211509276](https://tecent-oss-shanghai.eaveluo.com/img/202406211509276.png?imageSlim)
+
+### 注意事项
 
 - 密钥登录并不安全，不要把私钥上传到公共的 Git 仓库中或者其他可公开访问的地方。
 - 密钥登录并不适用于所有场景，比如需要输入复杂的密码、需要使用 sudo 命令等。
