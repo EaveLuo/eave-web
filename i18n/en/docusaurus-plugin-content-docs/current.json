@@ -7,6 +7,14 @@
     "message": "This module organizes the nginx-related problems and solutions I encountered in actual projects, as well as some personal understanding of nginx, mainly involving ngin's configuration, use, optimization, architecture and other aspects.",
     "description": "The generated-index page description for category nginx in sidebar operationSidebar"
   },
+  "sidebar.operationSidebar.category.linux": {
+    "message": "linux",
+    "description": "The label for category linux in sidebar operationSidebar"
+  },
+  "sidebar.operationSidebar.category.linux.link.generated-index.description": {
+    "message": "This module organizes the Linux-related problems and solutions I encountered in actual projects, as well as some personal understanding of Linux, mainly involving Linux commands, system configuration, system optimization, system architecture and other aspects.",
+    "description": "The generated-index page description for category linux in sidebar operationSidebar"
+  },
   "sidebar.operationSidebar.category.base": {
     "message": "base",
     "description": "The label for category base in sidebar operationSidebar"

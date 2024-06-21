@@ -16,3 +16,4 @@ keywords:
 该模块主要介绍运维相关的知识，包括服务器的配置、部署、管理、监控、备份、迁移、网络配置、路由器配置、家庭组网等。
 
 - [nginx](/docs/category/nginx)
+- [linux](/docs/category/linux)
