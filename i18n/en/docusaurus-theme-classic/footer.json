@@ -17,7 +17,7 @@
   },
   "link.item.label.Operation": {
     "message": "Operation",
-    "description": "The label of footer link with label=Operation linking to /docs/front-end/intro"
+    "description": "The label of footer link with label=Operation linking to /docs/operation/intro"
   },
   "link.item.label.X": {
     "message": "𝕏 (Original Twitter)",
@@ -34,5 +34,9 @@
   "link.item.label.GitHub": {
     "message": "GitHub",
     "description": "The label of footer link with label=GitHub linking to https://github.com/eaveluo"
+  },
+  "copyright": {
+    "message": "<p>Copyright © 2020-2024 Eave Luo. Built with Docusaurus.</p>",
+    "description": "The footer copyright"
   }
 }

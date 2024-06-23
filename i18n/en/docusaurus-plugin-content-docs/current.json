@@ -1,4 +1,8 @@
 {
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
   "sidebar.operationSidebar.category.nginx": {
     "message": "nginx",
     "description": "The label for category nginx in sidebar operationSidebar"
