@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@site/src/lib/utils';
 import { useEffect, useState } from 'react';
 

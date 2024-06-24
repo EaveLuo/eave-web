@@ -5,6 +5,7 @@ import ShimmerButton from '@site/src/components/magicui/shimmer-button';
 import TypingAnimation from '@site/src/components/magicui/typing-animation';
 import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { useHistory } from '@docusaurus/router';
 
 import styles from './styles.module.css';
 
@@ -57,6 +58,7 @@ function Name() {
 }
 
 function Hero() {
+  const history = useHistory();
   return (
     <motion.div className={styles.hero}>
       <div className={styles.intro}>
@@ -81,7 +83,10 @@ function Hero() {
           animate="visible"
           variants={variants}
         >
-          <ShimmerButton className="shadow-md">
+          <ShimmerButton
+            className="shadow-md"
+            onClick={() => history.push('about')}
+          >
             <span className={styles.button_text}>
               <Translate id="homepage.hero.button.text"></Translate>
             </span>
