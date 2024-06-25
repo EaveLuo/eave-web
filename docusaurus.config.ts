@@ -1,6 +1,7 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type { GiscusConfig } from '@site/src/components/Comment';
 
 /** 备案信息 */
 const icpBeian = '湘ICP备2024069005号-1';
@@ -27,10 +28,10 @@ const config: Config = {
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+  // may want to replace "en" with "zh-CN".
   i18n: {
-    defaultLocale: 'zh-Hans',
-    locales: ['en', 'zh-Hans'],
+    defaultLocale: 'zh-CN',
+    locales: ['en', 'zh-CN'],
   },
 
   presets: [
@@ -189,6 +190,14 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
+    giscus: {
+      repo: 'EaveLuo/eave-web',
+      repoId: 'R_kgDOMHM14A',
+      category: 'General',
+      categoryId: 'DIC_kwDOMHM14M4CgXDC',
+      theme: 'light',
+      darkTheme: 'dark',
+    } satisfies Partial<GiscusConfig>,
     zoom: {
       selector: '.markdown :not(em) > img',
       background: {
