@@ -18,5 +18,13 @@
   "sidebar.operationSidebar.category.linux.link.generated-index.description": {
     "message": "This module organizes the Linux-related problems and solutions I encountered in actual projects, as well as some personal understanding of Linux, mainly involving Linux commands, system configuration, system optimization, system architecture and other aspects.",
     "description": "The generated-index page description for category linux in sidebar operationSidebar"
+  },
+  "sidebar.frontEndSidebar.category.webpack": {
+    "message": "webpack",
+    "description": "The label for category webpack in sidebar frontEndSidebar"
+  },
+  "sidebar.frontEndSidebar.category.webpack.link.generated-index.description": {
+    "message": "This module mainly introduces front-end related knowledge, including front-end development, front-end framework, front-end tools, etc.",
+    "description": "The generated-index page description for category webpack in sidebar frontEndSidebar"
   }
 }

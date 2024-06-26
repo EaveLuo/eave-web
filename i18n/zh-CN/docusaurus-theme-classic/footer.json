@@ -17,7 +17,7 @@
   },
   "link.item.label.Operation": {
     "message": "运维",
-    "description": "The label of footer link with label=Operation linking to /docs/front-end/intro"
+    "description": "The label of footer link with label=Operation linking to /docs/operation/intro"
   },
   "link.item.label.X": {
     "message": "𝕏 (原Twitter)",
