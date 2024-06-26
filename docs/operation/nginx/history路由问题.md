@@ -27,7 +27,7 @@ keywords:
 
 解决 `history` 路由模式下的 nginx 匹配不到项目的路由问题，需要在 nginx 配置文件中添加以下配置：
 
-```conf title="nginx.conf"
+```vim title="nginx.conf"
 location / {
     try_files $uri $uri/ /index.html; #解决history路由匹配失败问题
 }

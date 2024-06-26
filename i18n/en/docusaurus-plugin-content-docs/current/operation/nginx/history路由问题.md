@@ -27,7 +27,7 @@ For the `hash` routing mode, no special configuration is generally required. For
 
 To solve the problem that nginx in `history` routing mode cannot match the routing of the project, you need to add the following configuration to the nginx configuration file:
 
-```conf title="nginx.conf"
+```vim title="nginx.conf"
 location / {
     try_files $uri $uri/ /index.html; #Solve the problem of history route matching failure
 }
