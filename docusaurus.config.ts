@@ -226,6 +226,11 @@ const config: Config = {
       theme: 'light',
       darkTheme: 'dark',
     } satisfies Partial<GiscusConfig>,
+    algolia: {
+      appId: 'QXN8S92SP4',
+      apiKey: 'bffb54774ea7fa5f15340f27c48ba0c8',
+      indexName: 'eaveluo',
+    },
     zoom: {
       selector: '.markdown :not(em) > img',
       background: {
