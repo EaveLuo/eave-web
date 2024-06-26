@@ -1,10 +1,3 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 import React from 'react';
 import {useWindowSize} from '@docusaurus/theme-common';
 import {useDoc} from '@docusaurus/theme-common/internal';
@@ -59,9 +52,7 @@ export default function DocItemLayout({children}: Props): JSX.Element {
       <div className={cn('col', !docTOC.hidden && styles.docItemCol)}>
         {unlisted && <Unlisted />}
         <DocVersionBanner />
-        <div className={styles.docItemContainer} style={{marginBottom: '1rem'}}>
-        {/* 原来是没有marginBottom的，由于comment组件加不了，所以给这块加的
-        <div className={styles.docItemContainer}> */}
+        <div className={styles.docItemContainer}>
           <article>
             <DocBreadcrumbs />
             <DocVersionBadge />
