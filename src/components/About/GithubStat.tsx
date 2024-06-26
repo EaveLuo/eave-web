@@ -4,12 +4,13 @@ import ThemedImage from '@theme/ThemedImage';
 import { cn } from '@site/src/lib/utils';
 
 interface GithubProps {
+  githubMirrorURL: string;
   className?: string;
 }
 
-export default function Github({ className }: GithubProps) {
+export default function GithubStat({ className, githubMirrorURL }: GithubProps) {
   const githubStatsUrl = (type: 'overview' | 'languages', isDark: boolean) =>
-    `https://raw.githubusercontent.com/EaveLuo/github-stats/master/generated/${type}.svg#gh-${
+    `${githubMirrorURL}/EaveLuo/github-stats/master/generated/${type}.svg#gh-${
       isDark ? 'dark' : 'light'
     }-mode-only`;
 
