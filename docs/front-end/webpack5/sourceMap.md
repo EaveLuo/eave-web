@@ -12,7 +12,7 @@
 
 SourceMap 是一种用来调试压缩或编译后代码的技术。它将压缩或编译后的代码映射回原始源代码，从而使开发者能够在浏览器的开发者工具中查看原始代码并进行调试。
 
-## 为什么要配置 SourceMap
+## 为什么要配置
 
 开发时我们运行的代码是经过 webpack 编译后的，例如下面这个样子：
 
@@ -45,7 +45,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 所以我们需要更加准确的错误提示，来帮助我们更好的开发代码。
 
-### 如何配置 SourceMap
+### 如何配置
 
 通过查看[Webpack DevTool 文档](https://webpack.docschina.org/configuration/devtool/)可知，SourceMap 的值有很多种情况。
 
