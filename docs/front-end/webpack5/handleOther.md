@@ -2,13 +2,12 @@
     sidebar_position: 8
     slug: handle-Other
     title: 处理字体图标音频视频等其他资源
-    description: 介绍 Webpack 如何处理字体图标资源
-    tags: [Webpack, 打包工具, 前端工程化]
+    tags: [Webpack, 打包工具, 前端工程化, 字体图标音频视频等其他资源]
     keywords:
     - Webpack
     - 打包工具
     - 前端工程化
-    - 处理字体图标音频视频等其他资源
+    - 字体图标音频视频等其他资源
 ---
 
 在实际开发中，我们经常会用到字体图标、音频、视频等其他资源，Webpack 如何处理字体图标资源呢？下列以字体为例，介绍 Webpack 如何处理其他资源。

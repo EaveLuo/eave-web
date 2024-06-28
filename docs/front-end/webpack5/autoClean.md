@@ -2,7 +2,6 @@
     sidebar_position: 7
     slug: auto-clean
     title: 自动清空上次打包资源
-    description: 介绍如何配置 Webpack 自动清空上次打包资源
     tags: [Webpack, 打包工具, 前端工程化]
     keywords:
     - Webpack

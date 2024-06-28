@@ -2,13 +2,12 @@
     sidebar_position: 5
     slug: handle-images
     title: 处理图片资源
-    description: 介绍 Webpack5 如何处理图片资源
-    tags: [Webpack, 打包工具, 前端工程化]
+    tags: [Webpack, 打包工具, 前端工程化, 图片资源]
     keywords:
     - Webpack
     - 打包工具
     - 前端工程化
-    - 处理图片资源
+    - 图片资源
 ---
 
 过去在 Webpack4 时，我们处理图片资源通过 file-loader 和 url-loader 进行处理。

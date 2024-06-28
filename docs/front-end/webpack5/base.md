@@ -50,7 +50,7 @@ console.log('Sum:', sum(1, 2, 3, 4, 5)); // 15
 
 打开终端，进入项目根目录，运行以下指令来初始化 package.json ：
 
-```bash
+```bash npm2yarn
 npm init -y
 ```
 
@@ -75,7 +75,7 @@ npm init -y
 
 接着下载依赖：
 
-```bash
+```bash npm2yarn
 npm i webpack webpack-cli -D
 ```
 

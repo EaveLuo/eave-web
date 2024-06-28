@@ -7,24 +7,12 @@
     "message": "nginx",
     "description": "The label for category nginx in sidebar operationSidebar"
   },
-  "sidebar.operationSidebar.category.nginx.link.generated-index.description": {
-    "message": "该模块整理了我在实际项目中遇到的 nginx 相关问题和解决方案，以及对nginx的一些个人理解，主要涉及ngin的配置、使用、优化、架构等方面。",
-    "description": "The generated-index page description for category nginx in sidebar operationSidebar"
-  },
   "sidebar.operationSidebar.category.linux": {
     "message": "linux",
     "description": "The label for category linux in sidebar operationSidebar"
   },
-  "sidebar.operationSidebar.category.linux.link.generated-index.description": {
-    "message": "该模块整理了我在实际项目中遇到的 linux 相关问题和解决方案，以及对 linux 的一些个人理解，主要涉及 linux 的命令、系统配置、系统优化、系统架构等方面。",
-    "description": "The generated-index page description for category linux in sidebar operationSidebar"
-  },
   "sidebar.frontEndSidebar.category.webpack5": {
     "message": "Webpack5",
     "description": "The label for category Webpack5 in sidebar frontEndSidebar"
-  },
-  "sidebar.frontEndSidebar.category.webpack5.link.generated-index.description": {
-    "message": "该模块整理了我在学习 Webpack5 过程中遇到的问题和解决方案，以及对 Webpack5 的一些个人理解，主要涉及 Webpack5 的配置、使用、优化、架构等方面。",
-    "description": "The generated-index page description for category Webpack5 in sidebar frontEndSidebar"
   }
 }

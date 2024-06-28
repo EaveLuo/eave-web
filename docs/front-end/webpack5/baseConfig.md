@@ -2,7 +2,6 @@
     sidebar_position: 3
     slug: base-config
     title: 基本配置
-    description: 介绍 Webpack5 的基本配置
     tags: [Webpack, 打包工具, 前端工程化]
     keywords:
     - Webpack
@@ -54,8 +53,6 @@ Webpack 基于 Node.js 运行，因此采用 Common.js 模块化规范。
 
 ## 修改配置文件
 
-- 配置文件
-
 ```js title="webpack.config.js"
 const path = require('path');
 
@@ -80,13 +77,13 @@ module.exports = {
 };
 ```
 
-- 运行指令
+## 运行指令
 
 ```bash
 npx webpack
 ```
 
-此时功能和之前一样，仍然不能处理样式资源。
+此时功能和之前一样，仍然不能处理样式等其他资源文件，后续章节将介绍如何处理其他资源文件。
 
 ## 小结
 

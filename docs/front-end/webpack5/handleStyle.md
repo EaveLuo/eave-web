@@ -2,8 +2,7 @@
     sidebar_position: 4
     slug: handle-style
     title: 处理样式资源
-    description: 介绍 Webpack5 如何处理 CSS、Less、Sass、Scss、Styl 样式资源。
-    tags: [Webpack, 打包工具, 前端工程化]
+    tags: [Webpack, 打包工具, 前端工程化, 处理样式资源, CSS, Less, Sass, Stylus]
     keywords:
     - Webpack
     - 打包工具
@@ -26,7 +25,7 @@ Webpack 本身不能识别样式资源，需要借助 Loader 来解析样式资�
 
 安装：
 
-```bash
+```bash npm2yarn
 npm i css-loader style-loader -D
 ```
 
@@ -114,7 +113,7 @@ npx webpack
 
 安装:
 
-```bash
+```bash npm2yarn
 npm i less-loader -D
 ```
 
@@ -210,7 +209,7 @@ npx webpack
 
 安装:
 
-```bash
+```bash npm2yarn
 npm i sass-loader sass -D
 ```
 
@@ -321,7 +320,7 @@ npx webpack
 
 安装：
 
-```bash
+```bash npm2yarn
 npm i stylus-loader -D
 ```
 

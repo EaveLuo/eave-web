@@ -40,12 +40,16 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+          ],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
         },
         blog: {
           showReadingTime: true,
+          remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn')],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
@@ -96,7 +100,7 @@ const config: Config = {
       title: 'Eave Luo',
       logo: {
         alt: 'Eave Luo Logo',
-        src: 'img/logo.png',
+        src: 'img/logo.webp',
       },
       items: [
         {
