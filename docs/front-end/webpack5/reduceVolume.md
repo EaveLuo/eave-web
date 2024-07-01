@@ -2,7 +2,7 @@
     sidebar_position: 17
     slug: reduce-volume
     title: 减少代码体积
-    tags: [Webpack, 打包工具, 前端工程化, Tree Shaking, Babel, 图片压缩]
+    tags: [Webpack, 打包工具, 前端工程化, Tree Shaking, Babel, 图片压缩, 性能优化]
     keywords:
     - Webpack
     - 打包工具
@@ -10,6 +10,7 @@
     - Tree Shaking
     - Babel
     - 图片压缩
+    - 性能优化
 ---
 
 在实际开发中，项目体积会越来越大，代码量也会越来越多，这时候我们就需要对代码进行压缩，减少体积。

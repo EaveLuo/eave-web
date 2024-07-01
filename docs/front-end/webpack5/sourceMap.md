@@ -45,7 +45,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 所以我们需要更加准确的错误提示，来帮助我们更好的开发代码。
 
-### 如何配置
+## 如何配置
 
 通过查看[Webpack DevTool 文档](https://webpack.docschina.org/configuration/devtool/)可知，SourceMap 的值有很多种情况。
 
