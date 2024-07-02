@@ -1,5 +1,5 @@
 <h2 align="center">
-Eave Luo的博客
+Eave Luo的站点
 </h2>
 
 <p align="center">
