@@ -1,11 +1,14 @@
 <h2 align="center">
-Eave Luo's Blog
+Eave Luo的博客
+</h2>
+
 <p align="center">
-<div align="center">
-<a href="README.en.md">
-English
+<a href="README.md">
+简体中文
 </a>
-</div>
+</p>
+
+<p align="center">
 <a href="https://vercel.com/new/clone?repository-url=https://github.com/EaveLuo/eave-web/tree/master&project-name=blog&repo-name=blog" rel="nofollow"><img src="https://vercel.com/button"></a>
 </p>
 
