@@ -11,6 +11,10 @@
     "message": "Front end",
     "description": "Navbar item with label Front end"
   },
+  "item.label.Back end": {
+    "message": "Back end",
+    "description": "Navbar item with label Back end"
+  },
   "item.label.Operation": {
     "message": "Operation",
     "description": "Navbar item with label Operation"

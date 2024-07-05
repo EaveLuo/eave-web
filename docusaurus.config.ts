@@ -111,6 +111,12 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
+          sidebarId: 'backEndSidebar',
+          position: 'right',
+          label: 'Back end',
+        },
+        {
+          type: 'docSidebar',
           sidebarId: 'operationSidebar',
           position: 'right',
           label: 'Operation',
@@ -135,6 +141,10 @@ const config: Config = {
             {
               label: 'Front end',
               to: '/docs/front-end/intro',
+            },
+            {
+              label: 'Back end',
+              to: '/docs/back-end/intro',
             },
             {
               label: 'Operation',

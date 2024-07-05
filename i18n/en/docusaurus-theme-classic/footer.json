@@ -15,6 +15,10 @@
     "message": "Front end",
     "description": "The label of footer link with label=Front end linking to /docs/front-end/intro"
   },
+  "link.item.label.Back end": {
+    "message": "Back end",
+    "description": "The label of footer link with label=Back end linking to /docs/back-end/intro"
+  },
   "link.item.label.Operation": {
     "message": "Operation",
     "description": "The label of footer link with label=Operation linking to /docs/operation/intro"
