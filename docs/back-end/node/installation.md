@@ -1,108 +1,74 @@
 ---
-    sidebar_position: 2
+    sidebar_position: 3
     slug: installation
     title: 安装与版本管理
-    description: 如何安装 node.js，以及如何使用 nvm 进行版本管理。
-    tags: [node, nvm]
+    description: 如何安装 Node.js，以及如何使用Node.js版本管理工具进行版本管理。
+    tags: [Node.js, nvm]
     keywords:
-    - node.js
+    - Node.js
     - nvm
     - 安装
     - 版本管理
 ---
 
+下面我们将介绍如何从多途径安装和管理 Node.js：
 
+## 官方安装包方式安装
 
-## 资源目录
+在[Node.js 官方网站](https://nodejs.org/zh-cn/download/prebuilt-installer)下载对应操作系统的安装包，然后按照提示一步步安装即可。
 
-```bash
-webpack_code # 项目根目录
-    └── src # 项目源码目录
-        ├── js # js 文件目录
-        │   ├── count.js
-        │   └── sum.js
-        └── main.js # 项目主文件
-```
+推荐下载 LTS 版本，即长期支持版本（Long-Term Support，LTS）。
 
-## 创建文件
+安装好后开箱即用，无需再配置环境变量。
 
-```js title="count.js"
-export default function count(a, b) {
-  return a - b;
-}
-```
+## 使用 NVM 安装
 
-```js title="sum.js"
-export default function sum(...numbers) {
-  return numbers.reduce((total, num) => total + num, 0);
-}
-```
+[NVM（Node Version Manager）](https://github.com/nvm-sh/nvm)是目前市面上最流行的 Node.js 版本管理 工具，可以方便地安装、切换、删除不同版本的 Node.js。
 
-```js title="main.js"
-import count from './js/count';
-import sum from './js/sum';
+> NVM 原本更多用在 Linux 和 macOS 环境，NVM 官方不支持 Windows，后来[Corey Butler](https://github.com/coreybutler)大神推出并开源了[nvm-windows](https://github.com/coreybutler/nvm-windows)，可以方便地在 Windows 环境下使用 NVM。
 
-console.log('Difference:', count(10, 3)); // 7
-console.log('Sum:', sum(1, 2, 3, 4, 5)); // 15
-```
+### 安装 NVM-Windows
 
-## 下载依赖
+首先，下载[nvm-windows](https://github.com/coreybutler/nvm-windows/releases)安装包，解压到任意目录。
 
-打开终端，进入项目根目录，运行以下指令来初始化 package.json ：
+双击安装包，安装过程会自动配置环境变量。
 
-```bash npm2yarn
-npm init -y
-```
+### 常用命令
 
-此时会生成一个基础的 `package.json` 文件：
-
-```json
-{
-  "name": "webpack-demo",
-  "version": "1.0.0",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
-}
-```
-
-**需要注意的是 `package.json` 中 `name` 字段不能叫做 `webpack`, 否则下一步会报错**。
-
-接着下载依赖：
-
-```bash npm2yarn
-npm i webpack webpack-cli -D
-```
-
-## 启用 Webpack
-
-开发模式
+安装最新 LTS 版本的 Node.js：
 
 ```bash
-npx webpack ./src/main.js --mode=development
+nvm install latest
 ```
 
-生产模式
+安装指定版本的 Node.js：
 
 ```bash
-npx webpack ./src/main.js --mode=production
+nvm install 20
 ```
 
-- `npx webpack`: 运行本地安装 `Webpack` 包的。
+切换到指定版本的 Node.js：
 
-- `./src/main.js`: 指定 `Webpack` 从 `main.js` 文件开始打包，包括其依赖的文件。
+```bash
+nvm use 20
+```
 
-- `--mode=xxx`：指定模式（环境）。
+删除指定版本的 Node.js：
 
-## 观察输出文件
+```bash
+nvm uninstall 20
+```
 
-默认情况下，Webpack 会将文件打包输出到 `dist` 目录下，查看 `dist` 目录下的文件情况即可。
+查看已安装的 Node.js 版本：
 
-## 小结
+```bash
+nvm list
+```
 
-Webpack 本身只能处理 `JS` 资源，处理其他类型资源（如 `CSS`）时，需要配置额外的 `loader` 和 `插件` 。
+查看当前正在使用的 Node.js 版本：
+
+```bash
+nvm current
+```
+
+更多命令请使用 `nvm --help` 查看或参考[官方文档](https://github.com/nvm-sh/nvm)。
