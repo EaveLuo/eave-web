@@ -5,7 +5,7 @@ import type { GiscusConfig } from '@site/src/components/Comment';
 
 /** 备案信息 */
 const icpBeian = '湘ICP备2024069005号-1';
-const policeBeian = '湘公网安备申请ing';
+const policeBeian = '湘公网安备43011102002452号';
 
 const config: Config = {
   title: 'Eave Luo',
@@ -255,6 +255,13 @@ const config: Config = {
         // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
       },
     },
+    liveCodeBlock: {
+      /**
+       * 实时效果显示的位置，在编辑器上方还是下方
+       * 可选参数："top" | "bottom"
+       */
+      playgroundPosition: 'bottom',
+    },
   } satisfies Preset.ThemeConfig,
   plugins: [
     async function myPlugin(context, options) {
@@ -275,6 +282,7 @@ const config: Config = {
       },
     ],
     'docusaurus-plugin-image-zoom',
+    '@docusaurus/theme-live-codeblock',
   ],
 };
 
