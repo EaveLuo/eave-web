@@ -1,5 +1,5 @@
 ---
-    sidebar_position: 6
+    sidebar_position: 7
     slug: fs
     title: fs 模块
     description: fs 模块是 Node.js 的核心模块之一，用于与文件系统进行交互。它提供了多种方法来处理文件和目录，包括读取、写入、删除、重命名、监视文件变化等。fs 模块支持同步和异步操作，以满足不同的使用需求。
