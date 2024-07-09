@@ -71,7 +71,13 @@ Buffer 提供了多种方法来读写和操作其内容：
    console.log(buf.toString()); // 输出 'Hello, World!'
    ```
 
+   :::tip 提示
+   `toString()` 方法可以指定编码方式，例如 `utf8`、`base64` 等，不填写的话默认使用 `utf8` 编码。
+   :::
+
 3. **操作部分数据**
+
+   在 Node.js 中，`Buffer` 对象是不可变的，这意味着不能直接修改 `Buffer` 的内容。但是，可以通过 `subarray()` ~~或 [ `slice()`（slice() 方法在 v17.5.0 已被废弃）](https://nodejs.org/api/buffer.html#bufslicestart-end)~~ 方法来创建一个新的 `Buffer` 对象，包含原 `Buffer` 的部分内容。
 
    ```javascript
    const buf = Buffer.from('Hello, World!', 'utf8');
@@ -95,7 +101,7 @@ Buffer 提供了多种方法来读写和操作其内容：
 
 ## 示例代码
 
-以下是一个使用 `Buffer` 读取文件内容并将其转换为字符串的示例：
+以下是一个使用 `Buffer` 读取文件内容并将其转换为字符串的示例 **（此处用到了后文的 fs 模块，具体用法请参考[fs 模块的文档](/docs/back-end/node/fs)）**：
 
 ```javascript
 const fs = require('fs');
