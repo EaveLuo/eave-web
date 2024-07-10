@@ -310,3 +310,10 @@ app.listen(port, () => {
 ```
 
 通过这个简单的示例，展示了如何使用 Node.js 和 Express 框架创建一个基本的 RESTful Web API，包括基本的 CRUD（创建、读取、更新、删除）操作。
+
+## 接口调试工具
+
+有很多工具可以用来调试 Web API，如 Postman、ApiFox 等。下面介绍几个常用的接口调试工具。
+
+- **Postman**：Postman 是一个开源的 API 调试工具，可以用来测试 Web API，官方网站：https://www.postman.com/。
+- **ApiFox**：API 设计、开发、测试一体化协作平台，Apifox = Postman + Swagger + Mock + JMeter，官方网站：https://apifox.com/。
