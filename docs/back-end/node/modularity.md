@@ -1,14 +1,14 @@
 ---
-    sidebar_position: 9
-    slug: modularity
-    title: 模块化
-    description: 了解 Node.js 中模块化的概念和使用场景。
-    tags: [Node.js, 模块化, CommonJS, ES 模块]
-    keywords:
-    - Node.js
-    - 模块化
-    - CommonJS
-    - ES 模块
+sidebar_position: 9
+slug: modularity
+title: 模块化
+description: 了解 Node.js 中模块化的概念和使用场景。
+tags: [Node.js, 模块化, CommonJS, ES 模块]
+keywords:
+  - Node.js
+  - 模块化
+  - CommonJS
+  - ES 模块
 ---
 
 在 Node.js 中，模块化是一个非常重要的概念，它允许开发者将代码分割成多个文件和模块，使得代码更易于管理和复用。Node.js 提供了两种模块系统：CommonJS 和 ES 模块（ESM）。了解这两种模块系统的区别和使用场景，可以帮助开发者更好地组织和管理代码。
@@ -21,8 +21,7 @@ CommonJS 是 Node.js 中最常用的模块系统，使用 `require` 函数来引
 
 可以使用 `module.exports` 导出单个功能或对象：
 
-```javascript
-// math.js
+```javascript title="math.js"
 module.exports = {
   add: function (a, b) {
     return a + b;
@@ -35,8 +34,7 @@ module.exports = {
 
 也可以使用 `exports` 导出多个功能：
 
-```javascript
-// math.js
+```javascript title="math.js"
 exports.add = function (a, b) {
   return a + b;
 };
@@ -50,8 +48,7 @@ exports.subtract = function (a, b) {
 
 可以使用 `require` 函数引入模块：
 
-```javascript
-// app.js
+```javascript title="app.js"
 const math = require('./math');
 
 console.log(math.add(2, 3)); // 5
@@ -66,8 +63,7 @@ ES 模块（ESM）是 JavaScript 的官方模块系统，使用 `import` 和 `ex
 
 可以使用 `export` 导出单个功能或对象：
 
-```javascript
-// math.js
+```javascript title="math.js"
 export function add(a, b) {
   return a + b;
 }
@@ -79,8 +75,7 @@ export function subtract(a, b) {
 
 也可以使用 `export default` 导出默认功能或对象：
 
-```javascript
-// math.js
+```javascript title="math.js"
 export default {
   add: function (a, b) {
     return a + b;
@@ -95,8 +90,7 @@ export default {
 
 可以使用 `import` 关键字引入模块：
 
-```javascript
-// app.js
+```javascript title="app.js"
 import { add, subtract } from './math.js';
 
 console.log(add(2, 3)); // 5
@@ -105,8 +99,7 @@ console.log(subtract(5, 3)); // 2
 
 也可以引入默认导出：
 
-```javascript
-// app.js
+```javascript title="app.js"
 import math from './math.js';
 
 console.log(math.add(2, 3)); // 5
@@ -143,7 +136,7 @@ console.log(math.subtract(5, 3)); // 2
 - **CommonJS** 中 `this` 绑定到当前模块。
 
   ```javascript
-  console.log(this); // 输出 module.exports
+  console.log(this); // 输出 {}
   ```
 
 - **ES 模块** 中 `this` 是 `undefined`。
@@ -193,9 +186,23 @@ if (condition) {
 
 ### 配置 ES 模块
 
-在 Node.js 中使用 ES 模块，需要在 `package.json` 中添加 `"type": "module"`：
+在 Node.js 中默认使用 CommonJS 模块，如果需要使用 ES 模块，有两种方案：
 
-```json
+- 使用 `.mjs` 文件扩展名：Node.js 会自动识别 `.mjs` 文件为 ES 模块。
+
+```javascript title="math.mjs"
+export function add(a, b) {
+  return a + b;
+}
+
+export function subtract(a, b) {
+  return a - b;
+}
+```
+
+- 使用 `"type": "module"` 字段：在 `package.json` 中添加 `"type": "module"` 字段，Node.js 会自动识别 `package.json` 中 `"type": "module"` 的文件为 ES 模块。
+
+```json title="package.json"
 {
   "type": "module"
 }

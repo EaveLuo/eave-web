@@ -1,12 +1,12 @@
 ---
-    sidebar_position: 8
-    slug: http
-    title: http 模块
-    description: http 模块是 Node.js 的核心模块之一，用于创建和服务 HTTP 服务器。
-    tags: [Node.js, http]
-    keywords:
-    - Node.js
-    - http
+sidebar_position: 8
+slug: http
+title: http 模块
+description: http 模块是 Node.js 的核心模块之一，用于创建和服务 HTTP 服务器。
+tags: [Node.js, http]
+keywords:
+  - Node.js
+  - http
 ---
 
 在介绍 `http` 模块之前，我们先来了解一下 HTTP 协议，更有助于我们使用 Node.js 中的 `http` 模块。
