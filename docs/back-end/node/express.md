@@ -123,6 +123,12 @@ node app.js
 
 此时建议使用[接口调试工具](/docs/back-end/web-api#接口调试工具)来测试这些路由。
 
+- GET 请求，`http://localhost:8080/`：响应内容为 `GET request to the homepage`。
+- POST 请求， `http://localhost:8080/`： 响应内容为 `POST request to the homepage`。
+- PUT 请求，`http://localhost:8080/user`：响应内容为 `PUT request to /user`。
+- DELETE 请求，`http://localhost:8080/user`：响应内容为 `DELETE request to /user`。
+- 所有请求，`http://localhost:8080/all`：响应内容为 `This is a all request`。
+
 ### 参数路由
 
 参数路由可以匹配路径中包含的动态参数：
@@ -139,14 +145,17 @@ const port = 8080; // 定义应用监听的端口
 // highlight-start
 // 定义路由
 app.get('/user/:id', (req, res) => {
+  console.log(req.params);
   res.send(`User ID: ${req.params.id}`);
 });
 
-app.get('/users/:name*', (req, res) => {
-  res.send(`User Name: ${req.params.name}`);
+app.get('/users/*', (req, res) => {
+  console.log(req.params);
+  res.send(`User Name: ${req.params}`);
 });
 
 app.get('/optional/:name?', (req, res) => {
+  console.log(req.params);
   res.send(`Optional Name: ${req.params.name || 'Not provided'}`);
 });
 // highlight-end
@@ -157,23 +166,56 @@ app.listen(port, () => {
 });
 ```
 
+针对上述路由，可以测试以下 URL，因为 req.params 可能为对象，注意看控制台输出：
+
+下列均为 GET 请求：
+
+- `http://localhost:8080/user/123`：控制台输出：`{ id: '123' }`，响应内容为 `User ID: 123`。
+- `http://localhost:8080/users/eave/luo`：控制台输出：`{ '0': 'eave/luo' }`，响应内容为 `User Name: eave/luo`。
+- `http://localhost:8080/optional`：控制台输出：`{ name: undefined }`，响应内容为 `Optional Name: Not provided`。
+- `http://localhost:8080/optional/eave`：控制台输出：`{ name: 'eave' }`，响应内容为 `Optional Name: eave`。
+
 ### 路由组
 
-可以使用 Express 路由器来定义路由组：
+路由组（Routing Group）是一种将相关的路由组织在一起的方式，使代码更加模块化和易于维护。可以使用路由器（Router()）来定义路由组，以下是一个示例：
 
 ```javascript
+const express = require('express');
+const app = express();
 const router = express.Router();
 
+// highlight-start
+// 定义一个路由
 router.get('/', (req, res) => {
-  res.send('GET request to the /user');
+  res.send('Home Page');
 });
 
-router.post('/', (req, res) => {
-  res.send('POST request to the /user');
+// 定义另一个路由
+router.get('/about', (req, res) => {
+  res.send('About Page');
 });
 
-app.use('/user', router);
+// 将路由组挂载到应用程序中
+app.use('/mygroup', router);
+// highlight-end
+
+app.listen(8080, () => {
+  console.log('Server is running on port 8080');
+});
 ```
+
+在这个示例中，我们首先创建了一个`router`对象，然后定义了一些路由（`/`和`/about`），并将这些路由挂载到应用程序的`/mygroup`路径下。因此，当用户访问`/mygroup`或`/mygroup/about`时，将会触发相应的路由处理程序：
+
+- GET 请求： `http://localhost:8080/mygroup`：响应内容为 `Home Page`。
+- GET 请求： `http://localhost:8080/mygroup/about`：响应内容为 `About Page`。
+
+#### 路由组的优点
+
+- **模块化**：将相关的路由组织在一起，使代码更加清晰和模块化。
+- **中间件复用**：可以为一组路由定义公共的中间件，而不必为每个路由单独定义。
+- **代码组织**：帮助开发者更好地组织代码，尤其是在处理大型项目时。
+
+通过使用路由组，可以更好地管理和维护 Node.js 应用程序的路由逻辑。
 
 ## 中间件
 
