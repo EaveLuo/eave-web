@@ -8,6 +8,10 @@
     - Node.js
 ---
 
+:::tip 提示
+本模块后续内容将建立在拥有 javascript 基础知识的前提下，如果你对 javascript 不熟悉，建议先学习 javascript 基础知识。
+:::
+
 Node.js 是一个开源、跨平台的 JavaScript 运行时环境，允许开发者在服务器端运行 JavaScript 代码。由 Ryan Dahl 于 2009 年创建，它基于 Chrome V8 JavaScript 引擎构建。Node.js 的设计理念是通过事件驱动、非阻塞 I/O 模型来实现高效且可扩展的网络应用。以下是一些 Node.js 的关键特点：
 
 1. **事件驱动与非阻塞 I/O**：Node.js 采用了事件驱动和非阻塞 I/O 的架构，使其能够处理大量并发连接而不会造成线程阻塞。适用于 I/O 密集型应用，如 Web 服务器、实时应用等。
