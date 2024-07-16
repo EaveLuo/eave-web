@@ -224,117 +224,436 @@ app.listen(8080, () => {
 ### 应用级中间件
 
 ```javascript
+const express = require('express');
+const app = express();
+const router = express.Router();
+
+// highlight-start
+// 定义一个应用级中间件
 app.use((req, res, next) => {
-  console.log('Time:', Date.now());
+  console.log('APP定义的应用级中间件');
   next();
 });
+// highlight-end
+
+// 使用app定义一个路由
+app.get('/app', (req, res) => {
+  res.send('APP');
+});
+
+// 使用router定义一个路由
+router.get('/test', (req, res) => {
+  res.send('Router');
+});
+
+// 将路由组挂载到应用程序中
+app.use('/router', router);
+
+app.listen(8080, () => {
+  console.log('Server is running on port 8080');
+});
 ```
+
+设置了应用级中间件后，它将在中间件后的所有请求处理之前执行。
 
 ### 路由级中间件
 
 ```javascript
+const express = require('express');
+const app = express();
 const router = express.Router();
 
+// highlight-start
+// 定义一个路由级中间件
 router.use((req, res, next) => {
+  console.log('router定义的路由级中间件');
+  next();
+});
+// highlight-end
+
+// 使用app定义一个路由
+app.get('/app', (req, res) => {
+  res.send('APP');
+});
+
+// 使用router定义一个路由
+router.get('/test', (req, res) => {
+  res.send('Router');
+});
+
+// 将路由组挂载到应用程序中
+app.use('/router', router);
+
+app.listen(8080, () => {
+  console.log('Server is running on port 8080');
+});
+```
+
+路由级中间件只会处理路由组内的请求，如上述的例子中只会处理 `/router` 下的请求，请求 `http://localhost:8080/app` 将不会触发路由级中间件。
+
+### 错误处理中间件
+
+在 Node.js 中使用 Express 框架进行错误处理时，可以定义错误处理中间件来捕获和处理应用程序中的错误。这些中间件与普通的中间件函数类似，但有一个显著的区别：错误处理中间件函数有四个参数 `(err, req, res, next)`，其中 `err` 是错误对象。
+
+#### 创建错误处理中间件
+
+以下是一个基本的错误处理中间件示例：
+
+```javascript
+const express = require('express');
+const app = express();
+
+// 定义一个普通的中间件
+app.use((req, res, next) => {
   console.log('Request URL:', req.originalUrl);
   next();
 });
 
-router.get('/', (req, res) => {
-  res.send('Hello from router!');
+// 定义一个路由
+app.get('/', (req, res) => {
+  res.send('Hello World');
 });
 
-app.use('/router', router);
-```
+// highlight-start
+// 定义一个会产生错误的路由
+app.get('/error', (req, res) => {
+  throw new Error('This is a forced error.');
+});
 
-### 错误处理中间件
-
-错误处理中间件有四个参数（err, req, res, next）：
-
-```javascript
+// 定义错误处理中间件
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).json({ code: 500, message: 'Something broke!' });
+});
+// highlight-end
+
+app.listen(8080, () => {
+  console.log('Server is running on port 8080');
 });
 ```
+
+在这个示例中：
+
+1. 普通的中间件打印请求的 URL。
+2. `/` 路由返回一个简单的"Hello World"消息。
+3. `/error` 路由会抛出一个错误。
+4. 错误处理中间件捕获错误，并返回 500 状态码和错误消息。
+
+#### 使用 `next` 传递错误
+
+有时你可能希望在捕获错误后将其传递给下一个错误处理中间件。可以通过调用 `next(err)` 来实现：
+
+```javascript
+app.use((req, res, next) => {
+  //highlight-start
+  try {
+    // 这里可能会有一些逻辑代码
+    throw new Error('Something went wrong!');
+  } catch (err) {
+    next(err);
+  }
+  // highlight-end
+});
+
+app.use((err, req, res, next) => {
+  // highlight-start
+  console.error(err.stack);
+  res.status(500).json({ code: 500, message: err.message });
+  // highlight-end
+});
+```
+
+#### 捕获异步错误
+
+在处理异步操作时，需要特别注意错误处理。可以使用 `async/await` 和 `try/catch` 块来捕获异步错误：
+
+```javascript
+app.get('/async-error', async (req, res, next) => {
+  try {
+    // 模拟异步操作
+    await someAsyncFunction();
+    res.send('Success');
+  } catch (err) {
+    next(err); // 将错误传递给错误处理中间件
+  }
+});
+```
+
+### 中间件的执行顺序
+
+重要的是要确保错误处理中间件放在所有路由和其他中间件之后。Express 会按顺序执行中间件，只有在其他中间件和路由之后定义的错误处理中间件才能捕获错误。
+
+通过正确定义和使用错误处理中间件，可以有效地管理 Node.js 应用程序中的错误处理逻辑，提高应用程序的健壮性和可维护性。
 
 ### 内置中间件
 
-Express 还提供了一些内置中间件，如 `express.static` 用于提供静态文件：
+Express 提供了一些内置的中间件，可以帮助你处理常见的任务。这些中间件在 Express 4.x 版本及更高版本中是分开安装的，你需要单独安装它们。以下是一些常用的 Express 内置中间件：
+
+#### `express.static`
+
+用于提供静态文件，如图片、CSS 文件和 JavaScript 文件。
 
 ```javascript
+const express = require('express');
+const app = express();
+
 app.use(express.static('public'));
+
+app.listen(8080, () => {
+  console.log('Server is running on port 8080');
+});
 ```
+
+在这个例子中，所有在`public`目录下的文件都可以通过 HTTP 请求访问。
+
+#### `express.json`
+
+用于解析传入的 JSON 请求体。这个中间件是 Express 4.16.0 版本新增的。
+
+```javascript
+app.use(express.json());
+
+app.post('/user', (req, res) => {
+  res.send(req.body);
+});
+```
+
+在这个例子中，`express.json()`中间件用于解析 POST 请求中包含的 JSON 数据。
+
+#### `express.urlencoded`
+
+用于解析 URL 编码的数据，通常用于解析 HTML 表单提交的数据。这个中间件是 Express 4.16.0 版本新增的。
+
+```javascript
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/user', (req, res) => {
+  res.send(req.body);
+});
+```
+
+在这个例子中，`express.urlencoded()`中间件用于解析 POST 请求中包含的 URL 编码数据。
+
+#### 使用这些内置中间件
+
+以下是一个示例，展示如何使用这些内置中间件：
+
+```javascript
+const express = require('express');
+const app = express();
+
+// 使用 express.static 提供静态文件
+app.use(express.static('public'));
+
+// 使用 express.json 解析 JSON 请求体
+app.use(express.json());
+
+// 使用 express.urlencoded 解析 URL 编码的数据
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/user', (req, res) => {
+  res.send(req.body);
+});
+
+app.listen(8080, () => {
+  console.log('Server is running on port 8080');
+});
+```
+
+在这个示例中，我们使用了 `express.static` 来提供静态文件，使用 `express.json` 和 `express.urlencoded` 来解析请求体数据。通过这些内置中间件，可以更方便地处理常见的 Web 开发任务。
 
 ## 请求和响应
 
-### 请求对象
+在 Express 中，`req`（请求对象）和`res`（响应对象）是核心对象，它们分别代表 HTTP 请求和 HTTP 响应。它们提供了丰富的属性和方法，用于处理客户端与服务器之间的交互。
 
-`req` 对象包含了 HTTP 请求的各种信息，包括请求头、请求参数、请求体等。
+### 请求对象 (`req`)
+
+请求对象包含了 HTTP 请求的所有信息，包括请求头、请求体、URL 参数等。以下是一些常用的请求对象属性和方法：
+
+#### 常用属性
+
+1. **`req.params`**: 包含路由参数的对象。
+
+   ```javascript
+   app.get('/user/:id', (req, res) => {
+     console.log(req.params.id); // 获取路径参数
+   });
+   ```
+
+2. **`req.query`**: 包含查询字符串参数的对象。
+
+   ```javascript
+   app.get('/search', (req, res) => {
+     console.log(req.query.q); // 获取查询参数
+   });
+   ```
+
+3. **`req.body`**: 包含请求体数据的对象，需使用中间件如`express.json()`解析。
+
+   ```javascript
+   app.use(express.json());
+   app.post('/user', (req, res) => {
+     console.log(req.body); // 获取请求体数据
+   });
+   ```
+
+4. **`req.headers`**: 包含请求头的对象。
+
+   ```javascript
+   app.get('/', (req, res) => {
+     console.log(req.headers['user-agent']); // 获取User-Agent头
+   });
+   ```
+
+5. **`req.method`**: HTTP 请求方法（如 GET、POST）。
+
+   ```javascript
+   app.all('*', (req, res) => {
+     console.log(req.method); // 获取请求方法
+   });
+   ```
+
+6. **`req.url`**: 请求的完整 URL。
+
+   ```javascript
+   app.get('*', (req, res) => {
+     console.log(req.url); // 获取请求URL
+   });
+   ```
+
+7. **`req.path`**: 请求的路径部分。
+   ```javascript
+   app.get('*', (req, res) => {
+     console.log(req.path); // 获取请求路径
+   });
+   ```
+
+#### 常用方法
+
+1. **`req.get(field)`**: 获取请求头的值。
+
+   ```javascript
+   app.get('/', (req, res) => {
+     console.log(req.get('Content-Type')); // 获取Content-Type头
+   });
+   ```
+
+2. **`req.is(type)`**: 判断请求体的类型。
+   ```javascript
+   app.post('/', (req, res) => {
+     if (req.is('application/json')) {
+       console.log('JSON request');
+     }
+   });
+   ```
+
+### 响应对象 (`res`)
+
+响应对象用于构建和发送 HTTP 响应。以下是一些常用的响应对象属性和方法：
+
+#### 常用方法
+
+1. **`res.send(body)`**: 发送响应体，可以是字符串、对象或缓冲区。
+
+   ```javascript
+   app.get('/', (req, res) => {
+     res.send('Hello World');
+   });
+   ```
+
+2. **`res.json(obj)`**: 发送 JSON 响应。
+
+   ```javascript
+   app.get('/user', (req, res) => {
+     res.json({ name: 'John', age: 30 });
+   });
+   ```
+
+3. **`res.status(code)`**: 设置 HTTP 状态码。
+
+   ```javascript
+   app.get('/not-found', (req, res) => {
+     res.status(404).send('Page not found');
+   });
+   ```
+
+4. **`res.redirect(url)`**: 重定向到指定的 URL。
+
+   ```javascript
+   app.get('/redirect', (req, res) => {
+     res.redirect('/new-page');
+   });
+   ```
+
+5. **`res.render(view, [locals])`**: 渲染视图并发送响应（通常与模板引擎一起使用）。
+
+   ```javascript
+   app.set('view engine', 'pug');
+   app.get('/home', (req, res) => {
+     res.render('index', { title: 'Home' });
+   });
+   ```
+
+6. **`res.set(field, [value])`**: 设置响应头。
+
+   ```javascript
+   app.get('/', (req, res) => {
+     res.set('Content-Type', 'text/plain');
+     res.send('Hello World');
+   });
+   ```
+
+7. **`res.cookie(name, value, [options])`**: 设置 Cookie。
+
+   ```javascript
+   app.get('/set-cookie', (req, res) => {
+     res.cookie('name', 'value', { maxAge: 900000 });
+     res.send('Cookie is set');
+   });
+   ```
+
+8. **`res.clearCookie(name, [options])`**: 清除 Cookie。
+   ```javascript
+   app.get('/clear-cookie', (req, res) => {
+     res.clearCookie('name');
+     res.send('Cookie is cleared');
+   });
+   ```
+
+### 综合示例
 
 ```javascript
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/user/:id', (req, res) => {
-  console.log(req.params.id); // 获取路由参数
-  console.log(req.query.name); // 获取查询字符串参数
-  res.send('User Info');
+  const userId = req.params.id;
+  const query = req.query.search;
+  res.send(`User ID: ${userId}, Search Query: ${query}`);
+});
+
+app.post('/user', (req, res) => {
+  const userData = req.body;
+  res.status(201).json(userData);
+});
+
+app.get('/redirect', (req, res) => {
+  res.redirect('/new-location');
+});
+
+app.get('/new-location', (req, res) => {
+  res.send('You have been redirected!');
+});
+
+app.listen(8080, () => {
+  console.log('Server is running on port 8080');
 });
 ```
 
-### 响应对象
-
-`res` 对象用于向客户端发送响应。
-
-```javascript
-app.get('/', (req, res) => {
-  res.status(200).send('OK');
-});
-
-app.get('/json', (req, res) => {
-  res.json({ message: 'Hello, World!' });
-});
-
-app.get('/file', (req, res) => {
-  res.sendFile('/path/to/file');
-});
-```
-
-## 使用模板引擎
-
-Express 支持多种模板引擎，如 Pug、EJS 等。以下是使用 Pug 作为模板引擎的示例。
-
-### 安装 Pug
-
-```bash
-npm install pug
-```
-
-### 配置 Pug
-
-```javascript
-app.set('view engine', 'pug');
-app.set('views', './views');
-```
-
-### 创建 Pug 模板
-
-在 `views` 目录下创建一个 `index.pug` 文件：
-
-```pug
-doctype html
-html
-  head
-    title= title
-  body
-    h1= message
-```
-
-### 渲染 Pug 模板
-
-```javascript
-app.get('/pug', (req, res) => {
-  res.render('index', { title: 'Hey', message: 'Hello there!' });
-});
-```
+在这个综合示例中，我们展示了如何使用请求和响应对象的各种属性和方法来处理客户端请求并构建服务器响应。
 
 ## 结论
 
