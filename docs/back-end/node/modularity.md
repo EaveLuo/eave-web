@@ -11,38 +11,58 @@ keywords:
   - ES 模块
 ---
 
-在 Node.js 中，模块化是一个非常重要的概念，它允许开发者将代码分割成多个文件和模块，使得代码更易于管理和复用。Node.js 提供了两种模块系统：CommonJS 和 ES 模块（ESM）。了解这两种模块系统的区别和使用场景，可以帮助开发者更好地组织和管理代码。
+在 Node.js 中，模块化是一个非常重要的概念，它允许开发者将代码分割成多个文件和模块，使得代码更易于管理和复用。Node.js 目前最常用的两种模块系统：CommonJS 和 ES 模块（ESM）。了解这两种模块系统的区别和使用场景，可以帮助开发者更好地组织和管理代码。
 
 ## CommonJS 模块
 
-CommonJS 是 Node.js 中最常用的模块系统，使用 `require` 函数来引入模块，使用 `module.exports` 或 `exports` 对象来导出模块。
+CommonJS 是 Node.js 中最早因为服务器端而设计的模块系统，当时叫 ServerJS，是社区提出的，并非官方模块。使用 `require` 函数来引入模块，使用 `module.exports` 或 `exports` 来导出模块里的成员。默认只支持服务器端，若想在浏览器端使用，需要借助三方库如 Browserify。
 
 ### 导出模块
 
-可以使用 `module.exports` 导出单个功能或对象：
+CommonJS 模块导出模块的方式有以下两种：
+
+- `exports`：分别导出单个成员。
+- `module.exports`：统一导出多个成员。
+
+:::tip 提示
+尽量使用 `module.exports` 导出多个成员，因为它可以让代码更易于理解和维护。`exports` 可以混用，但不建议混用，如果混用时出现了命名冲突，一切以 `module.exports` 为准。
+:::
+
+#### exports 分别导出单个成员
 
 ```javascript title="math.js"
-module.exports = {
-  add: function (a, b) {
-    return a + b;
-  },
-  subtract: function (a, b) {
-    return a - b;
-  },
-};
-```
-
-也可以使用 `exports` 导出多个功能：
-
-```javascript title="math.js"
-exports.add = function (a, b) {
+function add(a, b) {
   return a + b;
-};
+}
 
-exports.subtract = function (a, b) {
+function subtract(a, b) {
   return a - b;
+}
+
+exports.add = add;
+exports.subtract = subtract;
+```
+
+以上示例使用两次分别导出，导出了 `add` 和 `subtract` 两个函数。
+
+#### module.exports 统一导出多个成员
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+module.exports = {
+  add,
+  subtract,
 };
 ```
+
+以上示例统一导出了 `add` 和 `subtract` 两个函数。
 
 ### 引入模块
 
@@ -53,15 +73,27 @@ const math = require('./math');
 
 console.log(math.add(2, 3)); // 5
 console.log(math.subtract(5, 3)); // 2
+
+// 或者
+const { add, subtract } = require('./math');
+
+console.log(add(2, 3)); // 5
+console.log(subtract(5, 3)); // 2
 ```
 
 ## ES 模块
 
-ES 模块（ESM）是 JavaScript 的官方模块系统，使用 `import` 和 `export` 关键字来导入和导出模块。
+ES 模块（ESM）是 ECMAScript 组织推出的官方模块系统，使用 `import` 和 `export` 关键字来导入和导出模块。支持浏览器端和服务器端，服务器端默认使用 CommonJS 模块，需要将文件名后缀改为 `.mjs` 或者在 `package.json` 中添加 `"type": "module"` 字段。
 
 ### 导出模块
 
-可以使用 `export` 导出单个功能或对象：
+ES 模块导出模块的方式有以下三种：
+
+- `export`：分别导出单个成员。
+- `export { member1, member2 }`：统一导出多个成员。
+- `export default`：默认导出成员。
+
+#### export 分别导出单个成员
 
 ```javascript title="math.js"
 export function add(a, b) {
@@ -73,22 +105,86 @@ export function subtract(a, b) {
 }
 ```
 
-也可以使用 `export default` 导出默认功能或对象：
+#### `export { member1, member2 }` 统一导出多个成员
 
 ```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+export { add, subtract };
+```
+
+#### export default 默认导出成员
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
 export default {
-  add: function (a, b) {
-    return a + b;
-  },
-  subtract: function (a, b) {
-    return a - b;
-  },
+  add,
+  subtract,
 };
 ```
 
 ### 引入模块
 
-可以使用 `import` 关键字引入模块：
+ES 模块引入模块的方式有以下六种：
+
+- `import * as math from './math.js'`：导入全部（通用）。
+- `import { add, subtract } from './math.js'`：命名导入方式导入指定成员（对应的导出方式：分别导出、统一导出）。
+- `import math from './math.js'`：默认导入方式导入默认成员（对应的导出方式：默认导出）。
+- `import math, { add, subtract } from './math.js'`： 默认导入和命名导入方式混合导入。
+- `import('./math.js').then((math) => {... })`：动态导入（通用）。
+- `import './math.js'`：不接收任何数据，只执行模块。
+
+#### 导入全部（通用）
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+export { add, subtract };
+```
+
+```javascript title="app.js"
+import * as math from './math.js';
+
+console.log(math.add(2, 3)); // 5
+console.log(math.subtract(5, 3)); // 2
+```
+
+:::tip 提示
+上面示例中，如果 math.js 使用的是默认导出方法，则需要 math.default.add(2, 3)来调用 add 函数。
+:::
+
+#### 命名导入方式导入指定成员（对应的导出方式：分别导出、统一导出）
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+export function subtract(a, b) {
+  return a - b;
+}
+
+export { add };
+```
 
 ```javascript title="app.js"
 import { add, subtract } from './math.js';
@@ -97,13 +193,99 @@ console.log(add(2, 3)); // 5
 console.log(subtract(5, 3)); // 2
 ```
 
-也可以引入默认导出：
+#### 默认导入方式导入默认成员（对应的导出方式：默认导出）
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+export default {
+  add,
+  subtract,
+};
+```
 
 ```javascript title="app.js"
 import math from './math.js';
 
 console.log(math.add(2, 3)); // 5
 console.log(math.subtract(5, 3)); // 2
+```
+
+#### 默认导入和命名导入方式混合导入
+
+```javascript title="math.js"
+export function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+export { subtract };
+
+export default multiply;
+```
+
+```javascript title="app.js"
+import mul, { add, subtract } from './math.js';
+
+console.log(add(2, 3)); // 5
+console.log(subtract(5, 2)); // 3
+console.log(mul(2, 4)); // 8
+```
+
+#### 动态导入（通用）
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+export { add, subtract };
+```
+
+```javascript title="app.js"
+let condition = false;
+
+// 等待三秒将 condition 置为 true，观察结果
+await new Promise((resolve) => {
+  setTimeout(() => {
+    condition = true;
+    resolve();
+  }, 3000);
+});
+
+if (condition) {
+  import('./math.js').then((math) => {
+    console.log(math.add(2, 3)); // 5
+    console.log(math.subtract(5, 3)); // 2
+  });
+}
+```
+
+#### 不接收任何数据，只执行模块
+
+```javascript title="math.js"
+console.log('math.js is executed', Math.random());
+```
+
+```javascript title="app.js"
+import './math.js';
 ```
 
 ## 区别与限制

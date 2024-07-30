@@ -11,38 +11,59 @@ keywords:
   - ES modules
 ---
 
-In Node.js, modularity is a very important concept, which allows developers to split code into multiple files and modules, making the code easier to manage and reuse. Node.js provides two module systems: CommonJS and ES modules (ESM). Understanding the differences and usage scenarios of these two module systems can help developers better organize and manage code.
+In Node.js, modularity is a very important concept, which allows developers to split code into multiple files and modules, making the code easier to manage and reuse. The two most commonly used module systems in Node.js are CommonJS and ES modules (ESM). Understanding the differences and usage scenarios of these two module systems can help developers better organize and manage code.
 
 ## CommonJS module
 
-CommonJS is the most commonly used module system in Node.js. Use the `require` function to import modules and use `module.exports` or `exports` objects to export modules.
+CommonJS is the earliest module system designed for the server side in Node.js. It was called ServerJS at the time. It was proposed by the community and was not an official module. Use the `require` function to introduce modules, and use `module.exports` or `exports` to export members in the module. By default, it only supports the server side. If you want to use it on the browser side, you need to use a third-party library such as Browserify.
 
-### Exporting modules
+### Export module
 
-You can use `module.exports` to export a single function or object:
+CommonJS module exports modules in two ways:
 
-```javascript title="math.js"
-module.exports = {
-  add: function (a, b) {
-    return a + b;
-  },
-  subtract: function (a, b) {
-    return a - b;
-  },
-};
-```
+- `exports`: export a single member separately.
 
-You can also use `exports` to export multiple functions:
+- `module.exports`: export multiple members uniformly.
+
+:::tip Tips
+Try to use `module.exports` to export multiple members, because it makes the code easier to understand and maintain. `exports` can be mixed, but it is not recommended. If there is a naming conflict when mixing, `module.exports` shall prevail.
+:::
+
+#### exports export a single member separately
 
 ```javascript title="math.js"
-exports.add = function (a, b) {
+function add(a, b) {
   return a + b;
-};
+}
 
-exports.subtract = function (a, b) {
+function subtract(a, b) {
   return a - b;
+}
+
+exports.add = add;
+exports.subtract = subtract;
+```
+
+The above example uses two separate exports to export the `add` and `subtract` functions.
+
+#### module.exports exports multiple members uniformly
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+module.exports = {
+  add,
+  subtract,
 };
 ```
+
+The above example uniformly exports the `add` and `subtract` functions.
 
 ### Importing modules
 
@@ -53,15 +74,29 @@ const math = require('./math');
 
 console.log(math.add(2, 3)); // 5
 console.log(math.subtract(5, 3)); // 2
+
+// Or
+const { add, subtract } = require('./math');
+
+console.log(add(2, 3)); // 5
+console.log(subtract(5, 3)); // 2
 ```
 
-## ES Modules
+## ES modules
 
-ES Modules (ESM) is the official module system for JavaScript, using the `import` and `export` keywords to import and export modules.
+ES modules (ESM) are the official module system introduced by the ECMAScript organization, using the `import` and `export` keywords to import and export modules. Supports browser and server side. The server side uses CommonJS module by default. You need to change the file name suffix to `.mjs` or add `"type": "module"` field in `package.json`.
 
-### Exporting modules
+### Export module
 
-You can use `export` to export a single function or object:
+There are three ways to export modules in ES module:
+
+- `export`: export single members separately.
+
+- `export { member1, member2 }`: export multiple members uniformly.
+
+- `export default`: export members by default.
+
+#### export Export individual members separately
 
 ```javascript title="math.js"
 export function add(a, b) {
@@ -73,22 +108,86 @@ export function subtract(a, b) {
 }
 ```
 
-You can also use `export default` to export a default function or object:
+#### `export { member1, member2 }` Unified export of multiple members
 
 ```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+export { add, subtract };
+```
+
+#### export default Default export member
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
 export default {
-  add: function (a, b) {
-    return a + b;
-  },
-  subtract: function (a, b) {
-    return a - b;
-  },
+  add,
+  subtract,
 };
 ```
 
-### Importing modules
+### Import modules
 
-You can use the `import` keyword to import modules:
+There are six ways to import modules in ES modules:
+
+- `import * as math from './math.js'`: Import all (general).
+- `import { add, subtract } from './math.js'`: Import specified members by named import (corresponding export methods: separate export, unified export).
+- `import math from './math.js'`: Import default members by default import (corresponding export method: default export).
+- `import math, { add, subtract } from './math.js'`: Mix default import and named import.
+- `import('./math.js').then((math) => {... })`: Dynamic import (general).
+- `import './math.js'`: Do not receive any data, just execute the module.
+
+#### Import all (common)
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+export { add, subtract };
+```
+
+```javascript title="app.js"
+import * as math from './math.js';
+
+console.log(math.add(2, 3)); // 5
+console.log(math.subtract(5, 3)); // 2
+```
+
+:::tip Tips
+In the above example, if math.js uses the default export method, math.default.add(2, 3) is required to call the add function.
+:::
+
+#### Importing specified members by named import method (corresponding export method: separate export, unified export)
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+export function subtract(a, b) {
+  return a - b;
+}
+
+export { add };
+```
 
 ```javascript title="app.js"
 import { add, subtract } from './math.js';
@@ -97,20 +196,100 @@ console.log(add(2, 3)); // 5
 console.log(subtract(5, 3)); // 2
 ```
 
-You can also import default exports:
+#### Importing default members by default import method (corresponding export method: default export)
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+export default {
+  add,
+  subtract,
+};
+```
 
 ```javascript title="app.js"
 import math from './math.js';
-
 console.log(math.add(2, 3)); // 5
 console.log(math.subtract(5, 3)); // 2
+```
+
+#### Mixed import of default import and named import
+
+```javascript title="math.js"
+export function add(a, b) {
+  return a + b;
+}
+function subtract(a, b) {
+  return a - b;
+}
+function multiply(a, b) {
+  return a * b;
+}
+export { subtract };
+export default multiply;
+```
+
+```javascript title="app.js"
+import mul, { add, subtract } from './math.js';
+console.log(add(2, 3)); // 5
+console.log(subtract(5, 2)); // 3
+console.log(mul(2, 4)); // 8
+```
+
+#### Dynamic import (general)
+
+```javascript title="math.js"
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+export { add, subtract };
+```
+
+```javascript title="app.js"
+let condition = false;
+
+// Wait for three seconds to set condition to true and observe the result
+await new Promise((resolve) => {
+  setTimeout(() => {
+    condition = true;
+    resolve();
+  }, 3000);
+});
+
+if (condition) {
+  import('./math.js').then((math) => {
+    console.log(math.add(2, 3)); // 5
+    console.log(math.subtract(5, 3)); // 2
+  });
+}
+```
+
+#### Do not receive any data, just execute the module
+
+```javascript title="math.js"
+console.log('math.js is executed', Math.random());
+```
+
+```javascript title="app.js"
+import './math.js';
 ```
 
 ## Differences and limitations
 
 ### Syntax and loading methods
 
-- **CommonJS** Use `require` and `module.exports` or `exports` to dynamically load modules. `require` can be called anywhere in the code.
+- **CommonJS** uses `require` and `module.exports` or `exports` to dynamically load modules. `require` can be called anywhere in the code.
 
 ```javascript
 if (condition) {
@@ -118,54 +297,55 @@ if (condition) {
 }
 ```
 
-- **ES module** Use `import` and `export` to load modules statically. `import` must be declared at the top of the file.
+- **ES module** uses `import` and `export` to statically load modules. `import` must be declared at the top of the file.
 
 ```javascript
 import moduleA from 'moduleA';
 if (condition) {
-  // use moduleA
+  // Use moduleA
 }
 ```
 
-### scope
+### Scope
 
-- **CommonJS** modules are singletons, and `require` returns the same instance each time.
-- **ES module** imports are live binding, and the exported value changes as the source module changes.
+- **CommonJS** modules are singletons. `require` returns the same instance each time.
+
+- **ES module** imports are live-bound. The exported value changes with the changes in the source module.
 
 ### `this` binding
 
-- **CommonJS** `this` is bound to the current module.
+- In **CommonJS**, `this` is bound to the current module.
 
 ```javascript
-console.log(this); // output {}
+console.log(this); // prints {}
 ```
 
-- **ES module** `this` is `undefined`.
+- In **ES modules**, `this` is `undefined`.
 
 ```javascript
-console.log(this); // output undefined
+console.log(this); // prints undefined
 ```
 
-### top-level await
+### Top-level await
 
 - **CommonJS** does not support top-level `await`.
-- **ES module** supports top-level `await`.
+- **ES modules** support top-level `await`.
 
 ### CommonJS APIs that cannot be used in ES modules
 
-- `require`: use `import` instead.
+- `require`: requires `import`.
 
-- `module.exports` or `exports`: use `export` instead.
+- `module.exports` or `exports`: requires `export`.
 
-- `__filename` and `__dirname`: use `import.meta.url` instead.
+- `__filename` and `__dirname`: can use `import.meta.url` instead.
 
-### ES module APIs that cannot be used in CommonJS modules
+### ES module API cannot be used in CommonJS modules
 
-- `import` statement: cannot be used directly in CommonJS, use `require` instead.
+- `import` statement: cannot be used directly in CommonJS, need to use `require`.
 
-- `export` statement: cannot be used directly in CommonJS, use `module.exports` or `exports` instead.
+- `export` statement: cannot be used directly in CommonJS, need to use `module.exports` or `exports`.
 
-### Example: Using ES module APIs
+### Example: Using ES module API
 
 #### Using `import.meta.url`
 
@@ -184,14 +364,14 @@ You can use `import()` for dynamic import.
 // main.js (ES module)
 if (condition) {
   import('./moduleA.js').then((moduleA) => {
-    // Use moduleA
+    // use moduleA
   });
 }
 ```
 
-### Configure ES module
+### Configure ES modules
 
-CommonJS modules are used by default in Node.js. If you need to use ES modules, there are two solutions:
+In Node.js, CommonJS modules are used by default. If you need to use ES modules, there are two solutions:
 
 - Use the `.mjs` file extension: Node.js will automatically recognize `.mjs` files as ES modules.
 
