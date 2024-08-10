@@ -1,6 +1,6 @@
 import React from 'react';
-import {useWindowSize} from '@docusaurus/theme-common';
-import {useDoc} from '@docusaurus/theme-common/internal';
+import { useWindowSize } from '@docusaurus/theme-common';
+import { useDoc } from '@docusaurus/plugin-content-docs/client';
 import DocItemPaginator from '@theme/DocItem/Paginator';
 import DocVersionBanner from '@theme/DocVersionBanner';
 import DocVersionBadge from '@theme/DocVersionBadge';
@@ -9,20 +9,20 @@ import DocItemTOCMobile from '@theme/DocItem/TOC/Mobile';
 import DocItemTOCDesktop from '@theme/DocItem/TOC/Desktop';
 import DocItemContent from '@theme/DocItem/Content';
 import DocBreadcrumbs from '@theme/DocBreadcrumbs';
-import Unlisted from '@theme/Unlisted';
-import type {Props} from '@theme/DocItem/Layout';
+import ContentVisibility from '@theme/ContentVisibility';
+import type { Props } from '@theme/DocItem/Layout';
 
 import styles from './styles.module.css';
 
 // 以下两组件是swizzle后动的地方，全局渲染comment组件，如果后续组件更新，全局替换node_modules/@docusaurus/theme-classic/src/theme下对应的模块即可
-import Comment from '@site/src/components/Comment'
-import { cn } from '@site/src/lib/utils'
+import Comment from '@site/src/components/Comment';
+import { cn } from '@site/src/lib/utils';
 
 /**
  * Decide if the toc should be rendered, on mobile or desktop viewports
  */
 function useDocTOC() {
-  const {frontMatter, toc} = useDoc();
+  const { frontMatter, toc } = useDoc();
   const windowSize = useWindowSize();
 
   const hidden = frontMatter.hide_table_of_contents;
@@ -42,15 +42,13 @@ function useDocTOC() {
   };
 }
 
-export default function DocItemLayout({children}: Props): JSX.Element {
+export default function DocItemLayout({ children }: Props): JSX.Element {
   const docTOC = useDocTOC();
-  const {
-    metadata: {unlisted},
-  } = useDoc();
+  const { metadata } = useDoc();
   return (
     <div className="row">
       <div className={cn('col', !docTOC.hidden && styles.docItemCol)}>
-        {unlisted && <Unlisted />}
+        <ContentVisibility metadata={metadata} />
         <DocVersionBanner />
         <div className={styles.docItemContainer}>
           <article>
