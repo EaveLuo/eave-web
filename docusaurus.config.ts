@@ -8,6 +8,9 @@ const icpBeian = '湘ICP备2024069005号-1';
 const policeBeian = '湘公网安备43011102002452号';
 
 const config: Config = {
+  future: {
+    experimental_faster: true,
+  },
   title: 'Eave Luo',
   titleDelimiter: '-',
   favicon: 'img/favicon.ico',
