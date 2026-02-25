@@ -10,6 +10,7 @@ const policeBeian = '湘公网安备43011102002452号';
 const config: Config = {
   future: {
     experimental_faster: true,
+    v4: true, // required by Docusaurus 3.9+ when using experimental_faster
   },
   title: 'Eave Luo',
   titleDelimiter: '-',
@@ -27,7 +28,9 @@ const config: Config = {
   projectName: 'eave-web', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: { onBrokenMarkdownLinks: 'warn' },
+  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
