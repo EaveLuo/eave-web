@@ -1,4 +1,4 @@
-import GitHubCalendar from 'react-github-calendar';
+import { GitHubCalendar } from 'react-github-calendar';
 import { useColorMode } from '@docusaurus/theme-common';
 import ThemedImage from '@theme/ThemedImage';
 import { cn } from '@site/src/lib/utils';
