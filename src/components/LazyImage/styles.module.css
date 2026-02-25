@@ -1,0 +1,35 @@
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  background: var(--ifm-background-surface-color);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.loaded {
+  opacity: 1;
+}
+
+.placeholder,
+.error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ifm-color-emphasis-500);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.error {
+  background: var(--ifm-color-danger-contrast-background);
+  color: var(--ifm-color-danger);
+}

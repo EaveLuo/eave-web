@@ -87,6 +87,36 @@ const config: Config = {
         content: "Eave Luo's homepage, blog.",
       },
     },
+    // Open Graph
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:type',
+        content: 'website',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:site_name',
+        content: 'Eave Luo',
+      },
+    },
+    // Twitter Card
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:creator',
+        content: '@EaveLuo',
+      },
+    },
   ],
   tagline: "Eave Luo's homepage, blog.",
   themeConfig: {
