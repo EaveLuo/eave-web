@@ -4,10 +4,17 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind v4: 只引入 theme + utilities，不引入 preflight，避免与 Docusaurus/Infima 基础样式冲突 */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Tailwind v4: load JS config for theme.extend (animation, keyframes) */
+@config "../../tailwind.config.js";
+
+/* dark: variant for .dark and [data-theme="dark"] (Docusaurus) */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 
 :root {
   --ifm-color-primary: #2e8555;
