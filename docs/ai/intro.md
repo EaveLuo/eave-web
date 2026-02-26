@@ -18,4 +18,4 @@ sidebar_position: 0
 
 ## 🚀 快速开始
 
-- [AI 资讯](./ai 咨询/intro.md) - 获取最新的 AI 行业动态
+- [最新资讯](./最新资讯/intro.md) - 获取最新的 AI 行业动态
