@@ -20,13 +20,13 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '20'
-          cache: 'yarn'
+          cache: 'npm'
           
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
         
       - name: Build
-        run: yarn build
+        run: npm run build
         env:
           NODE_ENV: production
           
@@ -52,13 +52,13 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '20'
-          cache: 'yarn'
+          cache: 'npm'
           
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
         
       - name: Build
-        run: yarn build
+        run: npm run build
         
       - name: Deploy Preview to Vercel
         uses: amondnet/vercel-action@v25
