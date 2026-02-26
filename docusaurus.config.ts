@@ -9,8 +9,16 @@ const policeBeian = '湘公网安备43011102002452号';
 
 const config: Config = {
   future: {
-    experimental_faster: true,
-    v4: true, // required by Docusaurus 3.9+ when using experimental_faster
+    // Docusaurus Faster - 性能优化套件
+    experimental_faster: {
+      rspackBundler: true, // 使用 Rspack 替代 Webpack，构建更快
+      rspackPersistentCache: true, // 持久缓存，加速重复构建（需保留 node_modules/.cache）
+      ssgWorkerThreads: true, // 使用 Worker Threads 并行生成静态页面，SSG 速度提升 ~2x
+    },
+    // Docusaurus v4 未来特性提前适配
+    v4: {
+      removeLegacyPostBuildHeadAttribute: true, // 移除遗留的 post-build head 属性
+    },
   },
   title: 'Eave Luo',
   titleDelimiter: '-',
@@ -59,6 +67,16 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
+        },
+        // SVGR 插件配置（3.7 新特性）- 可自定义 SVG 导入行为
+        svgr: {
+          svgrConfig: {
+            // 自定义 SVGR 配置
+            svgoConfig: {
+              // 自定义 SVGO 优化配置
+              // 使用 "svgoConfig: undefined" 来使用 svgo.config.js 文件
+            },
+          },
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -246,10 +264,15 @@ const config: Config = {
       theme: 'light',
       darkTheme: 'dark',
     } satisfies Partial<GiscusConfig>,
+    // Algolia DocSearch v4 配置
     algolia: {
       appId: 'QXN8S92SP4',
       apiKey: 'bffb54774ea7fa5f15340f27c48ba0c8',
       indexName: 'eaveluo',
+      // v4 新特性：AskAI AI 助手（可选）
+      // askAi: {
+      //   assistantId: 'your-assistant-id', // 在 https://docsearch.algolia.com/docs/v4/askai 创建
+      // },
     },
     zoom: {
       selector: '.markdown :not(em) > img',
