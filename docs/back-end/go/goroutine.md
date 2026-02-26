@@ -355,7 +355,7 @@ for i := 0; i < 10; i++ {
 
 ---
 
-**下一章**：[Channel](./15-channel.md)
+**下一章**：[Channel](./channel.md)
 
 你将学习：
 - Channel 是什么

@@ -285,7 +285,7 @@ ch := make(chan int, 1000)  // ❌
 
 ---
 
-**下一章**：[Select](./16-select.md)
+**下一章**：[Select](./select.md)
 
 你将学习：
 - select 语句详解

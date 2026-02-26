@@ -146,12 +146,6 @@ const config: Config = {
           label: 'Operation',
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'aiSidebar',
-          position: 'right',
-          label: 'AI',
-        },
-        {
           to: '/blog',
           label: 'Blog',
           position: 'right',
