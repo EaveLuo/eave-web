@@ -317,17 +317,6 @@ const config: Config = {
     ],
     'docusaurus-plugin-image-zoom',
     '@docusaurus/theme-live-codeblock',
-    // AI 栏目文档插件（支持国际化）
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'ai',
-        path: './docs/ai',
-        routeBasePath: 'ai',
-        sidebarPath: './sidebars.ts',
-        editUrl: 'https://github.com/EaveLuo/eave-web/tree/master/docs/ai',
-      },
-    ],
   ],
 };
 
