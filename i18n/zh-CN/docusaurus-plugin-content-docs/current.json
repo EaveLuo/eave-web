@@ -14,5 +14,9 @@
   "sidebar.frontEndSidebar.category.webpack5": {
     "message": "Webpack5",
     "description": "The label for category Webpack5 in sidebar frontEndSidebar"
+  },
+  "sidebar.aiSidebar.category.72h-ai-updates": {
+    "message": "72 小时 AI 前沿动态",
+    "description": "The label for category 72h-ai-updates in sidebar aiSidebar"
   }
 }
