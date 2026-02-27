@@ -1,0 +1,108 @@
+/**
+ * Navbar 样式
+ * PC端 (> 996px) 和 Mobile端 (<= 996px) 分别显示
+ */
+
+/* PC端容器 - 使用 contents 避免破坏 flex 布局 */
+.desktopOnly {
+  display: contents;
+}
+
+/* Mobile端容器 - 默认隐藏 */
+.mobileOnly {
+  display: none;
+}
+
+/* ========== Mobile端样式 (<= 996px) ========== */
+@media (max-width: 996px) {
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: contents;
+  }
+
+  .mobileInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobileLeft {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mobileRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  /* 搜索按钮覆盖绝对定位 */
+  .mobileSearch {
+    position: static !important;
+    right: auto !important;
+    padding: 0 !important;
+  }
+
+  .mobileSearch:global(.navbarSearchContainer) {
+    position: static !important;
+    right: auto !important;
+  }
+}
+
+/* 768px - 996px: 语言切换显示图标+文字 */
+@media (min-width: 768px) and (max-width: 996px) {
+  .mobileRight {
+    gap: 12px;
+  }
+
+  .mobileLocaleSwitcher :global(.button) {
+    width: auto !important;
+    padding: 0 10px !important;
+    gap: 6px !important;
+  }
+
+  .mobileLocaleSwitcher :global(.label) {
+    display: inline-block !important;
+    max-width: 60px;
+  }
+
+  .mobileLocaleSwitcher :global(.chevron) {
+    display: inline-block !important;
+  }
+}
+
+/* < 768px: 语言切换只显示图标 */
+@media (max-width: 767px) {
+  .mobileRight {
+    gap: 6px;
+  }
+
+  .mobileLocaleSwitcher :global(.button) {
+    width: 36px !important;
+    padding: 0 !important;
+  }
+
+  .mobileLocaleSwitcher :global(.label),
+  .mobileLocaleSwitcher :global(.chevron) {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileRight {
+    gap: 4px;
+  }
+
+  .mobileLocaleSwitcher :global(.button) {
+    width: 34px !important;
+    height: 34px !important;
+  }
+}

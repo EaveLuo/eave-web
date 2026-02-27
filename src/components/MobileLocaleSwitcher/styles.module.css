@@ -1,0 +1,161 @@
+/**
+ * MobileLocaleSwitcher - 移动端语言切换组件
+ * 样式由父组件通过 :global 控制
+ */
+
+/* 容器 */
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 切换按钮 */
+.button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 36px;
+  width: 36px;
+  padding: 0;
+  background-color: var(--ifm-background-surface-color, #fff);
+  border: 1px solid var(--ifm-color-emphasis-300, #d6d6e7);
+  border-radius: 0.5rem;
+  color: var(--ifm-navbar-link-color, var(--ifm-font-color-base));
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--ifm-transition-fast, 0.2s) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:hover {
+  background-color: var(--ifm-color-emphasis-100, #f5f5fa);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+/* 默认隐藏文字和箭头（Mobile 基础样式） */
+.label {
+  display: none;
+}
+
+.chevron {
+  display: none;
+}
+
+/* 图标 */
+.icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: #1c1e21;
+}
+
+/* 下拉菜单 */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: var(--ifm-dropdown-background-color, var(--ifm-background-surface-color));
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 200;
+  overflow: hidden;
+  animation: dropdownSlideIn 0.15s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 下拉菜单标题 */
+.dropdownHeader {
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* 下拉列表 */
+.dropdownList {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+}
+
+/* 下拉项 */
+.dropdownItem {
+  margin: 0;
+}
+
+/* 下拉链接 */
+.dropdownLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--ifm-dropdown-link-color, var(--ifm-font-color-base));
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.dropdownLink:hover {
+  background: var(--ifm-dropdown-hover-background-color, var(--ifm-color-emphasis-100));
+  text-decoration: none;
+}
+
+/* 当前选中的语言 */
+.dropdownLinkActive {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  background: var(--ifm-color-primary-contrast-background, rgba(46, 133, 85, 0.08));
+}
+
+/* 勾选图标 */
+.checkIcon {
+  flex-shrink: 0;
+  color: var(--ifm-color-primary);
+}
+
+/* 暗色模式适配 */
+[data-theme='dark'] .button {
+  background-color: var(--ifm-background-surface-color, #36395a);
+  border-color: var(--ifm-color-emphasis-300, #212139);
+  color: var(--ifm-navbar-link-color, var(--ifm-font-color-base));
+}
+
+[data-theme='dark'] .button:hover {
+  background-color: var(--ifm-color-emphasis-200, #4a4d66);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .dropdown {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 无障碍：焦点样式 */
+.button:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}

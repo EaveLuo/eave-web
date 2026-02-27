@@ -300,5 +300,13 @@
   "theme.unlistedContent.message": {
     "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
     "description": "The unlisted content banner message"
+  },
+  "theme.navbar.mobileLocaleSwitcher.buttonAriaLabel": {
+    "message": "Switch language",
+    "description": "ARIA label for the mobile locale switcher button"
+  },
+  "theme.navbar.mobileLocaleSwitcher.title": {
+    "message": "Select Language",
+    "description": "Title for the mobile locale switcher dropdown"
   }
 }
