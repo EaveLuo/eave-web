@@ -4,32 +4,95 @@
 
 ---
 
-## 📦 已配置的 Skills
+## 📦 项目 Skills
 
-### 核心 Skills
-
-| Skill | 位置 | 用途 |
-|-------|------|------|
-| **vercel-cli** | `~/.openclaw/skills/vercel-cli/` | Vercel 部署管理 |
-| **github** | 系统内置 | GitHub 操作（PR、Issues、CI） |
-| **feishu-doc** | 系统内置 | 飞书文档读写 |
-| **weather** | 系统内置 | 天气查询 |
+以下 skills 已复制到项目内部（`.claude/skills/`），Claude Code 应优先使用这些项目级 skills。
 
 ### 代码规范 Skills
 
 | Skill | 位置 | 用途 |
 |-------|------|------|
-| **vercel-react-best-practices** | `~/.openclaw/skills/` | React/Next.js 性能优化 |
-| **next-best-practices** | `~/.openclaw/skills/` | Next.js 最佳实践 |
-| **building-components** | `~/.openclaw/skills/` | React 组件构建指南 |
-| **vercel-composition-patterns** | `~/.openclaw/skills/` | 组件组合模式 |
-| **vercel-web-design-guidelines** | `~/.openclaw/skills/` | Web 设计指南 |
+| **vercel-react-best-practices** | `.claude/skills/vercel-react-best-practices/` | React/Next.js 性能优化 |
+| **next-best-practices** | `.claude/skills/next-best-practices/` | Next.js 最佳实践 |
+| **building-components** | `.claude/skills/building-components/` | React 组件构建指南 |
+| **vercel-composition-patterns** | `.claude/skills/vercel-composition-patterns/` | 组件组合模式 |
+| **vercel-web-design-guidelines** | `.claude/skills/vercel-web-design-guidelines/` | Web 设计指南 |
+
+### 工具 Skills
+
+| Skill | 位置 | 用途 |
+|-------|------|------|
+| **vercel-cli** | 系统技能 | Vercel 部署管理 |
+| **github** | 系统技能 | GitHub 操作（PR、Issues、CI） |
 
 ---
 
-## 🔧 Vercel CLI 使用
+## 🎯 Skills 触发场景
 
-### 常用命令
+### vercel-react-best-practices
+
+**触发场景：**
+- 编写 React 组件
+- 优化 bundle 大小
+- 数据获取优化
+- 性能改进
+
+**核心规则：**
+- 消除 Waterfalls（async 前缀）
+- Bundle 优化（bundle 前缀）
+- 服务端性能（server 前缀）
+- 客户端数据获取（client 前缀）
+
+### next-best-practices
+
+**触发场景：**
+- Next.js 文件约定
+- RSC 边界
+- 数据模式
+- 异步 API
+- 元数据 API
+- 错误处理
+- 路由处理器
+- 图片/字体优化
+
+### building-components
+
+**触发场景：**
+- 创建新组件
+- 审查组件 API
+- 组件重构
+- Props 设计
+- 组件组合模式
+
+**核心原则：**
+- 单一职责
+- 组合优于继承
+- Props 设计简洁
+- 状态就近原则
+
+### vercel-composition-patterns
+
+**触发场景：**
+- 组件组合模式设计
+- Compound Components
+- Render Props
+- Hooks 复用
+
+### vercel-web-design-guidelines
+
+**触发场景：**
+- UI 审查
+- 可访问性检查
+- 设计审计
+- UX 优化
+
+---
+
+## 🔧 工具 Skills 使用
+
+### vercel-cli
+
+**常用命令：**
 
 ```bash
 # 查看部署
@@ -48,9 +111,7 @@ vercel curl /api/health --deployment $PREVIEW_URL
 vercel cache purge
 ```
 
-### 项目链接
-
-项目已通过 `.vercel/project.json` 链接：
+**项目配置：**
 ```json
 {
   "projectId": "prj_kC2Wdvr8HR10y02YsvaUo9Q75MmP",
@@ -59,24 +120,9 @@ vercel cache purge
 }
 ```
 
----
+### github
 
-## 📝 使用示例
-
-### 部署检查
-
-```bash
-# 1. 查看当前部署
-vercel ls
-
-# 2. 查看最新部署日志
-vercel logs --follow
-
-# 3. 检查 Speed Insights
-# （通过 Vercel Dashboard 查看）
-```
-
-### GitHub 操作
+**常用命令：**
 
 ```bash
 # 创建 PR
@@ -94,39 +140,29 @@ gh run list --limit 5
 
 ---
 
-## 🎯 Skills 触发场景
+## 📁 Skills 目录结构
 
-### vercel-react-best-practices
-
-**触发场景：**
-- 编写 React 组件
-- 优化 bundle 大小
-- 数据获取优化
-- 性能改进
-
-### next-best-practices
-
-**触发场景：**
-- Next.js 文件约定
-- RSC 边界
-- 路由处理器
-- 元数据 API
-
-### building-components
-
-**触发场景：**
-- 创建新组件
-- 审查组件 API
-- 组件重构
-- Props 设计
+```
+eave-web/
+├── .claude/
+│   ├── CLAUDE.md               # Claude Code 主配置
+│   ├── config.json             # Claude Code 配置
+│   ├── rules/                  # 团队规则
+│   ├── context/                # 项目知识
+│   ├── skills/                 # 项目级 Skills
+│   ├── prompts/                # Prompt 模板
+│   └── memory/                 # 决策记录
+└── SKILLS.md                   # 本文件
+```
 
 ---
 
 ## 📚 相关文档
 
+- [CLAUDE.md](./.claude/CLAUDE.md) - Claude Code 主配置
+- [项目知识沉淀](./docs/PROJECT_KNOWLEDGE.md) - 项目经验总结
 - [Vercel CLI 文档](https://vercel.com/docs/cli)
 - [GitHub CLI 文档](https://cli.github.com/)
-- [项目知识沉淀](./docs/PROJECT_KNOWLEDGE.md)
 
 ---
 

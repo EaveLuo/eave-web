@@ -219,7 +219,7 @@ npm run build
 # 推送代码
 git push
 
-# GitHub Actions 自动部署
+# Vercel 自动部署
 # 查看部署状态
 vercel ls
 
@@ -249,9 +249,9 @@ vercel logs <deployment-url>
 
 ## 📖 相关文档
 
-- [Git 工作流详细指南](./GIT_WORKFLOW.md)
-- [国际化配置指南](./I18N_GUIDE.md)
-- [性能优化记录](./PERFORMANCE_OPTIMIZATION.md)
+
+
+
 
 ---
 
