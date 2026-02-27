@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import type { ThemeConfig } from '@docusaurus/preset-classic';
 import { useColorMode, useThemeConfig } from '@docusaurus/theme-common';
@@ -17,7 +18,7 @@ const defaultConfig: Partial<GiscusProps> & { darkTheme: string } = {
   darkTheme: 'dark',
 };
 
-export default function Comment(): JSX.Element {
+export default function Comment(): ReactNode {
   const themeConfig = useThemeConfig() as ThemeConfig & {
     giscus: GiscusConfig;
   };

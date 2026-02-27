@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -6,7 +7,7 @@ import { translate } from '@docusaurus/Translate';
 import Particles from '@site/src/components/magicui/particles';
 import Hero from '@site/src/components/Homepage/Hero';
 
-export default function Home(): JSX.Element {
+export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
