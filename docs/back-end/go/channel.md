@@ -1,5 +1,5 @@
 ---
-sidebar_label: 15. Channel
+sidebar_label: Channel
 sidebar_position: 15
 ---
 

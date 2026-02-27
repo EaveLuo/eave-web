@@ -1,5 +1,5 @@
 ---
-sidebar_label: 16. Select
+sidebar_label: Select
 sidebar_position: 16
 ---
 

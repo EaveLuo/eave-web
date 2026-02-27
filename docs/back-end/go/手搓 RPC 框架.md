@@ -1,5 +1,5 @@
 ---
-sidebar_label: 21. 手搓 RPC 框架
+sidebar_label: 手搓 RPC 框架
 sidebar_position: 21
 ---
 

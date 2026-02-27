@@ -1,5 +1,5 @@
 ---
-sidebar_label: 01. Go 语言初探
+sidebar_label: Go 语言初探
 sidebar_position: 1
 ---
 

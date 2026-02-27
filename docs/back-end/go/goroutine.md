@@ -1,5 +1,5 @@
 ---
-sidebar_label: 14. Goroutine
+sidebar_label: Goroutine
 sidebar_position: 14
 ---
 
