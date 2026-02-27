@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -9,6 +10,16 @@ import Hero from '@site/src/components/Homepage/Hero';
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
+  const [showParticles, setShowParticles] = useState(false);
+
+  // 延迟加载粒子效果，优先保证 FCP
+  useEffect(() => {
+    const timer = requestAnimationFrame(() => {
+      setShowParticles(true);
+    });
+    return () => cancelAnimationFrame(timer);
+  }, []);
+
   return (
     <Layout
       title={translate({
@@ -18,13 +29,15 @@ export default function Home(): ReactNode {
     >
       <main>
         <Hero />
-        <Particles
-          className="absolute inset-0"
-          quantity={100}
-          ease={80}
-          color={'#ffffff'}
-          refresh
-        />
+        {showParticles && (
+          <Particles
+            className="absolute inset-0"
+            quantity={100}
+            ease={80}
+            color={'#ffffff'}
+            refresh
+          />
+        )}
       </main>
     </Layout>
   );

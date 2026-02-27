@@ -14,14 +14,13 @@ const variants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      type: 'spring',
-      damping: 25,
-      stiffness: 100,
-      duration: 0.2,
-      delay: i * 0.2,
+      type: 'tween',
+      ease: 'easeOut',
+      duration: 0.3,
+      delay: i * 0.1,
     },
   }),
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
 };
 
 function Circle() {
