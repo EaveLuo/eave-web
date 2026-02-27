@@ -182,7 +182,7 @@ const config: Config = {
             },
             {
               label: 'AI',
-              to: '/docs/ai/',
+              to: '/docs/ai/intro',
             },
           ],
         },
