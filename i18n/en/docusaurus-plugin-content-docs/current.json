@@ -18,5 +18,9 @@
   "sidebar.aiSidebar.category.72 小时 AI 前沿动态": {
     "message": "72h AI Frontier Updates",
     "description": "The label for category 72 小时 AI 前沿动态 in sidebar aiSidebar"
+  },
+  "sidebar.aiSidebar.category.72 小时 ai 前沿动态": {
+    "message": "72h AI Frontier Updates",
+    "description": "The label for category 72 小时 ai 前沿动态 in sidebar aiSidebar (lowercase)"
   }
 }
