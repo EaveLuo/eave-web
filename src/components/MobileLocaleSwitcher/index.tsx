@@ -38,7 +38,9 @@ function useLocaleSwitcherUtils() {
 
   const getBaseURLForLocale = (locale: string) => {
     const localeConfig = getLocaleConfig(locale);
-    const isSameDomain = localeConfig && localeConfig.htmlLang && (siteConfig.url === siteConfig.url);
+    // @ts-expect-error: localeConfigs may have url property from i18n config
+    const localeConfigUrl = localeConfig.url as string | undefined;
+    const isSameDomain = localeConfigUrl === undefined || localeConfigUrl === siteConfig.url;
 
     if (isSameDomain) {
       return `pathname://${alternatePageUtils.createUrl({
@@ -56,7 +58,8 @@ function useLocaleSwitcherUtils() {
     getURL: (locale: string, queryString?: string) => {
       const finalSearch = mergeSearchStrings([search, queryString], 'append');
       const baseUrl = getBaseURLForLocale(locale);
-      return baseUrl.replace('pathname://', '') + finalSearch + hash;
+      // 保留 pathname:// 前缀，与 Docusaurus 内置 LocaleDropdown 行为一致
+      return `${baseUrl}${finalSearch}${hash}`;
     },
     getLabel: (locale: string) => getLocaleConfig(locale).label,
     getLang: (locale: string) => getLocaleConfig(locale).htmlLang,
@@ -178,6 +181,8 @@ function MobileLocaleSwitcher({ className }: MobileLocaleSwitcherProps) {
     lang: utils.getLang(locale),
     to: utils.getURL(locale),
     isActive: locale === currentLocale,
+    target: '_self' as const,
+    autoAddBaseUrl: false,
   }));
 
   // 获取当前语言标签
@@ -219,6 +224,8 @@ function MobileLocaleSwitcher({ className }: MobileLocaleSwitcherProps) {
               <li key={item.locale} className={styles.dropdownItem}>
                 <Link
                   to={item.to}
+                  target={item.target}
+                  autoAddBaseUrl={item.autoAddBaseUrl}
                   className={`${styles.dropdownLink} ${
                     item.isActive ? styles.dropdownLinkActive : ''
                   }`}
