@@ -55,7 +55,7 @@
   flex-shrink: 0;
   width: 18px;
   height: 18px;
-  color: #1c1e21;
+  color: var(--ifm-navbar-link-color, var(--ifm-font-color-base));
 }
 
 /* 下拉菜单 */
@@ -138,16 +138,16 @@
   color: var(--ifm-color-primary);
 }
 
-/* 暗色模式适配 */
+/* 暗色模式适配 - 与主题切换按钮样式保持一致 */
 [data-theme='dark'] .button {
-  background-color: var(--ifm-background-surface-color, #36395a);
-  border-color: var(--ifm-color-emphasis-300, #212139);
+  background-color: transparent;
+  border-color: transparent;
   color: var(--ifm-navbar-link-color, var(--ifm-font-color-base));
 }
 
 [data-theme='dark'] .button:hover {
-  background-color: var(--ifm-color-emphasis-200, #4a4d66);
-  border-color: var(--ifm-color-emphasis-400);
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: transparent;
 }
 
 [data-theme='dark'] .dropdown {
