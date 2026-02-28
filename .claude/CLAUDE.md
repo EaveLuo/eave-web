@@ -112,3 +112,62 @@ vercel ls          # View deployments
 - 内容准确，参考 gopl-zh
 - 从 0-1 渐进式学习
 - 中文写作，清晰简洁
+
+## 🚨 Critical Lessons Learned (2026-03-01)
+
+### Git/PR Workflow Violations
+
+**NEVER do these:**
+- ❌ Commit directly to `master` without PR
+- ❌ Create PR before CI/CD passes
+- ❌ Assume local build success = CI success
+- ❌ Force push to `master` to rollback mistakes
+
+**ALWAYS do these:**
+- ✅ Create feature branch first: `git checkout -b <type>/<description>`
+- ✅ Run full CI check before creating PR: `gh run list --branch <branch-name>`
+- ✅ Wait for ALL CI jobs to pass (both `lint-and-typecheck` and `build`)
+- ✅ Only create PR after CI passes on remote
+- ✅ Use `gh run view <run-id> --log` to debug CI failures
+- ✅ Fix broken links before committing (Docusaurus strict mode)
+
+### CI/CD Verification Checklist
+
+Before asking for review:
+
+```bash
+# 1. Check CI status
+gh run list --branch <branch-name> --limit 3
+
+# 2. Verify ALL jobs passed
+# - lint-and-typecheck: success
+# - build: success
+
+# 3. If failed, check logs
+gh run view <run-id> --log
+
+# 4. Only then create PR
+gh pr create --title "<title>" --body "<description>"
+```
+
+### Docusaurus Build Requirements
+
+- ✅ No broken Markdown links (run `npm run build` locally first)
+- ✅ All internal links must reference existing `.md` files
+- ✅ Front matter must be valid YAML
+- ✅ sidebar_position must be unique within category
+
+### Role Separation
+
+**Content Writer (Human/Assistant):**
+- Write documentation content
+- Ensure accuracy and completeness
+
+**Engineering (Claude Code):**
+- Create feature branches
+- Run validation (npm run build)
+- Fix technical issues (broken links, etc.)
+- Create PR after CI passes
+- Monitor CI/CD pipeline
+
+**NEVER mix these roles!**
