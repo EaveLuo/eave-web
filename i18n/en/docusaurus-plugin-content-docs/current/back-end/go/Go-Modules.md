@@ -1,22 +1,63 @@
 ---
-sidebar_label: Go-Modules
-sidebar_position: 5
+sidebar_label: Go Modules
+sidebar_position: 18
 ---
 
-# Go-Modules (English)
+# Go Modules - 依赖管理
 
-[Full translation in progress. See Chinese version at docs/back-end/go/Go-Modules.md for complete content.]
+Go Modules 是 Go 官方的依赖管理解决方案，从 Go 1.11 引入，Go 1.13+ 成为标准。
 
-## Overview
+## 📦 核心文件
 
-This chapter covers Go-Modules in Go programming language.
+```
+myproject/
+├── go.mod          # 模块定义和依赖列表
+├── go.sum          # 依赖校验和
+└── main.go
+```
 
-## Key Concepts
+## 🔧 常用命令
 
-- Go implementation of Go-Modules
-- Best practices
-- Common patterns
+```bash
+# 初始化模块
+go mod init github.com/myuser/myproject
+
+# 添加/更新依赖
+go get github.com/gin-gonic/gin
+
+# 清理未使用的依赖
+go mod tidy
+
+# 下载依赖
+go mod download
+```
+
+## 📝 go.mod 结构
+
+```go.mod
+module github.com/myuser/myproject
+
+go 1.21
+
+require (
+    github.com/gin-gonic/gin v1.9.1
+)
+```
+
+## 📌 语义化版本
+
+`v主版本。次版本。修订版`
+
+```
+v1.2.3
+│ │ │
+│ │ └─ 修订版（bug 修复）
+│ └─── 次版本（新功能）
+└───── 主版本（不兼容变更）
+```
 
 ---
 
-**Next**: [Next Chapter]
+**下一章**：[测试](./测试.md)
+
+**上一章**：[Go Modules](./Go-Modules.md)
