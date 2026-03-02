@@ -3,9 +3,9 @@ sidebar_label: Building RPC Framework from Scratch
 sidebar_position: 21
 ---
 
-# Building RPC Framework from Scratch
+# Building RPC Framework from Scratch - Implementing RPC Service from Zero
 
-RPC (Remote Procedure Call) is the cornerstone of distributed systems. Let's build a complete RPC framework from scratch.
+RPC (Remote Procedure Call) is the cornerstone of distributed systems. Let's implement a complete RPC framework from scratch.
 
 ## Books What is RPC?
 
@@ -161,127 +161,194 @@ func (c *GobCodec) Close() error {
 }
 ```
 
-## Gear Step 3: Server Implementation
+## OfficeBuilding Step 3: Implement Server
 
 ```go
 // rpc/server.go
 package rpc
 
 import (
-    "errors"
+    "fmt"
+    "io"
     "log"
     "net"
     "reflect"
     "sync"
 )
 
+// Service instance
+type Service struct {
+    name    string
+    rcvr    reflect.Value
+    methods map[string]*MethodType
+}
+
+// Method type
+type MethodType struct {
+    method    reflect.Method
+    ArgsType  reflect.Type
+    ReplyType reflect.Type
+}
+
+// RPC Server
 type Server struct {
-    services map[string]*service
-    mu       sync.RWMutex
+    serviceMap sync.Map  // map[string]*Service
 }
 
-type service struct {
-    name   string
-    rcvr   reflect.Value
-    typ    reflect.Type
-    methods map[string]reflect.Method
-}
-
+// Create server
 func NewServer() *Server {
-    return &Server{
-        services: make(map[string]*service),
-    }
+    return &Server{}
 }
 
-// Register publishes the receiver's methods
+// Register service
 func (s *Server) Register(rcvr interface{}) error {
-    svc := &service{
+    serviceName := reflect.TypeOf(rcvr).Elem().Name()
+    
+    service := &Service{
+        name:    serviceName,
         rcvr:    reflect.ValueOf(rcvr),
-        typ:     reflect.TypeOf(rcvr),
-        methods: make(map[string]reflect.Method),
+        methods: make(map[string]*MethodType),
     }
     
-    svc.name = reflect.Indirect(svc.rcvr).Type().Name()
-    
-    // Register all exported methods
-    for i := 0; i < svc.typ.NumMethod(); i++ {
-        method := svc.typ.Method(i)
-        svc.methods[method.Name] = method
+    // Iterate through methods
+    for m := 0; m < reflect.TypeOf(rcvr).NumMethod(); m++ {
+        method := reflect.TypeOf(rcvr).Method(m)
+        
+        // Check method signature: func (T *T) Method(args *Args, reply *Reply) error
+        if method.Type.NumIn() == 3 && method.Type.NumOut() == 1 {
+            argsType := method.Type.In(1)
+            replyType := method.Type.In(2)
+            
+            // Args and reply must be pointers
+            if argsType.Kind() == reflect.Ptr && replyType.Kind() == reflect.Ptr {
+                service.methods[method.Name] = &MethodType{
+                    method:    method,
+                    ArgsType:  argsType,
+                    ReplyType: replyType,
+                }
+            }
+        }
     }
     
-    s.mu.Lock()
-    s.services[svc.name] = svc
-    s.mu.Unlock()
-    
+    s.serviceMap.Store(serviceName, service)
     return nil
 }
 
-// Accept accepts connections on the listener
-func (s *Server) Accept(lis net.Listener) {
-    for {
-        conn, err := lis.Accept()
-        if err != nil {
-            log.Println("rpc server: accept error:", err)
-            return
-        }
-        go s.ServeConn(conn)
-    }
-}
-
-// ServeConn handles a single connection
-func (s *Server) ServeConn(conn io.ReadWriteCloser) {
-    defer conn.Close()
-    
-    // Create codec
+// Handle connection
+func (s *Server) serveConn(conn io.ReadWriteCloser) {
     codec := NewGobCodec(conn)
     
+    var wg sync.WaitGroup
+    var seq uint64
+    
     for {
-        // Read header
-        var h Header
-        if err := codec.ReadHeader(&h); err != nil {
-            return
+        var header Header
+        if err := codec.ReadHeader(&header); err != nil {
+            if err != io.EOF {
+                log.Println("Error reading header:", err)
+            }
+            break
         }
         
-        // Read request
-        req := &Request{}
-        if err := codec.ReadBody(req); err != nil {
-            return
+        seq = header.Seq
+        
+        // Find service
+        serviceName, methodName, _ := parseServiceMethod(header.ServiceMethod)
+        serviceValue, ok := s.serviceMap.Load(serviceName)
+        if !ok {
+            s.sendError(codec, header.Seq, fmt.Sprintf("Service not found: %s", serviceName))
+            continue
         }
         
-        // Handle request
-        go s.handleRequest(codec, &h, req)
+        service := serviceValue.(*Service)
+        method := service.methods[methodName]
+        if method == nil {
+            s.sendError(codec, header.Seq, fmt.Sprintf("Method not found: %s", methodName))
+            continue
+        }
+        
+        // Create args and reply
+        argsValue := reflect.New(method.ArgsType.Elem())
+        replyValue := reflect.New(method.ReplyType.Elem())
+        
+        // Read arguments
+        if err := codec.ReadBody(argsValue.Interface()); err != nil {
+            s.sendError(codec, header.Seq, err.Error())
+            continue
+        }
+        
+        // Call method
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            
+            errValues := method.method.Func.Call([]reflect.Value{
+                service.rcvr,
+                argsValue,
+                replyValue,
+            })
+            
+            // Check error
+            var errStr string
+            if !errValues[0].IsNil() {
+                errStr = errValues[0].Interface().(error).Error()
+            }
+            
+            // Send response
+            resp := &Response{
+                Seq:   header.Seq,
+                Error: errStr,
+                Reply: replyValue.Interface(),
+            }
+            
+            if err := codec.Write(&Header{
+                Seq: header.Seq,
+            }, resp); err != nil {
+                log.Println("Error sending response:", err)
+            }
+        }()
     }
+    
+    wg.Wait()
+    codec.Close()
 }
 
-func (s *Server) handleRequest(codec Codec, h *Header, req *Request) {
-    // Find service
-    s.mu.RLock()
-    svc, ok := s.services[req.ServiceMethod]
-    s.mu.RUnlock()
-    
-    if !ok {
-        s.sendResponse(codec, h, nil, errors.New("unknown service"))
-        return
-    }
-    
-    // Call method
-    // ... implementation details
-}
-
-func (s *Server) sendResponse(codec Codec, h *Header, reply interface{}, err error) {
+func (s *Server) sendError(codec Codec, seq uint64, errMsg string) {
     resp := &Response{
-        Seq:   h.Seq,
-        Reply: reply,
+        Seq:   seq,
+        Error: errMsg,
     }
+    codec.Write(&Header{Seq: seq}, resp)
+}
+
+// Listen for connections
+func (s *Server) Listen(network, address string) error {
+    listener, err := net.Listen(network, address)
     if err != nil {
-        resp.Error = err.Error()
+        return err
     }
     
-    codec.Write(h, resp)
+    log.Printf("RPC server started on %s://%s\n", network, address)
+    
+    for {
+        conn, err := listener.Accept()
+        if err != nil {
+            log.Println("Error accepting connection:", err)
+            continue
+        }
+        
+        go s.serveConn(conn)
+    }
+}
+
+func parseServiceMethod(serviceMethod string) (string, string, error) {
+    // "Service.Method" -> "Service", "Method"
+    // Implementation omitted
+    return "", "", nil
 }
 ```
 
-## Satellite Step 4: Client Implementation
+## DesktopComputer Step 4: Implement Client
 
 ```go
 // rpc/client.go
@@ -289,20 +356,17 @@ package rpc
 
 import (
     "errors"
+    "fmt"
+    "io"
+    "log"
     "net"
     "sync"
+    "time"
 )
 
-type Client struct {
-    cc       Codec
-    pending  map[uint64]*Call
-    seq      uint64
-    mu       sync.Mutex
-    closing  bool
-    shutdown bool
-}
-
+// Call record
 type Call struct {
+    Seq           uint64
     ServiceMethod string
     Args          interface{}
     Reply         interface{}
@@ -310,6 +374,16 @@ type Call struct {
     Done          chan *Call
 }
 
+// RPC Client
+type Client struct {
+    codec Codec
+    seq   uint64
+    mutex sync.Mutex
+    
+    pending map[uint64]*Call
+}
+
+// Create client
 func Dial(network, address string) (*Client, error) {
     conn, err := net.Dial(network, address)
     if err != nil {
@@ -319,23 +393,31 @@ func Dial(network, address string) (*Client, error) {
     return NewClient(conn), nil
 }
 
-func NewClient(conn net.Conn) *Client {
+func NewClient(conn io.ReadWriteCloser) *Client {
     client := &Client{
-        cc:      NewGobCodec(conn),
+        codec:   NewGobCodec(conn),
         pending: make(map[uint64]*Call),
     }
     
+    // Start receive goroutine
     go client.receive()
     
     return client
 }
 
-func (c *Client) Call(serviceMethod string, args, reply interface{}) error {
-    call := <-c.Go(serviceMethod, args, reply, make(chan *Call, 1)).Done
-    return call.Error
+// Remote call
+func (c *Client) Call(serviceMethod string, args interface{}, reply interface{}) error {
+    call := <-c.goCall(serviceMethod, args, reply, make(chan *Call, 1))
+    
+    if call.Error != nil {
+        return call.Error
+    }
+    
+    return nil
 }
 
-func (c *Client) Go(serviceMethod string, args, reply interface{}, done chan *Call) *Call {
+// Async call
+func (c *Client) goCall(serviceMethod string, args interface{}, reply interface{}, done chan *Call) *Call {
     call := &Call{
         ServiceMethod: serviceMethod,
         Args:          args,
@@ -343,129 +425,466 @@ func (c *Client) Go(serviceMethod string, args, reply interface{}, done chan *Ca
         Done:          done,
     }
     
-    c.mu.Lock()
-    if c.closing || c.shutdown {
-        c.mu.Unlock()
-        call.Error = errors.New("client closed")
-        return call
-    }
-    
+    c.mutex.Lock()
+    call.Seq = c.seq
     c.seq++
-    seq := c.seq
-    c.pending[seq] = call
-    c.mu.Unlock()
+    c.pending[call.Seq] = call
+    c.mutex.Unlock()
     
     // Send request
-    h := &Header{
-        ServiceMethod: serviceMethod,
-        Seq:           seq,
+    header := &Header{
+        MagicNumber:   MagicNumber,
+        CodecType:     string(GobCodec),
+        MessageType:   0, // Request
+        Seq:           call.Seq,
+        Timeout:       DefaultTimeout,
     }
     
-    c.cc.Write(h, args)
+    c.mutex.Lock()
+    err := c.codec.Write(header, args)
+    c.mutex.Unlock()
+    
+    if err != nil {
+        c.mutex.Lock()
+        delete(c.pending, call.Seq)
+        c.mutex.Unlock()
+        
+        call.Error = err
+        call.Done <- call
+    }
     
     return call
 }
 
+// Receive response
 func (c *Client) receive() {
-    for {
+    var err error
+    
+    for err == nil {
+        header := &Header{}
+        
+        c.mutex.Lock()
+        err = c.codec.ReadHeader(header)
+        c.mutex.Unlock()
+        
+        if err != nil {
+            break
+        }
+        
+        c.mutex.Lock()
+        call := c.pending[header.Seq]
+        delete(c.pending, header.Seq)
+        c.mutex.Unlock()
+        
+        if call == nil {
+            log.Println("Received response with unknown sequence:", header.Seq)
+            continue
+        }
+        
         // Read response
-        var h Header
-        if err := c.cc.ReadHeader(&h); err != nil {
-            break
-        }
-        
-        var resp Response
-        if err := c.cc.ReadBody(&resp); err != nil {
-            break
-        }
-        
-        // Find pending call
-        c.mu.Lock()
-        call := c.pending[h.Seq]
-        delete(c.pending, h.Seq)
-        c.mu.Unlock()
-        
-        if call != nil {
+        resp := &Response{}
+        if err = c.codec.ReadBody(resp); err != nil {
+            call.Error = err
+        } else if resp.Error != "" {
             call.Error = errors.New(resp.Error)
+        } else {
+            // Copy reply
             call.Reply = resp.Reply
-            call.Done <- call
         }
+        
+        call.Done <- call
     }
+    
+    // Connection error, terminate all pending calls
+    c.mutex.Lock()
+    for _, call := range c.pending {
+        call.Error = err
+        call.Done <- call
+    }
+    c.mutex.Unlock()
+}
+
+// Close client
+func (c *Client) Close() error {
+    return c.codec.Close()
 }
 ```
 
-## Rocket Usage Example
+## Memo Step 5: Usage Example
 
 ```go
 // Define service
-type Calculator struct{}
+type Args struct {
+    A, B int
+}
 
-func (c *Calculator) Add(args [2]int, reply *int) error {
-    *reply = args[0] + args[1]
+type Reply struct {
+    C int
+}
+
+type MathService struct{}
+
+func (m *MathService) Add(args *Args, reply *Reply) error {
+    reply.C = args.A + args.B
+    return nil
+}
+
+func (m *MathService) Multiply(args *Args, reply *Reply) error {
+    reply.C = args.A * args.B
     return nil
 }
 
 // Server
 func main() {
-    calc := new(Calculator)
-    
     server := rpc.NewServer()
-    server.Register(calc)
     
-    lis, _ := net.Listen("tcp", ":9999")
-    server.Accept(lis)
+    // Register service
+    mathService := &MathService{}
+    server.Register(mathService)
+    
+    // Start listening
+    server.Listen("tcp", ":8080")
 }
 
 // Client
 func main() {
-    client, _ := rpc.Dial("tcp", "localhost:9999")
+    // Connect to server
+    client, err := rpc.Dial("tcp", "localhost:8080")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer client.Close()
     
-    var reply int
-    err := client.Call("Calculator.Add", [2]int{1, 2}, &reply)
+    // Call Add method
+    args := &Args{A: 10, B: 20}
+    reply := &Reply{}
+    
+    err = client.Call("MathService.Add", args, reply)
     if err != nil {
         log.Fatal(err)
     }
     
-    fmt.Println(reply)  // 3
+    fmt.Printf("10 + 20 = %d\n", reply.C)
+    
+    // Call Multiply method
+    args2 := &Args{A: 5, B: 6}
+    reply2 := &Reply{}
+    
+    err = client.Call("MathService.Multiply", args2, reply2)
+    if err != nil {
+        log.Fatal(err)
+    }
+    
+    fmt.Printf("5 * 6 = %d\n", reply2.C)
 }
 ```
 
-## LightBulb Key Insights
+## VerticalTrafficLight Step 6: Timeout and Retry
 
-### 1. Protocol Design
-- Magic number for validation
-- Version negotiation
-- Extensible headers
+```go
+// Enhanced rpc/client.go
+func (c *Client) CallWithTimeout(serviceMethod string, args interface{}, reply interface{}, timeout time.Duration) error {
+    call := &Call{
+        ServiceMethod: serviceMethod,
+        Args:          args,
+        Reply:         reply,
+        Done:          make(chan *Call, 1),
+    }
+    
+    // Send request
+    c.goCall(serviceMethod, args, reply, call.Done)
+    
+    // Wait for response or timeout
+    select {
+    case call = <-call.Done:
+        return call.Error
+    case <-time.After(timeout):
+        return errors.New("call timeout")
+    }
+}
 
-### 2. Serialization
-- JSON for human-readable
-- Gob for efficiency
-- Protobuf for cross-language
+// Auto retry
+func (c *Client) CallWithRetry(serviceMethod string, args interface{}, reply interface{}, maxRetries int) error {
+    var lastErr error
+    
+    for i := 0; i < maxRetries; i++ {
+        if err := c.Call(serviceMethod, args, reply); err == nil {
+            return nil
+        } else {
+            lastErr = err
+            time.Sleep(time.Duration(i+1) * time.Second) // Exponential backoff
+        }
+    }
+    
+    return lastErr
+}
+```
 
-### 3. Connection Management
-- Connection pooling
-- Heartbeat detection
-- Graceful shutdown
+## MagnifyingGlassTiltedLeft Step 7: Service Discovery
 
-### 4. Error Handling
-- Network errors
-- Timeout handling
-- Retry mechanisms
+```go
+// registry/service_registry.go
+package registry
 
-## WhiteCheckMark Summary
+import (
+    "sync"
+    "time"
+)
 
-- WhiteCheckMaster RPC core concepts
-- WhiteCheckImplement codec layer
-- WhiteCheckBuild server and client
-- WhiteCheckHandle concurrency properly
-- WhiteCheckDesign extensible protocols
+type ServiceRegistry struct {
+    services sync.Map  // map[string][]string
+    ttl      time.Duration
+}
+
+func NewServiceRegistry(ttl time.Duration) *ServiceRegistry {
+    return &ServiceRegistry{ttl: ttl}
+}
+
+// Register service
+func (r *ServiceRegistry) Register(serviceName, address string) error {
+    key := serviceName
+    value := address
+    
+    // Periodic heartbeat renewal
+    go func() {
+        ticker := time.NewTicker(r.ttl / 2)
+        defer ticker.Stop()
+        
+        for range ticker.C {
+            r.doRegister(key, value)
+        }
+    }()
+    
+    return r.doRegister(key, value)
+}
+
+func (r *ServiceRegistry) doRegister(serviceName, address string) error {
+    var addresses []string
+    
+    if v, ok := r.services.Load(serviceName); ok {
+        addresses = v.([]string)
+    }
+    
+    // Check if already exists
+    for _, addr := range addresses {
+        if addr == address {
+            return nil
+        }
+    }
+    
+    addresses = append(addresses, address)
+    r.services.Store(serviceName, addresses)
+    
+    return nil
+}
+
+// Get service addresses
+func (r *ServiceRegistry) Discover(serviceName string) ([]string, error) {
+    if v, ok := r.services.Load(serviceName); ok {
+        return v.([]string), nil
+    }
+    return nil, errors.New("service not found")
+}
+
+// Load balancing (random)
+func (r *ServiceRegistry) Select(serviceName string) (string, error) {
+    addresses, err := r.Discover(serviceName)
+    if err != nil {
+        return "", err
+    }
+    
+    // Random selection
+    return addresses[rand.Intn(len(addresses))], nil
+}
+```
+
+## ArtistPalette Step 8: Middleware Support
+
+```go
+// rpc/middleware.go
+package rpc
+
+type Middleware func(HandlerFunc) HandlerFunc
+
+type HandlerFunc func(*Request, *Response) error
+
+// Logging middleware
+func LoggingMiddleware(next HandlerFunc) HandlerFunc {
+    return func(req *Request, resp *Response) error {
+        log.Printf("Received request: %s, Seq: %d", req.ServiceMethod, req.Seq)
+        
+        start := time.Now()
+        err := next(req, resp)
+        elapsed := time.Since(start)
+        
+        log.Printf("Request completed: %s, Duration: %v", req.ServiceMethod, elapsed)
+        
+        return err
+    }
+}
+
+// Auth middleware
+func AuthMiddleware(token string) Middleware {
+    return func(next HandlerFunc) HandlerFunc {
+        return func(req *Request, resp *Response) error {
+            // Validate token
+            if req.Token != token {
+                return errors.New("authentication failed")
+            }
+            return next(req, resp)
+        }
+    }
+}
+
+// Rate limiting middleware
+func RateLimitMiddleware(maxRequests int, window time.Duration) Middleware {
+    var mu sync.Mutex
+    requests := make([]time.Time, 0, maxRequests)
+    
+    return func(next HandlerFunc) HandlerFunc {
+        return func(req *Request, resp *Response) error {
+            mu.Lock()
+            defer mu.Unlock()
+            
+            now := time.Now()
+            windowStart := now.Add(-window)
+            
+            // Remove expired requests
+            validRequests := make([]time.Time, 0)
+            for _, t := range requests {
+                if t.After(windowStart) {
+                    validRequests = append(validRequests, t)
+                }
+            }
+            
+            if len(validRequests) >= maxRequests {
+                return errors.New("too many requests")
+            }
+            
+            requests = append(validRequests, now)
+            return next(req, resp)
+        }
+    }
+}
+```
+
+## Bug Common Issues
+
+### 1. Connection Disconnection Handling
+
+```go
+// Heartbeat detection
+func (c *Client) startHeartbeat(interval time.Duration) {
+    ticker := time.NewTicker(interval)
+    defer ticker.Stop()
+    
+    for range ticker.C {
+        if err := c.Call("Heartbeat.Ping", &struct{}{}, &struct{}{}); err != nil {
+            log.Println("Heartbeat failed, reconnecting...")
+            // Reconnect logic
+        }
+    }
+}
+```
+
+### 2. Concurrency Safety
+
+```go
+// Ensure sequence number generation is thread-safe
+func (c *Client) nextSeq() uint64 {
+    c.mutex.Lock()
+    defer c.mutex.Unlock()
+    c.seq++
+    return c.seq
+}
+```
+
+### 3. Graceful Shutdown
+
+```go
+func (s *Server) Shutdown() {
+    // Stop accepting new connections
+    s.listener.Close()
+    
+    // Wait for existing requests to complete
+    s.wg.Wait()
+    
+    log.Println("Server gracefully shut down")
+}
+```
+
+## LightBulb Best Practices
+
+### 1. Choose Appropriate Encoding
+
+```go
+// JSON - Human readable, cross-language
+// Suitable for: debugging, cross-language calls
+
+// Gob - Go native, efficient
+// Suitable for: Go service-to-service calls
+
+// Protobuf - Efficient, cross-language
+// Suitable for: high-performance scenarios
+```
+
+### 2. Timeout Settings
+
+```go
+// Always set timeout
+client.CallWithTimeout("Service.Method", args, reply, 5*time.Second)
+```
+
+### 3. Error Handling
+
+```go
+// Distinguish network errors from business errors
+if err != nil {
+    if isNetworkError(err) {
+        // Retry
+    } else {
+        // Business error, don't retry
+    }
+}
+```
+
+### 4. Connection Pool
+
+```go
+// Reuse connections, avoid frequent creation
+type ClientPool struct {
+    clients chan *Client
+}
+
+func (p *ClientPool) Get() *Client {
+    return <-p.clients
+}
+
+func (p *ClientPool) Put(client *Client) {
+    p.clients <- client
+}
+```
+
+## WhiteCheckMark Key Points Summary
+
+- WhiteCheckMark RPC makes remote calls as simple as local ones
+- WhiteCheckMark Core components: service registration, client, codec, transport
+- WhiteCheckMark Support multiple encoding methods (JSON/Gob/Protobuf)
+- WhiteCheckMark Timeout and retry mechanisms
+- WhiteCheckMark Service discovery and load balancing
+- WhiteCheckMark Middleware support (logging, auth, rate limiting)
+- WhiteCheckMark Connection pool and graceful shutdown
 
 ---
 
-**Next Chapter**: [Project Practice](./项目实战.md)
+**Congratulations! You have implemented a complete RPC framework!** PartyPopper
 
-You will learn:
-- Building complete applications
-- Project structure design
-- Integration testing
-- Deployment strategies
+Through this hands-on project, you have mastered:
+- RPC protocol design
+- Network programming
+- Reflection and serialization
+- Concurrency control
+- Error handling
+- Service discovery
+
+These are all core skills for building distributed systems!
