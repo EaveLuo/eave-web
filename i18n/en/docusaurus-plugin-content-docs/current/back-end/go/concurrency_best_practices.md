@@ -1,0 +1,262 @@
+---
+sidebar_label: Concurrency Best Practices
+sidebar_position: 17
+---
+
+# Concurrency Best Practices - Avoiding Common Pitfalls
+
+## Warning Common Concurrency Pitfalls
+
+### 1. Goroutine Leaks
+
+```go
+// CrossMark Wrong: Goroutine leak
+func worker(ch <-chan int) {
+    for v := range ch {
+        process(v)
+    }
+}
+
+func main() {
+    ch := make(chan int)
+    go worker(ch)
+    ch <- 1
+    // Forgot to close channel, worker blocks forever
+}
+
+// WhiteCheckMark Correct
+close(ch)  // Close channel, worker exits
+```
+
+### 2. Race Conditions
+
+```go
+// CrossMark Wrong: Race condition
+var counter int
+go func() { counter++ }()
+go func() { counter++ }()
+
+// WhiteCheckMark Correct: Use Mutex
+var mu sync.Mutex
+var counter int
+mu.Lock()
+counter++
+mu.Unlock()
+
+// WhiteCheckMark Correct: Use atomic
+var counter int64
+atomic.AddInt64(&counter, 1)
+```
+
+### 3. Deadlocks
+
+```go
+// CrossMark Wrong: Deadlock
+ch1 := make(chan int)
+ch2 := make(chan int)
+go func() { ch1 <- 1; <-ch2 }()
+go func() { ch2 <- 2; <-ch1 }()
+
+// WhiteCheckMark Correct: Use select
+select {
+case ch1 <- 1:
+    <-ch2
+case <-time.After(time.Second):
+    // Timeout handling
+}
+```
+
+## Target Concurrency Patterns
+
+### Worker Pool
+
+```go
+func worker(id int, jobs <-chan int, results chan<- int) {
+    for job := range jobs {
+        results <- job * 2
+    }
+}
+
+// Start worker pool
+for w := 1; w <= 3; w++ {
+    go worker(w, jobs, results)
+}
+```
+
+### Pipeline Pattern
+
+```go
+func generator(nums ...int) <-chan int {
+    out := make(chan int)
+    go func() {
+        for _, n := range nums {
+            out <- n
+        }
+        close(out)
+    }()
+    return out
+}
+
+func square(in <-chan int) <-chan int {
+    out := make(chan int)
+    go func() {
+        for n := range in {
+            out <- n * n
+        }
+        close(out)
+    }()
+    return out
+}
+
+// Usage
+nums := generator(1, 2, 3, 4)
+squares := square(nums)
+for s := range squares {
+    fmt.Println(s)
+}
+```
+
+### Fan-out Fan-in
+
+```go
+func fanOut(input <-chan int, workers int) []<-chan int {
+    outputs := make([]<-chan int, workers)
+    for i := 0; i < workers; i++ {
+        outputs[i] = process(input)
+    }
+    return outputs
+}
+
+func fanIn(inputs ...<-chan int) <-chan int {
+    out := make(chan int)
+    var wg sync.WaitGroup
+    
+    for _, in := range inputs {
+        wg.Add(1)
+        go func(ch <-chan int) {
+            defer wg.Done()
+            for v := range ch {
+                out <- v
+            }
+        }(in)
+    }
+    
+    go func() {
+        wg.Wait()
+        close(out)
+    }()
+    
+    return out
+}
+```
+
+### Graceful Shutdown
+
+```go
+func server(ctx context.Context) {
+    for {
+        select {
+        case <-ctx.Done():
+            fmt.Println("Shutting down...")
+            return
+        case req := <-requests:
+            handle(req)
+        }
+    }
+}
+
+// Usage
+ctx, cancel := context.WithCancel(context.Background())
+go server(ctx)
+
+// Shutdown
+cancel()
+```
+
+## Clipboard Checklist
+
+- [ ] All Goroutines can exit normally
+- [ ] Channels are closed at appropriate times
+- [ ] No deadlock risks
+- [ ] Shared variables have proper protection
+- [ ] Use context for timeout control
+- [ ] Handle panics in Goroutines
+- [ ] Limit the number of concurrent Goroutines
+- [ ] Profile and optimize when necessary
+
+## LightBulb Best Practices
+
+### 1. Always Have Exit Strategy
+
+```go
+// WhiteCheckMark Good
+func worker(ctx context.Context, ch <-chan int) {
+    for {
+        select {
+        case <-ctx.Done():
+            return
+        case v, ok := <-ch:
+            if !ok {
+                return
+            }
+            process(v)
+        }
+    }
+}
+```
+
+### 2. Use Buffered Channels Appropriately
+
+```go
+// WhiteCheckMark Prevent blocking
+ch := make(chan int, 100)  // Buffer prevents sender blocking
+
+// CrossMark May cause issues
+ch := make(chan int, 10000)  // Too large buffer hides problems
+```
+
+### 3. Protect Shared State
+
+```go
+type Counter struct {
+    mu    sync.Mutex
+    count int
+}
+
+func (c *Counter) Inc() {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    c.count++
+}
+```
+
+### 4. Use sync.WaitGroup Correctly
+
+```go
+var wg sync.WaitGroup
+
+for i := 0; i < 10; i++ {
+    wg.Add(1)
+    go func(id int) {
+        defer wg.Done()
+        work(id)
+    }(i)
+}
+
+wg.Wait()  // Wait for all to complete
+```
+
+## WhiteCheckMark Key Points Summary
+
+- WhiteCheckMark Always ensure Goroutines can exit
+- WhiteCheckMark Close channels from sender side
+- WhiteCheckMark Protect shared data with locks or channels
+- WhiteCheckMark Use select with timeout to avoid deadlocks
+- WhiteCheckMark Use context for cancellation
+- WhiteCheckMark Profile before optimizing
+
+---
+
+**Next Chapter**: [Go Modules](./Go-Modules.md)
+
+**Previous Chapter**: [Select Multiplexing](./select.md)

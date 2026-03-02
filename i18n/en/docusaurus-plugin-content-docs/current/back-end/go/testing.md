@@ -1,0 +1,265 @@
+---
+sidebar_label: Testing
+sidebar_position: 19
+---
+
+# Testing - Unit Tests, Benchmarks, and Fuzzing
+
+Go has powerful built-in testing tools, no third-party libraries needed.
+
+## TestTube Testing Basics
+
+### Test File Naming
+
+```
+calculator.go        # Source code
+calculator_test.go   # Test file
+```
+
+### Basic Test Structure
+
+```go
+package calculator
+
+import "testing"
+
+func TestAdd(t *testing.T) {
+    result := Add(2, 3)
+    expected := 5
+    
+    if result != expected {
+        t.Errorf("Add(2, 3) = %d; expected %d", result, expected)
+    }
+}
+```
+
+### Running Tests
+
+```bash
+go test              # Run all tests
+go test -v           # Verbose output
+go test -cover       # Coverage
+go test -bench=.     # Benchmark tests
+```
+
+## Clipboard Table-Driven Tests
+
+```go
+func TestAdd(t *testing.T) {
+    tests := []struct {
+        name     string
+        a, b     int
+        expected int
+    }{
+        {"positive numbers", 2, 3, 5},
+        {"negative numbers", -2, -3, -5},
+        {"zeros", 0, 0, 0},
+    }
+    
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            result := Add(tt.a, tt.b)
+            if result != tt.expected {
+                t.Errorf("Add(%d, %d) = %d", tt.a, tt.b, result)
+            }
+        })
+    }
+}
+```
+
+## Stopwatch Benchmark Tests
+
+```go
+func BenchmarkAdd(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        Add(2, 3)
+    }
+}
+```
+
+### Running Benchmarks
+
+```bash
+go test -bench=.           # Run all benchmarks
+go test -bench=. -benchmem # With memory stats
+go test -bench=BenchmarkAdd # Specific benchmark
+```
+
+## Warning Common Assertions
+
+### Using testify (Optional)
+
+```go
+import "github.com/stretchr/testify/assert"
+
+func TestAdd(t *testing.T) {
+    result := Add(2, 3)
+    assert.Equal(t, 5, result)
+    assert.NotNil(t, result)
+    assert.True(t, result > 0)
+}
+```
+
+### Standard Library Assertions
+
+```go
+func TestSomething(t *testing.T) {
+    // Fatal stops execution
+    if err != nil {
+        t.Fatal("unexpected error:", err)
+    }
+    
+    // Error continues execution
+    if result != expected {
+        t.Error("unexpected result")
+    }
+    
+    // Log for debugging
+    t.Log("debug info")
+}
+```
+
+## WhiteCheckMark Test Coverage
+
+### Generate Coverage Report
+
+```bash
+go test -cover                    # Show coverage percentage
+go test -coverprofile=coverage.out # Save coverage data
+go tool cover -html=coverage.out   # View in browser
+```
+
+### Coverage Goals
+
+- Aim for 70%+ coverage for critical code
+- 100% coverage is ideal but not always practical
+- Focus on testing behavior, not implementation
+
+## LightBulb Best Practices
+
+### 1. Test Behavior, Not Implementation
+
+```go
+// WhiteCheckMark Good: Test what the function does
+func TestCalculatePrice(t *testing.T) {
+    price := CalculatePrice(100, 0.1)
+    assert.Equal(t, 110, price)
+}
+
+// CrossMark Bad: Testing internal details
+func TestCalculatePrice(t *testing.T) {
+    // Don't test private functions or internal state
+}
+```
+
+### 2. Use Meaningful Test Names
+
+```go
+// WhiteCheckMark Clear intent
+func TestUserService_CreateUser_Success(t *testing.T)
+func TestUserService_CreateUser_DuplicateEmail(t *testing.T)
+func TestUserService_CreateUser_InvalidInput(t *testing.T)
+
+// CrossMark Vague
+func Test1(t *testing.T)
+func TestCreate(t *testing.T)
+```
+
+### 3. Keep Tests Independent
+
+```go
+// WhiteCheckMark Each test is self-contained
+func TestA(t *testing.T) {
+    db := setupTestDB()
+    defer cleanup(db)
+    // Test...
+}
+
+func TestB(t *testing.T) {
+    db := setupTestDB()
+    defer cleanup(db)
+    // Test...
+}
+```
+
+### 4. Use Subtests for Organization
+
+```go
+func TestCalculator(t *testing.T) {
+    t.Run("Add", func(t *testing.T) {
+        assert.Equal(t, 5, Add(2, 3))
+    })
+    
+    t.Run("Subtract", func(t *testing.T) {
+        assert.Equal(t, 1, Subtract(3, 2))
+    })
+    
+    t.Run("Multiply", func(t *testing.T) {
+        assert.Equal(t, 6, Multiply(2, 3))
+    })
+}
+```
+
+## Bug Common Mistakes
+
+### 1. Not Cleaning Up Resources
+
+```go
+// CrossMark Resource leak
+func TestWithDB(t *testing.T) {
+    db := connectDB()
+    // Test...
+    // Forgot to close!
+}
+
+// WhiteCheckMark Proper cleanup
+func TestWithDB(t *testing.T) {
+    db := connectDB()
+    defer db.Close()
+    // Test...
+}
+```
+
+### 2. Tests Depending on Each Other
+
+```go
+// CrossMark Order-dependent
+var counter int
+
+func TestA(t *testing.T) {
+    counter++
+}
+
+func TestB(t *testing.T) {
+    // Assumes counter from TestA
+    assert.Equal(t, 1, counter)
+}
+```
+
+### 3. Testing Too Much in One Test
+
+```go
+// CrossMark Too many assertions
+func TestEverything(t *testing.T) {
+    // Tests 10 different things
+}
+
+// WhiteCheckMark Separate concerns
+func TestFeatureA(t *testing.T)
+func TestFeatureB(t *testing.T)
+```
+
+## WhiteCheckMark Key Points Summary
+
+- WhiteCheckMark Use `*_test.go` naming convention
+- WhiteCheckMark Table-driven tests for multiple cases
+- WhiteCheckMark Use subtests with `t.Run()`
+- WhiteCheckMark Aim for good coverage, not 100%
+- WhiteCheckMark Test behavior, not implementation
+- WhiteCheckMark Keep tests independent and isolated
+
+---
+
+**Next Chapter**: [Reflection](./反射.md)
+
+**Previous Chapter**: [Go Modules](./Go-Modules.md)

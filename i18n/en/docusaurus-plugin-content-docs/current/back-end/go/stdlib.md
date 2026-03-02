@@ -1,0 +1,190 @@
+---
+sidebar_label: Standard Library Highlights
+sidebar_position: 21
+---
+
+# Standard Library Highlights - Essential Packages
+
+Go's standard library is known as "Batteries Included".
+
+## Package Core Package Categories
+
+### I/O and Formatting
+
+| Package | Purpose | Examples |
+|---------|---------|----------|
+| `fmt` | Formatted I/O | `fmt.Printf`, `fmt.Sprintf` |
+| `io` | I/O primitives | `io.Reader`, `io.Writer` |
+| `bufio` | Buffered I/O | `bufio.Scanner` |
+| `strings` | String operations | `strings.Join`, `strings.Split` |
+
+### Data Encoding
+
+| Package | Purpose | Examples |
+|---------|---------|----------|
+| `encoding/json` | JSON handling | `json.Marshal`, `json.Unmarshal` |
+| `encoding/xml` | XML handling | `xml.Marshal` |
+| `encoding/base64` | Base64 encoding | `base64.StdEncoding` |
+
+### Network and HTTP
+
+| Package | Purpose | Examples |
+|---------|---------|----------|
+| `net/http` | HTTP client/server | `http.Get`, `http.HandleFunc` |
+| `net/url` | URL parsing | `url.Parse` |
+
+### Time and Date
+
+| Package | Purpose | Examples |
+|---------|---------|----------|
+| `time` | Time handling | `time.Now()`, `time.Sleep` |
+| `strconv` | Type conversion | `strconv.Atoi`, `strconv.Itoa` |
+
+## Abc fmt Formatting
+
+```go
+fmt.Printf("%v\\n", 42)        // 42 (default format)
+fmt.Printf("%T\\n", 42)        // int (type)
+fmt.Printf("%d\\n", 42)        // 42 (decimal)
+fmt.Printf("%x\\n", 42)        // 2a (hexadecimal)
+fmt.Printf("%.2f\\n", 3.14)    // 3.14
+fmt.Printf("%s\\n", "hello")   // hello
+```
+
+### Common Format Verbs
+
+```go
+%v    // Default format
+%+v   // Struct with field names
+%#v   // Go-syntax representation
+%T    // Type
+%d    // Decimal integer
+%x    // Hexadecimal
+%f    // Floating point
+%s    // String
+%q    // Quoted string
+%p    // Pointer
+%t    // Boolean
+```
+
+## GlobeWithMeridians net/http Example
+
+```go
+// HTTP Server
+http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
+})
+http.ListenAndServe(":8080", nil)
+
+// HTTP Client
+resp, err := http.Get("https://api.example.com/data")
+defer resp.Body.Close()
+data, _ := io.ReadAll(resp.Body)
+```
+
+### HTTP Server with Middleware
+
+```go
+func loggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        log.Printf("%s %s", r.Method, r.URL.Path)
+        next.ServeHTTP(w, r)
+    })
+}
+
+mux := http.NewServeMux()
+mux.HandleFunc("/api/users", getUsers)
+
+handler := loggingMiddleware(mux)
+http.ListenAndServe(":8080", handler)
+```
+
+## TwistedRightwardsArrows strings Package
+
+```go
+import "strings"
+
+// Search
+strings.Contains("hello", "ell")      // true
+strings.HasPrefix("hello", "he")      // true
+strings.HasSuffix("hello", "lo")      // true
+strings.Index("hello", "l")           // 2
+strings.Count("hello", "l")           // 2
+
+// Transform
+strings.ToUpper("hello")              // HELLO
+strings.ToLower("HELLO")              // hello
+strings.Title("hello world")          // Hello World
+strings.TrimSpace("  hello  ")        // hello
+strings.Trim("hello", "ho")           // ell
+
+// Split and Join
+strings.Split("a,b,c", ",")           // ["a", "b", "c"]
+strings.Join([]string{"a", "b"}, ",") // "a,b"
+strings.Replace("hello", "l", "x", 1) // "hexlo"
+```
+
+## Clock3 time Package
+
+```go
+import "time"
+
+// Current time
+now := time.Now()
+fmt.Println(now.Format("2006-01-02 15:04:05"))
+
+// Parse time
+t, _ := time.Parse("2006-01-02", "2024-01-01")
+
+// Duration
+duration := 5 * time.Second
+time.Sleep(duration)
+
+// Timer
+timer := time.NewTimer(2 * time.Second)
+<-timer.C
+fmt.Println("Timer expired")
+
+// Ticker
+ticker := time.NewTicker(1 * time.Second)
+for t := range ticker.C {
+    fmt.Println("Tick at", t)
+}
+```
+
+## ArrowsClockwise strconv Package
+
+```go
+import "strconv"
+
+// String to int
+i, err := strconv.Atoi("42")          // 42
+i, _ = strconv.ParseInt("42", 10, 64) // 42, base 10, 64-bit
+
+// Int to string
+s := strconv.Itoa(42)                 // "42"
+s = strconv.FormatInt(42, 10)         // "42"
+
+// Float
+f, _ := strconv.ParseFloat("3.14", 64)
+s = strconv.FormatFloat(3.14, 'f', 2, 64) // "3.14"
+
+// Bool
+b, _ := strconv.ParseBool("true")
+s = strconv.FormatBool(true)
+```
+
+## WhiteCheckMark Key Points Summary
+
+- WhiteCheckMaster the `fmt` package for formatting
+- WhiteCheckUse `strings` for text manipulation
+- WhiteCheckLeverage `net/http` for web services
+- WhiteCheckHandle time with the `time` package
+- WhiteCheckConvert types with `strconv`
+- WhiteCheckRead standard library documentation
+
+---
+
+**Next Chapter**: [Deployment and Operations](./部署与运维.md)
+
+**Previous Chapter**: [Testing](./测试.md)
