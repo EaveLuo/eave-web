@@ -3,39 +3,39 @@ sidebar_label: Go Modules
 sidebar_position: 18
 ---
 
-# Go Modules - Dependency Management
+# Go Modules - 依赖管理
 
-Go Modules is the official dependency management solution, introduced in Go 1.11 and standard since Go 1.13.
+Go Modules 是 Go 官方的依赖管理解决方案，从 Go 1.11 引入，Go 1.13+ 成为标准。
 
-## 📦 Core Files
+## 📦 核心文件
 
 ```
 myproject/
-├── go.mod          # Module definition
-├── go.sum          # Dependency checksums
+├── go.mod          # 模块定义和依赖列表
+├── go.sum          # 依赖校验和
 └── main.go
 ```
 
-## 🔧 Common Commands
+## 🔧 常用命令
 
 ```bash
-# Initialize module
-go mod init github.com/user/project
+# 初始化模块
+go mod init github.com/myuser/myproject
 
-# Add/update dependency
+# 添加/更新依赖
 go get github.com/gin-gonic/gin
 
-# Clean unused dependencies
+# 清理未使用的依赖
 go mod tidy
 
-# Download dependencies
+# 下载依赖
 go mod download
 ```
 
-## 📝 go.mod Structure
+## 📝 go.mod 结构
 
 ```go.mod
-module github.com/user/project
+module github.com/myuser/myproject
 
 go 1.21
 
@@ -44,21 +44,20 @@ require (
 )
 ```
 
-## 📌 Semantic Versioning
+## 📌 语义化版本
 
-`vMAJOR.MINOR.PATCH`
+`v主版本。次版本。修订版`
 
-- **MAJOR**: Breaking changes
-- **MINOR**: New features (backward compatible)
-- **PATCH**: Bug fixes
-
-## 💡 Best Practices
-
-1. **Commit go.mod and go.sum**
-2. **Use exact versions** for reproducibility
-3. **Run `go mod tidy`** regularly
-4. **Use `replace` for local development**
+```
+v1.2.3
+│ │ │
+│ │ └─ 修订版（bug 修复）
+│ └─── 次版本（新功能）
+└───── 主版本（不兼容变更）
+```
 
 ---
 
-**Next**: [Testing](./测试.md)
+**Next Chapter**：[Testing](./Testing.md)
+
+**Previous Chapter**：[Go Modules](./Go Modules.md)
