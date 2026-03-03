@@ -308,5 +308,25 @@
   "theme.navbar.mobileLocaleSwitcher.title": {
     "message": "选择语言",
     "description": "移动端语言切换菜单标题"
+  },
+  "languagePrompt.switchToEn": {
+    "message": "切换到 English？",
+    "description": "询问用户是否切换到英语版本"
+  },
+  "languagePrompt.switchToZh": {
+    "message": "切换到中文？",
+    "description": "询问用户是否切换到中文版本"
+  },
+  "languagePrompt.stay": {
+    "message": "保持现状",
+    "description": "保持在当前语言版本的按钮"
+  },
+  "languagePrompt.switch": {
+    "message": "切换",
+    "description": "切换到建议语言的按钮"
+  },
+  "languagePrompt.close": {
+    "message": "关闭",
+    "description": "关闭语言提示"
   }
 }

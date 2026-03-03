@@ -308,5 +308,25 @@
   "theme.navbar.mobileLocaleSwitcher.title": {
     "message": "Select Language",
     "description": "Title for the mobile locale switcher dropdown"
+  },
+  "languagePrompt.switchToEn": {
+    "message": "Switch to English?",
+    "description": "Ask user if they want to switch to English version"
+  },
+  "languagePrompt.switchToZh": {
+    "message": "Switch to Chinese?",
+    "description": "Ask user if they want to switch to Chinese version"
+  },
+  "languagePrompt.stay": {
+    "message": "Stay",
+    "description": "Button to stay on current language version"
+  },
+  "languagePrompt.switch": {
+    "message": "Switch",
+    "description": "Button to switch to suggested language"
+  },
+  "languagePrompt.close": {
+    "message": "Close",
+    "description": "Close the language prompt"
   }
 }
