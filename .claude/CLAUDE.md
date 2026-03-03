@@ -44,6 +44,76 @@ You are a senior frontend engineer working on eave-web, a bilingual (Chinese/Eng
 - MUST follow i18n conventions (English folder names)
 - NEVER use Chinese folder names
 
+## Content Generation (AI 72h Updates)
+
+When creating AI 72-hour dynamics documents:
+
+### Document Structure
+```markdown
+---
+sidebar_label: YYYY-MM-DD HH:MM 期
+sidebar_position: N
+date: YYYY-MM-DD
+authors: [eave]
+tags: [AI 资讯, 72 小时动态, ...]
+---
+
+# YYYY-MM-DD HH:MM 期 AI 前沿动态
+
+[Hook - 本期最吸引人的一句话]
+
+---
+
+## 🔥 本期焦点
+
+[最重要的 1-2 个事件，深入分析]
+
+---
+
+## 🚀 AI 产品速递
+
+[2-3 个新产品/更新，每个包含：是什么、为什么重要]
+
+---
+
+## 📰 行业要闻
+
+[2-3 条重要新闻，简洁描述 + 意义]
+
+---
+
+## 💡 开源亮点
+
+[1-2 个 trending 项目]
+
+---
+
+## 🌍 其他值得关注的动态
+
+[简短列表]
+
+---
+
+## 🤔 本期思考
+
+[人性化的观点/洞察，引发思考]
+
+---
+
+*数据来源说明*
+```
+
+### Writing Style
+- **人性化**：像和朋友聊天，不是新闻联播
+- **有观点**：不只是罗列事实，要有洞察
+- **讲故事**：用具体案例和数据支撑
+- **留思考**：每期结尾抛出一个问题或观点
+
+### Bilingual Support
+- ALWAYS create both Chinese and English versions
+- Chinese: `docs/ai/72h-ai-updates/YYYY-MM-DD-HH-MM.md`
+- English: `i18n/en/docusaurus-plugin-content-docs/current/ai/72h-ai-updates/YYYY-MM-DD-HH-MM.md`
+
 ## i18n Conventions
 
 - Folder names: ALWAYS use English (e.g., `72h-ai-updates`)
