@@ -261,7 +261,11 @@ const Particles: React.FC<ParticlesProps> = ({
   };
 
   return (
-    <div className={className} ref={canvasContainerRef} aria-hidden="true">
+    <div
+      className={`${className} pointer-events-none`}
+      ref={canvasContainerRef}
+      aria-hidden="true"
+    >
       <canvas ref={canvasRef} className="h-full w-full" />
     </div>
   );
