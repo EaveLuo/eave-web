@@ -5,6 +5,7 @@ import { useAlternatePageUtils } from '@docusaurus/theme-common/internal';
 import { useHistorySelector, mergeSearchStrings } from '@docusaurus/theme-common';
 import Link from '@docusaurus/Link';
 import Translate, { translate } from '@docusaurus/Translate';
+import { markManualSwitch } from '@site/src/components/LanguageRedirect';
 import styles from './styles.module.css';
 
 interface MobileLocaleSwitcherProps {
@@ -230,7 +231,13 @@ function MobileLocaleSwitcher({ className }: MobileLocaleSwitcherProps) {
                     item.isActive ? styles.dropdownLinkActive : ''
                   }`}
                   role="menuitem"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    // 标记用户手动切换语言，禁用自动重定向
+                    if (!item.isActive) {
+                      markManualSwitch(item.locale as 'zh-CN' | 'en');
+                    }
+                  }}
                 >
                   <span className={styles.localeLabel}>{item.label}</span>
                   {item.isActive && (
