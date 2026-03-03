@@ -241,3 +241,53 @@ gh pr create --title "<title>" --body "<description>"
 - Monitor CI/CD pipeline
 
 **NEVER mix these roles!**
+
+---
+
+## Content Standards
+
+### AI 72h Updates Section (`docs/ai/72h-ai-updates/`)
+
+**Naming Convention**:
+```
+YYYY-MM-DD-HH-MM.md
+```
+Example: `2026-03-03-23-45.md`
+
+**Frontmatter Template**:
+```yaml
+---
+sidebar_label: YYYY-MM-DD HH:MM 期
+sidebar_position: {auto}
+date: YYYY-MM-DD
+authors: [eave]  # MUST be [eave], NOT [xiaolong]
+tags: [AI 资讯, 72 小时动态, ...]
+---
+```
+
+**Content Requirements**:
+- **Chinese version**: Minimum 5000 Chinese characters
+- **English version**: Complete translation (NOT simplified), match detail level
+- **Style**: Human-like, in-depth analysis with personal insights
+- **Format**: Free structure, clear typography (international article standard)
+- **NO source attribution footer** at the end of articles
+- **Elements**:
+  - Opening hook/atmosphere setting
+  - Deep dive into 2-3 major topics (background, reactions, impact)
+  - Quick highlights for other news
+  - Personal reflection/conclusion
+
+**Typography Guidelines**:
+- Use `##` for main sections with emoji icons (🔥, 🧠, 📱, etc.)
+- Use `###` for subsections
+- Include horizontal rules (`---`) between major sections
+- Bold key points and data
+- Quote memorable user comments
+- End with thoughtful conclusion
+
+**Git Workflow**:
+1. Create branch: `git checkout -b docs/ai-72h-{YYYYMMDD}`
+2. Write both Chinese and English versions
+3. Commit: `docs(ai): add 72h AI updates for YYYY-MM-DD`
+4. Push and create PR
+5. Delete branch after merge
