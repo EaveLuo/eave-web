@@ -156,33 +156,6 @@ npm run typecheck  # TypeScript check
 vercel ls          # View deployments
 ```
 
-## Current Mission: Go 教程重构
-
-**Task**: 重构 Go 语言教程，按照 gopl-zh 的 13 章结构
-
-**Source**: https://golang-china.github.io/gopl-zh/
-
-**Target Structure**:
-- Ch1 入门 (8 节)
-- Ch2 程序结构 (7 节)
-- Ch3 基础数据类型 (6 节)
-- Ch4 复合数据类型 (6 节)
-- Ch5 函数 (10 节)
-- Ch6 方法 (6 节)
-- Ch7 接口 (15 节)
-- Ch8 Goroutines 和 Channels (10 节)
-- Ch9 基于共享变量的并发 (8 节)
-- Ch10 包和工具 (7 节)
-- Ch11 测试 (6 节)
-- Ch12 反射 (9 节)
-- Ch13 底层编程 (5 节)
-
-**Quality Requirements**:
-- 每篇文章必须包含代码示例
-- 内容准确，参考 gopl-zh
-- 从 0-1 渐进式学习
-- 中文写作，清晰简洁
-
 ## 🚨 Critical Lessons Learned (2026-03-01)
 
 ### Git/PR Workflow Violations
