@@ -93,6 +93,10 @@ const config: Config = {
             return items.filter((item) => !item.url.includes('/page/'));
           },
         },
+        gtag: {
+          trackingID: 'G-LZ096M5BQW',
+          anonymizeIP: true,
+        },
         debug: true, // This will enable the plugin in production
       } satisfies Preset.Options,
     ],
