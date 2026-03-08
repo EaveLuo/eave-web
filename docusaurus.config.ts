@@ -61,13 +61,7 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
         },
-        blog: {
-          showReadingTime: true,
-          remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn')],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
-        },
+        blog: false, // 禁用默认博客插件，使用自定义插件
         // SVGR 插件配置（3.7 新特性）- 可自定义 SVG 导入行为
         svgr: {
           svgrConfig: {
@@ -325,6 +319,27 @@ const config: Config = {
     ],
     'docusaurus-plugin-image-zoom',
     '@docusaurus/theme-live-codeblock',
+    // 自定义博客插件 - 将博客数据注入全局数据
+    [
+      './src/plugin/plugin-content-blog',
+      {
+        path: 'blog',
+        editUrl: ({ locale, blogDirPath, blogPath, permalink }) =>
+          `https://github.com/EaveLuo/eave-web/edit/main/${blogDirPath}/${blogPath}`,
+        editLocalizedFiles: false,
+        blogSidebarCount: 12,
+        blogSidebarTitle: '历史博文',
+        postsPerPage: 10,
+        showReadingTime: true,
+        readingTime: ({ content, frontMatter, defaultReadingTime }) =>
+          defaultReadingTime({ content, options: { wordsPerMinute: 300 } }),
+        feedOptions: {
+          type: 'all',
+          title: 'Eave Luo',
+          copyright: `Copyright © ${new Date().getFullYear()} Eave Luo. Built with Docusaurus.`,
+        },
+      },
+    ],
   ],
 };
 
