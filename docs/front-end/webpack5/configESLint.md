@@ -1,15 +1,8 @@
 ---
-    sidebar_position: 9
-    slug: config-eslint
-    title: 配置代码检查工具 ESLint
-    tags: [Webpack, 打包工具, 前端工程化, ESLint]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - ESLint
+date: "2024-06-28T17:10:57+08:00"
+tags:
+  - 前端
 ---
-
 ESLint 是一个开源的 JavaScript 代码静态分析工具，用于发现和修复代码中的问题。它最初由 Nicholas C. Zakas 于 2013 年创建，旨在提供一个高度可配置的 linting 工具，可以根据项目的需求进行调整。
 
 ## 主要功能和作用

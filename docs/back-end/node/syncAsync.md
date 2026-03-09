@@ -1,16 +1,9 @@
 ---
-    sidebar_position: 5
-    slug: sync-async
-    title: 同步和异步
-    description: 同步和异步方法的区别及其原因，以及 Node.js 中如何选择使用同步或异步方法。
-    tags: [Node.js, JavaScript, 同步, 异步]
-    keywords:
-    - Node.js
-    - JavaScript
-    - 同步
-    - 异步
+date: "2024-07-09T10:22:55+08:00"
+tags:
+  - Node.js
+  - 后端
 ---
-
 在开启 Node.js 的核心模块前，我们先来聊一聊同步和异步这两个概念，在后续的文章中会大量涉及这两个概念，如果你对这两个概念还不是很了解，可以先阅读一下这篇文章，大佬请绕行。
 
 ## 什么是同步和异步？

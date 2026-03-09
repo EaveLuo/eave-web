@@ -3,14 +3,16 @@ sidebar_position: 9
 slug: modularity
 title: 模块化
 description: 了解 Node.js 中模块化的概念和使用场景。
-tags: [Node.js, 模块化, CommonJS, ES 模块]
+tags:
+  - Node.js
+  - 后端
 keywords:
   - Node.js
   - 模块化
   - CommonJS
   - ES 模块
+date: "2024-07-30T17:07:35+08:00"
 ---
-
 在 Node.js 中，模块化是一个非常重要的概念，它允许开发者将代码分割成多个文件和模块，使得代码更易于管理和复用。Node.js 目前最常用的两种模块系统：CommonJS 和 ES 模块（ESM）。了解这两种模块系统的区别和使用场景，可以帮助开发者更好地组织和管理代码。
 
 ## CommonJS 模块

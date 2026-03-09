@@ -1,16 +1,8 @@
 ---
-    sidebar_position: 12
-    slug: automation
-    title: 利用 devServer 自动化编译
-    tags: [Webpack, 打包工具, 前端工程化, automation, devServer]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - automation
-    - devServer
+date: "2024-06-28T17:10:57+08:00"
+tags:
+  - 前端
 ---
-
 每次写完代码都需要手动输入指令才能编译代码，太麻烦了，我们希望一切自动化
 
 ## 安装依赖

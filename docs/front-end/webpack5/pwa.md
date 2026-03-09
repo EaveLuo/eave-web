@@ -1,16 +1,8 @@
 ---
-    sidebar_position: 19
-    slug: pwa
-    title: PWA
-    tags: [Webpack, 打包工具, 前端工程化, 性能优化]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - 性能优化
-    - PWA
+date: "2024-07-01T16:36:31+08:00"
+tags:
+  - 前端
 ---
-
 开发 Web App 项目，项目一旦处于网络离线情况，就没法访问了。
 
 我们希望给项目提供离线体验，这就需要用到 PWA（Progressive Web App）技术。

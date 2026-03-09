@@ -1,15 +1,8 @@
 ---
-    sidebar_position: 14
-    slug: optimize-css
-    title: 优化 CSS 处理
-    tags: [Webpack, 打包工具, 前端工程化, CSS]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - CSS
+date: "2024-06-28T17:10:57+08:00"
+tags:
+  - 前端
 ---
-
 对于 CSS 的处理，还有很多可以优化的地方，下面从提取 CSS 成单独文件，CSS 兼容性处理，CSS 压缩 等方面进行介绍。
 
 ## 提取 CSS 成单独文件

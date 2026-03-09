@@ -1,8 +1,11 @@
 ---
 sidebar_label: Go Modules
 sidebar_position: 18
+date: "2026-03-01T04:48:21+08:00"
+tags:
+  - Go
+  - 后端
 ---
-
 # Go Modules - 依赖管理
 
 Go Modules 是 Go 官方的依赖管理解决方案，从 Go 1.11 引入，Go 1.13+ 成为标准。

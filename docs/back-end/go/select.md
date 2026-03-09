@@ -1,8 +1,11 @@
 ---
 sidebar_label: Select
 sidebar_position: 16
+date: "2026-02-27T08:39:30+08:00"
+tags:
+  - Go
+  - 后端
 ---
-
 # Select - 多路复用的艺术
 
 select 让 Goroutine 同时等待多个 Channel 操作，是并发编程的核心工具。

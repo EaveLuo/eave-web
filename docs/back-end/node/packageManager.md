@@ -3,15 +3,17 @@ sidebar_position: 10
 slug: package-manager
 title: 包管理器
 description: 介绍 Node.js 常用的包管理器 npm、Yarn 和 pnpm 的功能和优缺点。
-tags: [Node.js, 包管理器, npm, Yarn, pnpm]
+tags:
+  - Node.js
+  - 后端
 keywords:
   - Node.js
   - 包管理器
   - npm
   - Yarn
   - pnpm
+date: "2024-07-11T18:20:27+08:00"
 ---
-
 在 Node.js 中，常用的包管理器包括 npm、Yarn 和 pnpm。每个包管理器都有其独特的功能和优点，下面详细介绍它们的特点、使用方法、常用命令以及生产依赖与开发依赖的区别。
 
 ## npm（Node Package Manager）

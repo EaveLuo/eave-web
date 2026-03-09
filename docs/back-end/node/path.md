@@ -1,14 +1,9 @@
 ---
-    sidebar_position: 6
-    slug: path
-    title: path 模块
-    description: Node.js 的 path 模块提供了一系列用于处理文件和目录路径的方法，确保在不同操作系统上处理路径时的兼容性。
-    tags: [Node.js, path]
-    keywords:
-    - Node.js
-    - path
+date: "2024-07-09T12:13:20+08:00"
+tags:
+  - Node.js
+  - 后端
 ---
-
 `path` 模块是 Node.js 的核心模块之一，用于处理和转换文件路径。它提供了一些实用的方法来处理文件和目录路径，跨平台处理路径问题时特别有用。
 
 在探讨 `path` 模块之前，我们先介绍一下绝对路径和相对路径。

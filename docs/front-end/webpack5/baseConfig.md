@@ -1,15 +1,8 @@
 ---
-    sidebar_position: 3
-    slug: base-config
-    title: 基本配置
-    tags: [Webpack, 打包工具, 前端工程化]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - 基本配置
+date: "2024-06-28T17:10:57+08:00"
+tags:
+  - 前端
 ---
-
 在开始使用 `Webpack` 之前，我们需要对 `Webpack` 的配置有一定的认识。
 
 ## 5 大核心概念

@@ -1,8 +1,11 @@
 ---
 sidebar_label: Goroutine
 sidebar_position: 14
+date: "2026-02-27T08:39:30+08:00"
+tags:
+  - Go
+  - 后端
 ---
-
 # Goroutine - 并发编程的利器
 
 Goroutine 是 Go 的杀手锏。它让并发编程变得像写顺序代码一样简单。

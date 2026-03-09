@@ -2,12 +2,13 @@
 sidebar_position: 1
 slug: ssh-key-login-host
 title: 通过SSH密钥登录主机
-tags: [linux, ssh]
+tags:
+  - 运维
 keywords:
   - linux
   - ssh
+date: "2024-06-21T16:32:01+08:00"
 ---
-
 通过 SSH 密钥登录远程服务器（解决一些用账号密码登录时奇奇怪怪的问题，同时也提高了安全性）
 
 ### 前言

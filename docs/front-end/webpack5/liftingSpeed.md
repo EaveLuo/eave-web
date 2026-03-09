@@ -1,16 +1,8 @@
 ---
-    sidebar_position: 16
-    slug: lifting-speed
-    title: 提升打包构建速度
-    tags: [Webpack, 打包工具, 前端工程化, 性能优化]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - 提升打包构建速度
-    - 性能优化
+date: "2024-07-01T16:36:31+08:00"
+tags:
+  - 前端
 ---
-
 webpack5 除了前面的基础配置，还可以通过配置提升打包构建速度。
 
 ## HotModuleReplacement
