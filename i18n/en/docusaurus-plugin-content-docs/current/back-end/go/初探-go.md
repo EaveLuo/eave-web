@@ -1,6 +1,10 @@
 ---
 sidebar_label: Go Language Overview
 sidebar_position: 1
+date: 2026-02-27T00:39:30.000Z
+tags:
+  - Go
+  - Backend
 ---
 
 # Go Language Overview - Why Choose Go

@@ -1,15 +1,7 @@
 ---
-    sidebar_position: 21
-    slug: create-plugin
-    title: 创建 Plugin
-    tags: [Webpack, 打包工具, 前端工程化]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - Plugin
+date: 2024-07-01T18:39:37+08:00
+tags: [前端]
 ---
-
 通过插件我们可以扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。
 
 ## Plugin 工作原理

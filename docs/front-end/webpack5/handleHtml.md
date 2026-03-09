@@ -1,15 +1,7 @@
 ---
-    sidebar_position: 11
-    slug: handle-html
-    title: 处理 HTML 文件
-    tags: [Webpack, 打包工具, 前端工程化, HTML]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - HTML
+date: 2024-06-28T17:10:57+08:00
+tags: [前端]
 ---
-
 html-webpack-plugin 通过自动生成 HTML 文件的方式，极大简化了开发者手动管理 HTML 文件的工作。该插件会根据 Webpack 的输出，自动将打包后的资源（如 JS、CSS 文件）插入到生成的 HTML 文件中，并且可以根据模板文件生成最终的 HTML 文件。
 
 ## 主要功能和作用

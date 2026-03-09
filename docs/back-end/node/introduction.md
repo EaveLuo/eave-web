@@ -1,13 +1,7 @@
 ---
-    sidebar_position: 2
-    slug: introduction
-    title: 什么是 Node.js？
-    description: Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 JavaScript 代码在服务器端运行。本文将介绍 Node.js 的安装、版本管理、使用等相关知识。
-    tags: [Node.js]
-    keywords:
-    - Node.js
+date: 2024-07-14T23:31:57+08:00
+tags: [Node.js, 后端]
 ---
-
 :::tip 提示
 本模块后续内容将建立在拥有 javascript 基础知识的前提下，如果你对 javascript 不熟悉，建议先学习 javascript 基础知识。
 :::

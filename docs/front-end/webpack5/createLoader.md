@@ -1,15 +1,7 @@
 ---
-    sidebar_position: 20
-    slug: create-loader
-    title: 创建 Loader
-    tags: [Webpack, 打包工具, 前端工程化]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - loader
+date: 2024-07-01T18:39:37+08:00
+tags: [前端]
 ---
-
 loader 是 webpack 的核心，它帮助 webpack 将不同类型的文件转换为 webpack 可识别的模块。
 
 ## loader 执行顺序

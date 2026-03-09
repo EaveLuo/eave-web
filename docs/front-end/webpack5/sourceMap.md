@@ -1,15 +1,7 @@
 ---
-    sidebar_position: 15
-    slug: source-map
-    title: 配置 SourceMap
-    tags: [Webpack, 打包工具, 前端工程化, SourceMap]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - SourceMap
+date: 2024-07-01T16:36:31+08:00
+tags: [前端]
 ---
-
 SourceMap 是一种用来调试压缩或编译后代码的技术。它将压缩或编译后的代码映射回原始源代码，从而使开发者能够在浏览器的开发者工具中查看原始代码并进行调试。
 
 ## 为什么要配置

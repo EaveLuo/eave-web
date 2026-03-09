@@ -1,21 +1,14 @@
 ---
-    sidebar_position: 7
-    slug: fs
-    title: fs 模块
-    description: fs 模块是 Node.js 的核心模块之一，用于与文件系统进行交互。它提供了多种方法来处理文件和目录，包括读取、写入、删除、重命名、监视文件变化等。fs 模块支持同步和异步操作，以满足不同的使用需求。
-    tags: [Node.js, fs]
-    keywords:
-    - Node.js
-    - fs
+date: 2024-07-09T12:13:20+08:00
+tags: [Node.js, 后端]
 ---
-
 `fs` 模块是 Node.js 的核心模块之一，用于与文件系统进行交互。它提供了多种方法来处理文件和目录，包括读取、写入、删除、重命名、监视文件变化等。`fs` 模块支持同步和异步操作，以满足不同的使用需求。
 
 本文将介绍 `fs` 模块的常用方法，包括写入文件、读取文件、文件移动与重命名、删除文件、文件夹操作、监视文件变化等。
 
 ## 写入文件
 
-文件写入通俗来说就是将数据写入到文件中，`fs` 模块提供了[同步和异步](/docs/back-end/node/sync-async)写入的方法。
+文件写入通俗来说就是将数据写入到文件中，`fs` 模块提供了[同步和异步](/docs/back-end/node/syncAsync)写入的方法。
 
 ### writeFile 异步写入文件
 
@@ -207,7 +200,7 @@ writeStream.end();
 
 ## 读取文件
 
-文件读取通俗来说就是从文件中读取数据，`fs` 模块提供了[同步和异步](/docs/back-end/node/sync-async)读取的方法。
+文件读取通俗来说就是从文件中读取数据，`fs` 模块提供了[同步和异步](/docs/back-end/node/syncAsync)读取的方法。
 
 ### readFile 异步读取文件
 

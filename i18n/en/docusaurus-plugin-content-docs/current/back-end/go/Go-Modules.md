@@ -1,6 +1,10 @@
 ---
 sidebar_label: Go Modules
 sidebar_position: 18
+date: 2026-02-28T20:48:21.000Z
+tags:
+  - Go
+  - Backend
 ---
 
 # Go Modules - Dependency Management

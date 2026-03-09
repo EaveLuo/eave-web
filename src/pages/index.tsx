@@ -7,6 +7,7 @@ import { translate } from '@docusaurus/Translate';
 
 import Particles from '@site/src/components/magicui/particles';
 import Hero from '@site/src/components/Homepage/Hero';
+import LatestArticles from '@site/src/components/Homepage/LatestArticles';
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
@@ -38,6 +39,7 @@ export default function Home(): ReactNode {
             refresh
           />
         )}
+        <LatestArticles />
       </main>
     </Layout>
   );

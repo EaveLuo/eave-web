@@ -1,16 +1,7 @@
 ---
-    sidebar_position: 2
-    slug: base
-    title: 基本使用
-    description: 介绍 Webpack5 的基本使用
-    tags: [Webpack, 打包工具, 前端工程化]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - 基本使用
+date: 2024-06-28T17:10:57+08:00
+tags: [前端]
 ---
-
 Webpack 会以一个或多个文件作为打包入口，将项目中的所有文件编译组合成一个或多个输出文件，即 `bundle` ，这些文件可以在浏览器中运行。
 
 ## 资源目录

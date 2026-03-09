@@ -9,6 +9,9 @@ keywords:
   - computer network
   - router
   - home networking
+date: 2024-06-21T04:09:24.000Z
+tags:
+  - DevOps
 ---
 
 # Operation

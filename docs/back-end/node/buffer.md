@@ -1,13 +1,7 @@
 ---
-    sidebar_position: 4
-    slug: buffer
-    title: Buffer
-    description: aaa
-    tags: [Node.js]
-    keywords:
-    - Node.js
+date: 2024-07-09T10:12:02+08:00
+tags: [Node.js, 后端]
 ---
-
 在 Node.js 中，`Buffer` 是一个用于处理二进制数据的类。这在处理文件系统、网络通信、加密、图像处理等需要操作二进制数据的场景中非常有用。`Buffer` 类在 Node.js 的 `buffer` 模块中被实现，并且不需要额外安装或引用即可使用。
 
 ## Buffer 的概念

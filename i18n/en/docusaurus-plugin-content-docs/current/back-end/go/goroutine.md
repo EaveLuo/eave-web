@@ -1,6 +1,10 @@
 ---
 sidebar_label: Goroutines
 sidebar_position: 14
+date: 2026-02-27T00:39:30.000Z
+tags:
+  - Go
+  - Backend
 ---
 
 # Goroutines - Lightweight Concurrency

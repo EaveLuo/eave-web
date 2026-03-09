@@ -1,16 +1,7 @@
 ---
-    sidebar_position: 13
-    slug: different-environments
-    title: 分别搭建开发环境和生产环境
-    tags: [Webpack, 打包工具, 前端工程化, 开发环境, 生产环境]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - 开发环境
-    - 生产环境
+date: 2024-06-28T17:10:57+08:00
+tags: [前端]
 ---
-
 在实际开发中，我们往往会有开发环境和生产环境，两者的配置会有差异。本文将介绍 Webpack 如何分别搭建开发环境和生产环境。
 
 ## 开发模式介绍

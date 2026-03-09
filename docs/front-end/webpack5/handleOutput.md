@@ -1,14 +1,7 @@
 ---
-    sidebar_position: 6
-    slug: handle-output
-    title: 修改输出资源的名称和路径
-    tags: [Webpack, 打包工具, 前端工程化]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
+date: 2024-06-28T17:10:57+08:00
+tags: [前端]
 ---
-
 如果需要修改 Webpack 输出资源的名称和路径，可以通过配置 `output` 选项来实现。
 
 ## 配置

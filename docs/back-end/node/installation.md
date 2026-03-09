@@ -1,16 +1,7 @@
 ---
-    sidebar_position: 3
-    slug: installation
-    title: 安装与版本管理
-    description: 如何安装 Node.js，以及如何使用Node.js版本管理工具进行版本管理。
-    tags: [Node.js, nvm]
-    keywords:
-    - Node.js
-    - nvm
-    - 安装
-    - 版本管理
+date: 2024-07-08T16:45:11+08:00
+tags: [Node.js, 后端]
 ---
-
 下面我们将介绍如何从多途径安装和管理 Node.js：
 
 ## 官方安装包方式安装

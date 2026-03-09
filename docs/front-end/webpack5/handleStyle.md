@@ -1,19 +1,7 @@
 ---
-    sidebar_position: 4
-    slug: handle-style
-    title: 处理样式资源
-    tags: [Webpack, 打包工具, 前端工程化, 处理样式资源, CSS, Less, Sass, Stylus]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - 处理样式资源
-    - CSS Loader
-    - Less Loader
-    - Sass Loader
-    - Stylus Loader
+date: 2024-06-28T17:10:57+08:00
+tags: [前端]
 ---
-
 Webpack 本身不能识别样式资源，需要借助 Loader 来解析样式资源。应优先从 [Webpack 官方 Loader 文档](https://www.webpackjs.com/loaders/) 找到对应的 Loader，如无法找到，可从社区或 GitHub 搜索查询。
 
 ## 处理 CSS 资源

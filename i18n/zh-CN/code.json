@@ -14,6 +14,58 @@
   "homepage.hero.button.text": {
     "message": "了解更多"
   },
+  "homepage.latestArticles.blogTitle": {
+    "message": "最新博客",
+    "description": "最新博客区块标题"
+  },
+  "homepage.latestArticles.blogSubtitle": {
+    "message": "探索最新的技术分享与思考",
+    "description": "最新博客区块副标题"
+  },
+  "homepage.latestArticles.docsTitle": {
+    "message": "最新文档",
+    "description": "最新文档区块标题"
+  },
+  "homepage.latestArticles.docsSubtitle": {
+    "message": "浏览最新的技术文档与教程",
+    "description": "最新文档区块副标题"
+  },
+  "homepage.latestArticles.readMore": {
+    "message": "阅读更多",
+    "description": "阅读更多链接文字"
+  },
+  "homepage.latestArticles.viewAllBlog": {
+    "message": "查看全部博客",
+    "description": "查看全部博客链接"
+  },
+  "homepage.latestArticles.viewAllDocs": {
+    "message": "查看全部文档",
+    "description": "查看全部文档链接"
+  },
+  "homepage.latestArticles.noDescription": {
+    "message": "暂无描述",
+    "description": "无描述时的 fallback 文本"
+  },
+  "homepage.latestArticles.docDescription": {
+    "message": "技术文档",
+    "description": "文档默认描述"
+  },
+  "homepage.latestArticles.badgeBlog": {
+    "message": "Blog",
+    "description": "博客文章 badge 标签"
+  },
+  "homepage.latestArticles.badgeDoc": {
+    "message": "Doc",
+    "description": "文档 badge 标签"
+  },
+  "homepage.latestArticles.noBlogPosts": {
+    "message": "暂无博客文章",
+    "description": "无博客文章时的提示"
+  },
+  "homepage.latestArticles.noDocs": {
+    "message": "暂无文档",
+    "description": "无文档时的提示"
+  },
   "theme.ErrorPageContent.title": {
     "message": "页面已崩溃。",
     "description": "The title of the fallback page when the page crashed"

@@ -1,8 +1,9 @@
 ---
 sidebar_label: 手搓 RPC 框架
 sidebar_position: 21
+date: 2026-02-27T08:39:30+08:00
+tags: [Go, 后端]
 ---
-
 # 手搓 RPC 框架 - 从零实现 RPC 服务
 
 RPC（Remote Procedure Call）是分布式系统的基石。让我们从零开始，实现一个完整的 RPC 框架。

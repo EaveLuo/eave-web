@@ -1,16 +1,7 @@
 ---
-    sidebar_position: 10
-    slug: config-babel
-    title: 配置代码兼容性处理工具 Babel
-    tags: [Webpack, 打包工具, 前端工程化, 兼容性, Babel]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
-    - 兼容性
-    - Babel
+date: 2024-06-28T17:10:57+08:00
+tags: [前端]
 ---
-
 Babel 是一个广泛使用的 JavaScript 编译器，主要用于将现代 JavaScript 代码（包括 ES6+）转换为向后兼容的版本，使其可以在所有浏览器或环境中运行。
 
 ## 主要功能和作用

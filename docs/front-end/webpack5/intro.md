@@ -1,14 +1,7 @@
 ---
-    sidebar_position: 1
-    slug: preface
-    title: 前言
-    tags: [Webpack, 打包工具, 前端工程化]
-    keywords:
-    - Webpack
-    - 打包工具
-    - 前端工程化
+date: 2024-06-27T18:32:08+08:00
+tags: [前端]
 ---
-
 本模块将带领大家了解 Webpack5 的基本概念和使用方法，以及一些常见的配置项和插件，请将 Node.js 版本至少升级到 10.13.0 及以上（使用最新 LTS 版本最佳）。
 
 ## Webpack 是什么？
