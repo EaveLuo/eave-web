@@ -2,9 +2,7 @@
 sidebar_position: 2
 slug: web-api
 title: 应用编程接口（API）
-description: >-
-  Web API 是一种通过网络提供的应用程序编程接口，允许不同的软件系统通过互联网进行通信和数据交换。Web API 通常使用 HTTP 或 HTTPS
-  协议，可以被各种客户端（如 Web...
+description: Web API 设计原则与最佳实践，包括 RESTful 规范、版本控制、认证授权、限流熔断、文档生成等，帮助设计高质量的 API 接口。
 tags:
   - 后端
 keywords:

@@ -2,7 +2,9 @@
 sidebar_position: 9
 slug: modularity
 title: 模块化
-description: js 中，模块化是一个非常重要的概念，它允许开发者将代码分割成多个文件和模块，使得代码更易于管理和复用
+description: >-
+  Node.js 模块化机制，包括 CommonJS 和 ES Modules 两种模块系统、require/import
+  区别、循环依赖处理、模块缓存等核心知识。
 tags:
   - Node.js
   - 后端

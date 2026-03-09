@@ -5,7 +5,9 @@ date: 2026-02-28T20:48:21.000Z
 tags:
   - Go
   - 后端
-description: "Go Modules - 依赖管理 Go Modules 是 Go 官方的依赖管理解决方案，从 Go 1。mod 结构 \U0001F4CC 语义化版本 --- 下一章：测试 上一章：Go Modules"
+description: >-
+  Go 官方依赖管理解决方案，从 Go 1.11 引入。通过 go.mod 和 go.sum 管理依赖版本，支持语义化版本控制。包含常用命令如
+  init、get、tidy、download 等。
 ---
 # Go Modules - 依赖管理
 

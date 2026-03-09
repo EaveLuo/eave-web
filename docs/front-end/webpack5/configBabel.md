@@ -3,8 +3,8 @@ date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: >-
-  Babel 是一个广泛使用的 JavaScript 编译器，主要用于将现代 JavaScript 代码（包括
-  ES6+）转换为向后兼容的版本，使其可以在所有浏览器或环境中运行
+  Webpack 5 集成 Babel，讲解如何使用 babel-loader 转译 ES6+ 代码，配置 preset-env、polyfill
+  按需引入，实现浏览器兼容性处理。
 ---
 Babel 是一个广泛使用的 JavaScript 编译器，主要用于将现代 JavaScript 代码（包括 ES6+）转换为向后兼容的版本，使其可以在所有浏览器或环境中运行。
 

@@ -2,7 +2,9 @@
 sidebar_position: 11
 slug: express
 title: Express 框架
-description: Express 是一个简洁而灵活的 Node。简洁易用：Express 提供了一个简单的接口，用于定义路由、处理中间件和响应请求
+description: >-
+  Express.js 框架入门到进阶，包括路由定义、中间件机制、请求处理、错误处理、模板引擎等。通过实例讲解如何使用 Express 快速构建
+  RESTful API。
 tags:
   - Node.js
   - 后端

@@ -3,8 +3,8 @@ date: 2024-07-01T10:39:37.000Z
 tags:
   - 前端
 description: >-
-  通过插件我们可以扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。Plugin 工作原理
-  webpack 就像一条生产线，要经过一系列处理流程后才能将源文件转换成输出结果
+  Webpack 5 自定义 Plugin 开发，讲解 Plugin 架构、生命周期钩子、Compiler 和 Compilation
+  对象、文件操作等高级扩展技术。
 ---
 通过插件我们可以扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。
 

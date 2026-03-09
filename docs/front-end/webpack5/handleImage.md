@@ -3,8 +3,8 @@ date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: >-
-  过去在 Webpack4 时，我们处理图片资源通过 file-loader 和 url-loader 进行处理。现在 Webpack5 已将这两个
-  Loader 的功能内置到 Webpack 里，只需简单配置即可处理图片资源
+  Webpack 5 处理图片资源，包括 url-loader、file-loader、asset module 配置，图片压缩、转
+  base64、雪碧图生成等优化方案。
 ---
 过去在 Webpack4 时，我们处理图片资源通过 file-loader 和 url-loader 进行处理。
 

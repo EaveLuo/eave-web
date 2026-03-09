@@ -5,9 +5,7 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - 后端
-description: >-
-  手搓 RPC 框架 - 从零实现 RPC 服务 RPC（Remote Procedure Call）是分布式系统的基石。让我们从零开始，实现一个完整的
-  RPC 框架
+description: 从零实现简易 RPC 框架，深入理解 RPC 原理。涵盖服务注册发现、序列化、网络传输、负载均衡等核心组件，帮助理解 gRPC 等框架底层机制。
 ---
 # 手搓 RPC 框架 - 从零实现 RPC 服务
 

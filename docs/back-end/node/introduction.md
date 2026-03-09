@@ -3,9 +3,7 @@ date: 2024-07-14T15:31:57.000Z
 tags:
   - Node.js
   - 后端
-description: >-
-  :::tip 提示 本模块后续内容将建立在拥有 javascript 基础知识的前提下，如果你对 javascript 不熟悉，建议先学习
-  javascript 基础知识
+description: Node.js 入门介绍，讲解事件驱动、非阻塞 I/O 模型、单线程事件循环等核心概念，以及适用场景和生态系统概览。
 ---
 :::tip 提示
 本模块后续内容将建立在拥有 javascript 基础知识的前提下，如果你对 javascript 不熟悉，建议先学习 javascript 基础知识。

@@ -5,7 +5,7 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - 后端
-description: "Goroutine - 并发编程的利器 Goroutine 是 Go 的杀手锏。Goroutine 是 Go 的轻量级线程： \U0001F3AF 创建 Goroutine 1"
+description: Go 的轻量级线程实现，非抢占式多任务调度，毫秒级启动，支持创建成千上万个 Goroutine。包含创建方式、与线程对比、并发执行特性等。
 ---
 # Goroutine - 并发编程的利器
 

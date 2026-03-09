@@ -5,7 +5,10 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - 后端
-description: "Channel - 通信共享内存 Channel 是 Goroutine 之间的通信管道。\U0001F4E6 创建 Channel \U0001F504 基本操作 1"
+description: >-
+  Go 语言中 Goroutine 之间的通信管道，通过 Channel
+  实现"不要通过共享内存来通信，而要通过通信来共享内存"的哲学。支持无缓冲、有缓冲、只读、只写等多种 Channel
+  类型，以及发送、接收、关闭、遍历等基本操作。
 ---
 # Channel - 通信共享内存
 

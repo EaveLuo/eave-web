@@ -2,9 +2,7 @@
 sidebar_position: 8
 slug: http
 title: http 模块
-description: >-
-  在介绍 模块之前，我们先来了解一下 HTTP 协议，更有助于我们使用 Node。HTTP 协议 HTTP（HyperText Transfer
-  Protocol，超文本传输协议）是用于在 Web 浏览器和 Web...
+description: Node.js HTTP 模块详解，从基础服务器创建到请求/响应处理、路由实现、静态文件服务等。帮助理解 Express 等框架的底层原理。
 tags:
   - Node.js
   - 后端

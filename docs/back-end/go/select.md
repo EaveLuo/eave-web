@@ -5,7 +5,9 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - 后端
-description: Select - 多路复用的艺术 select 让 Goroutine 同时等待多个 Channel 操作，是并发编程的核心工具
+description: >-
+  Go 语言中实现多路复用的核心机制，让 Goroutine 同时等待多个 Channel 操作。支持 default
+  case、超时控制、随机选择等高级用法。
 ---
 # Select - 多路复用的艺术
 

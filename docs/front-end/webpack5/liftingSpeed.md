@@ -2,9 +2,7 @@
 date: 2024-07-01T08:36:31.000Z
 tags:
   - 前端
-description: >-
-  webpack5 除了前面的基础配置，还可以通过配置提升打包构建速度。HotModuleReplacement Hot Module Replacement
-  (HMR) 是 Webpack 提供的一项功能，允许在应用程序运行过程中替换、添加或删除模块，而无需重新加载整个页面
+description: Webpack 5 构建速度优化，包括持久化缓存、多线程打包（thread-loader）、缩小搜索范围、DLL 预编译等提速策略。
 ---
 webpack5 除了前面的基础配置，还可以通过配置提升打包构建速度。
 

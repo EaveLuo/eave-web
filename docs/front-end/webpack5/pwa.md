@@ -3,8 +3,8 @@ date: 2024-07-01T08:36:31.000Z
 tags:
   - 前端
 description: >-
-  开发 Web App 项目，项目一旦处于网络离线情况，就没法访问了。我们希望给项目提供离线体验，这就需要用到 PWA（Progressive Web
-  App）技术
+  Webpack 5 构建 PWA，集成 workbox-webpack-plugin 实现 Service Worker、离线缓存、
+  manifest.json 生成等渐进式 Web 应用配置。
 ---
 开发 Web App 项目，项目一旦处于网络离线情况，就没法访问了。
 

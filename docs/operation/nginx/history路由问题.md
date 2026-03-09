@@ -9,9 +9,7 @@ keywords:
   - history路由
   - hash路由
 date: 2024-06-26T08:32:33.000Z
-description: >-
-  路由模式下的 nginx 匹配不到项目的路由问题。前言 现代前端工程化项目一般使用 路由模式或者 路由模式， 路由模式是基于 的 来实现的, 而 hash
-  路由模式是基于 的 hash 值来实现的
+description: Nginx  history 路由配置，解决单页应用（SPA）使用 history 模式时的 404 问题，配置 try_files 指令支持前端路由。
 ---
 `history` 路由模式下的 nginx 匹配不到项目的路由问题。
 

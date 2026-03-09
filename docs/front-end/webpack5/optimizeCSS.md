@@ -3,8 +3,8 @@ date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: >-
-  对于 CSS 的处理，还有很多可以优化的地方，下面从提取 CSS 成单独文件，CSS 兼容性处理，CSS 压缩 等方面进行介绍。提取 CSS 成单独文件
-  CSS 文件目前被打包到 js 文件中，当 js 文件加载时，会创建一个 style 标签来生成样式
+  Webpack 5 CSS 优化，包括 CSS 提取、压缩（css-minimizer-webpack-plugin）、Tree
+  Shaking、Critical CSS 等样式优化技术。
 ---
 对于 CSS 的处理，还有很多可以优化的地方，下面从提取 CSS 成单独文件，CSS 兼容性处理，CSS 压缩 等方面进行介绍。
 

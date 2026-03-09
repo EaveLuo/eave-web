@@ -2,9 +2,7 @@
 date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
-description: >-
-  ESLint 是一个开源的 JavaScript 代码静态分析工具，用于发现和修复代码中的问题。Zakas 于 2013 年创建，旨在提供一个高度可配置的
-  linting 工具，可以根据项目的需求进行调整
+description: Webpack 5 集成 ESLint，包括 eslint-loader 配置、规则定制、自动修复、与 Prettier 配合等代码质量保障方案。
 ---
 ESLint 是一个开源的 JavaScript 代码静态分析工具，用于发现和修复代码中的问题。它最初由 Nicholas C. Zakas 于 2013 年创建，旨在提供一个高度可配置的 linting 工具，可以根据项目的需求进行调整。
 

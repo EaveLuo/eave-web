@@ -3,8 +3,8 @@ date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: >-
-  Webpack 本身不能识别样式资源，需要借助 Loader 来解析样式资源。应优先从 Webpack 官方 Loader 文档 找到对应的
-  Loader，如无法找到，可从社区或 GitHub 搜索查询
+  Webpack 5 处理样式资源，包括
+  css-loader、style-loader、mini-css-extract-plugin、Sass/Less/Stylus 预处理器配置等。
 ---
 Webpack 本身不能识别样式资源，需要借助 Loader 来解析样式资源。应优先从 [Webpack 官方 Loader 文档](https://www.webpackjs.com/loaders/) 找到对应的 Loader，如无法找到，可从社区或 GitHub 搜索查询。
 
