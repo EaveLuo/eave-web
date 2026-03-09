@@ -133,10 +133,25 @@ function useLatestDocs(limit: number): ArticleItem[] {
   
   return latestVersion.docs
     .filter((doc) => doc.id !== 'intro')
-    .slice(0, limit)
     .map((doc) => {
       // 查找对应的增强数据
       const enhanced = enhancedMap.get(doc.id);
+      return {
+        ...doc,
+        enhanced,
+        // 计算排序用的日期（优先使用 front matter 的 date）
+        sortDate: enhanced?.date 
+          ? new Date(enhanced.date).getTime()
+          : doc.lastUpdatedAt 
+            ? doc.lastUpdatedAt * 1000
+            : 0,
+      };
+    })
+    // 按日期从新到旧排序
+    .sort((a, b) => b.sortDate - a.sortDate)
+    .slice(0, limit)
+    .map((doc) => {
+      const enhanced = doc.enhanced;
       
       return {
         id: doc.id,
