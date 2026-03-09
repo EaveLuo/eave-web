@@ -10,7 +10,7 @@ tags:
 
 ## 写入文件
 
-文件写入通俗来说就是将数据写入到文件中，`fs` 模块提供了[同步和异步](/docs/back-end/node/sync-async)写入的方法。
+文件写入通俗来说就是将数据写入到文件中，`fs` 模块提供了[同步和异步](/docs/back-end/node/syncAsync)写入的方法。
 
 ### writeFile 异步写入文件
 
@@ -202,7 +202,7 @@ writeStream.end();
 
 ## 读取文件
 
-文件读取通俗来说就是从文件中读取数据，`fs` 模块提供了[同步和异步](/docs/back-end/node/sync-async)读取的方法。
+文件读取通俗来说就是从文件中读取数据，`fs` 模块提供了[同步和异步](/docs/back-end/node/syncAsync)读取的方法。
 
 ### readFile 异步读取文件
 
