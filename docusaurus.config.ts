@@ -351,7 +351,7 @@ const config: Config = {
     [
       './src/plugin/plugin-content-docs',
       {
-        id: 'default',
+        id: 'enhanced',
         path: 'docs',
       },
     ],

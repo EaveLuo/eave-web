@@ -3,6 +3,29 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
+// 递归获取所有 .md 和 .mdx 文件
+function getAllDocFiles(dir, baseDir = dir) {
+  const files = [];
+  
+  function traverse(currentDir) {
+    const entries = fs.readdirSync(currentDir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(currentDir, entry.name);
+      if (entry.isDirectory()) {
+        traverse(fullPath);
+      } else if (entry.isFile() && (entry.name.endsWith('.md') || entry.name.endsWith('.mdx'))) {
+        // 计算相对于 baseDir 的 ID
+        const relativePath = path.relative(baseDir, fullPath);
+        const id = relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/');
+        files.push({ id, filePath: fullPath });
+      }
+    }
+  }
+  
+  traverse(dir);
+  return files;
+}
+
 // 读取文件的 front matter
 function readDocFrontMatter(filePath) {
   try {
@@ -23,82 +46,50 @@ function docsPluginEnhanced(context, options) {
   const { siteDir } = context;
   const docsPath = options.path || 'docs';
   const absoluteDocsPath = path.resolve(siteDir, docsPath);
-  
-  // 存储 front matter 数据
-  const frontMatterCache = new Map();
 
   return {
     name: 'custom-docusaurus-plugin-content-docs',
-    
-    // 在加载内容时读取 front matter
+
     async loadContent() {
-      // 这里不需要做什么，因为原始的 docs 插件会处理内容加载
-      return {};
+      // 读取所有文档文件
+      const docFiles = getAllDocFiles(absoluteDocsPath);
+      
+      // 构建文档数据映射
+      const docsMap = new Map();
+      for (const { id, filePath } of docFiles) {
+        const frontMatter = readDocFrontMatter(filePath);
+        docsMap.set(id, {
+          id,
+          tags: frontMatter.tags,
+          date: frontMatter.date,
+        });
+      }
+      
+      console.log('[DocsPlugin] Loaded front matter for', docsMap.size, 'docs');
+      
+      return { docsMap };
     },
 
-    // 在所有内容加载完成后，注入 front matter 到全局数据
-    async allContentLoaded({ allContent, actions }) {
+    async contentLoaded({ content, actions }) {
       const { setGlobalData } = actions;
+      const { docsMap } = content;
       
-      // 获取原始 docs 插件的全局数据
-      const docsPluginId = options.id || 'default';
-      const docsData = allContent['docusaurus-plugin-content-docs']?.[docsPluginId];
+      // 这里我们无法直接访问原始插件的 docs 数据
+      // 所以我们创建一个独立的增强版本数据
+      // 组件需要从两个插件获取数据并合并
       
-      if (!docsData?.loadedVersions) {
-        console.log('[DocsPlugin] No docs data found');
-        return;
-      }
-
-      // 构建包含 front matter 的版本数据
-      const enhancedVersions = docsData.loadedVersions.map((version) => {
-        const enhancedDocs = version.docs.map((doc) => {
-          // 构建文件路径
-          // doc.id 格式如: "back-end/go/变量与常量"
-          // 需要找到对应的文件
-          const possiblePaths = [
-            path.join(absoluteDocsPath, `${doc.id}.md`),
-            path.join(absoluteDocsPath, `${doc.id}.mdx`),
-            path.join(absoluteDocsPath, doc.id, 'index.md'),
-            path.join(absoluteDocsPath, doc.id, 'index.mdx'),
-          ];
-          
-          let frontMatter = { tags: [], date: null };
-          for (const filePath of possiblePaths) {
-            if (fs.existsSync(filePath)) {
-              frontMatter = readDocFrontMatter(filePath);
-              break;
-            }
-          }
-          
-          return {
-            id: doc.id,
-            label: doc.label || doc.id,
-            path: doc.path,
-            sidebar: doc.sidebar,
-            tags: frontMatter.tags,
-            date: frontMatter.date,
-            lastUpdatedAt: doc.lastUpdatedAt,
-          };
-        });
-
-        return {
-          name: version.versionName,
-          label: version.versionLabel,
-          isLast: version.isLast,
-          path: version.path,
-          mainDocId: version.mainDoc?.id || '',
-          docs: enhancedDocs,
-        };
-      });
-
-      // 设置全局数据
+      // 转换为数组格式
+      const enhancedDocs = Array.from(docsMap.values()).map((doc) => ({
+        id: doc.id,
+        tags: doc.tags,
+        date: doc.date,
+      }));
+      
       setGlobalData({
-        versions: enhancedVersions,
+        enhancedDocs,
       });
       
-      console.log('[DocsPlugin] Injected front matter data for', 
-        enhancedVersions.reduce((sum, v) => sum + v.docs.length, 0), 
-        'docs');
+      console.log('[DocsPlugin] Set global data with', enhancedDocs.length, 'enhanced docs');
     },
   };
 }

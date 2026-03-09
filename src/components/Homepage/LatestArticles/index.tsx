@@ -6,28 +6,32 @@ import Translate, { translate } from '@docusaurus/Translate';
 import { Calendar, FileText, ArrowRight } from 'lucide-react';
 import styles from './styles.module.css';
 
-// 定义文档相关的类型（使用自定义插件注入的增强数据）
+// 定义文档相关的类型（原始插件数据）
 interface GlobalDoc {
   id: string;
   label: string;
   path: string;
   sidebar?: string;
-  tags?: string[];
-  date?: string;
   lastUpdatedAt?: number;
 }
 
 interface GlobalVersion {
-  name: string;
-  label: string;
-  isLast: boolean;
-  path: string;
-  mainDocId: string;
   docs: GlobalDoc[];
 }
 
 interface GlobalPluginData {
   versions: GlobalVersion[];
+}
+
+// 定义增强文档数据（自定义插件注入）
+interface EnhancedDoc {
+  id: string;
+  tags: string[];
+  date: string | null;
+}
+
+interface EnhancedPluginData {
+  enhancedDocs: EnhancedDoc[];
 }
 
 interface ArticleItem {
@@ -93,32 +97,49 @@ function useLatestBlogPosts(limit: number): ArticleItem[] {
 
 // 获取文档文章
 function useLatestDocs(limit: number): ArticleItem[] {
-  const docsData = usePluginData('docusaurus-plugin-content-docs', 'default') as GlobalPluginData | undefined;
+  // 获取原始插件的文档数据（包含 path, label 等）
+  const defaultDocsData = usePluginData('docusaurus-plugin-content-docs', 'default') as GlobalPluginData | undefined;
+  // 获取增强插件的 front matter 数据（包含 tags, date）
+  const enhancedData = usePluginData('custom-docusaurus-plugin-content-docs', 'enhanced') as EnhancedPluginData | undefined;
   
-  console.log('[LatestArticles] Docs data:', docsData ? 'found' : 'not found', 'versions:', docsData?.versions?.length || 0);
+  console.log('[LatestArticles] Docs data:', defaultDocsData ? 'found' : 'not found', 'versions:', defaultDocsData?.versions?.length || 0);
+  console.log('[LatestArticles] Enhanced data:', enhancedData ? 'found' : 'not found', 'docs:', enhancedData?.enhancedDocs?.length || 0);
   
-  if (!docsData?.versions) return [];
+  if (!defaultDocsData?.versions) return [];
   
-  const latestVersion = docsData.versions[0];
+  const latestVersion = defaultDocsData.versions[0];
   if (!latestVersion?.docs) return [];
+  
+  // 构建增强数据映射
+  const enhancedMap = new Map<string, EnhancedDoc>();
+  if (enhancedData?.enhancedDocs) {
+    for (const doc of enhancedData.enhancedDocs) {
+      enhancedMap.set(doc.id, doc);
+    }
+  }
   
   return latestVersion.docs
     .filter((doc) => doc.id !== 'intro')
     .slice(0, limit)
-    .map((doc) => ({
-      id: doc.id,
-      title: doc.label || doc.id,
-      description: translate({ id: 'homepage.latestArticles.docDescription', message: '技术文档' }),
-      // 使用自定义插件注入的 front matter 数据
-      date: doc.date 
-        ? new Date(doc.date).toISOString()
-        : doc.lastUpdatedAt 
-          ? new Date(doc.lastUpdatedAt * 1000).toISOString()
-          : '',
-      path: doc.path,
-      type: 'doc' as const,
-      tags: doc.tags || [],
-    }));
+    .map((doc) => {
+      // 查找对应的增强数据
+      const enhanced = enhancedMap.get(doc.id);
+      
+      return {
+        id: doc.id,
+        title: doc.label || doc.id,
+        description: translate({ id: 'homepage.latestArticles.docDescription', message: '技术文档' }),
+        // 使用增强插件的 front matter 数据
+        date: enhanced?.date 
+          ? new Date(enhanced.date).toISOString()
+          : doc.lastUpdatedAt 
+            ? new Date(doc.lastUpdatedAt * 1000).toISOString()
+            : '',
+        path: doc.path,
+        type: 'doc' as const,
+        tags: enhanced?.tags || [],
+      };
+    });
 }
 
 function ArticleCard({ article, index }: { article: ArticleItem; index: number }) {
