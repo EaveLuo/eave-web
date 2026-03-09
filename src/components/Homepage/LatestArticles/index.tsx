@@ -28,6 +28,7 @@ interface GlobalPluginData {
 interface EnhancedDoc {
   id: string;
   title: string | null;
+  description: string | null;
   tags: string[];
   date: string | null;
   content?: string;
@@ -52,57 +53,44 @@ function displayTag(tag: string): string {
   return tag;
 }
 
-// 提取纯文本描述（移除 markdown 符号）
-function extractDescription(content: string | undefined, maxLength: number = 120): string {
-  if (!content) {
+// 提取纯文本描述（优先使用 frontMatter description，否则从内容提取）
+function extractDescription(frontMatterDesc: string | undefined, content: string | undefined, maxLength: number = 120): string {
+  // 优先使用 frontMatter 的 description
+  if (frontMatterDesc?.trim()) {
+    return frontMatterDesc.length > maxLength 
+      ? frontMatterDesc.substring(0, maxLength).replace(/\s+\S*$/, '') + '...'
+      : frontMatterDesc;
+  }
+  
+  if (!content?.trim()) {
     return translate({ id: 'homepage.latestArticles.noDescription', message: '暂无描述' });
   }
   
-  // 移除 markdown 符号
-  let text = content
-    // 移除代码块
-    .replace(/```[\s\S]*?```/g, '')
-    // 移除行内代码
-    .replace(/`[^`]*`/g, '')
-    // 移除链接 [text](url) -> text
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    // 移除图片 ![alt](url)
-    .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
-    // 移除 HTML 标签
-    .replace(/<[^>]+>/g, '')
-    // 移除标题符号 # ## ###
-    .replace(/^#{1,6}\s+/gm, '')
-    // 移除粗体/斜体
-    .replace(/(\*\*?|__?)([^*_]+)\1/g, '$2')
-    // 移除列表符号
-    .replace(/^\s*[-*+]\s+/gm, '')
-    .replace(/^\s*\d+\.\s+/gm, '')
-    // 移除引用符号
-    .replace(/^>\s?/gm, '')
-    // 移除水平线
-    .replace(/^---+$/gm, '')
-    // 合并多个空行
-    .replace(/\n{3,}/g, '\n\n')
-    // 移除行首空格
-    .replace(/^\s+/gm, '');
+  // 使用正则表达式移除 markdown 符号
+  const text = content
+    .replace(/```[\s\S]*?```/g, ' ')           // 代码块
+    .replace(/`[^`]*`/g, ' ')                  // 行内代码
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')     // 图片
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')   // 链接 [text](url) -> text
+    .replace(/<[^>]+>/g, ' ')                  // HTML 标签
+    .replace(/^#{1,6}\s+/gm, '')              // 标题符号
+    .replace(/(\*\*?|__?)([^*_]+)\1/g, '$2')  // 粗体/斜体
+    .replace(/^\s*[-*+\d.]\s+/gm, ' ')        // 列表符号
+    .replace(/^>\s?/gm, '')                   // 引用符号
+    .replace(/^---+$/gm, ' ')                 // 水平线
+    .replace(/\s+/g, ' ')                     // 合并空白
+    .trim();
   
-  // 提取前 maxLength 个字符
-  text = text.trim();
-  if (text.length <= maxLength) {
-    return text;
-  }
+  // 智能截断：在 maxLength 附近找最后一个空格
+  if (text.length <= maxLength) return text;
   
-  // 在 maxLength 处截断，但尽量在单词边界截断
   const truncated = text.substring(0, maxLength);
-  const lastSpaceIndex = truncated.lastIndexOf(' ');
-  const lastNewLineIndex = truncated.lastIndexOf('\n');
-  const breakIndex = Math.max(lastSpaceIndex, lastNewLineIndex);
+  const lastSpace = truncated.lastIndexOf(' ');
   
-  if (breakIndex > maxLength * 0.8) {
-    return truncated.substring(0, breakIndex) + '...';
-  }
-  
-  return truncated + '...';
+  // 如果最后一个空格在合理位置（不小于70%），就在那里截断
+  return lastSpace > maxLength * 0.7 
+    ? truncated.substring(0, lastSpace) + '...'
+    : truncated + '...';
 }
 
 // 格式化日期 - 使用 Docusaurus 当前语言
@@ -148,8 +136,11 @@ function useLatestBlogPosts(limit: number): ArticleItem[] {
     .map((post) => {
       const frontMatter = post.metadata.frontMatter;
       // 优先使用 frontMatter 的 description，否则从内容提取
-      const description = (frontMatter?.description as string) || 
-                         extractDescription(post.content, 120);
+      const description = extractDescription(
+        frontMatter?.description as string | undefined,
+        post.content,
+        120
+      );
       return {
         id: post.id,
         title: post.metadata.title,
@@ -211,8 +202,8 @@ function useLatestDocs(limit: number): ArticleItem[] {
         id: doc.id,
         // 优先使用增强数据的标题，否则使用默认数据的 label
         title: enhanced?.title || doc.label || doc.id,
-        // 从内容提取描述
-        description: extractDescription(enhanced?.content, 120),
+        // 优先使用 frontMatter 的 description，否则从内容提取
+        description: extractDescription(enhanced?.description, enhanced?.content, 120),
         // 使用增强插件的 front matter 数据
         date: enhanced?.date 
           ? new Date(enhanced.date).toISOString()
