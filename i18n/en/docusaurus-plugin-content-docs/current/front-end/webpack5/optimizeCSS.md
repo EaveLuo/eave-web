@@ -2,12 +2,20 @@
 sidebar_position: 14
 slug: optimize-css
 title: Optimize CSS processing
-tags: [Webpack, packaging tool, front-end engineering, CSS]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - CSS
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - CSS
+description: >-
+  There are still many areas that can be optimized for CSS processing。The
+  following will introduce extracting CSS into separate files, CSS
+  compatibility...
 ---
 
 There are still many areas that can be optimized for CSS processing. The following will introduce extracting CSS into separate files, CSS compatibility processing, CSS compression, etc.

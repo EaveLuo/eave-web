@@ -2,13 +2,20 @@
 sidebar_position: 19
 slug: pwa
 title: PWA
-tags: [Webpack, packaging tool, front-end engineering, performance optimization]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - performance optimization
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - performance optimization
   - PWA
+description: >-
+  When developing a Web App project, once the project is offline, it cannot be
+  accessed
 ---
 
 When developing a Web App project, once the project is offline, it cannot be accessed.

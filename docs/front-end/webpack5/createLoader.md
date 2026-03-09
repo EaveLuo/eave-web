@@ -1,6 +1,10 @@
 ---
-date: 2024-07-01T18:39:37+08:00
-tags: [前端]
+date: 2024-07-01T10:39:37.000Z
+tags:
+  - 前端
+description: >-
+  loader 是 webpack 的核心，它帮助 webpack 将不同类型的文件转换为 webpack 可识别的模块。loader 执行顺序 分类
+  pre： 前置 loader normal： 普通 loader inline： 内联 loader post： 后置 loader 执行顺序 4 类...
 ---
 loader 是 webpack 的核心，它帮助 webpack 将不同类型的文件转换为 webpack 可识别的模块。
 

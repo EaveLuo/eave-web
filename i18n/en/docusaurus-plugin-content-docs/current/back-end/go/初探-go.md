@@ -5,6 +5,9 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - Backend
+description: >-
+  Go Language Overview - Why Choose Go Welcome to the world of Go。Before we
+  begin, let's understand what makes this language unique
 ---
 
 # Go Language Overview - Why Choose Go

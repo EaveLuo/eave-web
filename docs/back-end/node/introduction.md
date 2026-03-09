@@ -1,6 +1,11 @@
 ---
-date: 2024-07-14T23:31:57+08:00
-tags: [Node.js, 后端]
+date: 2024-07-14T15:31:57.000Z
+tags:
+  - Node.js
+  - 后端
+description: >-
+  :::tip 提示 本模块后续内容将建立在拥有 javascript 基础知识的前提下，如果你对 javascript 不熟悉，建议先学习
+  javascript 基础知识
 ---
 :::tip 提示
 本模块后续内容将建立在拥有 javascript 基础知识的前提下，如果你对 javascript 不熟悉，建议先学习 javascript 基础知识。

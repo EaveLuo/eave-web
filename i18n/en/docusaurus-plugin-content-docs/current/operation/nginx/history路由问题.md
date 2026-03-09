@@ -2,11 +2,18 @@
 sidebar_position: 1
 slug: history-router-problem
 title: history routing problem
-tags: [nginx, history routing, hash routing]
+tags:
+  - nginx
+  - history routing
+  - hash routing
 keywords:
   - nginx
   - history routing
   - hash routing
+description: >-
+  The problem that nginx in routing mode cannot match the routing of the
+  project。Preface Modern front-end engineering projects generally use the
+  history...
 ---
 
 The problem that nginx in `history` routing mode cannot match the routing of the project.

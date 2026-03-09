@@ -1,8 +1,11 @@
 ---
 sidebar_label: Go Modules
 sidebar_position: 18
-date: 2026-03-01T04:48:21+08:00
-tags: [Go, 后端]
+date: 2026-02-28T20:48:21.000Z
+tags:
+  - Go
+  - 后端
+description: "Go Modules - 依赖管理 Go Modules 是 Go 官方的依赖管理解决方案，从 Go 1。\U0001F4E6 核心文件 \U0001F527 常用命令 \U0001F4DD go"
 ---
 # Go Modules - 依赖管理
 

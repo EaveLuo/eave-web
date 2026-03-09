@@ -5,6 +5,9 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - Backend
+description: >-
+  Building RPC Framework from Scratch - Implementing RPC Service from Zero RPC
+  (Remote Procedure Call) is the cornerstone of distributed systems
 ---
 
 # Building RPC Framework from Scratch - Implementing RPC Service from Zero

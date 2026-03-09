@@ -2,13 +2,21 @@
 sidebar_position: 12
 slug: automation
 title: Automatic compilation using devServer
-tags: [Webpack, packaging tool, front-end engineering, automation, devServer]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - automation
+  - devServer
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - automation
   - devServer
+description: >-
+  Every time you finish writing code, you need to manually enter instructions to
+  compile the code
 ---
 
 Every time you finish writing code, you need to manually enter instructions to compile the code. It's too troublesome. We hope everything will be automated.

@@ -2,12 +2,19 @@
 sidebar_position: 9
 slug: config-eslint
 title: Configure code checking tool ESLint
-tags: [Webpack, packaging tool, front-end engineering, ESLint]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - ESLint
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - ESLint
+description: >-
+  ESLint is an open source JavaScript code static analysis tool for discovering
+  and fixing problems in the code
 ---
 
 ESLint is an open source JavaScript code static analysis tool for discovering and fixing problems in the code. It was originally created by Nicholas C. Zakas in 2013 to provide a highly configurable linting tool that can be adjusted according to the needs of the project.

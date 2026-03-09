@@ -1,8 +1,11 @@
 ---
 sidebar_label: Go 语言初探
 sidebar_position: 1
-date: 2026-02-27T08:39:30+08:00
-tags: [Go, 后端]
+date: 2026-02-27T00:39:30.000Z
+tags:
+  - Go
+  - 后端
+description: Go 语言初探 - 为什么选择 Go 欢迎来到 Go 语言的世界。在开始学习之前，让我们先了解这门语言的独特魅力
 ---
 # Go 语言初探 - 为什么选择 Go
 

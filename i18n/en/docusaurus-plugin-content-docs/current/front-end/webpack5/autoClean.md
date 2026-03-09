@@ -2,12 +2,19 @@
 sidebar_position: 7
 slug: auto-clean
 title: Automatically clear the last packaged resources
-tags: [Webpack, packaging tool, front-end engineering]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - Automatically clear the previous output directory
+description: >-
+  In the previous processing, we need to manually delete the last packaged
+  resources if we want to see some effects, but this is obviously not
+  convenien...
 ---
 
 In the previous processing, we need to manually delete the last packaged resources if we want to see some effects, but this is obviously not convenient enough, so Webpack provides the function of automatically clearing the last packaged resources.

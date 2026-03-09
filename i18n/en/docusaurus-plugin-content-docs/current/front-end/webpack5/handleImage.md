@@ -2,12 +2,19 @@
 sidebar_position: 5
 slug: handle-images
 title: handle image resources
-tags: [Webpack, packaging tool, front-end engineering, image resources]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - image resources
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - image resources
+description: >-
+  In the past, when Webpack4 was used, we processed image resources through
+  file-loader and url-loader
 ---
 
 In the past, when Webpack4 was used, we processed image resources through file-loader and url-loader.

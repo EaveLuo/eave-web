@@ -2,12 +2,19 @@
 sidebar_position: 11
 slug: handle-html
 title: Handle HTML files
-tags: [Webpack, Packaging tools, Front-end engineering, HTML]
+tags:
+  - Webpack
+  - Packaging tools
+  - Front-end engineering
+  - HTML
 keywords:
   - Webpack
   - Packaging tools
   - Front-end engineering
   - HTML
+description: >-
+  html-webpack-plugin greatly simplifies the manual management of HTML files by
+  automatically generating HTML files
 ---
 
 html-webpack-plugin greatly simplifies the manual management of HTML files by automatically generating HTML files. The plugin automatically inserts the packaged resources (such as JS, CSS files) into the generated HTML file based on the output of Webpack, and can generate the final HTML file based on the template file.

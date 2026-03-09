@@ -2,10 +2,15 @@
 sidebar_position: 1
 slug: ssh-key-login-host
 title: Log in to the host via SSH key
-tags: [linux, ssh]
+tags:
+  - linux
+  - ssh
 keywords:
   - linux
   - ssh
+description: >-
+  Log in to the remote server via SSH key (solves some strange problems when
+  logging in with account password, and also improves security) Preface In da...
 ---
 
 Log in to the remote server via SSH key (solves some strange problems when logging in with account password, and also improves security)

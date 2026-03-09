@@ -3,19 +3,20 @@ sidebar_position: 13
 slug: different-environments
 title: Build development environment and production environment separately
 tags:
-  [
-    Webpack,
-    packaging tool,
-    front-end engineering,
-    development environment,
-    production environment,
-  ]
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - development environment
+  - production environment
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - development environment
   - production environment
+description: >-
+  In actual development, we often have development environment and production
+  environment, and the configurations of the two will be different
 ---
 
 In actual development, we often have development environment and production environment, and the configurations of the two will be different. This article will introduce how Webpack builds development environment and production environment separately.

@@ -1,22 +1,23 @@
 ---
 sidebar_position: 8
 slug: handle-Other
-title: Handle fonts, icons, audio, video and other resources
+title: 'Handle fonts, icons, audio, video and other resources'
 tags:
-  [
-    Webpack,
-    packaging tool,
-    front-end engineering,
-    fonts,
-    icons,
-    audio,
-    video and other resources,
-  ]
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - fonts
+  - icons
+  - audio
+  - video and other resources
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
-  - fonts, icons, audio, video and other resources
+  - 'fonts, icons, audio, video and other resources'
+description: >-
+  In actual development, we often use fonts, icons, audio, video and other
+  resources
 ---
 
 In actual development, we often use fonts, icons, audio, video and other resources. How does Webpack handle font icon resources? The following takes fonts as an example to introduce how Webpack handles other resources.

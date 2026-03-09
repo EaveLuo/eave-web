@@ -5,6 +5,9 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - Backend
+description: >-
+  Channel - Communicating by Sharing Memory Channel is the communication pipe
+  between Goroutines
 ---
 
 # Channel - Communicating by Sharing Memory

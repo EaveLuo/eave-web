@@ -2,11 +2,17 @@
 sidebar_position: 1
 slug: preface
 title: preface
-tags: [Webpack, packaging tool, front-end engineering]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
+description: >-
+  This module will lead you to understand the basic concepts and usage of
+  Webpack5, as well as some common configuration items and plug-ins
 ---
 
 This module will lead you to understand the basic concepts and usage of Webpack5, as well as some common configuration items and plug-ins. Please upgrade the Node.js version to at least 10.13.0 and above (the latest LTS version is best).

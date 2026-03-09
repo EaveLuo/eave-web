@@ -2,11 +2,17 @@
 sidebar_position: 6
 slug: handle-output
 title: Modify the name and path of output resources
-tags: [Webpack, packaging tool, front-end engineering]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
+description: >-
+  If you need to modify the name and path of Webpack output resources, you can
+  do so by configuring the option
 ---
 
 If you need to modify the name and path of Webpack output resources, you can do so by configuring the `output` option.

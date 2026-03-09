@@ -5,6 +5,9 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - Backend
+description: >-
+  Goroutines - Lightweight Concurrency Goroutines are the foundation of Go's
+  concurrency model
 ---
 
 # Goroutines - Lightweight Concurrency

@@ -2,13 +2,22 @@
 sidebar_position: 10
 slug: config-babel
 title: Configure code compatibility processing tool Babel
-tags: [Webpack, packaging tool, front-end engineering, compatibility, Babel]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - compatibility
+  - Babel
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - compatibility
   - Babel
+description: >-
+  Babel is a widely used JavaScript compiler, mainly used to convert modern
+  JavaScript code (including ES6+) into a backward compatible version so that
+  ...
 ---
 
 Babel is a widely used JavaScript compiler, mainly used to convert modern JavaScript code (including ES6+) into a backward compatible version so that it can run in all browsers or environments.

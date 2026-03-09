@@ -2,13 +2,20 @@
 sidebar_position: 16
 slug: lifting-speed
 title: Improve the speed of packaging and building
-tags: [Webpack, packaging tool, front-end engineering, performance optimization]
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - performance optimization
 keywords:
   - Webpack
   - packaging tool
   - front-end engineering
   - Improve the speed of packaging and building
   - performance optimization
+description: >-
+  In addition to the previous basic configuration, webpack5 can also improve the
+  speed of packaging and building through configuration
 ---
 
 In addition to the previous basic configuration, webpack5 can also improve the speed of packaging and building through configuration.

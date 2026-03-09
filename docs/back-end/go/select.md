@@ -1,8 +1,11 @@
 ---
 sidebar_label: Select
 sidebar_position: 16
-date: 2026-02-27T08:39:30+08:00
-tags: [Go, 后端]
+date: 2026-02-27T00:39:30.000Z
+tags:
+  - Go
+  - 后端
+description: "Select - 多路复用的艺术 select 让 Goroutine 同时等待多个 Channel 操作，是并发编程的核心工具。\U0001F3AF Select 基础 特点： 随机选择一个可执行的 case 都不可执行时阻塞（除非有 default） ⏱️ 超时处理 \U0001F680 非阻塞操作 \U0001F3A8 实战模式 1"
 ---
 # Select - 多路复用的艺术
 

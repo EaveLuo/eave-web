@@ -2,12 +2,18 @@
 sidebar_position: 3
 slug: base-config
 title: Basic Configuration
-tags: [Webpack, Packaging Tool, Front-end Engineering]
+tags:
+  - Webpack
+  - Packaging Tool
+  - Front-end Engineering
 keywords:
   - Webpack
   - Packaging Tool
   - Front-end Engineering
   - Basic Configuration
+description: >-
+  Before we start using , we need to have a certain understanding of the
+  configuration of
 ---
 
 Before we start using `Webpack`, we need to have a certain understanding of the configuration of `Webpack`.

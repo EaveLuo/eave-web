@@ -3,16 +3,14 @@ sidebar_position: 4
 slug: handle-style
 title: Processing style resources
 tags:
-  [
-    Webpack,
-    packaging tool,
-    front-end engineering,
-    processing style resources,
-    CSS,
-    Less,
-    Sass,
-    Stylus,
-  ]
+  - Webpack
+  - packaging tool
+  - front-end engineering
+  - processing style resources
+  - CSS
+  - Less
+  - Sass
+  - Stylus
 keywords:
   - Webpack
   - packaging tool
@@ -22,6 +20,9 @@ keywords:
   - Less Loader
   - Sass Loader
   - Stylus Loader
+description: >-
+  Webpack itself cannot recognize style resources and needs to use Loader to
+  parse style resources
 ---
 
 Webpack itself cannot recognize style resources and needs to use Loader to parse style resources. You should first find the corresponding Loader from [Webpack official Loader document](https://www.webpackjs.com/loaders/). If you can't find it, you can search and query from the community or GitHub.

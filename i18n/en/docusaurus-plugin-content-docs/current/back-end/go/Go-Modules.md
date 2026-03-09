@@ -5,6 +5,9 @@ date: 2026-02-28T20:48:21.000Z
 tags:
   - Go
   - Backend
+description: >-
+  Go Modules - Dependency Management Go Modules is Go's official dependency
+  management solution, introduced in Go 1
 ---
 
 # Go Modules - Dependency Management

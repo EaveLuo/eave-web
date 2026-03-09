@@ -3,15 +3,13 @@ sidebar_position: 17
 slug: reduce-volume
 title: Reduce code size
 tags:
-  [
-    Webpack,
-    Bundling tool,
-    Front-end engineering,
-    Tree Shaking,
-    Babel,
-    Image compression,
-    Performance optimization,
-  ]
+  - Webpack
+  - Bundling tool
+  - Front-end engineering
+  - Tree Shaking
+  - Babel
+  - Image compression
+  - Performance optimization
 keywords:
   - Webpack
   - Bundling tool
@@ -20,6 +18,9 @@ keywords:
   - Babel
   - Image compression
   - Performance optimization
+description: >-
+  In actual development, the project size will become larger and larger, and the
+  amount of code will also increase
 ---
 
 In actual development, the project size will become larger and larger, and the amount of code will also increase. At this time, we need to compress the code and reduce the size.

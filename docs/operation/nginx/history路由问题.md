@@ -2,12 +2,16 @@
 sidebar_position: 1
 slug: history-router-problem
 title: history路由问题
-tags: [运维]
+tags:
+  - 运维
 keywords:
   - nginx
   - history路由
   - hash路由
-date: 2024-06-26T16:32:33+08:00
+date: 2024-06-26T08:32:33.000Z
+description: >-
+  路由模式下的 nginx 匹配不到项目的路由问题。前言 现代前端工程化项目一般使用 路由模式或者 路由模式， 路由模式是基于 的 来实现的, 而 hash
+  路由模式是基于 的 hash 值来实现的
 ---
 `history` 路由模式下的 nginx 匹配不到项目的路由问题。
 

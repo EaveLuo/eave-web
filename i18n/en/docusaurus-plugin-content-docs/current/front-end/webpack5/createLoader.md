@@ -2,12 +2,18 @@
 sidebar_position: 20
 slug: create-loader
 title: Create Loader
-tags: [Webpack, Packaging tool, Front-end engineering]
+tags:
+  - Webpack
+  - Packaging tool
+  - Front-end engineering
 keywords:
   - Webpack
   - Packaging tool
   - Front-end engineering
   - loader
+description: >-
+  Loader is the core of webpack, which helps webpack convert different types of
+  files into modules that webpack can recognize
 ---
 
 Loader is the core of webpack, which helps webpack convert different types of files into modules that webpack can recognize.

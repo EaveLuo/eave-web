@@ -2,12 +2,18 @@
 sidebar_position: 21
 slug: create-plugin
 title: Create Plugin
-tags: [Webpack, Packaging Tool, Front-end Engineering]
+tags:
+  - Webpack
+  - Packaging Tool
+  - Front-end Engineering
 keywords:
   - Webpack
   - Packaging Tool
   - Front-end Engineering
   - Plugin
+description: >-
+  Through plugins, we can extend webpack and add custom build behaviors, so that
+  webpack can perform a wider range of tasks and have stronger build capa...
 ---
 
 Through plugins, we can extend webpack and add custom build behaviors, so that webpack can perform a wider range of tasks and have stronger build capabilities.

@@ -1,8 +1,11 @@
 ---
 sidebar_label: Goroutine
 sidebar_position: 14
-date: 2026-02-27T08:39:30+08:00
-tags: [Go, 后端]
+date: 2026-02-27T00:39:30.000Z
+tags:
+  - Go
+  - 后端
+description: "Goroutine - 并发编程的利器 Goroutine 是 Go 的杀手锏。Goroutine 是 Go 的轻量级线程： \U0001F3AF 创建 Goroutine 1"
 ---
 # Goroutine - 并发编程的利器
 
