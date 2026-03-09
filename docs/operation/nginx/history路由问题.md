@@ -2,8 +2,7 @@
 sidebar_position: 1
 slug: history-router-problem
 title: history路由问题
-tags:
-  - 运维
+tags: [运维]
 keywords:
   - nginx
   - history路由

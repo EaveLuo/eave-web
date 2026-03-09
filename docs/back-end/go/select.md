@@ -2,9 +2,7 @@
 sidebar_label: Select
 sidebar_position: 16
 date: "2026-02-27T08:39:30+08:00"
-tags:
-  - Go
-  - 后端
+tags: [Go, 后端]
 ---
 # Select - 多路复用的艺术
 

@@ -7,8 +7,7 @@ keywords:
   - AI 资讯
   - 72 小时动态
 date: "2026-02-27T09:46:27+08:00"
-tags:
-  - AI
+tags: [AI]
 ---
 # AI
 

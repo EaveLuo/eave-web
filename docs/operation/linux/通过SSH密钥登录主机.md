@@ -2,8 +2,7 @@
 sidebar_position: 1
 slug: ssh-key-login-host
 title: 通过SSH密钥登录主机
-tags:
-  - 运维
+tags: [运维]
 keywords:
   - linux
   - ssh

@@ -1,7 +1,6 @@
 ---
 date: "2024-06-28T17:10:57+08:00"
-tags:
-  - 前端
+tags: [前端]
 ---
 Webpack 本身不能识别样式资源，需要借助 Loader 来解析样式资源。应优先从 [Webpack 官方 Loader 文档](https://www.webpackjs.com/loaders/) 找到对应的 Loader，如无法找到，可从社区或 GitHub 搜索查询。
 

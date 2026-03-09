@@ -3,8 +3,7 @@ sidebar_position: 2
 slug: web-api
 title: 应用编程接口（API）
 description: 网络应用编程接口（Web API）是一种通过网络提供的应用程序编程接口，允许不同的软件系统通过互联网进行通信和数据交换。
-tags:
-  - 后端
+tags: [后端]
 keywords:
   - 后端
   - api

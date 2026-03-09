@@ -3,9 +3,7 @@ sidebar_position: 11
 slug: express
 title: Express 框架
 description: Express 框架是 Node.js 开发的一个轻量级的 Web 应用框架。
-tags:
-  - Node.js
-  - 后端
+tags: [Node.js, 后端]
 keywords:
   - Node.js
   - Express

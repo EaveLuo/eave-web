@@ -3,9 +3,7 @@ sidebar_position: 10
 slug: package-manager
 title: 包管理器
 description: 介绍 Node.js 常用的包管理器 npm、Yarn 和 pnpm 的功能和优缺点。
-tags:
-  - Node.js
-  - 后端
+tags: [Node.js, 后端]
 keywords:
   - Node.js
   - 包管理器

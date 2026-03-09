@@ -3,9 +3,7 @@ sidebar_position: 9
 slug: modularity
 title: 模块化
 description: 了解 Node.js 中模块化的概念和使用场景。
-tags:
-  - Node.js
-  - 后端
+tags: [Node.js, 后端]
 keywords:
   - Node.js
   - 模块化

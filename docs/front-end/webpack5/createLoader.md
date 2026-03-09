@@ -1,7 +1,6 @@
 ---
 date: "2024-07-01T18:39:37+08:00"
-tags:
-  - 前端
+tags: [前端]
 ---
 loader 是 webpack 的核心，它帮助 webpack 将不同类型的文件转换为 webpack 可识别的模块。
 
