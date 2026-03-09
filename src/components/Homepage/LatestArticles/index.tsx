@@ -102,13 +102,11 @@ function useLatestDocs(limit: number): ArticleItem[] {
       id: doc.id,
       title: doc.label || doc.id,
       description: translate({ id: 'homepage.latestArticles.docDescription', message: '技术文档' }),
-      // 使用文档的 lastUpdatedAt 时间戳（秒转毫秒），如果没有则为空字符串
-      date: doc.lastUpdatedAt 
-        ? new Date(doc.lastUpdatedAt * 1000).toISOString()
-        : '',
+      // Docusaurus 文档插件的全局数据不包含 lastUpdatedAt 或 frontMatter
+      // 所以文档卡片不显示日期和 tags
+      date: '',
       path: doc.path,
       type: 'doc' as const,
-      // 文档不显示 tags，因为 Docusaurus 文档插件默认不提供 frontMatter 数据
       tags: [],
     }));
 }

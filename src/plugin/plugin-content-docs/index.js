@@ -1,14 +1,16 @@
 // 自定义文档插件 - 将文档数据（包括 tags 和 date）注入全局数据
-const docsPluginExports = require('@docusaurus/plugin-content-docs');
-const { default: docsPlugin } = docsPluginExports;
+const docsPlugin = require('@docusaurus/plugin-content-docs');
 
 async function docsPluginEnhanced(context, options) {
-  const docsPluginInstance = await docsPlugin(context, options);
+  // 创建原始插件实例
+  const docsPluginInstance = await docsPlugin.default(context, options);
 
   return {
     ...docsPluginInstance,
+    
+    // 重写 contentLoaded 方法
     async contentLoaded({ content, allContent, actions }) {
-      // 先调用原始插件的 contentLoaded
+      // 调用原始插件的 contentLoaded 来创建路由和 sidebars
       if (docsPluginInstance.contentLoaded) {
         await docsPluginInstance.contentLoaded({ content, allContent, actions });
       }
@@ -19,6 +21,9 @@ async function docsPluginEnhanced(context, options) {
 
       // 构建包含完整元数据的版本数据
       const enhancedVersions = loadedVersions.map((version) => {
+        // 创建 docs 的映射，用于快速查找
+        const docMap = new Map(version.docs.map(doc => [doc.id, doc]));
+        
         const enhancedDocs = version.docs.map((doc) => {
           // 从 doc 中提取 frontMatter 数据
           const frontMatter = doc.frontMatter || {};
@@ -43,6 +48,8 @@ async function docsPluginEnhanced(context, options) {
           path: version.path,
           mainDocId: version.mainDoc?.id || '',
           docs: enhancedDocs,
+          // 保留 sidebars 数据
+          sidebars: version.sidebars,
         };
       });
 
@@ -53,6 +60,8 @@ async function docsPluginEnhanced(context, options) {
   };
 }
 
-module.exports = Object.assign({}, docsPluginExports, {
+// 导出所有原始插件的导出内容
+module.exports = {
+  ...docsPlugin,
   default: docsPluginEnhanced,
-});
+};
