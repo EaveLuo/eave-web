@@ -21,8 +21,8 @@ keywords:
   - Sass Loader
   - Stylus Loader
 description: >-
-  Webpack itself cannot recognize style resources and needs to use Loader to
-  parse style resources
+  Webpack 5 handling style resources including css-loader, style-loader,
+  mini-css-extract-plugin, Sass/Less/Stylus preprocessor configuration.
 ---
 
 Webpack itself cannot recognize style resources and needs to use Loader to parse style resources. You should first find the corresponding Loader from [Webpack official Loader document](https://www.webpackjs.com/loaders/). If you can't find it, you can search and query from the community or GitHub.

@@ -15,8 +15,9 @@ keywords:
   - automation
   - devServer
 description: >-
-  Every time you finish writing code, you need to manually enter instructions to
-  compile the code
+  Webpack 5 automation configuration including webpack-dev-server hot reload,
+  HMR module hot replacement, proxy configuration, automatic browser refresh and
+  other development efficiency optimization techniques.
 ---
 
 Every time you finish writing code, you need to manually enter instructions to compile the code. It's too troublesome. We hope everything will be automated.

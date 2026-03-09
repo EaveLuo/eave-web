@@ -10,7 +10,10 @@ keywords:
   - nginx
   - history routing
   - hash routing
-description: The problem that nginx in routing mode cannot match the routing of the project
+description: >-
+  Nginx history routing configuration solving 404 issues when single-page
+  applications (SPA) use history mode, configuring try_files directive to
+  support frontend routing.
 ---
 
 The problem that nginx in `history` routing mode cannot match the routing of the project.

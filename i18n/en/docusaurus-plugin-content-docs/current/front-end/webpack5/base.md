@@ -3,8 +3,9 @@ sidebar_position: 2
 slug: base
 title: Basic Usage
 description: >-
-  json: A basic file will be generated at this time: Note that the field in
-  cannot be called , Otherwise, the next step...
+  Webpack 5 basics introduction covering core concepts (entry, output, loader,
+  plugin), configuration file structure, mode settings to build foundation for
+  deeper Webpack learning.
 tags:
   - Webpack
   - packaging tool

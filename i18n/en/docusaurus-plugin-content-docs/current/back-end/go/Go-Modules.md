@@ -6,8 +6,9 @@ tags:
   - Go
   - Backend
 description: >-
-  Go Modules - Dependency Management Go Modules is Go's official dependency
-  management solution, introduced in Go 1
+  Go's official dependency management solution introduced in Go 1.11. Manages
+  dependencies via go.mod and go.sum with semantic versioning. Includes common
+  commands: init, get, tidy, download.
 ---
 
 # Go Modules - Dependency Management

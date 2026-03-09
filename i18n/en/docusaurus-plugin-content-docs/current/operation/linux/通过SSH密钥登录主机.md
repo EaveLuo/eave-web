@@ -9,8 +9,9 @@ keywords:
   - linux
   - ssh
 description: >-
-  However, if you need to enter a password every time, it would be very
-  troublesome, and the password is easy to be...
+  SSH key login configuration guide explaining key generation, public key
+  distribution, passwordless login configuration, SSH configuration optimization
+  to solve password login inconvenience and security issues.
 ---
 
 Log in to the remote server via SSH key (solves some strange problems when logging in with account password, and also improves security)

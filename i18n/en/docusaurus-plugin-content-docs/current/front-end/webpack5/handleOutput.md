@@ -11,8 +11,9 @@ keywords:
   - packaging tool
   - front-end engineering
 description: >-
-  If you need to modify the name and path of Webpack output resources, you can
-  do so by configuring the option
+  Webpack 5 output configuration details including output options, filename
+  hashing, publicPath setting, multi-entry output, library packaging and other
+  advanced output control.
 ---
 
 If you need to modify the name and path of Webpack output resources, you can do so by configuring the `output` option.

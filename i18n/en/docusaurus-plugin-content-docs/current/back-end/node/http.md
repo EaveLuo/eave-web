@@ -3,8 +3,9 @@ sidebar_position: 8
 slug: http
 title: http module
 description: >-
-  Before introducing the module, let's first understand the HTTP protocol, which
-  will help us use the module in Node
+  Node.js HTTP module from basic server creation to request/response handling,
+  routing implementation, static file serving. Helps understand underlying
+  principles of frameworks like Express.
 tags:
   - Node.js
   - http

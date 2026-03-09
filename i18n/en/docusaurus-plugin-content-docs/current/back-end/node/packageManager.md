@@ -2,7 +2,10 @@
 sidebar_position: 10
 slug: package-manager
 title: Package Manager
-description: 'js, commonly used package managers include npm, Yarn and pnpm'
+description: >-
+  Node.js package manager comparison and usage, detailed comparison of npm,
+  yarn, pnpm pros and cons, package.json configuration, dependency version
+  management, lockfile mechanism.
 tags:
   - Node.js
   - Package Manager

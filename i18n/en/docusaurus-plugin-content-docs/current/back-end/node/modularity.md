@@ -3,8 +3,9 @@ sidebar_position: 9
 slug: modularity
 title: modularity
 description: >-
-  js, modularity is a very important concept, which allows developers to split
-  code into multiple files and modules,...
+  Node.js module system including CommonJS and ES Modules, require/import
+  differences, circular dependency handling, module caching and other core
+  knowledge.
 tags:
   - Node.js
   - modularity

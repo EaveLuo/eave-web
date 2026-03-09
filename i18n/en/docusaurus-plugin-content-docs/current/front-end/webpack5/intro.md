@@ -11,8 +11,9 @@ keywords:
   - packaging tool
   - front-end engineering
 description: >-
-  This module will lead you to understand the basic concepts and usage of
-  Webpack5, as well as some common configuration...
+  Webpack 5 introduction explaining frontend engineering concepts, module
+  bundling principles, Webpack core functions, applicable scenarios and
+  comparison with Vite, Parcel and other tools.
 ---
 
 This module will lead you to understand the basic concepts and usage of Webpack5, as well as some common configuration items and plug-ins. Please upgrade the Node.js version to at least 10.13.0 and above (the latest LTS version is best).

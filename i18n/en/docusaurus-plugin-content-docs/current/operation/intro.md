@@ -13,8 +13,9 @@ date: 2024-06-21T04:09:24.000Z
 tags:
   - DevOps
 description: >-
-  Operation This module mainly introduces knowledge related to operation and
-  maintenance, including server configuration, deployment, management, monito...
+  Operations technology stack introduction covering Linux system administration,
+  Nginx configuration, Docker containerization, CI/CD pipelines, monitoring and
+  alerting and other core operations skills.
 ---
 
 # Operation

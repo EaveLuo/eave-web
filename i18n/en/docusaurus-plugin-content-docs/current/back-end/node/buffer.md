@@ -3,8 +3,9 @@ sidebar_position: 4
 slug: buffer
 title: Buffer
 description: >-
-  Concept of Buffer Buffer is an array-like object used to represent a
-  fixed-length sequence of bytes
+  Node.js Buffer module for handling binary data. Covers Buffer creation,
+  read/write, conversion, slicing and string interconversion, essential for file
+  and network data processing.
 tags:
   - Node.js
 keywords:

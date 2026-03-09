@@ -13,8 +13,9 @@ keywords:
   - front-end engineering
   - image resources
 description: >-
-  In the past, when Webpack4 was used, we processed image resources through
-  file-loader and url-loader
+  Webpack 5 handling image resources including url-loader, file-loader, asset
+  module configuration, image compression, base64 conversion, sprite generation
+  and other optimization solutions.
 ---
 
 In the past, when Webpack4 was used, we processed image resources through file-loader and url-loader.

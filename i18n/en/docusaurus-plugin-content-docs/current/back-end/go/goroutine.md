@@ -6,8 +6,10 @@ tags:
   - Go
   - Backend
 description: >-
-  Goroutines - Lightweight Concurrency Goroutines are the foundation of Go's
-  concurrency model
+  Go's lightweight thread implementation with non-preemptive multitasking,
+  millisecond startup time, supports creating thousands of Goroutines. Covers
+  creation methods, comparison with threads, concurrent execution
+  characteristics.
 ---
 
 # Goroutines - Lightweight Concurrency

@@ -3,8 +3,9 @@ sidebar_position: 11
 slug: express
 title: Express framework
 description: >-
-  Express is a concise and flexible Node. js web application framework that
-  provides a range of powerful features for...
+  Express.js framework from basics to advanced including routing, middleware
+  mechanism, request handling, error handling, template engines. Shows how to
+  quickly build RESTful APIs with Express.
 tags:
   - Node.js
   - Express

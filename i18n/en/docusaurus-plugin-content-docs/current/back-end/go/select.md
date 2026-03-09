@@ -6,8 +6,9 @@ tags:
   - Go
   - Backend
 description: >-
-  Select - The Art of Multiplexing Select lets a Goroutine wait on multiple
-  Channel operations simultaneously, making it...
+  Go's multiplexing mechanism allowing Goroutines to wait on multiple Channel
+  operations simultaneously. Supports default case, timeout control, random
+  selection and other advanced usage patterns.
 ---
 
 # Select - The Art of Multiplexing

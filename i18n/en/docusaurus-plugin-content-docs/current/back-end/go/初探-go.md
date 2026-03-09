@@ -5,7 +5,10 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - Backend
-description: Go Language Overview - Why Choose Go Welcome to the world of Go
+description: >-
+  Go language introduction covering design philosophy, main features (simple
+  syntax, efficient concurrency, fast compilation, memory safety) and use cases.
+  Suitable for beginners to understand Go's landscape.
 ---
 
 # Go Language Overview - Why Choose Go

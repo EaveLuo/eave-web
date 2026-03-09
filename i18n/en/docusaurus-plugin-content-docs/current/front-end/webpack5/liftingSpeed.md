@@ -14,8 +14,9 @@ keywords:
   - Improve the speed of packaging and building
   - performance optimization
 description: >-
-  In addition to the previous basic configuration, webpack5 can also improve the
-  speed of packaging and building through...
+  Webpack 5 build speed optimization including persistent caching,
+  multi-threaded packaging (thread-loader), narrowing search scope, DLL
+  pre-compilation and other acceleration strategies.
 ---
 
 In addition to the previous basic configuration, webpack5 can also improve the speed of packaging and building through configuration.

@@ -3,8 +3,9 @@ sidebar_position: 2
 slug: web-api
 title: Application Programming Interface (API)
 description: >-
-  Web API is an application programming interface provided over the network,
-  allowing different software systems to...
+  Web API design principles and best practices including RESTful conventions,
+  versioning, authentication/authorization, rate limiting, circuit breaking,
+  documentation generation for high-quality API design.
 tags:
   - backend
   - api

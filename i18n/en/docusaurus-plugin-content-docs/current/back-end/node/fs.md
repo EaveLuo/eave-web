@@ -3,8 +3,9 @@ sidebar_position: 7
 slug: fs
 title: fs module
 description: >-
-  The module is one of the core modules of Node. The module supports synchronous
-  and asynchronous operations to meet...
+  Node.js file system module (fs) comprehensive guide including sync/async
+  read/write, streaming operations, directory operations, file watching. Covers
+  Promise wrapper and practical file handling scenarios.
 tags:
   - Node.js
   - fs

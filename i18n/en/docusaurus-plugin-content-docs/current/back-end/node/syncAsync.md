@@ -2,7 +2,10 @@
 sidebar_position: 5
 slug: sync-async
 title: Sync and Asynchrony
-description: 'js, let''s talk about the concepts of synchronization and asynchrony'
+description: >-
+  Node.js synchronous and asynchronous programming patterns including callbacks,
+  Promises, async/await evolution, event loop mechanism and asynchronous flow
+  control handling.
 tags:
   - Node.js
   - JavaScript

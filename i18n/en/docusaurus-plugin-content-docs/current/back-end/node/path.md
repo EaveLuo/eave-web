@@ -3,8 +3,9 @@ sidebar_position: 6
 slug: path
 title: path module
 description: >-
-  The module is one of the core modules of Node. js, used to process and convert
-  file paths
+  Node.js path module for handling and transforming file paths. Covers path
+  joining, parsing, normalization, relative/absolute path conversion and other
+  cross-platform path operations.
 tags:
   - Node.js
   - path

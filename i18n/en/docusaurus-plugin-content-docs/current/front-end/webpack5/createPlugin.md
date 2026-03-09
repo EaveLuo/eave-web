@@ -12,8 +12,9 @@ keywords:
   - Front-end Engineering
   - Plugin
 description: >-
-  Through plugins, we can extend webpack and add custom build behaviors, so that
-  webpack can perform a wider range of...
+  Webpack 5 custom Plugin development explaining Plugin architecture, lifecycle
+  hooks, Compiler and Compilation objects, file operations and other advanced
+  extension techniques.
 ---
 
 Through plugins, we can extend webpack and add custom build behaviors, so that webpack can perform a wider range of tasks and have stronger build capabilities.

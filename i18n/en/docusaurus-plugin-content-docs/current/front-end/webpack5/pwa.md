@@ -14,8 +14,9 @@ keywords:
   - performance optimization
   - PWA
 description: >-
-  We hope to provide an offline experience for the project, which requires the
-  use of PWA (Progressive Web App) technology
+  Webpack 5 building PWA integrating workbox-webpack-plugin to implement Service
+  Worker, offline caching, manifest.json generation and other progressive web
+  app configurations.
 ---
 
 When developing a Web App project, once the project is offline, it cannot be accessed.

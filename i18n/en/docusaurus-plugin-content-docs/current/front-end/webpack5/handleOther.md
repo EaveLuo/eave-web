@@ -16,8 +16,8 @@ keywords:
   - front-end engineering
   - 'fonts, icons, audio, video and other resources'
 description: >-
-  In actual development, we often use fonts, icons, audio, video and other
-  resources
+  Webpack 5 handling other resources including font files, audio/video, JSON,
+  XML and other non-JS/CSS resource loading and configuration methods.
 ---
 
 In actual development, we often use fonts, icons, audio, video and other resources. How does Webpack handle font icon resources? The following takes fonts as an example to introduce how Webpack handles other resources.

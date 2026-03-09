@@ -12,8 +12,9 @@ keywords:
   - Front-end Engineering
   - Basic Configuration
 description: >-
-  Before we start using , we need to have a certain understanding of the
-  configuration of
+  Webpack 5 basic configuration details including entry/output configuration,
+  loader matching rules, plugin usage, resolve configuration and other commonly
+  used configuration items.
 ---
 
 Before we start using `Webpack`, we need to have a certain understanding of the configuration of `Webpack`.

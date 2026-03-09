@@ -13,8 +13,9 @@ keywords:
   - Front-end engineering
   - HTML
 description: >-
-  html-webpack-plugin greatly simplifies the manual management of HTML files by
-  automatically generating HTML files
+  Webpack 5 handling HTML using html-webpack-plugin to automatically generate
+  HTML, inject bundled resources, multi-page configuration, template engine
+  integration.
 ---
 
 html-webpack-plugin greatly simplifies the manual management of HTML files by automatically generating HTML files. The plugin automatically inserts the packaged resources (such as JS, CSS files) into the generated HTML file based on the output of Webpack, and can generate the final HTML file based on the template file.

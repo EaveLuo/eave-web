@@ -19,8 +19,9 @@ keywords:
   - Image compression
   - Performance optimization
 description: >-
-  In actual development, the project size will become larger and larger, and the
-  amount of code will also increase
+  Webpack 5 bundle size optimization including Tree Shaking, Scope Hoisting,
+  code splitting, Gzip/Brotli compression, CDN third-party library introduction
+  and other size reduction strategies.
 ---
 
 In actual development, the project size will become larger and larger, and the amount of code will also increase. At this time, we need to compress the code and reduce the size.

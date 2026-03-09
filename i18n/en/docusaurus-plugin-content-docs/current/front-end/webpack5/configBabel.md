@@ -15,8 +15,9 @@ keywords:
   - compatibility
   - Babel
 description: >-
-  Babel is a widely used JavaScript compiler, mainly used to convert modern
-  JavaScript code (including ES6+) into a...
+  Webpack 5 integrating Babel, explaining how to use babel-loader to transpile
+  ES6+ code, configure preset-env, polyfill on-demand import for browser
+  compatibility handling.
 ---
 
 Babel is a widely used JavaScript compiler, mainly used to convert modern JavaScript code (including ES6+) into a backward compatible version so that it can run in all browsers or environments.

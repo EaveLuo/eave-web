@@ -3,8 +3,9 @@ sidebar_position: 3
 slug: installation
 title: Installation and version management
 description: >-
-  Below we will introduce how to install and manage Node. js from multiple
-  channels: Installation using the official...
+  Node.js installation guide including nvm version manager, multi-version
+  switching, npm/yarn/pnpm package manager selection, common installation
+  troubleshooting.
 tags:
   - Node.js
   - nvm

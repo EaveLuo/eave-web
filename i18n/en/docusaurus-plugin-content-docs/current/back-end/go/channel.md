@@ -6,8 +6,9 @@ tags:
   - Go
   - Backend
 description: >-
-  Channel - Communicating by Sharing Memory Channel is the communication pipe
-  between Goroutines
+  Go's communication mechanism between Goroutines via Channels, implementing
+  'don't communicate by sharing memory, share memory by communicating'. Supports
+  unbuffered, buffered, read-only, write-only channels and basic operations.
 ---
 
 # Channel - Communicating by Sharing Memory

@@ -12,8 +12,9 @@ keywords:
   - Front-end engineering
   - loader
 description: >-
-  Loader is the core of webpack, which helps webpack convert different types of
-  files into modules that webpack can...
+  Webpack 5 custom Loader development explaining Loader working principles, API
+  usage, async processing, caching strategy through examples showing how to
+  write custom Loaders.
 ---
 
 Loader is the core of webpack, which helps webpack convert different types of files into modules that webpack can recognize.

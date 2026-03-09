@@ -13,8 +13,9 @@ keywords:
   - front-end engineering
   - ESLint
 description: >-
-  ESLint is an open source JavaScript code static analysis tool for discovering
-  and fixing problems in the code
+  Webpack 5 integrating ESLint including eslint-loader configuration, rule
+  customization, auto-fix, integration with Prettier and other code quality
+  assurance solutions.
 ---
 
 ESLint is an open source JavaScript code static analysis tool for discovering and fixing problems in the code. It was originally created by Nicholas C. Zakas in 2013 to provide a highly configurable linting tool that can be adjusted according to the needs of the project.

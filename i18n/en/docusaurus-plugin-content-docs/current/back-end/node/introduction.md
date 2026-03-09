@@ -3,8 +3,8 @@ sidebar_position: 2
 slug: introduction
 title: What is Node.js?
 description: >-
-  :::tip Tips The subsequent content of this module will be based on the premise
-  of having basic knowledge of javascript
+  Node.js introduction covering event-driven, non-blocking I/O model,
+  single-threaded event loop and applicable scenarios plus ecosystem overview.
 tags:
   - Node.js
 keywords:

@@ -10,8 +10,9 @@ date: 2024-06-27T10:32:08.000Z
 tags:
   - Frontend
 description: >-
-  Front-end This module mainly introduces front-end related knowledge, including
-  front-end development, front-end framework, front-end tools, etc
+  Frontend development technology stack introduction covering HTML, CSS,
+  JavaScript basics plus React, Vue and other mainstream frameworks, build
+  tools, performance optimization and other core frontend knowledge.
 ---
 
 # Front-end

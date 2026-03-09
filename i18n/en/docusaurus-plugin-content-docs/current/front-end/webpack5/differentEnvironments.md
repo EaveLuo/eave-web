@@ -15,8 +15,9 @@ keywords:
   - development environment
   - production environment
 description: >-
-  In actual development, we often have development environment and production
-  environment, and the configurations of the...
+  Webpack 5 multi-environment configuration explaining development, testing,
+  production environment差异化配置, using webpack-merge to merge configurations,
+  environment variable injection.
 ---
 
 In actual development, we often have development environment and production environment, and the configurations of the two will be different. This article will introduce how Webpack builds development environment and production environment separately.

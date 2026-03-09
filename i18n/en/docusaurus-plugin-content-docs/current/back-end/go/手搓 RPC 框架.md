@@ -6,8 +6,9 @@ tags:
   - Go
   - Backend
 description: >-
-  Building RPC Framework from Scratch - Implementing RPC Service from Zero RPC
-  (Remote Procedure Call) is the cornerstone...
+  Build a simple RPC framework from scratch to deeply understand RPC principles.
+  Covers service registration/discovery, serialization, network transport, load
+  balancing and other core components.
 ---
 
 # Building RPC Framework from Scratch - Implementing RPC Service from Zero
