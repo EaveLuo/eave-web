@@ -30,6 +30,7 @@ interface EnhancedDoc {
   title: string | null;
   tags: string[];
   date: string | null;
+  content?: string;
 }
 
 interface EnhancedPluginData {
@@ -49,6 +50,59 @@ interface ArticleItem {
 // Tag 显示函数 - 直接返回原 tag（保持和博客一致，不翻译）
 function displayTag(tag: string): string {
   return tag;
+}
+
+// 提取纯文本描述（移除 markdown 符号）
+function extractDescription(content: string | undefined, maxLength: number = 120): string {
+  if (!content) {
+    return translate({ id: 'homepage.latestArticles.noDescription', message: '暂无描述' });
+  }
+  
+  // 移除 markdown 符号
+  let text = content
+    // 移除代码块
+    .replace(/```[\s\S]*?```/g, '')
+    // 移除行内代码
+    .replace(/`[^`]*`/g, '')
+    // 移除链接 [text](url) -> text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // 移除图片 ![alt](url)
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
+    // 移除 HTML 标签
+    .replace(/<[^>]+>/g, '')
+    // 移除标题符号 # ## ###
+    .replace(/^#{1,6}\s+/gm, '')
+    // 移除粗体/斜体
+    .replace(/(\*\*?|__?)([^*_]+)\1/g, '$2')
+    // 移除列表符号
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    // 移除引用符号
+    .replace(/^>\s?/gm, '')
+    // 移除水平线
+    .replace(/^---+$/gm, '')
+    // 合并多个空行
+    .replace(/\n{3,}/g, '\n\n')
+    // 移除行首空格
+    .replace(/^\s+/gm, '');
+  
+  // 提取前 maxLength 个字符
+  text = text.trim();
+  if (text.length <= maxLength) {
+    return text;
+  }
+  
+  // 在 maxLength 处截断，但尽量在单词边界截断
+  const truncated = text.substring(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(' ');
+  const lastNewLineIndex = truncated.lastIndexOf('\n');
+  const breakIndex = Math.max(lastSpaceIndex, lastNewLineIndex);
+  
+  if (breakIndex > maxLength * 0.8) {
+    return truncated.substring(0, breakIndex) + '...';
+  }
+  
+  return truncated + '...';
 }
 
 // 格式化日期 - 使用 Docusaurus 当前语言
@@ -93,9 +147,9 @@ function useLatestBlogPosts(limit: number): ArticleItem[] {
     .slice(0, limit)
     .map((post) => {
       const frontMatter = post.metadata.frontMatter;
+      // 优先使用 frontMatter 的 description，否则从内容提取
       const description = (frontMatter?.description as string) || 
-                         (post.content?.substring(0, 120) + '...') || 
-                         translate({ id: 'homepage.latestArticles.noDescription', message: '暂无描述' });
+                         extractDescription(post.content, 120);
       return {
         id: post.id,
         title: post.metadata.title,
@@ -157,7 +211,8 @@ function useLatestDocs(limit: number): ArticleItem[] {
         id: doc.id,
         // 优先使用增强数据的标题，否则使用默认数据的 label
         title: enhanced?.title || doc.label || doc.id,
-        description: translate({ id: 'homepage.latestArticles.docDescription', message: '技术文档' }),
+        // 从内容提取描述
+        description: extractDescription(enhanced?.content, 120),
         // 使用增强插件的 front matter 数据
         date: enhanced?.date 
           ? new Date(enhanced.date).toISOString()

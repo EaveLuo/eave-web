@@ -26,20 +26,21 @@ function getAllDocFiles(dir, baseDir = dir) {
   return files;
 }
 
-// 读取文件的 front matter
-function readDocFrontMatter(filePath) {
+// 读取文件的 front matter 和内容
+function readDocContent(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf-8');
-    const { data } = matter(content);
+    const { data, content: body } = matter(content);
     return {
       title: data.title || null,
       sidebar_label: data.sidebar_label || null,
       tags: data.tags || [],
       date: data.date || null,
+      content: body?.trim() || '',
     };
   } catch (error) {
-    console.warn(`[DocsPlugin] Failed to read front matter from ${filePath}:`, error.message);
-    return { title: null, sidebar_label: null, tags: [], date: null };
+    console.warn(`[DocsPlugin] Failed to read content from ${filePath}:`, error.message);
+    return { title: null, sidebar_label: null, tags: [], date: null, content: '' };
   }
 }
 
@@ -79,12 +80,13 @@ function docsPluginEnhanced(context, options) {
       // 构建文档数据映射
       const docsMap = new Map();
       for (const { id, filePath } of docFiles) {
-        const frontMatter = readDocFrontMatter(filePath);
+        const docContent = readDocContent(filePath);
         docsMap.set(id, {
           id,
-          title: frontMatter.title || frontMatter.sidebar_label || id,
-          tags: frontMatter.tags,
-          date: frontMatter.date,
+          title: docContent.title || docContent.sidebar_label || id,
+          tags: docContent.tags,
+          date: docContent.date,
+          content: docContent.content,
         });
       }
       
@@ -103,6 +105,7 @@ function docsPluginEnhanced(context, options) {
         title: doc.title,
         tags: doc.tags,
         date: doc.date,
+        content: doc.content,
       }));
       
       setGlobalData({
