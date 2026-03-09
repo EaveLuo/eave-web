@@ -26,9 +26,12 @@
 
 .moduleIcon,
 .moduleIconDoc {
-  display: inline-flex;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .moduleIcon {
@@ -43,6 +46,11 @@
   @apply text-2xl md:text-3xl font-bold;
   color: var(--ifm-color-primary);
   letter-spacing: -0.02em;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
 }
 
 .moduleSubtitle {
