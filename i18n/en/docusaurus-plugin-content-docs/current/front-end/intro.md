@@ -19,4 +19,4 @@ description: >-
 
 This module mainly introduces front-end related knowledge, including front-end development, front-end framework, front-end tools, etc.
 
-- [Webpack5](/docs/category/webpack5)
+- [Webpack5](/docs/front-end/webpack5/intro)
