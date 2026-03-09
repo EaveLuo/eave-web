@@ -34,13 +34,14 @@ function readDocContent(filePath) {
     return {
       title: data.title || null,
       sidebar_label: data.sidebar_label || null,
+      description: data.description || null,
       tags: data.tags || [],
       date: data.date || null,
       content: body?.trim() || '',
     };
   } catch (error) {
     console.warn(`[DocsPlugin] Failed to read content from ${filePath}:`, error.message);
-    return { title: null, sidebar_label: null, tags: [], date: null, content: '' };
+    return { title: null, sidebar_label: null, description: null, tags: [], date: null, content: '' };
   }
 }
 
@@ -84,6 +85,7 @@ function docsPluginEnhanced(context, options) {
         docsMap.set(id, {
           id,
           title: docContent.title || docContent.sidebar_label || id,
+          description: docContent.description,
           tags: docContent.tags,
           date: docContent.date,
           content: docContent.content,
@@ -103,6 +105,7 @@ function docsPluginEnhanced(context, options) {
       const enhancedDocs = Array.from(docsMap.values()).map((doc) => ({
         id: doc.id,
         title: doc.title,
+        description: doc.description,
         tags: doc.tags,
         date: doc.date,
         content: doc.content,
