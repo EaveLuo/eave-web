@@ -1,11 +1,14 @@
 ---
 sidebar_position: 1
 keywords:
-- Front-end
-- Front-end development
-- Front-end framework
-- Front-end tools
-- Webpack5
+  - Front-end
+  - Front-end development
+  - Front-end framework
+  - Front-end tools
+  - Webpack5
+date: 2024-06-27T10:32:08.000Z
+tags:
+  - Frontend
 ---
 
 # Front-end

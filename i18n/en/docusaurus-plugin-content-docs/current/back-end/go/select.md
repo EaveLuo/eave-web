@@ -1,6 +1,10 @@
 ---
 sidebar_label: Select
 sidebar_position: 16
+date: 2026-02-27T00:39:30.000Z
+tags:
+  - Go
+  - Backend
 ---
 
 # Select - The Art of Multiplexing

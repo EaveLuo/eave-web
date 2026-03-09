@@ -1,6 +1,10 @@
 ---
 sidebar_label: Channel
 sidebar_position: 15
+date: 2026-02-27T00:39:30.000Z
+tags:
+  - Go
+  - Backend
 ---
 
 # Channel - Communicating by Sharing Memory

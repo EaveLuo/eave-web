@@ -1,6 +1,10 @@
 ---
 sidebar_label: Building RPC Framework from Scratch
 sidebar_position: 21
+date: 2026-02-27T00:39:30.000Z
+tags:
+  - Go
+  - Backend
 ---
 
 # Building RPC Framework from Scratch - Implementing RPC Service from Zero

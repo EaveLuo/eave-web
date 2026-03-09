@@ -45,6 +45,27 @@ interface ArticleItem {
   tags?: string[];
 }
 
+// Tag 翻译映射
+const tagTranslations: Record<string, Record<string, string>> = {
+  '前端': { 'en': 'Frontend', 'zh-CN': '前端' },
+  '后端': { 'en': 'Backend', 'zh-CN': '后端' },
+  'Go': { 'en': 'Go', 'zh-CN': 'Go' },
+  'Node.js': { 'en': 'Node.js', 'zh-CN': 'Node.js' },
+  'Python': { 'en': 'Python', 'zh-CN': 'Python' },
+  '运维': { 'en': 'DevOps', 'zh-CN': '运维' },
+  'AI': { 'en': 'AI', 'zh-CN': 'AI' },
+};
+
+// 获取本地化的 tag
+function getLocalizedTag(tag: string, locale: string): string {
+  return tagTranslations[tag]?.[locale] || tag;
+}
+
+// 获取本地化的 tags 数组
+function getLocalizedTags(tags: string[], locale: string): string[] {
+  return tags.map(tag => getLocalizedTag(tag, locale));
+}
+
 // 格式化日期 - 使用 Docusaurus 当前语言
 function formatDate(dateString: string, locale: string): string {
   const date = new Date(dateString);
@@ -103,7 +124,7 @@ function useLatestBlogPosts(limit: number): ArticleItem[] {
 }
 
 // 获取文档文章
-function useLatestDocs(limit: number): ArticleItem[] {
+function useLatestDocs(limit: number, locale: string): ArticleItem[] {
   // 获取原始插件的文档数据（包含 path, label 等）
   const defaultDocsData = usePluginData('docusaurus-plugin-content-docs', 'default') as GlobalPluginData | undefined;
   // 获取增强插件的 front matter 数据（包含 tags, date）
@@ -144,7 +165,8 @@ function useLatestDocs(limit: number): ArticleItem[] {
             : '',
         path: doc.path,
         type: 'doc' as const,
-        tags: enhanced?.tags || [],
+        // 根据语言本地化 tags
+        tags: getLocalizedTags(enhanced?.tags || [], locale),
       };
     });
 }
@@ -191,12 +213,15 @@ function ArticleCard({ article, index, locale }: { article: ArticleItem; index: 
 }
 
 function LatestArticles() {
-  const blogPosts = useLatestBlogPosts(6);
-  const docs = useLatestDocs(6);
   const location = useLocation();
   
-  // 从 URL 路径获取当前语言
-  const locale = location.pathname.startsWith('/en') ? 'en' : 'zh-CN';
+  // 从 URL 路径获取当前语言（SSR/SSG 安全）
+  // 在 SSR 时，location.pathname 是服务端渲染的当前路径
+  // 从 URL 路径获取当前语言（SSR/SSG 安全）
+  const locale = location.pathname.startsWith('/en/') || location.pathname === '/en' ? 'en' : 'zh-CN';
+  
+  const blogPosts = useLatestBlogPosts(6);
+  const docs = useLatestDocs(6, locale);
   
   console.log('[LatestArticles] Render:', { blogs: blogPosts.length, docs: docs.length, locale });
   
