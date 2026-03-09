@@ -24,6 +24,13 @@
   width: 100%;
 }
 
+.moduleIcon,
+.moduleIconDoc {
+  display: inline-flex;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
 .moduleIcon {
   color: var(--ifm-color-primary);
 }
