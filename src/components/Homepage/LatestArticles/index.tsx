@@ -45,14 +45,9 @@ interface ArticleItem {
   tags?: string[];
 }
 
-// 获取本地化的 tag - 使用 Docusaurus 翻译系统
-function getLocalizedTag(tag: string): string {
-  // 尝试从翻译文件中获取，如果不存在则返回原 tag
-  try {
-    return translate({ id: `tag.${tag}`, message: tag });
-  } catch {
-    return tag;
-  }
+// Tag 显示函数 - 直接返回原 tag（保持和博客一致，不翻译）
+function displayTag(tag: string): string {
+  return tag;
 }
 
 // 格式化日期 - 使用浏览器本地语言（Docusaurus 会自动处理）
@@ -148,8 +143,8 @@ function useLatestDocs(limit: number): ArticleItem[] {
             : '',
         path: doc.path,
         type: 'doc' as const,
-        // 使用 Docusaurus 翻译系统本地化 tags
-        tags: (enhanced?.tags || []).map(tag => getLocalizedTag(tag)),
+        // 直接使用原始 tags（保持和博客一致，不翻译）
+        tags: enhanced?.tags || [],
       };
     });
 }
