@@ -60,6 +60,8 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
+          // 显示最后更新时间，用于首页最新文档区块
+          showLastUpdateTime: true,
         },
         blog: false, // 禁用默认博客插件，使用自定义插件
         // SVGR 插件配置（3.7 新特性）- 可自定义 SVG 导入行为
