@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import { usePluginData } from '@docusaurus/useGlobalData';
-import { useLocation } from '@docusaurus/router';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Translate, { translate } from '@docusaurus/Translate';
 import { Calendar, FileText, ArrowRight } from 'lucide-react';
 import styles from './styles.module.css';
@@ -50,10 +50,16 @@ function displayTag(tag: string): string {
   return tag;
 }
 
-// 格式化日期 - 使用浏览器本地语言（Docusaurus 会自动处理）
-function formatDate(dateString: string): string {
+// 格式化日期 - 使用 Docusaurus 当前语言
+function formatDate(dateString: string, locale: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString(undefined, {
+  // 映射 Docusaurus 语言代码到浏览器语言代码
+  const localeMap: Record<string, string> = {
+    'zh-CN': 'zh-CN',
+    'en': 'en-US',
+  };
+  const browserLocale = localeMap[locale] || locale;
+  return date.toLocaleDateString(browserLocale, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -149,7 +155,7 @@ function useLatestDocs(limit: number): ArticleItem[] {
     });
 }
 
-function ArticleCard({ article, index }: { article: ArticleItem; index: number }) {
+function ArticleCard({ article, index, locale }: { article: ArticleItem; index: number; locale: string }) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -166,7 +172,7 @@ function ArticleCard({ article, index }: { article: ArticleItem; index: number }
               : translate({ id: 'homepage.latestArticles.badgeDoc', message: 'Doc' })}
           </span>
           {article.date && (
-            <time className={styles.date}>{formatDate(article.date)}</time>
+            <time className={styles.date}>{formatDate(article.date, locale)}</time>
           )}
         </div>
         
@@ -191,10 +197,9 @@ function ArticleCard({ article, index }: { article: ArticleItem; index: number }
 }
 
 function LatestArticles() {
-  const location = useLocation();
+  const { i18n } = useDocusaurusContext();
+  const currentLocale = i18n.currentLocale;
   
-  // 从 URL 路径获取当前语言（SSR/SSG 安全）
-  // 在 SSR 时，location.pathname 是服务端渲染的当前路径
   const blogPosts = useLatestBlogPosts(6);
   const docs = useLatestDocs(6);
   
@@ -224,7 +229,7 @@ function LatestArticles() {
           {latestBlogs.length > 0 ? (
             <div className={styles.grid}>
               {latestBlogs.map((article, index) => (
-                <ArticleCard key={article.id} article={article} index={index} />
+                <ArticleCard key={article.id} article={article} index={index} locale={currentLocale} />
               ))}
             </div>
           ) : (
@@ -258,7 +263,7 @@ function LatestArticles() {
           {latestDocs.length > 0 ? (
             <div className={styles.grid}>
               {latestDocs.map((article, index) => (
-                <ArticleCard key={article.id} article={article} index={index} />
+                <ArticleCard key={article.id} article={article} index={index} locale={currentLocale} />
               ))}
             </div>
           ) : (
