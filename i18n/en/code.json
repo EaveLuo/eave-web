@@ -66,6 +66,34 @@
     "message": "No documents yet",
     "description": "Message when no documents are available"
   },
+  "tag.前端": {
+    "message": "Frontend",
+    "description": "Tag for frontend content"
+  },
+  "tag.后端": {
+    "message": "Backend",
+    "description": "Tag for backend content"
+  },
+  "tag.运维": {
+    "message": "DevOps",
+    "description": "Tag for DevOps content"
+  },
+  "tag.Go": {
+    "message": "Go",
+    "description": "Tag for Go programming language"
+  },
+  "tag.Node.js": {
+    "message": "Node.js",
+    "description": "Tag for Node.js"
+  },
+  "tag.Python": {
+    "message": "Python",
+    "description": "Tag for Python programming language"
+  },
+  "tag.AI": {
+    "message": "AI",
+    "description": "Tag for AI content"
+  },
   "theme.ErrorPageContent.title": {
     "message": "This page crashed.",
     "description": "The title of the fallback page when the page crashed"

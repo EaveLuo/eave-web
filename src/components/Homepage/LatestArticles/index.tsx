@@ -45,37 +45,20 @@ interface ArticleItem {
   tags?: string[];
 }
 
-// Tag 翻译映射
-const tagTranslations: Record<string, Record<string, string>> = {
-  '前端': { 'en': 'Frontend', 'zh-CN': '前端' },
-  '后端': { 'en': 'Backend', 'zh-CN': '后端' },
-  'Go': { 'en': 'Go', 'zh-CN': 'Go' },
-  'Node.js': { 'en': 'Node.js', 'zh-CN': 'Node.js' },
-  'Python': { 'en': 'Python', 'zh-CN': 'Python' },
-  '运维': { 'en': 'DevOps', 'zh-CN': '运维' },
-  'AI': { 'en': 'AI', 'zh-CN': 'AI' },
-};
-
-// 获取本地化的 tag
-function getLocalizedTag(tag: string, locale: string): string {
-  return tagTranslations[tag]?.[locale] || tag;
+// 获取本地化的 tag - 使用 Docusaurus 翻译系统
+function getLocalizedTag(tag: string): string {
+  // 尝试从翻译文件中获取，如果不存在则返回原 tag
+  try {
+    return translate({ id: `tag.${tag}`, message: tag });
+  } catch {
+    return tag;
+  }
 }
 
-// 获取本地化的 tags 数组
-function getLocalizedTags(tags: string[], locale: string): string[] {
-  return tags.map(tag => getLocalizedTag(tag, locale));
-}
-
-// 格式化日期 - 使用 Docusaurus 当前语言
-function formatDate(dateString: string, locale: string): string {
+// 格式化日期 - 使用浏览器本地语言（Docusaurus 会自动处理）
+function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  // 映射 Docusaurus 语言代码到浏览器语言代码
-  const localeMap: Record<string, string> = {
-    'zh-CN': 'zh-CN',
-    'en': 'en-US',
-  };
-  const browserLocale = localeMap[locale] || locale;
-  return date.toLocaleDateString(browserLocale, {
+  return date.toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -124,7 +107,7 @@ function useLatestBlogPosts(limit: number): ArticleItem[] {
 }
 
 // 获取文档文章
-function useLatestDocs(limit: number, locale: string): ArticleItem[] {
+function useLatestDocs(limit: number): ArticleItem[] {
   // 获取原始插件的文档数据（包含 path, label 等）
   const defaultDocsData = usePluginData('docusaurus-plugin-content-docs', 'default') as GlobalPluginData | undefined;
   // 获取增强插件的 front matter 数据（包含 tags, date）
@@ -165,13 +148,13 @@ function useLatestDocs(limit: number, locale: string): ArticleItem[] {
             : '',
         path: doc.path,
         type: 'doc' as const,
-        // 根据语言本地化 tags
-        tags: getLocalizedTags(enhanced?.tags || [], locale),
+        // 使用 Docusaurus 翻译系统本地化 tags
+        tags: (enhanced?.tags || []).map(tag => getLocalizedTag(tag)),
       };
     });
 }
 
-function ArticleCard({ article, index, locale }: { article: ArticleItem; index: number; locale: string }) {
+function ArticleCard({ article, index }: { article: ArticleItem; index: number }) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -188,7 +171,7 @@ function ArticleCard({ article, index, locale }: { article: ArticleItem; index: 
               : translate({ id: 'homepage.latestArticles.badgeDoc', message: 'Doc' })}
           </span>
           {article.date && (
-            <time className={styles.date}>{formatDate(article.date, locale)}</time>
+            <time className={styles.date}>{formatDate(article.date)}</time>
           )}
         </div>
         
@@ -217,13 +200,10 @@ function LatestArticles() {
   
   // 从 URL 路径获取当前语言（SSR/SSG 安全）
   // 在 SSR 时，location.pathname 是服务端渲染的当前路径
-  // 从 URL 路径获取当前语言（SSR/SSG 安全）
-  const locale = location.pathname.startsWith('/en/') || location.pathname === '/en' ? 'en' : 'zh-CN';
-  
   const blogPosts = useLatestBlogPosts(6);
-  const docs = useLatestDocs(6, locale);
+  const docs = useLatestDocs(6);
   
-  console.log('[LatestArticles] Render:', { blogs: blogPosts.length, docs: docs.length, locale });
+  console.log('[LatestArticles] Render:', { blogs: blogPosts.length, docs: docs.length });
   
   // 合并并按日期排序，取前6个博客和6个文档分别展示
   const latestBlogs = useMemo(() => blogPosts.slice(0, 6), [blogPosts]);
@@ -249,7 +229,7 @@ function LatestArticles() {
           {latestBlogs.length > 0 ? (
             <div className={styles.grid}>
               {latestBlogs.map((article, index) => (
-                <ArticleCard key={article.id} article={article} index={index} locale={locale} />
+                <ArticleCard key={article.id} article={article} index={index} />
               ))}
             </div>
           ) : (
@@ -283,7 +263,7 @@ function LatestArticles() {
           {latestDocs.length > 0 ? (
             <div className={styles.grid}>
               {latestDocs.map((article, index) => (
-                <ArticleCard key={article.id} article={article} index={index} locale={locale} />
+                <ArticleCard key={article.id} article={article} index={index} />
               ))}
             </div>
           ) : (
