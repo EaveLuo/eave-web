@@ -121,8 +121,8 @@
 }
 
 .badgeDoc {
-  background: var(--ifm-color-primary-lightest);
-  color: var(--ifm-color-primary-dark);
+  background: rgba(46, 133, 85, 0.08);
+  color: var(--ifm-color-primary-darker);
 }
 
 [data-theme='dark'] .badgeBlog {
@@ -131,8 +131,8 @@
 }
 
 [data-theme='dark'] .badgeDoc {
-  background: var(--ifm-color-primary-darkest);
-  color: var(--ifm-color-primary-light);
+  background: rgba(37, 194, 160, 0.12);
+  color: var(--ifm-color-primary-lighter);
 }
 
 .date {
