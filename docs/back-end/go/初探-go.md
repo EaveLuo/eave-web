@@ -1,7 +1,7 @@
 ---
 sidebar_label: Go 语言初探
 sidebar_position: 1
-date: "2026-02-27T08:39:30+08:00"
+date: 2026-02-27T08:39:30+08:00
 tags: [Go, 后端]
 ---
 # Go 语言初探 - 为什么选择 Go

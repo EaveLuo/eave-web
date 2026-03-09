@@ -1,7 +1,7 @@
 ---
 sidebar_label: Goroutine
 sidebar_position: 14
-date: "2026-02-27T08:39:30+08:00"
+date: 2026-02-27T08:39:30+08:00
 tags: [Go, 后端]
 ---
 # Goroutine - 并发编程的利器

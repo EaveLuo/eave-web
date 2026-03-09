@@ -1,7 +1,7 @@
 ---
 sidebar_label: Go Modules
 sidebar_position: 18
-date: "2026-03-01T04:48:21+08:00"
+date: 2026-03-01T04:48:21+08:00
 tags: [Go, 后端]
 ---
 # Go Modules - 依赖管理

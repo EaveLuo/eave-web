@@ -7,7 +7,7 @@ tags: [Node.js, 后端]
 keywords:
   - Node.js
   - http
-date: "2024-07-11T18:20:27+08:00"
+date: 2024-07-11T18:20:27+08:00
 ---
 在介绍 `http` 模块之前，我们先来了解一下 HTTP 协议，更有助于我们使用 Node.js 中的 `http` 模块。
 

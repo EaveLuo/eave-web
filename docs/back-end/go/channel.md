@@ -1,7 +1,7 @@
 ---
 sidebar_label: Channel
 sidebar_position: 15
-date: "2026-02-27T08:39:30+08:00"
+date: 2026-02-27T08:39:30+08:00
 tags: [Go, 后端]
 ---
 # Channel - 通信共享内存

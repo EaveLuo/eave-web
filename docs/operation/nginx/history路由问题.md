@@ -7,7 +7,7 @@ keywords:
   - nginx
   - history路由
   - hash路由
-date: "2024-06-26T16:32:33+08:00"
+date: 2024-06-26T16:32:33+08:00
 ---
 `history` 路由模式下的 nginx 匹配不到项目的路由问题。
 
