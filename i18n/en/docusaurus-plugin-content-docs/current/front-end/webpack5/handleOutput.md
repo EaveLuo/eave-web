@@ -1,5 +1,6 @@
 ---
 sidebar_position: 6
+sidebar_label: Handle Output
 slug: handle-output
 title: Modify the name and path of output resources
 tags:

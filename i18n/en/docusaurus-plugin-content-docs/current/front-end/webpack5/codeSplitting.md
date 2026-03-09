@@ -1,5 +1,6 @@
 ---
 sidebar_position: 18
+sidebar_label: Code Splitting
 slug: code-splitting
 title: Configure code splitting
 tags:

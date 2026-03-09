@@ -1,5 +1,6 @@
 ---
 sidebar_position: 12
+sidebar_label: Automation
 slug: automation
 title: Automatic compilation using devServer
 tags:

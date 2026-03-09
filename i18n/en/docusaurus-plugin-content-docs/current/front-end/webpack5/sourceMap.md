@@ -1,5 +1,6 @@
 ---
 sidebar_position: 15
+sidebar_label: SourceMap
 slug: source-map
 title: Configure SourceMap
 tags:

@@ -1,5 +1,6 @@
 ---
 date: 2024-06-28T09:10:57.000Z
+sidebar_label: 基础配置
 tags:
   - 前端
 description: Webpack 5 基础配置详解，包括入口出口配置、loader 匹配规则、plugin 使用、resolve 解析配置等常用配置项的详细说明。

@@ -1,5 +1,6 @@
 ---
 date: 2024-07-01T08:36:31.000Z
+sidebar_label: 构建 PWA
 tags:
   - 前端
 description: >-

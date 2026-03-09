@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+sidebar_label: Base Config
 slug: base-config
 title: Basic Configuration
 tags:

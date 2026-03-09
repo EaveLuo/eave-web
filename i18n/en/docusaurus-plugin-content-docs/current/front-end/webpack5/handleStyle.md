@@ -1,5 +1,6 @@
 ---
 sidebar_position: 4
+sidebar_label: Handle Style
 slug: handle-style
 title: Processing style resources
 tags:

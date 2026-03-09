@@ -1,5 +1,6 @@
 ---
 sidebar_position: 17
+sidebar_label: Reduce Volume
 slug: reduce-volume
 title: Reduce code size
 tags:

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 8
+sidebar_label: Handle Other
 slug: handle-Other
 title: 'Handle fonts, icons, audio, video and other resources'
 tags:

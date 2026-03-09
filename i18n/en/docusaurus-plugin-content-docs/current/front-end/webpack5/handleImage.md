@@ -1,5 +1,6 @@
 ---
 sidebar_position: 5
+sidebar_label: Handle Image
 slug: handle-images
 title: handle image resources
 tags:

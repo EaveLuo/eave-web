@@ -1,5 +1,6 @@
 ---
 sidebar_position: 16
+sidebar_label: Lifting Speed
 slug: lifting-speed
 title: Improve the speed of packaging and building
 tags:

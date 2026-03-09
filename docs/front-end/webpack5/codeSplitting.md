@@ -1,5 +1,6 @@
 ---
 date: 2024-07-01T08:36:31.000Z
+sidebar_label: 代码分割
 tags:
   - 前端
 description: Webpack 5 代码分割策略，包括动态导入（import()）、SplitChunksPlugin 配置、按需加载、预加载/预获取等优化首屏加载的技术。

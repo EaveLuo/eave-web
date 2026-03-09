@@ -1,5 +1,6 @@
 ---
 sidebar_position: 14
+sidebar_label: Optimize CSS
 slug: optimize-css
 title: Optimize CSS processing
 tags:

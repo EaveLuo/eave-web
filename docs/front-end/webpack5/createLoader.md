@@ -1,5 +1,6 @@
 ---
 date: 2024-07-01T10:39:37.000Z
+sidebar_label: 自定义 Loader
 tags:
   - 前端
 description: Webpack 5 自定义 Loader 开发，讲解 Loader 工作原理、API 使用、异步处理、缓存策略等，通过实例展示如何编写自定义 Loader。

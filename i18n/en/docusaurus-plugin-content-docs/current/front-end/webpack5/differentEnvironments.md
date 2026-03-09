@@ -1,5 +1,6 @@
 ---
 sidebar_position: 13
+sidebar_label: Different Environments
 slug: different-environments
 title: Build development environment and production environment separately
 tags:

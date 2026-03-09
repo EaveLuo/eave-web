@@ -1,5 +1,6 @@
 ---
 sidebar_position: 19
+sidebar_label: PWA
 slug: pwa
 title: PWA
 tags:

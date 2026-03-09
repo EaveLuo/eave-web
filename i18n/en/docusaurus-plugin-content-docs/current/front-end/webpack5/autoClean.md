@@ -1,5 +1,6 @@
 ---
 sidebar_position: 7
+sidebar_label: Auto Clean
 slug: auto-clean
 title: Automatically clear the last packaged resources
 tags:

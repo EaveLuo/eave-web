@@ -1,5 +1,6 @@
 ---
 sidebar_position: 11
+sidebar_label: Handle HTML
 slug: handle-html
 title: Handle HTML files
 tags:

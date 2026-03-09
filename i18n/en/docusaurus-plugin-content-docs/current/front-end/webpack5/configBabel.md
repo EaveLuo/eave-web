@@ -1,5 +1,6 @@
 ---
 sidebar_position: 10
+sidebar_label: Config Babel
 slug: config-babel
 title: Configure code compatibility processing tool Babel
 tags:

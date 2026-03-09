@@ -1,5 +1,6 @@
 ---
 sidebar_position: 9
+sidebar_label: Config ESLint
 slug: config-eslint
 title: Configure code checking tool ESLint
 tags:

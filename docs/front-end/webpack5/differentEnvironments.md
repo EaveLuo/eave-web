@@ -1,5 +1,6 @@
 ---
 date: 2024-06-28T09:10:57.000Z
+sidebar_label: 多环境配置
 tags:
   - 前端
 description: Webpack 5 多环境配置，讲解开发环境、测试环境、生产环境的差异化配置，使用 webpack-merge 合并配置，环境变量注入等。

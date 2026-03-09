@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+sidebar_label: Base
 slug: base
 title: Basic Usage
 description: >-

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 20
+sidebar_label: Create Loader
 slug: create-loader
 title: Create Loader
 tags:

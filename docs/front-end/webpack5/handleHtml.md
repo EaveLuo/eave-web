@@ -1,5 +1,6 @@
 ---
 date: 2024-06-28T09:10:57.000Z
+sidebar_label: 处理 HTML
 tags:
   - 前端
 description: Webpack 5 处理 HTML，使用 html-webpack-plugin 自动生成 HTML、注入打包资源、多页面配置、模板引擎集成等。
