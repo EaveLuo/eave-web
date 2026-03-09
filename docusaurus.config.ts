@@ -57,10 +57,7 @@ const config: Config = {
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
           ],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
-          // 显示最后更新时间，用于首页最新文档区块
           showLastUpdateTime: true,
         },
         blog: false, // 禁用默认博客插件，使用自定义插件
@@ -322,6 +319,7 @@ const config: Config = {
     'docusaurus-plugin-image-zoom',
     '@docusaurus/theme-live-codeblock',
     // 自定义博客插件 - 将博客数据注入全局数据
+    // 自定义博客插件
     [
       './src/plugin/plugin-content-blog',
       {

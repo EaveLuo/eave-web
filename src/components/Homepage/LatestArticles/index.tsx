@@ -108,6 +108,8 @@ function useLatestDocs(limit: number): ArticleItem[] {
         : '',
       path: doc.path,
       type: 'doc' as const,
+      // 文档不显示 tags，因为 Docusaurus 文档插件默认不提供 frontMatter 数据
+      tags: [],
     }));
 }
 
