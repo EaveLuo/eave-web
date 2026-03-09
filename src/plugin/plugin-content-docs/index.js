@@ -32,12 +32,14 @@ function readDocFrontMatter(filePath) {
     const content = fs.readFileSync(filePath, 'utf-8');
     const { data } = matter(content);
     return {
+      title: data.title || null,
+      sidebar_label: data.sidebar_label || null,
       tags: data.tags || [],
       date: data.date || null,
     };
   } catch (error) {
     console.warn(`[DocsPlugin] Failed to read front matter from ${filePath}:`, error.message);
-    return { tags: [], date: null };
+    return { title: null, sidebar_label: null, tags: [], date: null };
   }
 }
 
@@ -80,6 +82,7 @@ function docsPluginEnhanced(context, options) {
         const frontMatter = readDocFrontMatter(filePath);
         docsMap.set(id, {
           id,
+          title: frontMatter.title || frontMatter.sidebar_label || id,
           tags: frontMatter.tags,
           date: frontMatter.date,
         });
@@ -97,6 +100,7 @@ function docsPluginEnhanced(context, options) {
       // 转换为数组格式
       const enhancedDocs = Array.from(docsMap.values()).map((doc) => ({
         id: doc.id,
+        title: doc.title,
         tags: doc.tags,
         date: doc.date,
       }));
