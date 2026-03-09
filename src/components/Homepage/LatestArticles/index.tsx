@@ -6,16 +6,23 @@ import Translate, { translate } from '@docusaurus/Translate';
 import { Calendar, FileText, ArrowRight } from 'lucide-react';
 import styles from './styles.module.css';
 
-// 定义文档相关的类型
+// 定义文档相关的类型（使用自定义插件注入的增强数据）
 interface GlobalDoc {
   id: string;
   label: string;
   path: string;
   sidebar?: string;
+  tags?: string[];
+  date?: string;
   lastUpdatedAt?: number;
 }
 
 interface GlobalVersion {
+  name: string;
+  label: string;
+  isLast: boolean;
+  path: string;
+  mainDocId: string;
   docs: GlobalDoc[];
 }
 
@@ -102,12 +109,15 @@ function useLatestDocs(limit: number): ArticleItem[] {
       id: doc.id,
       title: doc.label || doc.id,
       description: translate({ id: 'homepage.latestArticles.docDescription', message: '技术文档' }),
-      // Docusaurus 文档插件的全局数据不包含 lastUpdatedAt 或 frontMatter
-      // 所以文档卡片不显示日期和 tags
-      date: '',
+      // 使用自定义插件注入的 front matter 数据
+      date: doc.date 
+        ? new Date(doc.date).toISOString()
+        : doc.lastUpdatedAt 
+          ? new Date(doc.lastUpdatedAt * 1000).toISOString()
+          : '',
       path: doc.path,
       type: 'doc' as const,
-      tags: [],
+      tags: doc.tags || [],
     }));
 }
 

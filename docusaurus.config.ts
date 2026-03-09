@@ -52,14 +52,7 @@ const config: Config = {
     [
       'classic',
       {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
-          ],
-          editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
-          showLastUpdateTime: true,
-        },
+        docs: false, // 禁用默认文档插件，使用自定义插件
         blog: false, // 禁用默认博客插件，使用自定义插件
         // SVGR 插件配置（3.7 新特性）- 可自定义 SVG 导入行为
         svgr: {
@@ -338,6 +331,28 @@ const config: Config = {
           title: 'Eave Luo',
           copyright: `Copyright © ${new Date().getFullYear()} Eave Luo. Built with Docusaurus.`,
         },
+      },
+    ],
+    // 原始文档插件 - 用于创建路由和 sidebars
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'default',
+        path: 'docs',
+        sidebarPath: './sidebars.ts',
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+        ],
+        editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
+        showLastUpdateTime: true,
+      },
+    ],
+    // 自定义文档插件 - 注入 front matter 到全局数据
+    [
+      './src/plugin/plugin-content-docs',
+      {
+        id: 'default',
+        path: 'docs',
       },
     ],
   ],
