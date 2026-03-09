@@ -21,6 +21,7 @@
 
 .moduleTitleWrapper {
   @apply flex items-center justify-center gap-3 mb-3;
+  width: 100%;
 }
 
 .moduleIcon {
