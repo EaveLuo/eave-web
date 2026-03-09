@@ -43,14 +43,34 @@ function readDocFrontMatter(filePath) {
 
 // 创建插件
 function docsPluginEnhanced(context, options) {
-  const { siteDir } = context;
+  const { siteDir, i18n } = context;
   const docsPath = options.path || 'docs';
-  const absoluteDocsPath = path.resolve(siteDir, docsPath);
+  
+  // 根据当前语言选择文档目录
+  // i18n.currentLocale 在构建时会自动设置为当前构建的语言
+  const currentLocale = i18n.currentLocale;
+  
+  // 如果是默认语言（zh-CN），使用 docs/ 目录
+  // 否则使用 i18n/{locale}/docusaurus-plugin-content-docs/current/ 目录
+  let absoluteDocsPath;
+  if (currentLocale === 'zh-CN' || currentLocale === i18n.defaultLocale) {
+    absoluteDocsPath = path.resolve(siteDir, docsPath);
+  } else {
+    absoluteDocsPath = path.resolve(siteDir, 'i18n', currentLocale, 'docusaurus-plugin-content-docs', 'current');
+  }
+  
+  console.log(`[DocsPlugin] Loading docs for locale: ${currentLocale} from: ${absoluteDocsPath}`);
 
   return {
     name: 'custom-docusaurus-plugin-content-docs',
 
     async loadContent() {
+      // 检查目录是否存在
+      if (!fs.existsSync(absoluteDocsPath)) {
+        console.log(`[DocsPlugin] Docs path does not exist: ${absoluteDocsPath}`);
+        return { docsMap: new Map() };
+      }
+      
       // 读取所有文档文件
       const docFiles = getAllDocFiles(absoluteDocsPath);
       
@@ -74,10 +94,6 @@ function docsPluginEnhanced(context, options) {
       const { setGlobalData } = actions;
       const { docsMap } = content;
       
-      // 这里我们无法直接访问原始插件的 docs 数据
-      // 所以我们创建一个独立的增强版本数据
-      // 组件需要从两个插件获取数据并合并
-      
       // 转换为数组格式
       const enhancedDocs = Array.from(docsMap.values()).map((doc) => ({
         id: doc.id,
@@ -89,7 +105,7 @@ function docsPluginEnhanced(context, options) {
         enhancedDocs,
       });
       
-      console.log('[DocsPlugin] Set global data with', enhancedDocs.length, 'enhanced docs');
+      console.log(`[DocsPlugin] Set global data for locale ${currentLocale} with`, enhancedDocs.length, 'enhanced docs');
     },
   };
 }
