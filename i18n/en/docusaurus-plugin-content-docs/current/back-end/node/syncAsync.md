@@ -2,8 +2,12 @@
 sidebar_position: 5
 slug: sync-async
 title: Sync and Asynchrony
-description: The difference between synchronous and asynchronous methods and their reasons, as well as how to choose to use synchronous or asynchronous methods in Node.js.
-tags: [Node.js, JavaScript, Sync, Asynchrony]
+description: 'js, let''s talk about the concepts of synchronization and asynchrony'
+tags:
+  - Node.js
+  - JavaScript
+  - Sync
+  - Asynchrony
 keywords:
   - Node.js
   - JavaScript

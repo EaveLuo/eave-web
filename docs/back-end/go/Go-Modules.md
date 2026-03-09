@@ -5,7 +5,7 @@ date: 2026-02-28T20:48:21.000Z
 tags:
   - Go
   - 后端
-description: "Go Modules - 依赖管理 Go Modules 是 Go 官方的依赖管理解决方案，从 Go 1。\U0001F4E6 核心文件 \U0001F527 常用命令 \U0001F4DD go"
+description: "Go Modules - 依赖管理 Go Modules 是 Go 官方的依赖管理解决方案，从 Go 1。mod 结构 \U0001F4CC 语义化版本 --- 下一章：测试 上一章：Go Modules"
 ---
 # Go Modules - 依赖管理
 

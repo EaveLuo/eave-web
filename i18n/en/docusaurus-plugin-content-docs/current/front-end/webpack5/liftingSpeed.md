@@ -15,7 +15,7 @@ keywords:
   - performance optimization
 description: >-
   In addition to the previous basic configuration, webpack5 can also improve the
-  speed of packaging and building through configuration
+  speed of packaging and building through...
 ---
 
 In addition to the previous basic configuration, webpack5 can also improve the speed of packaging and building through configuration.

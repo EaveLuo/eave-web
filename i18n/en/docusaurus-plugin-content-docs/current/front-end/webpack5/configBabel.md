@@ -16,8 +16,7 @@ keywords:
   - Babel
 description: >-
   Babel is a widely used JavaScript compiler, mainly used to convert modern
-  JavaScript code (including ES6+) into a backward compatible version so that
-  ...
+  JavaScript code (including ES6+) into a...
 ---
 
 Babel is a widely used JavaScript compiler, mainly used to convert modern JavaScript code (including ES6+) into a backward compatible version so that it can run in all browsers or environments.

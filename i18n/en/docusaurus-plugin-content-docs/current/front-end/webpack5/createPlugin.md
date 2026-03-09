@@ -13,7 +13,7 @@ keywords:
   - Plugin
 description: >-
   Through plugins, we can extend webpack and add custom build behaviors, so that
-  webpack can perform a wider range of tasks and have stronger build capa...
+  webpack can perform a wider range of...
 ---
 
 Through plugins, we can extend webpack and add custom build behaviors, so that webpack can perform a wider range of tasks and have stronger build capabilities.

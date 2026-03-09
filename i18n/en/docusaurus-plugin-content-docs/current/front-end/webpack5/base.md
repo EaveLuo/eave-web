@@ -2,8 +2,13 @@
 sidebar_position: 2
 slug: base
 title: Basic Usage
-description: Introduce the basic usage of Webpack5
-tags: [Webpack, packaging tool, front-end engineering]
+description: >-
+  json: A basic file will be generated at this time: Note that the field in
+  cannot be called , Otherwise, the next step...
+tags:
+  - Webpack
+  - packaging tool
+  - front-end engineering
 keywords:
   - Webpack
   - packaging tool

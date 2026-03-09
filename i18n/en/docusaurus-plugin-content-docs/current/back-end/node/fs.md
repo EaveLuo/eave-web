@@ -2,8 +2,12 @@
 sidebar_position: 7
 slug: fs
 title: fs module
-description: The fs module is one of the core modules of Node.js and is used to interact with the file system. It provides a variety of methods to handle files and directories, including reading, writing, deleting, renaming, and monitoring file changes. The fs module supports synchronous and asynchronous operations to meet different usage requirements.
-tags: [Node.js, fs]
+description: >-
+  The module is one of the core modules of Node. The module supports synchronous
+  and asynchronous operations to meet...
+tags:
+  - Node.js
+  - fs
 keywords:
   - Node.js
   - fs

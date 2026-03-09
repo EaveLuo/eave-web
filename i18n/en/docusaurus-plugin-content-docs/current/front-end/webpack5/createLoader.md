@@ -13,7 +13,7 @@ keywords:
   - loader
 description: >-
   Loader is the core of webpack, which helps webpack convert different types of
-  files into modules that webpack can recognize
+  files into modules that webpack can...
 ---
 
 Loader is the core of webpack, which helps webpack convert different types of files into modules that webpack can recognize.

@@ -7,8 +7,7 @@ tags:
   - Backend
 description: >-
   Select - The Art of Multiplexing Select lets a Goroutine wait on multiple
-  Channel operations simultaneously, making it a core tool for concurrent
-  prog...
+  Channel operations simultaneously, making it...
 ---
 
 # Select - The Art of Multiplexing

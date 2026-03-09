@@ -16,7 +16,7 @@ keywords:
   - production environment
 description: >-
   In actual development, we often have development environment and production
-  environment, and the configurations of the two will be different
+  environment, and the configurations of the...
 ---
 
 In actual development, we often have development environment and production environment, and the configurations of the two will be different. This article will introduce how Webpack builds development environment and production environment separately.

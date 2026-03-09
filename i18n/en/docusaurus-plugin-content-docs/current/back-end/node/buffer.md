@@ -2,8 +2,11 @@
 sidebar_position: 4
 slug: buffer
 title: Buffer
-description: aaa
-tags: [Node.js]
+description: >-
+  Concept of Buffer Buffer is an array-like object used to represent a
+  fixed-length sequence of bytes
+tags:
+  - Node.js
 keywords:
   - Node.js
 ---

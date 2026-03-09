@@ -14,8 +14,8 @@ keywords:
   - performance optimization
   - PWA
 description: >-
-  When developing a Web App project, once the project is offline, it cannot be
-  accessed
+  We hope to provide an offline experience for the project, which requires the
+  use of PWA (Progressive Web App) technology
 ---
 
 When developing a Web App project, once the project is offline, it cannot be accessed.

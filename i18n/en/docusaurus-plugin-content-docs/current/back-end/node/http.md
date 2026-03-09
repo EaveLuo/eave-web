@@ -2,8 +2,12 @@
 sidebar_position: 8
 slug: http
 title: http module
-description: The http module is one of the core modules of Node.js, used to create and serve HTTP servers.
-tags: [Node.js, http]
+description: >-
+  Before introducing the module, let's first understand the HTTP protocol, which
+  will help us use the module in Node
+tags:
+  - Node.js
+  - http
 keywords:
   - Node.js
   - http

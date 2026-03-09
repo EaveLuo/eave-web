@@ -2,8 +2,12 @@
 sidebar_position: 2
 slug: web-api
 title: Application Programming Interface (API)
-description: Web API is an application programming interface provided over the network, allowing different software systems to communicate and exchange data over the Internet.
-tags: [backend, api]
+description: >-
+  Web API is an application programming interface provided over the network,
+  allowing different software systems to...
+tags:
+  - backend
+  - api
 keywords:
   - backend
   - api

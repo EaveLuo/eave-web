@@ -7,7 +7,7 @@ tags:
   - Backend
 description: >-
   Building RPC Framework from Scratch - Implementing RPC Service from Zero RPC
-  (Remote Procedure Call) is the cornerstone of distributed systems
+  (Remote Procedure Call) is the cornerstone...
 ---
 
 # Building RPC Framework from Scratch - Implementing RPC Service from Zero

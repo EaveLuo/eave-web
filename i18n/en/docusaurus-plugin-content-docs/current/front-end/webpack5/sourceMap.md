@@ -12,9 +12,7 @@ keywords:
   - bundler
   - front-end engineering
   - SourceMap
-description: >-
-  SourceMap is a technology used to debug compressed or compiled code。It maps
-  compressed or compiled code back to the original source code, allowing dev...
+description: SourceMap is a technology used to debug compressed or compiled code
 ---
 
 SourceMap is a technology used to debug compressed or compiled code. It maps compressed or compiled code back to the original source code, allowing developers to view the original code in the browser's developer tools and debug it.

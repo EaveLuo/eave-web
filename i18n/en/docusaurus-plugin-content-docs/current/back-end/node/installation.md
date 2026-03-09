@@ -2,8 +2,12 @@
 sidebar_position: 3
 slug: installation
 title: Installation and version management
-description: How to install Node.js and how to use the Node.js version management tool for version management.
-tags: [Node.js, nvm]
+description: >-
+  Below we will introduce how to install and manage Node. js from multiple
+  channels: Installation using the official...
+tags:
+  - Node.js
+  - nvm
 keywords:
   - Node.js
   - nvm

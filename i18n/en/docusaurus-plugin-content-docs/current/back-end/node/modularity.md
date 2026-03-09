@@ -2,8 +2,14 @@
 sidebar_position: 9
 slug: modularity
 title: modularity
-description: Learn about the concept and usage scenarios of modularity in Node.js.
-tags: [Node.js, modularity, CommonJS, ES modules]
+description: >-
+  js, modularity is a very important concept, which allows developers to split
+  code into multiple files and modules,...
+tags:
+  - Node.js
+  - modularity
+  - CommonJS
+  - ES modules
 keywords:
   - Node.js
   - modularity

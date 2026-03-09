@@ -10,10 +10,7 @@ keywords:
   - nginx
   - history routing
   - hash routing
-description: >-
-  The problem that nginx in routing mode cannot match the routing of the
-  project。Preface Modern front-end engineering projects generally use the
-  history...
+description: The problem that nginx in routing mode cannot match the routing of the project
 ---
 
 The problem that nginx in `history` routing mode cannot match the routing of the project.

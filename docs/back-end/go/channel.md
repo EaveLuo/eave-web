@@ -5,7 +5,7 @@ date: 2026-02-27T00:39:30.000Z
 tags:
   - Go
   - 后端
-description: Channel - 通信共享内存 Channel 是 Goroutine 之间的通信管道。Go 的哲学是："不要通过共享内存来通信，而要通过通信来共享内存"
+description: "Channel - 通信共享内存 Channel 是 Goroutine 之间的通信管道。\U0001F4E6 创建 Channel \U0001F504 基本操作 1"
 ---
 # Channel - 通信共享内存
 

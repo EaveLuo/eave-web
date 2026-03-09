@@ -2,8 +2,13 @@
 sidebar_position: 10
 slug: package-manager
 title: Package Manager
-description: Introduces the functions, advantages and disadvantages of the commonly used package managers npm, Yarn and pnpm in Node.js.
-tags: [Node.js, Package Manager, npm, Yarn, pnpm]
+description: 'js, commonly used package managers include npm, Yarn and pnpm'
+tags:
+  - Node.js
+  - Package Manager
+  - npm
+  - Yarn
+  - pnpm
 keywords:
   - Node.js
   - Package Manager

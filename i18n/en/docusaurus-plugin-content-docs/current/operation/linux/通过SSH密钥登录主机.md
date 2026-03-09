@@ -9,8 +9,8 @@ keywords:
   - linux
   - ssh
 description: >-
-  Log in to the remote server via SSH key (solves some strange problems when
-  logging in with account password, and also improves security) Preface In da...
+  However, if you need to enter a password every time, it would be very
+  troublesome, and the password is easy to be...
 ---
 
 Log in to the remote server via SSH key (solves some strange problems when logging in with account password, and also improves security)

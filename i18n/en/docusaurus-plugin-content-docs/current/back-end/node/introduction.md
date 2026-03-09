@@ -2,8 +2,11 @@
 sidebar_position: 2
 slug: introduction
 title: What is Node.js?
-description: Node.js is a JavaScript runtime environment based on the Chrome V8 engine that allows JavaScript code to run on the server side. This article will introduce the installation, version management, and usage of Node.js.
-tags: [Node.js]
+description: >-
+  :::tip Tips The subsequent content of this module will be based on the premise
+  of having basic knowledge of javascript
+tags:
+  - Node.js
 keywords:
   - Node.js
 ---

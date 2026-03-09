@@ -2,8 +2,13 @@
 sidebar_position: 11
 slug: express
 title: Express framework
-description: Express framework is a lightweight web application framework developed by Node.js.
-tags: [Node.js, Express, backend framework]
+description: >-
+  Express is a concise and flexible Node. js web application framework that
+  provides a range of powerful features for...
+tags:
+  - Node.js
+  - Express
+  - backend framework
 keywords:
   - Node.js
   - Express

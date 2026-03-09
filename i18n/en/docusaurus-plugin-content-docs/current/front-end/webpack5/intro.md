@@ -12,7 +12,7 @@ keywords:
   - front-end engineering
 description: >-
   This module will lead you to understand the basic concepts and usage of
-  Webpack5, as well as some common configuration items and plug-ins
+  Webpack5, as well as some common configuration...
 ---
 
 This module will lead you to understand the basic concepts and usage of Webpack5, as well as some common configuration items and plug-ins. Please upgrade the Node.js version to at least 10.13.0 and above (the latest LTS version is best).

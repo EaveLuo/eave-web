@@ -11,10 +11,7 @@ keywords:
   - packaging tool
   - front-end engineering
   - Automatically clear the previous output directory
-description: >-
-  In the previous processing, we need to manually delete the last packaged
-  resources if we want to see some effects, but this is obviously not
-  convenien...
+description: Configuration Run command Observe the dist directory resources
 ---
 
 In the previous processing, we need to manually delete the last packaged resources if we want to see some effects, but this is obviously not convenient enough, so Webpack provides the function of automatically clearing the last packaged resources.
