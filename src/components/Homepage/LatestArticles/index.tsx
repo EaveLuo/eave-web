@@ -27,6 +27,7 @@ interface GlobalPluginData {
 // 定义增强文档数据（自定义插件注入）
 interface EnhancedDoc {
   id: string;
+  title: string | null;
   tags: string[];
   date: string | null;
 }
@@ -139,7 +140,8 @@ function useLatestDocs(limit: number): ArticleItem[] {
       
       return {
         id: doc.id,
-        title: doc.label || doc.id,
+        // 优先使用增强数据的标题，否则使用默认数据的 label
+        title: enhanced?.title || doc.label || doc.id,
         description: translate({ id: 'homepage.latestArticles.docDescription', message: '技术文档' }),
         // 使用增强插件的 front matter 数据
         date: enhanced?.date 
