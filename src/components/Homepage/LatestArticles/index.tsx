@@ -12,6 +12,7 @@ interface GlobalDoc {
   label: string;
   path: string;
   sidebar?: string;
+  lastUpdatedAt?: number;
 }
 
 interface GlobalVersion {
@@ -101,8 +102,10 @@ function useLatestDocs(limit: number): ArticleItem[] {
       id: doc.id,
       title: doc.label || doc.id,
       description: translate({ id: 'homepage.latestArticles.docDescription', message: '技术文档' }),
-      // 文档没有日期，使用固定日期避免每次构建变化
-      date: '2024-01-01T00:00:00.000Z',
+      // 使用文档的 lastUpdatedAt 时间戳（秒转毫秒），如果没有则为空字符串
+      date: doc.lastUpdatedAt 
+        ? new Date(doc.lastUpdatedAt * 1000).toISOString()
+        : '',
       path: doc.path,
       type: 'doc' as const,
     }));
@@ -124,7 +127,9 @@ function ArticleCard({ article, index }: { article: ArticleItem; index: number }
               ? translate({ id: 'homepage.latestArticles.badgeBlog', message: 'Blog' })
               : translate({ id: 'homepage.latestArticles.badgeDoc', message: 'Doc' })}
           </span>
-          <time className={styles.date}>{formatDate(article.date)}</time>
+          {article.date && (
+            <time className={styles.date}>{formatDate(article.date)}</time>
+          )}
         </div>
         
         <h3 className={styles.title}>{article.title}</h3>
