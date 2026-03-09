@@ -14,6 +14,58 @@
   "homepage.hero.button.text": {
     "message": "Learn More"
   },
+  "homepage.latestArticles.blogTitle": {
+    "message": "Latest Blog",
+    "description": "Title for the latest blog section"
+  },
+  "homepage.latestArticles.blogSubtitle": {
+    "message": "Explore the latest technical insights and thoughts",
+    "description": "Subtitle for the latest blog section"
+  },
+  "homepage.latestArticles.docsTitle": {
+    "message": "Latest Docs",
+    "description": "Title for the latest docs section"
+  },
+  "homepage.latestArticles.docsSubtitle": {
+    "message": "Browse the latest technical documentation and tutorials",
+    "description": "Subtitle for the latest docs section"
+  },
+  "homepage.latestArticles.readMore": {
+    "message": "Read More",
+    "description": "Link text to read more"
+  },
+  "homepage.latestArticles.viewAllBlog": {
+    "message": "View All Blogs",
+    "description": "Link to view all blog posts"
+  },
+  "homepage.latestArticles.viewAllDocs": {
+    "message": "View All Docs",
+    "description": "Link to view all documentation"
+  },
+  "homepage.latestArticles.noDescription": {
+    "message": "No description available",
+    "description": "Fallback when no description is available"
+  },
+  "homepage.latestArticles.docDescription": {
+    "message": "Technical Documentation",
+    "description": "Default description for documents"
+  },
+  "homepage.latestArticles.badgeBlog": {
+    "message": "Blog",
+    "description": "Badge label for blog posts"
+  },
+  "homepage.latestArticles.badgeDoc": {
+    "message": "Doc",
+    "description": "Badge label for documents"
+  },
+  "homepage.latestArticles.noBlogPosts": {
+    "message": "No blog posts yet",
+    "description": "Message when no blog posts are available"
+  },
+  "homepage.latestArticles.noDocs": {
+    "message": "No documents yet",
+    "description": "Message when no documents are available"
+  },
   "theme.ErrorPageContent.title": {
     "message": "This page crashed.",
     "description": "The title of the fallback page when the page crashed"

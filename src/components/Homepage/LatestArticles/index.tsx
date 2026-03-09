@@ -32,10 +32,10 @@ interface ArticleItem {
   tags?: string[];
 }
 
-// 格式化日期
+// 格式化日期 - 使用浏览器本地语言
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString('zh-CN', {
+  return date.toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -101,7 +101,8 @@ function useLatestDocs(limit: number): ArticleItem[] {
       id: doc.id,
       title: doc.label || doc.id,
       description: translate({ id: 'homepage.latestArticles.docDescription', message: '技术文档' }),
-      date: new Date().toISOString(),
+      // 文档没有日期，使用固定日期避免每次构建变化
+      date: '2024-01-01T00:00:00.000Z',
       path: doc.path,
       type: 'doc' as const,
     }));
@@ -119,7 +120,9 @@ function ArticleCard({ article, index }: { article: ArticleItem; index: number }
       <Link to={article.path} className={styles.cardLink}>
         <div className={styles.cardHeader}>
           <span className={`${styles.badge} ${article.type === 'blog' ? styles.badgeBlog : styles.badgeDoc}`}>
-            {article.type === 'blog' ? 'Blog' : 'Doc'}
+            {article.type === 'blog' 
+              ? translate({ id: 'homepage.latestArticles.badgeBlog', message: 'Blog' })
+              : translate({ id: 'homepage.latestArticles.badgeDoc', message: 'Doc' })}
           </span>
           <time className={styles.date}>{formatDate(article.date)}</time>
         </div>
@@ -178,7 +181,9 @@ function LatestArticles() {
               ))}
             </div>
           ) : (
-            <p className={styles.emptyMessage}>暂无博客文章</p>
+            <p className={styles.emptyMessage}>
+              <Translate id="homepage.latestArticles.noBlogPosts">暂无博客文章</Translate>
+            </p>
           )}
 
           <div className={styles.moduleFooter}>
@@ -210,7 +215,9 @@ function LatestArticles() {
               ))}
             </div>
           ) : (
-            <p className={styles.emptyMessage}>暂无文档</p>
+            <p className={styles.emptyMessage}>
+              <Translate id="homepage.latestArticles.noDocs">暂无文档</Translate>
+            </p>
           )}
 
           <div className={styles.moduleFooter}>
