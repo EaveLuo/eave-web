@@ -15,4 +15,4 @@ description: 前端开发技术栈介绍，涵盖 HTML、CSS、JavaScript 基础
 
 该模块主要介绍前端相关的知识，包括前端开发、前端框架、前端工具等方面。
 
-- [Webpack5](/docs/category/webpack5)
+- [Webpack5](/docs/front-end/webpack5/intro)
