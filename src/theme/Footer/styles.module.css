@@ -55,6 +55,14 @@
     gap: 2rem;
     text-align: center;
   }
+  
+  .brand {
+    align-items: center;
+  }
+  
+  .email {
+    justify-content: center;
+  }
 }
 
 /* 左侧：品牌名 + 邮箱 */
