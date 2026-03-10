@@ -355,6 +355,8 @@ const config: Config = {
         path: 'docs',
       },
     ],
+    // 首页数据插件 - SSG 预渲染最新文章
+    './src/plugin/plugin-homepage-data',
   ],
 };
 

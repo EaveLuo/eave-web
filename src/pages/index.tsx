@@ -6,7 +6,7 @@ import { translate } from '@docusaurus/Translate';
 
 import Particles from '@site/src/components/magicui/particles-optimized';
 import Hero from '@site/src/components/Homepage/Hero/index-optimized';
-import LatestArticles from '@site/src/components/Homepage/LatestArticles/index-optimized';
+import LatestArticles from '@site/src/components/Homepage/LatestArticles/index-ssg';
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
