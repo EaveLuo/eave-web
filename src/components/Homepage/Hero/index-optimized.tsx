@@ -2,7 +2,7 @@ import { memo, useCallback, useRef, useEffect, useState } from 'react';
 import { type Variants, motion, useReducedMotion } from 'framer-motion';
 import Translate, { translate } from '@docusaurus/Translate';
 import ShimmerButton from '@site/src/components/magicui/shimmer-button';
-import TypingAnimation from '@site/src/components/magicui/typing-animation-optimized';
+import TypingAnimation from '@site/src/components/magicui/typing-animation';
 import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useHistory } from '@docusaurus/router';
