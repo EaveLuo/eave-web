@@ -76,11 +76,7 @@ function Footer(): React.ReactElement | null {
             <div className={styles.contact}>
               <div className={styles.contactItem}>
                 <Mail size={16} />
-                <span>eave.luo@example.com</span>
-              </div>
-              <div className={styles.contactItem}>
-                <MapPin size={16} />
-                <span>中国 · 湖南 · 长沙</span>
+                <span>eaveluo@gmail.com</span>
               </div>
             </div>
 
