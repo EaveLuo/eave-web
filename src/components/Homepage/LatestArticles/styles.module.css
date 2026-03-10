@@ -15,8 +15,30 @@
   @apply mb-16 last:mb-0;
 }
 
+/* 模块头部 - 滚动触发动画 */
 .moduleHeader {
   @apply text-center mb-10;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.moduleHeaderVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 模块底部 - 滚动触发动画 */
+.moduleFooter {
+  @apply mt-8 text-center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+}
+
+.moduleFooterVisible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .moduleTitleWrapper {
@@ -76,31 +98,24 @@
   }
 }
 
-/* 卡片样式 - 纯 CSS 动画，首屏立即显示 */
+/* 卡片样式 - 滚动触发入场动画 */
 .card {
   @apply relative rounded-xl overflow-hidden;
   background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
   border: 1px solid var(--ifm-color-emphasis-200);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  will-change: transform;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+  will-change: transform, opacity;
   
-  /* CSS 入场动画 - 页面加载后立即开始 */
+  /* 初始状态：隐藏 */
   opacity: 0;
   transform: translateY(30px) scale(0.95);
-  animation: cardFadeIn 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-  animation-delay: var(--card-delay, 0s);
 }
 
-/* 卡片入场动画 */
-@keyframes cardFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+/* 可见状态：滚动到视口后添加 */
+.cardVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: var(--card-delay, 0s);
 }
 
 .card:hover {
@@ -112,7 +127,6 @@
 /* 减少动画偏好支持 */
 @media (prefers-reduced-motion: reduce) {
   .card {
-    animation: none;
     opacity: 1;
     transform: none;
     transition: none;
