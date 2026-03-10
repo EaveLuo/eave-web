@@ -27,15 +27,12 @@ const navLinks = [
     links: [
       { label: '博客文章', to: '/blog' },
       { label: '关于我', to: '/about' },
-      { label: 'RSS 订阅', to: '/blog/rss.xml', external: true },
+      { label: 'RSS 订阅', href: '/blog/rss.xml', external: true },
     ],
   },
 ];
 
-// 技术栈标签
-const techStack = [
-  'React', 'TypeScript', 'Node.js', 'Docusaurus', 'Tailwind CSS', 'Vercel'
-];
+
 
 function Footer(): React.ReactElement | null {
   const { siteConfig } = useDocusaurusContext();
@@ -159,18 +156,6 @@ function Footer(): React.ReactElement | null {
                   ))}
                 </ul>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 技术栈标签 */}
-        <div className={styles.techStack}>
-          <span className={styles.techLabel}>技术栈：</span>
-          <div className={styles.techTags}>
-            {techStack.map((tech) => (
-              <span key={tech} className={styles.techTag}>
-                {tech}
-              </span>
             ))}
           </div>
         </div>
