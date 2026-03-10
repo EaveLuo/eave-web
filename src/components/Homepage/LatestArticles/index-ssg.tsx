@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import Link from '@docusaurus/Link';
-import useGlobalData from '@docusaurus/useGlobalData';
+import { usePluginData } from '@docusaurus/useGlobalData';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Translate from '@docusaurus/Translate';
 import { Calendar, FileText, ArrowRight } from 'lucide-react';
@@ -87,8 +87,7 @@ function LatestArticles() {
   const prefersReducedMotion = useReducedMotion();
 
   // 获取 SSG 预渲染的数据 - 构建时就已经存在
-  const globalData = useGlobalData();
-  const homepageData = globalData['docusaurus-plugin-homepage-data'] as HomepageData | undefined;
+  const homepageData = usePluginData('docusaurus-plugin-homepage-data') as HomepageData | undefined;
 
   const latestBlogs = useMemo(() => homepageData?.latestArticles?.blogs || [], [homepageData]);
   const latestDocs = useMemo(() => homepageData?.latestArticles?.docs || [], [homepageData]);
