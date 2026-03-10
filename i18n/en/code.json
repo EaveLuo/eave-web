@@ -408,5 +408,53 @@
   "languagePrompt.close": {
     "message": "Close",
     "description": "Close the language prompt"
+  },
+  "footer.knowledge": {
+    "message": "Knowledge Base",
+    "description": "Footer section title for knowledge base"
+  },
+  "footer.frontend": {
+    "message": "Frontend",
+    "description": "Footer link to frontend docs"
+  },
+  "footer.backend": {
+    "message": "Backend",
+    "description": "Footer link to backend docs"
+  },
+  "footer.operation": {
+    "message": "DevOps",
+    "description": "Footer link to operation docs"
+  },
+  "footer.ai": {
+    "message": "AI",
+    "description": "Footer link to AI docs"
+  },
+  "footer.more": {
+    "message": "More",
+    "description": "Footer section title for more links"
+  },
+  "footer.blog": {
+    "message": "Blog",
+    "description": "Footer link to blog"
+  },
+  "footer.about": {
+    "message": "About",
+    "description": "Footer link to about page"
+  },
+  "footer.rss": {
+    "message": "RSS Feed",
+    "description": "Footer link to RSS feed"
+  },
+  "footer.madeWith": {
+    "message": "Made with",
+    "description": "Footer text: Made with"
+  },
+  "footer.by": {
+    "message": "by",
+    "description": "Footer text: by"
+  },
+  "footer.builtWith": {
+    "message": "Built with",
+    "description": "Footer text: Built with"
   }
 }
