@@ -23,14 +23,6 @@ const navLinks = [
     ],
   },
   {
-    title: '社交',
-    links: [
-      { label: 'X (Twitter)', href: 'https://x.com/EaveLuo', external: true },
-      { label: '哔哩哔哩', href: 'https://space.bilibili.com/179586356', external: true },
-      { label: 'GitHub', href: 'https://github.com/eaveluo', external: true },
-    ],
-  },
-  {
     title: '更多',
     links: [
       { label: '博客文章', to: '/blog' },
