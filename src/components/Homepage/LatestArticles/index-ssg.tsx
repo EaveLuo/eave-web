@@ -83,7 +83,8 @@ function ArticleCard({
   return (
     <article 
       ref={cardRef}
-      className={`${styles.card} ${isVisible ? styles.cardVisible : ''}`}
+      data-card-observer
+      className={`${styles.card} ${isVisible ? styles.cardVisible : ''} ${styles.cardObserver}`}
       style={{ '--card-delay': `${delay}s` } as React.CSSProperties}
     >
       <Link to={article.path} className={styles.cardLink}>
@@ -158,7 +159,8 @@ function ModuleHeader({
   return (
     <div 
       ref={headerRef}
-      className={`${styles.moduleHeader} ${isVisible ? styles.moduleHeaderVisible : ''}`}
+      data-header-observer
+      className={`${styles.moduleHeader} ${isVisible ? styles.moduleHeaderVisible : ''} ${styles.headerObserver}`}
     >
       <div className={styles.moduleTitleWrapper}>
         <Icon size={24} className={iconClassName} />
@@ -199,7 +201,8 @@ function ModuleFooter({ href, textId, textDefault }: { href: string; textId: str
   return (
     <div 
       ref={footerRef}
-      className={`${styles.moduleFooter} ${isVisible ? styles.moduleFooterVisible : ''}`}
+      data-footer-observer
+      className={`${styles.moduleFooter} ${isVisible ? styles.moduleFooterVisible : ''} ${styles.footerObserver}`}
     >
       <Link to={href} className={styles.viewAllLink}>
         <Translate id={textId}>{textDefault}</Translate>

@@ -23,7 +23,8 @@
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.moduleHeaderVisible {
+.moduleHeaderVisible,
+.headerObserver.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -36,7 +37,8 @@
   transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
 }
 
-.moduleFooterVisible {
+.moduleFooterVisible,
+.footerObserver.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -112,7 +114,8 @@
 }
 
 /* 可见状态：滚动到视口后添加 */
-.cardVisible {
+.cardVisible,
+.cardObserver.is-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
   transition-delay: var(--card-delay, 0s);
