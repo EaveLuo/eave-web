@@ -11,78 +11,11 @@
   @apply pl-16 relative z-10;
 }
 
-/* CSS 打字机效果容器 */
-.typing_container {
-  @apply my-6;
-  min-height: 4rem;
-}
-
-/* CSS 打字机效果 - 优化版，支持多行 */
+/* 介绍文字 - 首行缩进2字符，直接显示 */
 .intro_text {
-  @apply text-[#6e7b8c] text-justify text-base leading-8 tracking-[-0.04em];
+  @apply my-6 text-[#6e7b8c] text-justify text-base leading-8 tracking-[-0.04em];
   text-shadow: 0 0 #8c99ab;
-  
-  /* 打字机效果 - 使用 clip-path 实现更平滑的逐字效果 */
-  animation: 
-    typing-reveal 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards,
-    blink-caret 0.75s step-end 4;
-  
-  /* 初始状态 */
-  clip-path: inset(0 100% 0 0);
-  border-right: 2px solid transparent;
-}
-
-/* 逐字显示动画 - 使用 clip-path 更平滑 */
-@keyframes typing-reveal {
-  0% {
-    clip-path: inset(0 100% 0 0);
-    border-right-color: var(--ifm-color-primary);
-  }
-  90% {
-    clip-path: inset(0 0 0 0);
-    border-right-color: var(--ifm-color-primary);
-  }
-  100% {
-    clip-path: inset(0 0 0 0);
-    border-right-color: transparent;
-  }
-}
-
-/* 光标闪烁 */
-@keyframes blink-caret {
-  0%, 100% { border-color: transparent; }
-  50% { border-color: var(--ifm-color-primary); }
-}
-
-/* 减少动画偏好 */
-@media (prefers-reduced-motion: reduce) {
-  .intro_text {
-    animation: none;
-    clip-path: inset(0 0 0 0);
-    border-right: none;
-  }
-}
-
-/* 移动端适配 - 简化动画 */
-@media (max-width: 1000px) {
-  .intro_text {
-    animation: fadeIn 0.6s ease forwards;
-    clip-path: inset(0 0 0 0);
-    border-right: none;
-  }
-  
-  @keyframes fadeIn {
-    from { 
-      opacity: 0; 
-      transform: translateY(10px);
-      filter: blur(4px);
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0);
-      filter: blur(0);
-    }
-  }
+  text-indent: 2em;
 }
 
 .hero_text {

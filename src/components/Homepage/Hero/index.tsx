@@ -26,12 +26,10 @@ function Hero() {
           <span className={styles.wave}>👋</span>
         </div>
 
-        {/* CSS 打字机效果 - 使用 CSS Modules 确保样式正确 */}
-        <div className={styles.typing_container}>
-          <p className={styles.intro_text}>
-            {heroText}
-          </p>
-        </div>
+        {/* 介绍文字 - 首行缩进2字符 */}
+        <p className={styles.intro_text}>
+          {heroText}
+        </p>
 
         {/* 按钮 */}
         <div className={styles.button_wrapper}>
