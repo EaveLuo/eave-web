@@ -45,10 +45,45 @@ function formatDate(dateString: string, locale: string): string {
   });
 }
 
-// 卡片组件 - 纯 SSG，无客户端状态
-function ArticleCard({ article, locale }: { article: ArticleItem; locale: string }) {
+// 卡片组件 - 带入场动效
+function ArticleCard({ 
+  article, 
+  locale, 
+  index,
+  prefersReducedMotion 
+}: { 
+  article: ArticleItem; 
+  locale: string;
+  index: number;
+  prefersReducedMotion: boolean;
+}) {
+  // 卡片入场动画变体
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      scale: 0.95
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.1, 0.25, 1],
+        delay: index * 0.08, // 依次延迟，营造流畅感
+      }
+    },
+  };
+
   return (
-    <article className={styles.card}>
+    <motion.article 
+      className={styles.card}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      variants={prefersReducedMotion ? undefined : cardVariants}
+    >
       <Link to={article.path} className={styles.cardLink}>
         <div className={styles.cardHeader}>
           <span className={`${styles.badge} ${article.type === 'blog' ? styles.badgeBlog : styles.badgeDoc}`}>
@@ -77,7 +112,7 @@ function ArticleCard({ article, locale }: { article: ArticleItem; locale: string
           <ArrowRight size={14} />
         </div>
       </Link>
-    </article>
+    </motion.article>
   );
 }
 
@@ -101,6 +136,20 @@ function LatestArticles() {
       transition: {
         duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1] as const,
+      }
+    },
+  };
+
+  // 查看更多链接动画
+  const footerVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: [0.25, 0.1, 0.25, 1] as const,
+        delay: 0.3,
       }
     },
   };
@@ -130,8 +179,14 @@ function LatestArticles() {
 
           {latestBlogs.length > 0 ? (
             <div className={styles.grid}>
-              {latestBlogs.map((article) => (
-                <ArticleCard key={article.id} article={article} locale={currentLocale} />
+              {latestBlogs.map((article, index) => (
+                <ArticleCard 
+                  key={article.id} 
+                  article={article} 
+                  locale={currentLocale}
+                  index={index}
+                  prefersReducedMotion={prefersReducedMotion}
+                />
               ))}
             </div>
           ) : (
@@ -145,7 +200,7 @@ function LatestArticles() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={prefersReducedMotion ? undefined : moduleHeaderVariants}
+            variants={prefersReducedMotion ? undefined : footerVariants}
           >
             <Link to="/blog" className={styles.viewAllLink}>
               <Translate id="homepage.latestArticles.viewAllBlog">查看全部博客</Translate>
@@ -176,8 +231,14 @@ function LatestArticles() {
 
           {latestDocs.length > 0 ? (
             <div className={styles.grid}>
-              {latestDocs.map((article) => (
-                <ArticleCard key={article.id} article={article} locale={currentLocale} />
+              {latestDocs.map((article, index) => (
+                <ArticleCard 
+                  key={article.id} 
+                  article={article} 
+                  locale={currentLocale}
+                  index={index}
+                  prefersReducedMotion={prefersReducedMotion}
+                />
               ))}
             </div>
           ) : (
@@ -191,7 +252,7 @@ function LatestArticles() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={prefersReducedMotion ? undefined : moduleHeaderVariants}
+            variants={prefersReducedMotion ? undefined : footerVariants}
           >
             <Link to="/docs/front-end/intro" className={styles.viewAllLink}>
               <Translate id="homepage.latestArticles.viewAllDocs">查看全部文档</Translate>
