@@ -113,7 +113,6 @@ function Hero() {
             className={styles.intro_text}
             duration={40}
             text={translate({ id: 'homepage.hero.text' })}
-            delay={300}
           />
         </motion.div>
 
