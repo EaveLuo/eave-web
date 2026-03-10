@@ -1,0 +1,194 @@
+/* 轻量级 CSS 背景效果 - 纯 CSS，无 JS */
+
+.background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* 主渐变光晕 - 使用 CSS 动画 */
+.gradientOrb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(46, 133, 85, 0.15) 0%,
+    rgba(46, 133, 85, 0.05) 50%,
+    transparent 70%
+  );
+  top: -200px;
+  right: -100px;
+  animation: float 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* 次要渐变光晕 */
+.gradientOrbSecondary {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(37, 194, 160, 0.1) 0%,
+    rgba(37, 194, 160, 0.03) 50%,
+    transparent 70%
+  );
+  bottom: 10%;
+  left: -100px;
+  animation: float 25s ease-in-out infinite reverse;
+  will-change: transform;
+}
+
+/* 网格背景图案 */
+.gridPattern {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(46, 133, 85, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 133, 85, 0.03) 1px, transparent 1px);
+  background-size: 100px 100px;
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 0%,
+    transparent 70%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 0%,
+    transparent 70%
+  );
+}
+
+/* 浮动装饰形状 */
+.floatingShape {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(46, 133, 85, 0.1);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  top: 40%;
+  right: 10%;
+  animation: morph 15s ease-in-out infinite;
+  will-change: border-radius, transform;
+}
+
+.floatingShapeSecondary {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(37, 194, 160, 0.08);
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  bottom: 20%;
+  left: 15%;
+  animation: morph 18s ease-in-out infinite reverse;
+  will-change: border-radius, transform;
+}
+
+/* 动画定义 */
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.05);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  75% {
+    transform: translate(20px, 10px) scale(1.02);
+  }
+}
+
+@keyframes morph {
+  0%, 100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+    transform: rotate(90deg) scale(1.05);
+  }
+  50% {
+    border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+    transform: rotate(180deg) scale(1);
+  }
+  75% {
+    border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+    transform: rotate(270deg) scale(0.95);
+  }
+}
+
+/* 深色模式适配 */
+[data-theme='dark'] .gradientOrb {
+  background: radial-gradient(
+    circle,
+    rgba(37, 194, 160, 0.12) 0%,
+    rgba(37, 194, 160, 0.04) 50%,
+    transparent 70%
+  );
+}
+
+[data-theme='dark'] .gradientOrbSecondary {
+  background: radial-gradient(
+    circle,
+    rgba(46, 133, 85, 0.08) 0%,
+    rgba(46, 133, 85, 0.02) 50%,
+    transparent 70%
+  );
+}
+
+[data-theme='dark'] .gridPattern {
+  background-image: 
+    linear-gradient(rgba(37, 194, 160, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 194, 160, 0.02) 1px, transparent 1px);
+}
+
+[data-theme='dark'] .floatingShape {
+  border-color: rgba(37, 194, 160, 0.08);
+}
+
+[data-theme='dark'] .floatingShapeSecondary {
+  border-color: rgba(46, 133, 85, 0.06);
+}
+
+/* 减少动画偏好支持 */
+@media (prefers-reduced-motion: reduce) {
+  .gradientOrb,
+  .gradientOrbSecondary,
+  .floatingShape,
+  .floatingShapeSecondary {
+    animation: none;
+  }
+}
+
+/* 移动端优化 - 减少元素 */
+@media (max-width: 768px) {
+  .gradientOrb {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    right: -50px;
+  }
+  
+  .gradientOrbSecondary {
+    width: 200px;
+    height: 200px;
+    bottom: 5%;
+    left: -50px;
+  }
+  
+  .floatingShape,
+  .floatingShapeSecondary {
+    display: none;
+  }
+  
+  .gridPattern {
+    background-size: 50px 50px;
+  }
+}
