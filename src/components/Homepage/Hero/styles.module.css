@@ -17,30 +17,40 @@
   min-height: 4rem;
 }
 
-/* CSS 打字机效果 */
+/* CSS 打字机效果 - 优化版，支持多行 */
 .intro_text {
   @apply text-[#6e7b8c] text-justify text-base leading-8 tracking-[-0.04em];
   text-shadow: 0 0 #8c99ab;
   
-  /* 打字机效果 */
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid var(--ifm-color-primary);
+  /* 打字机效果 - 使用 clip-path 实现更平滑的逐字效果 */
   animation: 
-    typing 2s steps(40, end) forwards,
-    blink-caret 0.75s step-end 6;
-  width: 0;
+    typing-reveal 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+    blink-caret 0.75s step-end 4;
+  
+  /* 初始状态 */
+  clip-path: inset(0 100% 0 0);
+  border-right: 2px solid transparent;
 }
 
-/* 打字机动画 */
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+/* 逐字显示动画 - 使用 clip-path 更平滑 */
+@keyframes typing-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    border-right-color: var(--ifm-color-primary);
+  }
+  90% {
+    clip-path: inset(0 0 0 0);
+    border-right-color: var(--ifm-color-primary);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    border-right-color: transparent;
+  }
 }
 
 /* 光标闪烁 */
 @keyframes blink-caret {
-  from, to { border-color: transparent; }
+  0%, 100% { border-color: transparent; }
   50% { border-color: var(--ifm-color-primary); }
 }
 
@@ -48,24 +58,30 @@
 @media (prefers-reduced-motion: reduce) {
   .intro_text {
     animation: none;
-    width: 100%;
+    clip-path: inset(0 0 0 0);
     border-right: none;
-    white-space: normal;
   }
 }
 
-/* 移动端适配 */
+/* 移动端适配 - 简化动画 */
 @media (max-width: 1000px) {
   .intro_text {
-    white-space: normal;
-    animation: fadeIn 0.5s ease forwards;
+    animation: fadeIn 0.6s ease forwards;
+    clip-path: inset(0 0 0 0);
     border-right: none;
-    width: 100%;
   }
   
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { 
+      opacity: 0; 
+      transform: translateY(10px);
+      filter: blur(4px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+      filter: blur(0);
+    }
   }
 }
 
