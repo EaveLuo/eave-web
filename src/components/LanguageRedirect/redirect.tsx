@@ -7,7 +7,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { translate } from '@docusaurus/Translate';
 import clsx from 'clsx';
 
@@ -132,10 +131,8 @@ export function LanguageRedirect(): React.JSX.Element | null {
   const [showPrompt, setShowPrompt] = useState(false);
   const [detectionResult, setDetectionResult] = useState<DetectionResult | null>(null);
 
-  // 检测语言并决定是否显示提示
+  // 检测语言并决定是否显示提示（BrowserOnly 包裹，确保只在浏览器执行）
   useEffect(() => {
-    if (!ExecutionEnvironment.canUseDOM) return;
-
     const pathname = window.location.pathname;
     const currentLocale = getCurrentLocale(pathname);
 
