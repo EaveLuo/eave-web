@@ -2,22 +2,32 @@ import { memo } from 'react';
 import styles from './styles.module.css';
 
 /**
- * 轻量级 CSS 背景效果
- * 使用纯 CSS 实现，无 JS 计算，零阻塞
+ * 优化版 CSS 背景效果
+ * - 柔和渐变，不干扰阅读
+ * - 缓慢呼吸动画，增加动态感
+ * - 底部遮罩确保文字可读性
  */
 function BackgroundEffects() {
   return (
     <div className={styles.background} aria-hidden="true">
-      {/* 渐变光晕 */}
-      <div className={styles.gradientOrb} />
-      <div className={styles.gradientOrbSecondary} />
+      {/* 基础渐变背景 */}
+      <div className={styles.gradientBase} />
       
-      {/* 网格背景 */}
-      <div className={styles.gridPattern} />
+      {/* 呼吸光晕 */}
+      <div className={styles.glowOrb} />
+      <div className={styles.glowOrbSecondary} />
       
-      {/* 浮动装饰 */}
-      <div className={styles.floatingShape} />
-      <div className={styles.floatingShapeSecondary} />
+      {/* 极淡网格 */}
+      <div className={styles.gridLines} />
+      
+      {/* 微妙浮动点 */}
+      <div className={styles.floatingDots} />
+      
+      {/* 装饰圆环 */}
+      <div className={styles.decorativeRing} />
+      
+      {/* 可读性遮罩 */}
+      <div className={styles.readabilityMask} />
     </div>
   );
 }

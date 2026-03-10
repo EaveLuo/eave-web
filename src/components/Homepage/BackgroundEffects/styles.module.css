@@ -1,4 +1,4 @@
-/* 轻量级 CSS 背景效果 - 纯 CSS，无 JS */
+/* 优化版 CSS 背景效果 - 动态但不干扰阅读 */
 
 .background {
   position: fixed;
@@ -8,187 +8,282 @@
   overflow: hidden;
 }
 
-/* 主渐变光晕 - 使用 CSS 动画 */
-.gradientOrb {
+/* ===== 柔和渐变背景 ===== */
+.gradientBase {
   position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(46, 133, 85, 0.15) 0%,
-    rgba(46, 133, 85, 0.05) 50%,
-    transparent 70%
-  );
-  top: -200px;
-  right: -100px;
-  animation: float 20s ease-in-out infinite;
-  will-change: transform;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(46, 133, 85, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(37, 194, 160, 0.05), transparent),
+    radial-gradient(ellipse 50% 30% at 20% 80%, rgba(46, 133, 85, 0.06), transparent);
 }
 
-/* 次要渐变光晕 */
-.gradientOrbSecondary {
+/* ===== 缓慢呼吸的光晕 ===== */
+.glowOrb {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(46, 133, 85, 0.12) 0%,
+    rgba(46, 133, 85, 0.04) 40%,
+    transparent 70%
+  );
+  top: 10%;
+  right: -150px;
+  animation: breathe 15s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+.glowOrbSecondary {
   position: absolute;
   width: 400px;
   height: 400px;
   border-radius: 50%;
   background: radial-gradient(
-    circle,
+    circle at center,
     rgba(37, 194, 160, 0.1) 0%,
-    rgba(37, 194, 160, 0.03) 50%,
+    rgba(37, 194, 160, 0.03) 40%,
     transparent 70%
   );
-  bottom: 10%;
+  bottom: 15%;
   left: -100px;
-  animation: float 25s ease-in-out infinite reverse;
-  will-change: transform;
+  animation: breathe 18s ease-in-out infinite reverse;
+  will-change: opacity, transform;
 }
 
-/* 网格背景图案 */
-.gridPattern {
+/* ===== 极淡的网格线 ===== */
+.gridLines {
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(rgba(46, 133, 85, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(46, 133, 85, 0.03) 1px, transparent 1px);
-  background-size: 100px 100px;
-  mask-image: radial-gradient(
-    ellipse at center,
-    black 0%,
-    transparent 70%
+    linear-gradient(rgba(46, 133, 85, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 133, 85, 0.015) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
   );
-  -webkit-mask-image: radial-gradient(
-    ellipse at center,
-    black 0%,
-    transparent 70%
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
   );
 }
 
-/* 浮动装饰形状 */
-.floatingShape {
+/* ===== 微妙的浮动点 ===== */
+.floatingDots {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  border: 1px solid rgba(46, 133, 85, 0.1);
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  top: 40%;
+  inset: 0;
+  overflow: hidden;
+}
+
+.floatingDots::before,
+.floatingDots::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(46, 133, 85, 0.2);
+  border-radius: 50%;
+  animation: floatUp 25s linear infinite;
+}
+
+.floatingDots::before {
+  left: 20%;
+  bottom: -10px;
+  animation-delay: 0s;
+}
+
+.floatingDots::after {
+  left: 80%;
+  bottom: -10px;
+  animation-delay: 12s;
+  width: 3px;
+  height: 3px;
+}
+
+/* ===== 装饰性圆环（极淡） ===== */
+.decorativeRing {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(46, 133, 85, 0.06);
+  border-radius: 50%;
+  top: 30%;
   right: 10%;
-  animation: morph 15s ease-in-out infinite;
-  will-change: border-radius, transform;
+  animation: rotate 60s linear infinite;
+  will-change: transform;
 }
 
-.floatingShapeSecondary {
+.decorativeRing::before {
+  content: '';
   position: absolute;
-  width: 150px;
-  height: 150px;
-  border: 1px solid rgba(37, 194, 160, 0.08);
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  bottom: 20%;
-  left: 15%;
-  animation: morph 18s ease-in-out infinite reverse;
-  will-change: border-radius, transform;
+  inset: 30px;
+  border: 1px solid rgba(37, 194, 160, 0.04);
+  border-radius: 50%;
 }
 
-/* 动画定义 */
-@keyframes float {
+/* ===== 底部渐变遮罩（确保文字可读） ===== */
+.readabilityMask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  pointer-events: none;
+}
+
+/* ===== 动画定义 ===== */
+
+/* 呼吸效果 - 极缓慢 */
+@keyframes breathe {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(30px, -30px) scale(1.05);
+    opacity: 0.6;
+    transform: scale(1) translate(0, 0);
   }
   50% {
-    transform: translate(-20px, 20px) scale(0.95);
-  }
-  75% {
-    transform: translate(20px, 10px) scale(1.02);
+    opacity: 1;
+    transform: scale(1.1) translate(-20px, 10px);
   }
 }
 
-@keyframes morph {
-  0%, 100% {
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    transform: rotate(0deg) scale(1);
+/* 向上浮动 */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
   }
-  25% {
-    border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
-    transform: rotate(90deg) scale(1.05);
+  10% {
+    opacity: 0.6;
   }
-  50% {
-    border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
-    transform: rotate(180deg) scale(1);
+  90% {
+    opacity: 0.6;
   }
-  75% {
-    border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
-    transform: rotate(270deg) scale(0.95);
+  100% {
+    transform: translateY(-100vh) scale(0.5);
+    opacity: 0;
   }
 }
 
-/* 深色模式适配 */
-[data-theme='dark'] .gradientOrb {
+/* 缓慢旋转 */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== 深色模式 ===== */
+[data-theme='dark'] .gradientBase {
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(37, 194, 160, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(46, 133, 85, 0.04), transparent),
+    radial-gradient(ellipse 50% 30% at 20% 80%, rgba(37, 194, 160, 0.05), transparent);
+}
+
+[data-theme='dark'] .glowOrb {
   background: radial-gradient(
-    circle,
-    rgba(37, 194, 160, 0.12) 0%,
-    rgba(37, 194, 160, 0.04) 50%,
+    circle at center,
+    rgba(37, 194, 160, 0.1) 0%,
+    rgba(37, 194, 160, 0.03) 40%,
     transparent 70%
   );
 }
 
-[data-theme='dark'] .gradientOrbSecondary {
+[data-theme='dark'] .glowOrbSecondary {
   background: radial-gradient(
-    circle,
+    circle at center,
     rgba(46, 133, 85, 0.08) 0%,
-    rgba(46, 133, 85, 0.02) 50%,
+    rgba(46, 133, 85, 0.02) 40%,
     transparent 70%
   );
 }
 
-[data-theme='dark'] .gridPattern {
+[data-theme='dark'] .gridLines {
   background-image: 
-    linear-gradient(rgba(37, 194, 160, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 194, 160, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(37, 194, 160, 0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 194, 160, 0.01) 1px, transparent 1px);
 }
 
-[data-theme='dark'] .floatingShape {
-  border-color: rgba(37, 194, 160, 0.08);
+[data-theme='dark'] .floatingDots::before,
+[data-theme='dark'] .floatingDots::after {
+  background: rgba(37, 194, 160, 0.15);
 }
 
-[data-theme='dark'] .floatingShapeSecondary {
-  border-color: rgba(46, 133, 85, 0.06);
+[data-theme='dark'] .decorativeRing {
+  border-color: rgba(37, 194, 160, 0.05);
 }
 
-/* 减少动画偏好支持 */
+[data-theme='dark'] .decorativeRing::before {
+  border-color: rgba(46, 133, 85, 0.03);
+}
+
+[data-theme='dark'] .readabilityMask {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+/* ===== 减少动画偏好 ===== */
 @media (prefers-reduced-motion: reduce) {
-  .gradientOrb,
-  .gradientOrbSecondary,
-  .floatingShape,
-  .floatingShapeSecondary {
+  .glowOrb,
+  .glowOrbSecondary {
+    animation: none;
+    opacity: 0.8;
+  }
+  
+  .decorativeRing {
     animation: none;
   }
+  
+  .floatingDots::before,
+  .floatingDots::after {
+    animation: none;
+    opacity: 0;
+  }
 }
 
-/* 移动端优化 - 减少元素 */
+/* ===== 移动端优化 ===== */
 @media (max-width: 768px) {
-  .gradientOrb {
+  .glowOrb {
     width: 300px;
     height: 300px;
-    top: -100px;
-    right: -50px;
+    right: -100px;
+    opacity: 0.7;
   }
   
-  .gradientOrbSecondary {
-    width: 200px;
-    height: 200px;
-    bottom: 5%;
-    left: -50px;
+  .glowOrbSecondary {
+    width: 250px;
+    height: 250px;
+    left: -80px;
+    opacity: 0.6;
   }
   
-  .floatingShape,
-  .floatingShapeSecondary {
+  .decorativeRing {
     display: none;
   }
   
-  .gridPattern {
-    background-size: 50px 50px;
+  .gridLines {
+    background-size: 60px 60px;
+  }
+  
+  .floatingDots::before,
+  .floatingDots::after {
+    display: none;
   }
 }
