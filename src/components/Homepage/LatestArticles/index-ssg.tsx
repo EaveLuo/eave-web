@@ -1,4 +1,4 @@
-import { memo, useMemo, useEffect, useRef, useState } from 'react';
+import { memo, useMemo } from 'react';
 import Link from '@docusaurus/Link';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -31,7 +31,6 @@ function formatDate(dateString: string): string {
   const date = new Date(dateString);
   if (isNaN(date.getTime())) return '';
 
-  // 使用 YYYY-MM-DD 格式，避免 locale 差异导致的 hydration 问题
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
@@ -39,48 +38,18 @@ function formatDate(dateString: string): string {
   return `${year}-${month}-${day}`;
 }
 
-// 卡片组件 - 使用 IntersectionObserver + CSS 实现滚动触发
+// 卡片组件 - 纯 CSS 滚动触发动画
 function ArticleCard({ 
   article, 
-  locale, 
   index,
 }: { 
-  article: ArticleItem; 
-  locale: string;
+  article: ArticleItem;
   index: number;
 }) {
-  const cardRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const delay = index * 0.08;
-
-  useEffect(() => {
-    // 使用 IntersectionObserver 检测是否进入视口
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // 触发一次后断开
-        }
-      },
-      { 
-        threshold: 0.1, // 10% 可见时触发
-        rootMargin: '0px 0px -50px 0px' // 提前触发
-      }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <article 
-      ref={cardRef}
-      data-card-observer
-      className={`${styles.card} ${isVisible ? styles.cardVisible : ''} ${styles.cardObserver}`}
-      style={{ '--card-delay': `${delay}s` } as React.CSSProperties}
+      className={styles.card}
+      style={{ '--card-index': index } as React.CSSProperties}
     >
       <Link to={article.path} className={styles.cardLink}>
         <div className={styles.cardHeader}>
@@ -114,104 +83,10 @@ function ArticleCard({
   );
 }
 
-// 模块头部组件 - 同样使用 IntersectionObserver
-function ModuleHeader({ 
-  icon: Icon, 
-  iconClassName,
-  titleId, 
-  subtitleId,
-  titleDefault,
-  subtitleDefault 
-}: { 
-  icon: typeof Calendar;
-  iconClassName: string;
-  titleId: string;
-  subtitleId: string;
-  titleDefault: string;
-  subtitleDefault: string;
-}) {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-
-    if (headerRef.current) {
-      observer.observe(headerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div 
-      ref={headerRef}
-      data-header-observer
-      className={`${styles.moduleHeader} ${isVisible ? styles.moduleHeaderVisible : ''} ${styles.headerObserver}`}
-    >
-      <div className={styles.moduleTitleWrapper}>
-        <Icon size={24} className={iconClassName} />
-        <h2 className={styles.moduleTitle}>
-          <Translate id={titleId}>{titleDefault}</Translate>
-        </h2>
-      </div>
-      <p className={styles.moduleSubtitle}>
-        <Translate id={subtitleId}>{subtitleDefault}</Translate>
-      </p>
-    </div>
-  );
-}
-
-// 底部链接组件
-function ModuleFooter({ href, textId, textDefault }: { href: string; textId: string; textDefault: string }) {
-  const footerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
-    );
-
-    if (footerRef.current) {
-      observer.observe(footerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div 
-      ref={footerRef}
-      data-footer-observer
-      className={`${styles.moduleFooter} ${isVisible ? styles.moduleFooterVisible : ''} ${styles.footerObserver}`}
-    >
-      <Link to={href} className={styles.viewAllLink}>
-        <Translate id={textId}>{textDefault}</Translate>
-        <ArrowRight size={16} />
-      </Link>
-    </div>
-  );
-}
-
 function LatestArticles() {
   const { i18n } = useDocusaurusContext();
   const currentLocale = i18n.currentLocale;
 
-  // 获取 SSG 预渲染的数据
   const homepageData = usePluginData('docusaurus-plugin-homepage-data') as HomepageData | undefined;
 
   const latestBlogs = useMemo(() => homepageData?.latestArticles?.blogs || [], [homepageData]);
@@ -222,22 +97,24 @@ function LatestArticles() {
       <div className={styles.container}>
         {/* 博客模块 */}
         <div className={styles.module}>
-          <ModuleHeader 
-            icon={Calendar}
-            iconClassName={styles.moduleIcon}
-            titleId="homepage.latestArticles.blogTitle"
-            subtitleId="homepage.latestArticles.blogSubtitle"
-            titleDefault="最新博客"
-            subtitleDefault="探索最新的技术分享与思考"
-          />
+          <div className={styles.moduleHeader}>
+            <div className={styles.moduleTitleWrapper}>
+              <Calendar size={24} className={styles.moduleIcon} />
+              <h2 className={styles.moduleTitle}>
+                <Translate id="homepage.latestArticles.blogTitle">最新博客</Translate>
+              </h2>
+            </div>
+            <p className={styles.moduleSubtitle}>
+              <Translate id="homepage.latestArticles.blogSubtitle">探索最新的技术分享与思考</Translate>
+            </p>
+          </div>
 
           {latestBlogs.length > 0 ? (
             <div className={styles.grid}>
               {latestBlogs.map((article, index) => (
                 <ArticleCard 
                   key={article.id} 
-                  article={article} 
-                  locale={currentLocale}
+                  article={article}
                   index={index}
                 />
               ))}
@@ -248,31 +125,34 @@ function LatestArticles() {
             </p>
           )}
 
-          <ModuleFooter 
-            href="/blog"
-            textId="homepage.latestArticles.viewAllBlog"
-            textDefault="查看全部博客"
-          />
+          <div className={styles.moduleFooter}>
+            <Link to="/blog" className={styles.viewAllLink}>
+              <Translate id="homepage.latestArticles.viewAllBlog">查看全部博客</Translate>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
 
         {/* 文档模块 */}
         <div className={styles.module}>
-          <ModuleHeader 
-            icon={FileText}
-            iconClassName={styles.moduleIconDoc}
-            titleId="homepage.latestArticles.docsTitle"
-            subtitleId="homepage.latestArticles.docsSubtitle"
-            titleDefault="最新文档"
-            subtitleDefault="浏览最新的技术文档与教程"
-          />
+          <div className={styles.moduleHeader}>
+            <div className={styles.moduleTitleWrapper}>
+              <FileText size={24} className={styles.moduleIconDoc} />
+              <h2 className={styles.moduleTitle}>
+                <Translate id="homepage.latestArticles.docsTitle">最新文档</Translate>
+              </h2>
+            </div>
+            <p className={styles.moduleSubtitle}>
+              <Translate id="homepage.latestArticles.docsSubtitle">浏览最新的技术文档与教程</Translate>
+            </p>
+          </div>
 
           {latestDocs.length > 0 ? (
             <div className={styles.grid}>
               {latestDocs.map((article, index) => (
                 <ArticleCard 
                   key={article.id} 
-                  article={article} 
-                  locale={currentLocale}
+                  article={article}
                   index={index}
                 />
               ))}
@@ -283,11 +163,12 @@ function LatestArticles() {
             </p>
           )}
 
-          <ModuleFooter 
-            href="/docs/front-end/intro"
-            textId="homepage.latestArticles.viewAllDocs"
-            textDefault="查看全部文档"
-          />
+          <div className={styles.moduleFooter}>
+            <Link to="/docs/front-end/intro" className={styles.viewAllLink}>
+              <Translate id="homepage.latestArticles.viewAllDocs">查看全部文档</Translate>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

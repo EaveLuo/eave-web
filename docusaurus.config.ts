@@ -357,8 +357,6 @@ const config: Config = {
     ],
     // 首页数据插件 - SSG 预渲染最新文章
     './src/plugin/plugin-homepage-data',
-    // 内联 IntersectionObserver 脚本 - 不依赖 main.js
-    './src/plugin/plugin-inline-observer',
   ],
 };
 

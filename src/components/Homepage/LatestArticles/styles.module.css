@@ -15,32 +15,9 @@
   @apply mb-16 last:mb-0;
 }
 
-/* 模块头部 - 滚动触发动画 */
+/* 模块头部 */
 .moduleHeader {
   @apply text-center mb-10;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.moduleHeaderVisible,
-.headerObserver.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 模块底部 - 滚动触发动画 */
-.moduleFooter {
-  @apply mt-8 text-center;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
-}
-
-.moduleFooterVisible,
-.footerObserver.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .moduleTitleWrapper {
@@ -72,53 +49,58 @@
   letter-spacing: -0.02em;
   margin: 0;
   padding: 0;
-  line-height: 1;
-  display: flex;
-  align-items: center;
 }
 
 .moduleSubtitle {
   @apply text-base;
   color: var(--ifm-color-emphasis-600);
+  margin: 0;
+  padding: 0;
 }
 
-/* 卡片网格 - 6篇用3列布局 */
+/* 网格布局 */
 .grid {
-  @apply grid gap-5;
-  grid-template-columns: repeat(1, 1fr);
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
 }
 
-@media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* 卡片样式 - 滚动触发入场动画 */
+/* 卡片样式 - 纯 CSS 滚动触发动画 */
 .card {
   @apply relative rounded-xl overflow-hidden;
   background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
   border: 1px solid var(--ifm-color-emphasis-200);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
-  will-change: transform, opacity;
-  
-  /* 初始状态：隐藏 */
-  opacity: 0;
-  transform: translateY(30px) scale(0.95);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
 }
 
-/* 可见状态：滚动到视口后添加 */
-.cardVisible,
-.cardObserver.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  transition-delay: var(--card-delay, 0s);
+/* 现代浏览器：使用 animation-timeline 实现滚动触发动画 */
+@supports (animation-timeline: view()) {
+  .card {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: cardFadeIn 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation-timeline: view();
+    animation-range: entry 10% cover 20%;
+    animation-delay: calc(var(--card-index, 0) * 0.08s);
+  }
+  
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+/* 旧浏览器：直接显示 */
+@supports not (animation-timeline: view()) {
+  .card {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .card:hover {
@@ -127,38 +109,30 @@
   border-color: var(--ifm-color-primary-lighter);
 }
 
-/* 减少动画偏好支持 */
+/* 减少动画偏好 */
 @media (prefers-reduced-motion: reduce) {
   .card {
     opacity: 1;
     transform: none;
+    animation: none;
     transition: none;
   }
 }
 
-[data-theme='dark'] .card {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme='dark'] .card:hover {
-  box-shadow: 0 12px 40px rgba(37, 194, 160, 0.15);
-  border-color: var(--ifm-color-primary);
-}
-
+/* 卡片链接 */
 .cardLink {
-  @apply block p-6 h-full flex flex-col;
-  text-decoration: none !important;
-  color: inherit !important;
+  @apply block p-6 h-full;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* 卡片头部 */
 .cardHeader {
-  @apply flex items-center justify-between mb-4;
+  @apply flex items-center justify-between mb-3;
 }
 
 .badge {
-  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
+  @apply px-2 py-1 text-xs font-medium rounded-full;
 }
 
 .badgeBlog {
@@ -167,34 +141,25 @@
 }
 
 .badgeDoc {
-  background: rgba(46, 133, 85, 0.08);
-  color: var(--ifm-color-primary-darker);
-}
-
-[data-theme='dark'] .badgeBlog {
-  background: rgba(37, 194, 160, 0.15);
+  background: rgba(37, 194, 160, 0.1);
   color: var(--ifm-color-primary-light);
 }
 
-[data-theme='dark'] .badgeDoc {
-  background: rgba(37, 194, 160, 0.12);
-  color: var(--ifm-color-primary-lighter);
-}
-
 .date {
-  @apply text-xs;
+  @apply text-sm;
   color: var(--ifm-color-emphasis-500);
 }
 
-/* 标题和描述 */
+/* 标题 */
 .title {
-  @apply text-lg font-semibold mb-3 line-clamp-2;
-  color: var(--ifm-heading-color);
+  @apply text-lg font-semibold mb-2 line-clamp-2;
+  color: var(--ifm-color-emphasis-900);
   line-height: 1.4;
 }
 
+/* 描述 */
 .description {
-  @apply text-sm line-clamp-3 mb-4 flex-grow;
+  @apply text-sm line-clamp-3 mb-4;
   color: var(--ifm-color-emphasis-600);
   line-height: 1.6;
 }
@@ -205,19 +170,14 @@
 }
 
 .tag {
-  @apply px-2 py-0.5 rounded text-xs;
+  @apply px-2 py-0.5 text-xs rounded;
   background: var(--ifm-color-emphasis-100);
   color: var(--ifm-color-emphasis-700);
 }
 
-[data-theme='dark'] .tag {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--ifm-color-emphasis-500);
-}
-
 /* 阅读更多 */
 .readMore {
-  @apply inline-flex items-center gap-1 text-sm font-medium;
+  @apply flex items-center gap-1 text-sm font-medium;
   color: var(--ifm-color-primary);
   transition: gap 0.2s ease;
 }
@@ -226,62 +186,33 @@
   gap: 0.5rem;
 }
 
-/* 空状态提示 */
-.emptyMessage {
-  @apply text-center py-12 text-base;
-  color: var(--ifm-color-emphasis-500);
-}
-
-/* 模块底部链接 */
+/* 模块底部 */
 .moduleFooter {
-  @apply text-center mt-10;
+  @apply mt-8 text-center;
 }
 
 .viewAllLink {
-  @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300;
+  @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200;
   background: var(--ifm-color-primary);
-  color: white !important;
-  text-decoration: none !important;
+  color: white;
+  text-decoration: none;
 }
 
 .viewAllLink:hover {
   background: var(--ifm-color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(46, 133, 85, 0.3);
+  box-shadow: 0 4px 12px rgba(46, 133, 85, 0.3);
 }
 
-[data-theme='dark'] .viewAllLink {
-  background: var(--ifm-color-primary);
+/* 空状态 */
+.emptyMessage {
+  @apply text-center py-12;
+  color: var(--ifm-color-emphasis-500);
 }
 
-[data-theme='dark'] .viewAllLink:hover {
-  background: var(--ifm-color-primary-light);
-  box-shadow: 0 8px 25px rgba(37, 194, 160, 0.3);
-}
-
-/* 响应式调整 */
-@media (max-width: 640px) {
-  .section {
-    @apply py-12;
-  }
-  
-  .module {
-    @apply mb-12 last:mb-0;
-  }
-  
-  .moduleTitleWrapper {
-    @apply gap-2;
-  }
-  
-  .moduleTitle {
-    @apply text-xl;
-  }
-  
+/* 响应式 */
+@media (max-width: 768px) {
   .grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .cardLink {
-    @apply p-5;
+    @apply grid-cols-1;
   }
 }
