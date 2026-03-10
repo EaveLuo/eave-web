@@ -55,8 +55,13 @@ const Particles: React.FC<ParticlesProps> = ({
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const animationFrameId = useRef<number>(0);
   const isActive = useRef(true);
-  const dpr = useMemo(() => (typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 2) : 1), []);
+  const dprRef = useRef<number>(1);
   const rgb = useMemo(() => hexToRgb(color), [color]);
+
+  // DPR 在客户端初始化，避免 SSR 问题
+  useEffect(() => {
+    dprRef.current = Math.min(window.devicePixelRatio || 1, 2);
+  }, []);
 
   // 使用 requestAnimationFrame 节流鼠标移动
   const handleMouseMove = useCallback((event: MouseEvent) => {
@@ -109,12 +114,12 @@ const Particles: React.FC<ParticlesProps> = ({
     context.current.arc(x, y, size, 0, 2 * Math.PI);
     context.current.fillStyle = `rgba(${rgb.join(', ')}, ${alpha})`;
     context.current.fill();
-    context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
+    context.current.setTransform(dprRef.current, 0, 0, dprRef.current, 0, 0);
 
     if (!update) {
       circles.current.push(circle);
     }
-  }, [dpr, rgb]);
+  }, [rgb]);
 
   const clearContext = useCallback(() => {
     if (!context.current) return;
@@ -135,13 +140,13 @@ const Particles: React.FC<ParticlesProps> = ({
     circles.current = [];
     canvasSize.current.w = canvasContainerRef.current.offsetWidth;
     canvasSize.current.h = canvasContainerRef.current.offsetHeight;
-    canvasRef.current.width = canvasSize.current.w * dpr;
-    canvasRef.current.height = canvasSize.current.h * dpr;
+    canvasRef.current.width = canvasSize.current.w * dprRef.current;
+    canvasRef.current.height = canvasSize.current.h * dprRef.current;
     canvasRef.current.style.width = `${canvasSize.current.w}px`;
     canvasRef.current.style.height = `${canvasSize.current.h}px`;
-    context.current.scale(dpr, dpr);
+    context.current.scale(dprRef.current, dprRef.current);
     drawParticles();
-  }, [dpr, drawParticles]);
+  }, [drawParticles]);
 
   const animate = useCallback(() => {
     if (!isActive.current) return;

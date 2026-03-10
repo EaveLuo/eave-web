@@ -20,9 +20,14 @@ export default function Home(): ReactNode {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // 首屏内容可见后再加载粒子效果
-            requestIdleCallback(() => {
+            if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+              requestIdleCallback(() => {
+                setShowParticles(true);
+              }, { timeout: 2000 });
+            } else {
+              // 降级方案：直接加载
               setShowParticles(true);
-            }, { timeout: 2000 });
+            }
             observer.disconnect();
           }
         });
