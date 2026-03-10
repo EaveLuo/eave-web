@@ -25,23 +25,18 @@ interface HomepageData {
   };
 }
 
-// 格式化日期
-function formatDate(dateString: string, locale: string): string {
+// 格式化日期 - 使用统一格式避免 hydration 不匹配
+function formatDate(dateString: string): string {
   if (!dateString) return '';
   const date = new Date(dateString);
   if (isNaN(date.getTime())) return '';
 
-  const localeMap: Record<string, string> = {
-    'zh-CN': 'zh-CN',
-    'en': 'en-US',
-  };
-  const browserLocale = localeMap[locale] || locale;
-
-  return date.toLocaleDateString(browserLocale, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
+  // 使用 YYYY-MM-DD 格式，避免 locale 差异导致的 hydration 问题
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
 }
 
 // 卡片组件 - 使用 IntersectionObserver + CSS 实现滚动触发
@@ -95,7 +90,7 @@ function ArticleCard({
               : <Translate id="homepage.latestArticles.badgeDoc">Doc</Translate>}
           </span>
           {article.date && (
-            <time className={styles.date}>{formatDate(article.date, locale)}</time>
+            <time className={styles.date}>{formatDate(article.date)}</time>
           )}
         </div>
 
