@@ -3,7 +3,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import { translate } from '@docusaurus/Translate';
 
-import Hero from '@site/src/components/Homepage/Hero/index-optimized';
+import Hero from '@site/src/components/Homepage/Hero';
 import LatestArticles from '@site/src/components/Homepage/LatestArticles/index-ssg';
 import BackgroundEffects from '@site/src/components/Homepage/BackgroundEffects';
 

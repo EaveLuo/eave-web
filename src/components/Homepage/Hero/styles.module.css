@@ -11,20 +11,73 @@
   @apply pl-16 relative z-10;
 }
 
+/* CSS 打字机效果容器 */
+.typing_container {
+  @apply my-6;
+  min-height: 4rem;
+}
+
+/* CSS 打字机效果 */
 .intro_text {
-  @apply my-6 text-[#6e7b8c] text-justify text-base leading-8 tracking-[-0.04em];
+  @apply text-[#6e7b8c] text-justify text-base leading-8 tracking-[-0.04em];
   text-shadow: 0 0 #8c99ab;
+  
+  /* 打字机效果 */
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--ifm-color-primary);
+  animation: 
+    typing 2s steps(40, end) forwards,
+    blink-caret 0.75s step-end 6;
+  width: 0;
+}
+
+/* 打字机动画 */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* 光标闪烁 */
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--ifm-color-primary); }
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .intro_text {
+    animation: none;
+    width: 100%;
+    border-right: none;
+    white-space: normal;
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 1000px) {
+  .intro_text {
+    white-space: normal;
+    animation: fadeIn 0.5s ease forwards;
+    border-right: none;
+    width: 100%;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }
 
 .hero_text {
   font-size: calc(1.5em + 1.2vw);
 }
 
+/* CSS 鼠标光效 - 使用渐变和动画模拟 */
 .name {
   --lighting-size: 300px;
   --lighting-color: var(--ifm-color-primary);
   --lighting-highlight-color: var(--ifm-color-primary-lightest);
-  --lighting-opacity: 0.8;
 
   background-image: radial-gradient(
     var(--lighting-highlight-color),
@@ -33,25 +86,61 @@
   );
   background-size: var(--lighting-size) var(--lighting-size);
   background-repeat: no-repeat;
-  background-position-x: calc(
-    var(--x, 50%) - var(--mouse-x, 0px) - calc(var(--lighting-size) / 2)
-  );
-  background-position-y: calc(
-    var(--y, 50%) - var(--mouse-y, 0px) - calc(var(--lighting-size) / 2)
-  );
+  /* 使用 CSS 动画模拟光效移动 */
+  background-position: 50% 50%;
+  animation: lightMove 8s ease-in-out infinite;
   background-color: var(--lighting-color);
   color: transparent;
   background-clip: text;
-  transition: opacity 0.2s ease;
-  opacity: var(--lighting-opacity);
-  will-change: background-position;
+  cursor: default;
+}
+
+/* 光效移动动画 */
+@keyframes lightMove {
+  0%, 100% {
+    background-position: 30% 30%;
+  }
+  25% {
+    background-position: 70% 40%;
+  }
+  50% {
+    background-position: 60% 70%;
+  }
+  75% {
+    background-position: 40% 60%;
+  }
+}
+
+/* 悬停时增强光效 */
+.name:hover {
+  animation-play-state: paused;
+  background-position: 50% 50%;
+  filter: brightness(1.1);
 }
 
 /* 减少动画偏好支持 */
 @media (prefers-reduced-motion: reduce) {
   .name {
-    transition: none;
-    --lighting-opacity: 1;
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
+.wave {
+  display: inline-block;
+  animation: wave 2s ease-in-out infinite;
+  transform-origin: 70% 70%;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(20deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave {
+    animation: none;
   }
 }
 
@@ -75,6 +164,10 @@
 .button_text {
   @apply whitespace-pre-wrap text-center text-lg font-medium leading-none tracking-tight;
   color: var(--ifm-color-primary);
+}
+
+.button_wrapper {
+  @apply mt-4 flex gap-2;
 }
 
 @media (max-width: 1000px) {
