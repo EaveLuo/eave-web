@@ -7,6 +7,8 @@ module.exports = {
       animation: {
         'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',
         slide: 'slide var(--speed) ease-in-out infinite alternate',
+        'typing': 'typing 3s steps(40, end) forwards',
+        'blink-caret': 'blink-caret 0.75s step-end 5',
       },
       keyframes: {
         'spin-around': {
@@ -27,6 +29,14 @@ module.exports = {
           to: {
             transform: 'translate(calc(100cqw - 100%), 0)',
           },
+        },
+        typing: {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+        'blink-caret': {
+          '0%, 100%': { borderColor: 'transparent' },
+          '50%': { borderColor: 'var(--ifm-color-primary)' },
         },
       },
     },

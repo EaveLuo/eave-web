@@ -26,12 +26,9 @@ function Hero() {
           <span className={styles.wave}>👋</span>
         </div>
 
-        {/* CSS 打字机效果 */}
-        <div className={styles.typing_container}>
-          <p 
-            className={styles.intro_text}
-            style={{ '--typing-content': `"${heroText}"` } as React.CSSProperties}
-          >
+        {/* Tailwind CSS 打字机效果 */}
+        <div className="my-6 min-h-[4rem]">
+          <p className="text-[#6e7b8c] text-justify text-base leading-8 tracking-[-0.04em] overflow-hidden whitespace-nowrap border-r-2 border-[var(--ifm-color-primary)] animate-typing animate-blink-caret">
             {heroText}
           </p>
         </div>
