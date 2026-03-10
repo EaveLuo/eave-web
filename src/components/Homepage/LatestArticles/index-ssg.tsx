@@ -70,7 +70,7 @@ function ArticleCard({
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1],
+        ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
         delay: index * 0.08, // 依次延迟，营造流畅感
       }
     },
