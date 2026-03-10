@@ -3,7 +3,7 @@
  */
 
 // 从组件文件导入，避免循环引用
-export { LanguageRedirect } from './redirect';
+export { LanguageRedirect, default } from './redirect';
 export type {
   UserPreference,
   DetectionResult,

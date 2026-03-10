@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import Link from '@docusaurus/Link';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -89,8 +89,9 @@ function LatestArticles() {
 
   const homepageData = usePluginData('docusaurus-plugin-homepage-data') as HomepageData | undefined;
 
-  const latestBlogs = useMemo(() => homepageData?.latestArticles?.blogs || [], [homepageData]);
-  const latestDocs = useMemo(() => homepageData?.latestArticles?.docs || [], [homepageData]);
+  // 直接读取数据，无需 useMemo（构建时数据已确定）
+  const latestBlogs = homepageData?.latestArticles?.blogs || [];
+  const latestDocs = homepageData?.latestArticles?.docs || [];
 
   return (
     <section className={styles.section}>

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useAlternatePageUtils } from '@docusaurus/theme-common/internal';
@@ -253,4 +254,13 @@ function MobileLocaleSwitcher({ className }: MobileLocaleSwitcherProps) {
   );
 }
 
-export default memo(MobileLocaleSwitcher);
+// 包装组件，仅在浏览器端渲染
+function MobileLocaleSwitcherBrowserOnly({ className }: MobileLocaleSwitcherProps): React.ReactElement | null {
+  return (
+    <BrowserOnly fallback={null}>
+      {() => <MobileLocaleSwitcher className={className} />}
+    </BrowserOnly>
+  );
+}
+
+export default memo(MobileLocaleSwitcherBrowserOnly);

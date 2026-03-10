@@ -5,6 +5,7 @@
  */
 
 import React, { useEffect, useState, useCallback } from 'react';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { translate } from '@docusaurus/Translate';
@@ -227,4 +228,13 @@ export function LanguageRedirect(): React.JSX.Element | null {
   );
 }
 
-export default LanguageRedirect;
+// 包装组件，仅在浏览器端渲染
+function LanguageRedirectWrapper(): React.JSX.Element | null {
+  return (
+    <BrowserOnly fallback={null}>
+      {() => <LanguageRedirect />}
+    </BrowserOnly>
+  );
+}
+
+export default LanguageRedirectWrapper;
