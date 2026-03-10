@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Translate, { translate } from '@docusaurus/Translate';
 import { ArrowUpRight, Heart, Mail, Rss } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -12,22 +13,22 @@ const policeBeian = '湘公网安备43011102002452号';
 const currentYear = new Date().getFullYear();
 
 // 导航链接数据
-const navLinks = [
+const getNavLinks = () => [
   {
-    title: '知识库',
+    title: translate({ id: 'footer.knowledge', message: '知识库' }),
     links: [
-      { label: '前端开发', to: '/docs/front-end/intro' },
-      { label: '后端开发', to: '/docs/back-end/intro' },
-      { label: '运维部署', to: '/docs/operation/intro' },
-      { label: '人工智能', to: '/docs/ai/intro' },
+      { label: translate({ id: 'footer.frontend', message: '前端开发' }), to: '/docs/front-end/intro' },
+      { label: translate({ id: 'footer.backend', message: '后端开发' }), to: '/docs/back-end/intro' },
+      { label: translate({ id: 'footer.operation', message: '运维部署' }), to: '/docs/operation/intro' },
+      { label: translate({ id: 'footer.ai', message: '人工智能' }), to: '/docs/ai/intro' },
     ],
   },
   {
-    title: '更多',
+    title: translate({ id: 'footer.more', message: '更多' }),
     links: [
-      { label: '博客文章', to: '/blog' },
-      { label: '关于我', to: '/about' },
-      { label: 'RSS 订阅', href: '/blog/rss.xml', external: true },
+      { label: translate({ id: 'footer.blog', message: '博客文章' }), to: '/blog' },
+      { label: translate({ id: 'footer.about', message: '关于我' }), to: '/about' },
+      { label: translate({ id: 'footer.rss', message: 'RSS 订阅' }), href: '/blog/rss.xml', external: true },
     ],
   },
 ];
@@ -72,7 +73,7 @@ function Footer(): React.ReactElement | null {
 
           {/* 中间：导航链接 */}
           <div className={styles.links}>
-            {navLinks.map((section) => (
+            {getNavLinks().map((section) => (
               <div key={section.title} className={styles.linkSection}>
                 <h3 className={styles.linkTitle}>{section.title}</h3>
                 <ul className={styles.linkList}>
@@ -176,11 +177,14 @@ function Footer(): React.ReactElement | null {
           </div>
           
           <p className={styles.copyright}>
-            Made with <Heart size={14} className={styles.heart} /> by Eave Luo · {currentYear}
+            <Translate id="footer.madeWith">Made with</Translate>{' '}
+            <Heart size={14} className={styles.heart} />{' '}
+            <Translate id="footer.by">by</Translate> Eave Luo · {currentYear}
           </p>
           
           <p className={styles.powered}>
-            Built with <a href="https://docusaurus.io/" target="_blank" rel="noopener">Docusaurus</a>
+            <Translate id="footer.builtWith">Built with</Translate>{' '}
+            <a href="https://docusaurus.io/" target="_blank" rel="noopener">Docusaurus</a>
           </p>
         </div>
       </div>
