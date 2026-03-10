@@ -24,6 +24,7 @@
   --lighting-size: 300px;
   --lighting-color: var(--ifm-color-primary);
   --lighting-highlight-color: var(--ifm-color-primary-lightest);
+  --lighting-opacity: 0.8;
 
   background-image: radial-gradient(
     var(--lighting-highlight-color),
@@ -33,14 +34,25 @@
   background-size: var(--lighting-size) var(--lighting-size);
   background-repeat: no-repeat;
   background-position-x: calc(
-    var(--x) - var(--mouse-x) - calc(var(--lighting-size) / 2)
+    var(--x, 50%) - var(--mouse-x, 0px) - calc(var(--lighting-size) / 2)
   );
   background-position-y: calc(
-    var(--y) - var(--mouse-y) - calc(var(--lighting-size) / 2)
+    var(--y, 50%) - var(--mouse-y, 0px) - calc(var(--lighting-size) / 2)
   );
   background-color: var(--lighting-color);
   color: transparent;
   background-clip: text;
+  transition: opacity 0.2s ease;
+  opacity: var(--lighting-opacity);
+  will-change: background-position;
+}
+
+/* 减少动画偏好支持 */
+@media (prefers-reduced-motion: reduce) {
+  .name {
+    transition: none;
+    --lighting-opacity: 1;
+  }
 }
 
 .background {
@@ -56,6 +68,8 @@
   @apply absolute top-0 w-full h-full bg-gradient-to-r from-[rgb(150,255,244,0.81)] to-[rgb(0,71,252,0.81)] rounded-full opacity-30;
   filter: blur(80px);
   z-index: -1;
+  will-change: transform;
+  transform: translateZ(0); /* 启用 GPU 加速 */
 }
 
 .button_text {

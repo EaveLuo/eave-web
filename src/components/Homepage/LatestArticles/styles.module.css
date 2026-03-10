@@ -76,18 +76,41 @@
   }
 }
 
-/* 卡片样式 - 恢复原来的设计 */
+/* 卡片样式 - 使用 CSS 动画替代 Framer Motion */
 .card {
   @apply relative rounded-xl overflow-hidden;
   background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
   border: 1px solid var(--ifm-color-emphasis-200);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.4s ease;
+  will-change: transform, opacity;
+}
+
+/* 卡片进入动画状态 */
+.cardHidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.cardVisible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(46, 133, 85, 0.15);
   border-color: var(--ifm-color-primary-lighter);
+}
+
+/* 减少动画偏好支持 */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  .cardHidden {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 [data-theme='dark'] .card {

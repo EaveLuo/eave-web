@@ -1,6 +1,7 @@
 ---
-date: 2024-07-01T08:36:31.000Z
+sidebar_position: 15
 sidebar_label: SourceMap 配置
+date: 2024-07-01T08:36:31.000Z
 tags:
   - 前端
 description: Webpack 5 SourceMap 配置，讲解不同 devtool 选项、SourceMap 原理、生产环境 SourceMap 策略、调试技巧等。

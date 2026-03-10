@@ -1,6 +1,7 @@
 ---
-date: 2024-07-01T08:36:31.000Z
+sidebar_position: 16
 sidebar_label: 提升构建速度
+date: 2024-07-01T08:36:31.000Z
 tags:
   - 前端
 description: Webpack 5 构建速度优化，包括持久化缓存、多线程打包（thread-loader）、缩小搜索范围、DLL 预编译等提速策略。

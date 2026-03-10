@@ -1,6 +1,7 @@
 ---
-date: 2024-06-28T09:10:57.000Z
+sidebar_position: 9
 sidebar_label: 配置 ESLint
+date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: Webpack 5 集成 ESLint，包括 eslint-loader 配置、规则定制、自动修复、与 Prettier 配合等代码质量保障方案。

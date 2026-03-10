@@ -1,6 +1,7 @@
 ---
-date: 2024-06-28T09:10:57.000Z
+sidebar_position: 6
 sidebar_label: 输出配置
+date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: Webpack 5 输出配置详解，包括 output 选项、文件名哈希、publicPath 设置、多入口输出、库打包等高级输出控制。

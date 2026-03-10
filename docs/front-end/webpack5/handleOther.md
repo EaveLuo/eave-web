@@ -1,6 +1,7 @@
 ---
-date: 2024-06-28T09:10:57.000Z
+sidebar_position: 8
 sidebar_label: 处理其他资源
+date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: Webpack 5 处理其他资源，包括字体文件、音视频、JSON、XML 等非 JS/CSS 资源的加载和配置方法。

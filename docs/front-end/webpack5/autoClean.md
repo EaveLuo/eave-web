@@ -1,6 +1,7 @@
 ---
-date: 2024-06-28T09:10:57.000Z
+sidebar_position: 7
 sidebar_label: 自动清理
+date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: >-

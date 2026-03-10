@@ -1,6 +1,7 @@
 ---
-date: 2024-06-28T09:10:57.000Z
+sidebar_position: 10
 sidebar_label: 配置 Babel
+date: 2024-06-28T09:10:57.000Z
 tags:
   - 前端
 description: >-

@@ -1,6 +1,7 @@
 ---
-date: 2024-07-01T08:36:31.000Z
+sidebar_position: 17
 sidebar_label: 减小体积
+date: 2024-07-01T08:36:31.000Z
 tags:
   - 前端
 description: >-
