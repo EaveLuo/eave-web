@@ -1,5 +1,5 @@
 /**
- * 首页数据注入插件 - SSG 预渲染最新文章数据
+ * 首页数据注入插件 - SSG 预渲染最新文章数据（支持多语言）
  * 在构建时将最新博客和文档数据注入全局数据，实现秒开体验
  */
 
@@ -54,15 +54,24 @@ function formatDate(dateString) {
   return date.toISOString();
 }
 
-// 读取博客文章
-function getBlogPosts(siteDir, locale) {
-  const blogDir = path.join(siteDir, 'blog');
+// 读取博客文章 - 支持多语言
+function getBlogPosts(siteDir, locale, defaultLocale) {
+  // 根据语言确定博客目录
+  let blogDir;
+  if (locale === defaultLocale) {
+    // 默认语言：直接读取根目录
+    blogDir = path.join(siteDir, 'blog');
+  } else {
+    // 其他语言：读取 i18n 目录
+    blogDir = path.join(siteDir, 'i18n', locale, 'docusaurus-plugin-content-blog');
+  }
+  
   if (!fs.existsSync(blogDir)) {
+    console.log(`[HomepageData] Blog dir not found: ${blogDir}`);
     return [];
   }
 
   const posts = [];
-  const currentYear = new Date().getFullYear();
 
   // 递归读取博客目录
   function traverse(dir) {
@@ -81,12 +90,15 @@ function getBlogPosts(siteDir, locale) {
             const relativePath = path.relative(blogDir, fullPath);
             const slug = relativePath.replace(/\.md$/, '').replace(/\/index$/, '');
 
+            // 根据语言生成路径
+            const pathPrefix = locale === defaultLocale ? '/blog' : `/${locale}/blog`;
+
             posts.push({
               id: slug,
               title: data.title || slug,
               description: extractDescription(data.description, body, 120),
               date: formatDate(data.date),
-              path: `/blog/${slug}`,
+              path: `${pathPrefix}/${slug}`,
               type: 'blog',
               tags: data.tags || [],
             });
@@ -106,10 +118,20 @@ function getBlogPosts(siteDir, locale) {
     .slice(0, 6);
 }
 
-// 读取文档
-function getDocs(siteDir, locale) {
-  const docsDir = path.join(siteDir, 'docs');
+// 读取文档 - 支持多语言
+function getDocs(siteDir, locale, defaultLocale) {
+  // 根据语言确定文档目录
+  let docsDir;
+  if (locale === defaultLocale) {
+    // 默认语言：直接读取根目录
+    docsDir = path.join(siteDir, 'docs');
+  } else {
+    // 其他语言：读取 i18n 目录
+    docsDir = path.join(siteDir, 'i18n', locale, 'docusaurus-plugin-content-docs', 'current');
+  }
+  
   if (!fs.existsSync(docsDir)) {
+    console.log(`[HomepageData] Docs dir not found: ${docsDir}`);
     return [];
   }
 
@@ -132,12 +154,15 @@ function getDocs(siteDir, locale) {
             const relativePath = path.relative(docsDir, fullPath);
             const slug = relativePath.replace(/\.md$/, '');
 
+            // 根据语言生成路径
+            const pathPrefix = locale === defaultLocale ? '/docs' : `/${locale}/docs`;
+
             docs.push({
               id: slug,
               title: data.title || data.sidebar_label || slug,
               description: extractDescription(data.description, body, 120),
               date: formatDate(data.date),
-              path: `/docs/${slug}`,
+              path: `${pathPrefix}/${slug}`,
               type: 'doc',
               tags: data.tags || [],
             });
@@ -160,20 +185,20 @@ function getDocs(siteDir, locale) {
 // 创建插件
 function homepageDataPlugin(context, options) {
   const { siteDir, i18n } = context;
+  const currentLocale = i18n.currentLocale;
+  const defaultLocale = i18n.defaultLocale;
 
   return {
     name: 'docusaurus-plugin-homepage-data',
 
     async loadContent() {
-      const currentLocale = i18n.currentLocale;
+      console.log(`[HomepageData] Loading latest articles for locale: ${currentLocale}...`);
 
-      console.log('[HomepageData] Loading latest articles...');
+      // 读取最新博客和文档（根据当前语言）
+      const latestBlogs = getBlogPosts(siteDir, currentLocale, defaultLocale);
+      const latestDocs = getDocs(siteDir, currentLocale, defaultLocale);
 
-      // 读取最新博客和文档
-      const latestBlogs = getBlogPosts(siteDir, currentLocale);
-      const latestDocs = getDocs(siteDir, currentLocale);
-
-      console.log(`[HomepageData] Loaded ${latestBlogs.length} blogs, ${latestDocs.length} docs`);
+      console.log(`[HomepageData] Loaded ${latestBlogs.length} blogs, ${latestDocs.length} docs for ${currentLocale}`);
 
       return {
         latestBlogs,
@@ -194,7 +219,7 @@ function homepageDataPlugin(context, options) {
         },
       });
 
-      console.log('[HomepageData] Global data injected for SSG');
+      console.log(`[HomepageData] Global data injected for SSG (${currentLocale})`);
     },
   };
 }
