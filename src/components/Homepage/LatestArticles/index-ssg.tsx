@@ -1,5 +1,4 @@
 import { memo, useMemo } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -45,44 +44,23 @@ function formatDate(dateString: string, locale: string): string {
   });
 }
 
-// 卡片组件 - 带入场动效
+// 卡片组件 - 纯 CSS 动画，无 Framer Motion
 function ArticleCard({ 
   article, 
   locale, 
   index,
-  prefersReducedMotion 
 }: { 
   article: ArticleItem; 
   locale: string;
   index: number;
-  prefersReducedMotion: boolean;
 }) {
-  // 卡片入场动画变体
-  const cardVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30,
-      scale: 0.95
-    },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
-        delay: index * 0.08, // 依次延迟，营造流畅感
-      }
-    },
-  };
+  // 使用 CSS 变量传递延迟时间
+  const delay = index * 0.08;
 
   return (
-    <motion.article 
+    <article 
       className={styles.card}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={prefersReducedMotion ? undefined : cardVariants}
+      style={{ '--card-delay': `${delay}s` } as React.CSSProperties}
     >
       <Link to={article.path} className={styles.cardLink}>
         <div className={styles.cardHeader}>
@@ -112,14 +90,13 @@ function ArticleCard({
           <ArrowRight size={14} />
         </div>
       </Link>
-    </motion.article>
+    </article>
   );
 }
 
 function LatestArticles() {
   const { i18n } = useDocusaurusContext();
   const currentLocale = i18n.currentLocale;
-  const prefersReducedMotion = useReducedMotion();
 
   // 获取 SSG 预渲染的数据 - 构建时就已经存在
   const homepageData = usePluginData('docusaurus-plugin-homepage-data') as HomepageData | undefined;
@@ -127,45 +104,12 @@ function LatestArticles() {
   const latestBlogs = useMemo(() => homepageData?.latestArticles?.blogs || [], [homepageData]);
   const latestDocs = useMemo(() => homepageData?.latestArticles?.docs || [], [homepageData]);
 
-  // 模块标题动画
-  const moduleHeaderVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1] as const,
-      }
-    },
-  };
-
-  // 查看更多链接动画
-  const footerVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: [0.25, 0.1, 0.25, 1] as const,
-        delay: 0.3,
-      }
-    },
-  };
-
   return (
     <section className={styles.section}>
       <div className={styles.container}>
         {/* 博客模块 */}
         <div className={styles.module}>
-          <motion.div
-            className={styles.moduleHeader}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={prefersReducedMotion ? undefined : moduleHeaderVariants}
-          >
+          <div className={styles.moduleHeader}>
             <div className={styles.moduleTitleWrapper}>
               <Calendar size={24} className={styles.moduleIcon} />
               <h2 className={styles.moduleTitle}>
@@ -175,7 +119,7 @@ function LatestArticles() {
             <p className={styles.moduleSubtitle}>
               <Translate id="homepage.latestArticles.blogSubtitle">探索最新的技术分享与思考</Translate>
             </p>
-          </motion.div>
+          </div>
 
           {latestBlogs.length > 0 ? (
             <div className={styles.grid}>
@@ -185,7 +129,6 @@ function LatestArticles() {
                   article={article} 
                   locale={currentLocale}
                   index={index}
-                  prefersReducedMotion={prefersReducedMotion}
                 />
               ))}
             </div>
@@ -195,29 +138,17 @@ function LatestArticles() {
             </p>
           )}
 
-          <motion.div
-            className={styles.moduleFooter}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={prefersReducedMotion ? undefined : footerVariants}
-          >
+          <div className={styles.moduleFooter}>
             <Link to="/blog" className={styles.viewAllLink}>
               <Translate id="homepage.latestArticles.viewAllBlog">查看全部博客</Translate>
               <ArrowRight size={16} />
             </Link>
-          </motion.div>
+          </div>
         </div>
 
         {/* 文档模块 */}
         <div className={styles.module}>
-          <motion.div
-            className={styles.moduleHeader}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={prefersReducedMotion ? undefined : moduleHeaderVariants}
-          >
+          <div className={styles.moduleHeader}>
             <div className={styles.moduleTitleWrapper}>
               <FileText size={24} className={styles.moduleIconDoc} />
               <h2 className={styles.moduleTitle}>
@@ -227,7 +158,7 @@ function LatestArticles() {
             <p className={styles.moduleSubtitle}>
               <Translate id="homepage.latestArticles.docsSubtitle">浏览最新的技术文档与教程</Translate>
             </p>
-          </motion.div>
+          </div>
 
           {latestDocs.length > 0 ? (
             <div className={styles.grid}>
@@ -237,7 +168,6 @@ function LatestArticles() {
                   article={article} 
                   locale={currentLocale}
                   index={index}
-                  prefersReducedMotion={prefersReducedMotion}
                 />
               ))}
             </div>
@@ -247,18 +177,12 @@ function LatestArticles() {
             </p>
           )}
 
-          <motion.div
-            className={styles.moduleFooter}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={prefersReducedMotion ? undefined : footerVariants}
-          >
+          <div className={styles.moduleFooter}>
             <Link to="/docs/front-end/intro" className={styles.viewAllLink}>
               <Translate id="homepage.latestArticles.viewAllDocs">查看全部文档</Translate>
               <ArrowRight size={16} />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
