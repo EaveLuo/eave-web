@@ -165,7 +165,7 @@ function LatestArticles() {
           )}
 
           <div className={styles.moduleFooter}>
-            <Link to="/docs/front-end/intro" className={styles.viewAllLink}>
+            <Link to="/docs" className={styles.viewAllLink}>
               <Translate id="homepage.latestArticles.viewAllDocs">查看全部文档</Translate>
               <ArrowRight size={16} />
             </Link>

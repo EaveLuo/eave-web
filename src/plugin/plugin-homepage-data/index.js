@@ -129,7 +129,7 @@ function getDocs(siteDir, locale, defaultLocale) {
     // 其他语言：读取 i18n 目录
     docsDir = path.join(siteDir, 'i18n', locale, 'docusaurus-plugin-content-docs', 'current');
   }
-  
+
   if (!fs.existsSync(docsDir)) {
     console.log(`[HomepageData] Docs dir not found: ${docsDir}`);
     return [];
@@ -182,6 +182,87 @@ function getDocs(siteDir, locale, defaultLocale) {
     .slice(0, 6);
 }
 
+// 读取文档分类 - 支持多语言
+function getDocCategories(siteDir, locale, defaultLocale) {
+  // 根据语言确定文档目录
+  let docsDir;
+  if (locale === defaultLocale) {
+    docsDir = path.join(siteDir, 'docs');
+  } else {
+    docsDir = path.join(siteDir, 'i18n', locale, 'docusaurus-plugin-content-docs', 'current');
+  }
+
+  if (!fs.existsSync(docsDir)) {
+    console.log(`[HomepageData] Docs dir not found for categories: ${docsDir}`);
+    return [];
+  }
+
+  const categories = [];
+
+  // 读取 docs 下的直接子目录
+  const entries = fs.readdirSync(docsDir, { withFileTypes: true });
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      const categoryDir = path.join(docsDir, entry.name);
+      const introPath = path.join(categoryDir, 'intro.md');
+
+      let title = entry.name;
+      let description = '';
+      let icon = 'FileText'; // 默认图标
+
+      // 尝试读取 intro.md 获取标题和描述
+      let frontmatterData = {};
+      let hasIntroFile = false;
+      if (fs.existsSync(introPath)) {
+        try {
+          const content = fs.readFileSync(introPath, 'utf-8');
+          const { data, content: body } = matter(content);
+          frontmatterData = data;
+          hasIntroFile = true;
+          title = data.title || title;
+          description = extractDescription(data.description, body, 150);
+        } catch (error) {
+          console.warn(`[HomepageData] Failed to read intro ${introPath}:`, error.message);
+        }
+      }
+
+      // 检查必要字段
+      const missingFields = [];
+      if (!frontmatterData.icon) missingFields.push('icon');
+      if (!frontmatterData.color) missingFields.push('color');
+
+      if (missingFields.length > 0) {
+        const errorMessage = `[HomepageData] ERROR: 文档分类 "${entry.name}" 的 intro.md 缺少必要字段: ${missingFields.join(', ')}\n` +
+          `请确保 ${introPath} 的 front matter 中包含以下字段:\n` +
+          `  - icon: 图标名称 (如: Code, Server, Cpu)\n` +
+          `  - color: 主题色 (如: '#3b82f6')`;
+        console.error(errorMessage);
+        throw new Error(`文档分类 "${entry.name}" 配置不完整，请检查 intro.md 的 front matter`);
+      }
+
+      // 使用 front matter 中的 icon 和 color
+      icon = frontmatterData.icon;
+      const color = frontmatterData.color;
+
+      // 根据语言生成路径
+      const pathPrefix = locale === defaultLocale ? '/docs' : `/${locale}/docs`;
+
+      categories.push({
+        id: entry.name,
+        title,
+        titleEn: entry.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+        description,
+        icon,
+        color,
+        path: `${pathPrefix}/${entry.name}/intro`,
+      });
+    }
+  }
+
+  // 按目录名排序，保持顺序稳定
+  return categories.sort((a, b) => a.id.localeCompare(b.id));
+}
+
 // 创建插件
 function homepageDataPlugin(context, options) {
   const { siteDir, i18n } = context;
@@ -197,18 +278,20 @@ function homepageDataPlugin(context, options) {
       // 读取最新博客和文档（根据当前语言）
       const latestBlogs = getBlogPosts(siteDir, currentLocale, defaultLocale);
       const latestDocs = getDocs(siteDir, currentLocale, defaultLocale);
+      const docCategories = getDocCategories(siteDir, currentLocale, defaultLocale);
 
-      console.log(`[HomepageData] Loaded ${latestBlogs.length} blogs, ${latestDocs.length} docs for ${currentLocale}`);
+      console.log(`[HomepageData] Loaded ${latestBlogs.length} blogs, ${latestDocs.length} docs, ${docCategories.length} categories for ${currentLocale}`);
 
       return {
         latestBlogs,
         latestDocs,
+        docCategories,
       };
     },
 
     async contentLoaded({ content, actions }) {
       const { setGlobalData } = actions;
-      const { latestBlogs, latestDocs } = content;
+      const { latestBlogs, latestDocs, docCategories } = content;
 
       // 注入全局数据 - 这些将在 SSG 时预渲染到 HTML 中
       setGlobalData({
@@ -217,6 +300,7 @@ function homepageDataPlugin(context, options) {
           docs: latestDocs,
           lastUpdated: new Date().toISOString(),
         },
+        docCategories,
       });
 
       console.log(`[HomepageData] Global data injected for SSG (${currentLocale})`);

@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+icon: Code
+color: '#3b82f6'
 keywords:
   - 前端
   - 前端开发
