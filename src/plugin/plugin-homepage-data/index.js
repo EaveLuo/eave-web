@@ -219,7 +219,18 @@ function getDocCategories(siteDir, locale, defaultLocale) {
           const { data, content: body } = matter(content);
           frontmatterData = data;
           hasIntroFile = true;
-          title = data.title || title;
+
+          // 优先使用 front matter 的 title，其次从 markdown 内容中的 # 标题提取
+          if (data.title) {
+            title = data.title;
+          } else {
+            // 从内容中提取第一个 # 标题
+            const headingMatch = body.match(/^#\s+(.+)$/m);
+            if (headingMatch) {
+              title = headingMatch[1].trim();
+            }
+          }
+
           description = extractDescription(data.description, body, 150);
         } catch (error) {
           console.warn(`[HomepageData] Failed to read intro ${introPath}:`, error.message);

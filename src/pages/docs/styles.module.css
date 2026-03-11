@@ -125,13 +125,8 @@
 }
 
 .cardTitle {
-  @apply text-xl font-semibold mb-2 flex items-center gap-2 flex-wrap;
+  @apply text-xl font-semibold mb-2;
   color: var(--ifm-color-emphasis-900);
-}
-
-.cardTitleEn {
-  @apply text-sm font-normal;
-  color: var(--ifm-color-emphasis-500);
 }
 
 .cardDescription {
