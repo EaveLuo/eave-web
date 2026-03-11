@@ -7,7 +7,6 @@ import SearchBar from '@theme/SearchBar';
 import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle';
 import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
 import NavbarSearch from '@theme/Navbar/Search';
-import MobileLocaleSwitcher from '@site/src/components/MobileLocaleSwitcher';
 import {
   useThemeConfig,
   ErrorCauseBoundary,
@@ -79,10 +78,9 @@ function DesktopContent() {
 // Mobile 端组件
 function MobileContent() {
   const items = useNavbarItems();
-  const [leftItems] = splitNavbarItems(
+  const [leftItems, rightItems] = splitNavbarItems(
     items as { position?: 'left' | 'right' }[],
   );
-  const hasLocaleDropdown = items.some((item) => item.type === 'localeDropdown');
 
   return (
     <div className={clsx('navbar__inner', styles.mobileInner)}>
@@ -92,10 +90,8 @@ function MobileContent() {
         <NavbarItems items={leftItems} />
       </div>
       <div className={clsx('navbar__items navbar__items--right', styles.mobileRight)}>
+        <NavbarItems items={rightItems} />
         <NavbarColorModeToggle className={styles.mobileThemeToggle} />
-        {hasLocaleDropdown && (
-          <MobileLocaleSwitcher className={styles.mobileLocaleSwitcher} />
-        )}
         <NavbarSearch className={styles.mobileSearch}>
           <SearchBar />
         </NavbarSearch>
