@@ -1,0 +1,232 @@
+@reference "../../css/custom.css";
+
+/* 页面容器 */
+.pageContainer {
+  @apply w-full min-h-screen relative;
+  background: linear-gradient(180deg, transparent 0%, rgba(46, 133, 85, 0.03) 30%, rgba(46, 133, 85, 0.03) 70%, transparent 100%);
+  padding: 3rem 0 4rem;
+}
+
+.container {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* 页面头部 */
+.header {
+  @apply text-center mb-12;
+}
+
+.headerIcon {
+  @apply inline-flex items-center justify-center mb-4;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(46, 133, 85, 0.1) 0%, rgba(37, 194, 160, 0.1) 100%);
+  color: var(--ifm-color-primary);
+}
+
+.headerTitle {
+  @apply text-3xl md:text-4xl font-bold mb-3;
+  color: var(--ifm-color-emphasis-900);
+  letter-spacing: -0.02em;
+}
+
+.headerSubtitle {
+  @apply text-base md:text-lg;
+  color: var(--ifm-color-emphasis-600);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* 网格布局 */
+.grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+/* 卡片样式 */
+.card {
+  @apply relative rounded-xl overflow-hidden;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+/* 现代浏览器：使用 animation-timeline 实现滚动触发动画 */
+@supports (animation-timeline: view()) {
+  .card {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: cardFadeIn 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation-timeline: view();
+    animation-range: entry 10% cover 20%;
+    animation-delay: calc(var(--card-index, 0) * 0.08s);
+  }
+
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+/* 旧浏览器：直接显示 */
+@supports not (animation-timeline: view()) {
+  .card {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(46, 133, 85, 0.15);
+  border-color: var(--ifm-color-primary-lighter);
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+}
+
+/* 卡片链接 */
+.cardLink {
+  @apply block p-6 h-full;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 卡片头部 */
+.cardHeader {
+  @apply flex items-center justify-between mb-3;
+}
+
+.badge {
+  @apply px-2 py-1 text-xs font-medium rounded-full;
+  background: rgba(46, 133, 85, 0.1);
+  color: var(--ifm-color-primary);
+}
+
+.date {
+  @apply text-sm;
+  color: var(--ifm-color-emphasis-500);
+}
+
+/* 标题 */
+.title {
+  @apply text-lg font-semibold mb-2 line-clamp-2;
+  color: var(--ifm-color-emphasis-900);
+  line-height: 1.4;
+}
+
+/* 描述 */
+.description {
+  @apply text-sm line-clamp-3 mb-4;
+  color: var(--ifm-color-emphasis-600);
+  line-height: 1.6;
+}
+
+/* 标签 */
+.tags {
+  @apply flex flex-wrap gap-2 mb-4;
+}
+
+.tag {
+  @apply inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* 阅读更多 */
+.readMore {
+  @apply flex items-center gap-1 text-sm font-medium;
+  color: var(--ifm-color-primary);
+  transition: gap 0.2s ease;
+}
+
+.card:hover .readMore {
+  gap: 0.5rem;
+}
+
+/* 空状态 */
+.emptyState {
+  @apply text-center py-16;
+  color: var(--ifm-color-emphasis-500);
+}
+
+/* 分页 */
+.pagination {
+  @apply flex items-center justify-center gap-4 mt-12;
+}
+
+.paginationLink {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+  background: transparent;
+  color: var(--ifm-color-primary);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  text-decoration: none;
+}
+
+.paginationLink:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(46, 133, 85, 0.2);
+}
+
+.pageInfo {
+  @apply text-sm font-medium;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 2rem 0 3rem;
+  }
+
+  .header {
+    @apply mb-8;
+  }
+
+  .headerIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .headerTitle {
+    @apply text-2xl;
+  }
+
+  .grid {
+    @apply grid-cols-1 gap-4;
+  }
+
+  .cardLink {
+    @apply p-5;
+  }
+
+  .pagination {
+    @apply gap-3;
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .headerIcon {
+  background: linear-gradient(135deg, rgba(37, 194, 160, 0.15) 0%, rgba(46, 133, 85, 0.15) 100%);
+}
+
+[data-theme='dark'] .card:hover {
+  box-shadow: 0 12px 40px rgba(37, 194, 160, 0.12);
+}
