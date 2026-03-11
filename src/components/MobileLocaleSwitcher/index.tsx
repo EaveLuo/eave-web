@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
-import BrowserOnly from '@docusaurus/BrowserOnly';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useAlternatePageUtils } from '@docusaurus/theme-common/internal';
-import { useHistorySelector, mergeSearchStrings } from '@docusaurus/theme-common';
+import { useLocation } from '@docusaurus/router';
 import Link from '@docusaurus/Link';
 import Translate, { translate } from '@docusaurus/Translate';
 import { markManualSwitch } from '@site/src/components/LanguageRedirect';
@@ -25,8 +24,11 @@ function useLocaleSwitcherUtils() {
     i18n: { localeConfigs },
   } = useDocusaurusContext();
   const alternatePageUtils = useAlternatePageUtils();
-  const search = useHistorySelector((history) => history.location.search);
-  const hash = useHistorySelector((history) => history.location.hash);
+  const location = useLocation();
+
+  // SSR 时 location 为 undefined，使用空值
+  const search = location?.search ?? '';
+  const hash = location?.hash ?? '';
 
   const getLocaleConfig = (locale: string): LocaleConfig => {
     const config = localeConfigs[locale] as LocaleConfig | undefined;
@@ -56,9 +58,18 @@ function useLocaleSwitcherUtils() {
     });
   };
 
+  // 简单的 query string 合并，替代 mergeSearchStrings
+  const mergeSearch = (baseSearch: string, additional?: string): string => {
+    if (!additional) return baseSearch;
+    if (!baseSearch) return additional;
+    const base = baseSearch.startsWith('?') ? baseSearch.slice(1) : baseSearch;
+    const add = additional.startsWith('?') ? additional.slice(1) : additional;
+    return `?${base}&${add}`;
+  };
+
   return {
     getURL: (locale: string, queryString?: string) => {
-      const finalSearch = mergeSearchStrings([search, queryString], 'append');
+      const finalSearch = mergeSearch(search, queryString);
       const baseUrl = getBaseURLForLocale(locale);
       // 保留 pathname:// 前缀，与 Docusaurus 内置 LocaleDropdown 行为一致
       return `${baseUrl}${finalSearch}${hash}`;
@@ -254,13 +265,4 @@ function MobileLocaleSwitcher({ className }: MobileLocaleSwitcherProps) {
   );
 }
 
-// 包装组件，仅在浏览器端渲染
-function MobileLocaleSwitcherBrowserOnly({ className }: MobileLocaleSwitcherProps): React.ReactElement | null {
-  return (
-    <BrowserOnly fallback={null}>
-      {() => <MobileLocaleSwitcher className={className} />}
-    </BrowserOnly>
-  );
-}
-
-export default memo(MobileLocaleSwitcherBrowserOnly);
+export default memo(MobileLocaleSwitcher);
