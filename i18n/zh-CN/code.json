@@ -380,5 +380,37 @@
   "languagePrompt.close": {
     "message": "关闭",
     "description": "关闭语言提示"
+  },
+  "blogListPage.badge": {
+    "message": "Blog",
+    "description": "博客列表页文章 badge"
+  },
+  "blogListPage.title": {
+    "message": "全部博客",
+    "description": "博客列表页标题"
+  },
+  "blogListPage.subtitle": {
+    "message": "探索技术分享、经验总结与思考",
+    "description": "博客列表页副标题"
+  },
+  "blogListPage.noPosts": {
+    "message": "暂无博客文章",
+    "description": "博客列表页无文章提示"
+  },
+  "docsIndexPage.title": {
+    "message": "技术文档",
+    "description": "文档总览页标题"
+  },
+  "docsIndexPage.subtitle": {
+    "message": "探索各技术领域的系统化知识文档",
+    "description": "文档总览页副标题"
+  },
+  "docsIndexPage.noCategories": {
+    "message": "暂无文档分类",
+    "description": "文档总览页无分类提示"
+  },
+  "docsIndexPage.footer": {
+    "message": "点击任意分类开始探索，或使用顶部导航快速访问",
+    "description": "文档总览页底部提示"
   }
 }
