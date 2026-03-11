@@ -1,0 +1,95 @@
+/* 桌面端/移动端显示控制 */
+.desktopOnly {
+  display: block;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+@media (max-width: 996px) {
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: block;
+  }
+}
+
+/* PC 端样式 */
+.colorModeToggle {
+  /* 保持原有样式 */
+}
+
+/* 移动端样式 */
+@media (max-width: 996px) {
+  .colorModeToggle {
+    display: none;
+  }
+
+  /* 移动端 navbar 布局 */
+  .mobileInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 60px;
+  }
+
+  .mobileLeft {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .mobileRight {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* 移动端栏目链接容器 */
+  .mobileNavItems {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-right: 8px;
+  }
+
+  .mobileNavItems::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 移动端 navbar item 样式优化 */
+  .mobileNavItems :global(.navbar__item) {
+    padding: 6px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
+
+  .mobileNavItems :global(.navbar__item:hover) {
+    background: var(--ifm-color-emphasis-100);
+  }
+
+  /* 隐藏移动端不需要的元素 */
+  .mobileNavItems :global(.dropdown) {
+    display: none;
+  }
+}
+
+/* Restore some Infima style that broke with CSS Cascade Layers
+See https://github.com/facebook/docusaurus/pull/11142
+ */
+:global(.navbar__items--right) > :last-child {
+  padding-right: 0;
+}
