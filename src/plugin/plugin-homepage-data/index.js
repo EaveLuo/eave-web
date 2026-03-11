@@ -247,10 +247,13 @@ function getDocCategories(siteDir, locale, defaultLocale) {
       // 根据语言生成路径
       const pathPrefix = locale === defaultLocale ? '/docs' : `/${locale}/docs`;
 
+      // titleEn 优先从 front matter 读取，否则用自动生成的
+      const titleEn = frontmatterData.titleEn || entry.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
       categories.push({
         id: entry.name,
         title,
-        titleEn: entry.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+        titleEn,
         description,
         icon,
         color,

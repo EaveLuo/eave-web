@@ -456,5 +456,37 @@
   "footer.builtWith": {
     "message": "Built with",
     "description": "Footer text: Built with"
+  },
+  "blogListPage.badge": {
+    "message": "Blog",
+    "description": "Blog list page article badge"
+  },
+  "blogListPage.title": {
+    "message": "All Blog Posts",
+    "description": "Blog list page title"
+  },
+  "blogListPage.subtitle": {
+    "message": "Explore technical insights, experiences, and thoughts",
+    "description": "Blog list page subtitle"
+  },
+  "blogListPage.noPosts": {
+    "message": "No blog posts yet",
+    "description": "Blog list page no posts message"
+  },
+  "docsIndexPage.title": {
+    "message": "Documentation",
+    "description": "Docs index page title"
+  },
+  "docsIndexPage.subtitle": {
+    "message": "Explore systematic knowledge documentation across various technical domains",
+    "description": "Docs index page subtitle"
+  },
+  "docsIndexPage.noCategories": {
+    "message": "No documentation categories yet",
+    "description": "Docs index page no categories message"
+  },
+  "docsIndexPage.footer": {
+    "message": "Click any category to explore, or use the top navigation for quick access",
+    "description": "Docs index page footer hint"
   }
 }

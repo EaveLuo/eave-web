@@ -104,7 +104,7 @@ export default function DocsIndexPage(): ReactNode {
             </h1>
             <p className={styles.headerSubtitle}>
               <Translate id="docsIndexPage.subtitle">
-                系统化的前端、后端、运维与 AI 知识库
+                探索各技术领域的系统化知识文档
               </Translate>
             </p>
           </header>

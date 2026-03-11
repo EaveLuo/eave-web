@@ -75,7 +75,7 @@ function BlogCard({
         )}
 
         <div className={styles.readMore}>
-          <Translate id="blogListPage.readMore">阅读更多</Translate>
+          <Translate id="homepage.latestArticles.readMore">阅读更多</Translate>
           <ArrowRight size={14} />
         </div>
       </Link>
@@ -160,7 +160,7 @@ function BlogListPageContent(props: Props): ReactNode {
                   className={styles.paginationLink}
                 >
                   <ArrowRight size={16} style={{ transform: 'rotate(180deg)' }} />
-                  <Translate id="blogListPage.prev">上一页</Translate>
+                  <Translate id="theme.docs.paginator.previous">上一页</Translate>
                 </Link>
               )}
               <span className={styles.pageInfo}>
@@ -171,7 +171,7 @@ function BlogListPageContent(props: Props): ReactNode {
                   to={`/blog/page/${page + 1}`}
                   className={styles.paginationLink}
                 >
-                  <Translate id="blogListPage.next">下一页</Translate>
+                  <Translate id="theme.docs.paginator.next">下一页</Translate>
                   <ArrowRight size={16} />
                 </Link>
               )}
