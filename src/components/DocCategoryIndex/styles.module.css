@@ -1,0 +1,107 @@
+@reference "../../css/custom.css";
+
+.container {
+  margin-top: 2rem;
+}
+
+/* 网格布局 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+/* 卡片样式 */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-primary-lighter);
+  box-shadow: 0 4px 16px rgba(46, 133, 85, 0.1);
+  transform: translateY(-2px);
+}
+
+/* 卡片图标 */
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(46, 133, 85, 0.1) 0%, rgba(37, 194, 160, 0.1) 100%);
+  color: var(--ifm-color-primary);
+  flex-shrink: 0;
+}
+
+/* 卡片内容 */
+.cardContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-900);
+  margin: 0;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 卡片箭头 */
+.cardArrow {
+  color: var(--ifm-color-emphasis-400);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.card:hover .cardArrow {
+  color: var(--ifm-color-primary);
+  transform: translateX(3px);
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .container {
+    margin-top: 1.5rem;
+  }
+
+  .card {
+    padding: 0.875rem 1rem;
+  }
+
+  .cardIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .cardIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* 暗色模式 */
+[data-theme='dark'] .card:hover {
+  box-shadow: 0 4px 16px rgba(37, 194, 160, 0.08);
+}

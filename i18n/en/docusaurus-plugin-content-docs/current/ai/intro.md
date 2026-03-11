@@ -17,6 +17,10 @@ description: >-
   artificial intelligence advancements.
 ---
 
+import DocCategoryIndex from '@site/src/components/DocCategoryIndex';
+
 # AI
 
 This module mainly introduces AI-related technologies and news, including large language models, AI tools, AI frontier dynamics, etc.
+
+<DocCategoryIndex />

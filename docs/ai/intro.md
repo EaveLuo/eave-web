@@ -13,6 +13,11 @@ tags:
   - AI
 description: 该模块主要介绍 AI 相关的技术与资讯，包括大模型、AI 工具、AI 前沿动态等，帮助读者了解人工智能领域的最新发展和应用。
 ---
+
+import DocCategoryIndex from '@site/src/components/DocCategoryIndex';
+
 # AI
 
 该模块主要介绍 AI 相关的技术与资讯，包括大模型、AI 工具、AI 前沿动态等。
+
+<DocCategoryIndex />
