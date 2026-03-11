@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+icon: Cpu
+color: '#8b5cf6'
 keywords:
   - AI
   - 人工智能

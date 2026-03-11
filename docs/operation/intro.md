@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+icon: Terminal
+color: '#f59e0b'
 keywords:
   - 运维
   - 服务器

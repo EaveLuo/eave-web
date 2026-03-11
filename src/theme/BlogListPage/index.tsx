@@ -6,7 +6,7 @@ import {
   HtmlClassNameProvider,
   ThemeClassNames,
 } from '@docusaurus/theme-common';
-import { useBlogPosts } from '@docusaurus/plugin-content-blog/client';
+
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Translate from '@docusaurus/Translate';

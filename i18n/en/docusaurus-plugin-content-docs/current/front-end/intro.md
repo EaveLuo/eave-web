@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+icon: Code
+color: '#3b82f6'
 keywords:
   - Front-end
   - Front-end development

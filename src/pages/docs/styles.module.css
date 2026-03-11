@@ -1,0 +1,240 @@
+@reference "../../css/custom.css";
+
+/* 页面容器 */
+.pageContainer {
+  @apply w-full min-h-screen relative;
+  background: linear-gradient(180deg, transparent 0%, rgba(46, 133, 85, 0.03) 30%, rgba(46, 133, 85, 0.03) 70%, transparent 100%);
+  padding: 3rem 0 4rem;
+}
+
+.container {
+  @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* 页面头部 */
+.header {
+  @apply text-center mb-12;
+}
+
+.headerIcon {
+  @apply inline-flex items-center justify-center mb-4;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(46, 133, 85, 0.1) 0%, rgba(37, 194, 160, 0.1) 100%);
+  color: var(--ifm-color-primary);
+}
+
+.headerTitle {
+  @apply text-3xl md:text-4xl font-bold mb-3;
+  color: var(--ifm-color-emphasis-900);
+  letter-spacing: -0.02em;
+}
+
+.headerSubtitle {
+  @apply text-base md:text-lg;
+  color: var(--ifm-color-emphasis-600);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* 网格布局 - 2x2 */
+.grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+}
+
+/* 卡片样式 */
+.card {
+  @apply relative rounded-xl overflow-hidden;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+/* 现代浏览器：使用 animation-timeline 实现滚动触发动画 */
+@supports (animation-timeline: view()) {
+  .card {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: cardFadeIn 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation-timeline: view();
+    animation-range: entry 10% cover 20%;
+    animation-delay: calc(var(--card-index, 0) * 0.1s);
+  }
+
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+/* 旧浏览器：直接显示 */
+@supports not (animation-timeline: view()) {
+  .card {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(46, 133, 85, 0.12);
+  border-color: var(--ifm-color-primary-lighter);
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+}
+
+/* 卡片链接 */
+.cardLink {
+  @apply flex items-center gap-5 p-6 h-full;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 卡片图标 */
+.cardIcon {
+  @apply flex items-center justify-center flex-shrink-0;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .cardIcon {
+  transform: scale(1.05);
+}
+
+/* 卡片内容 */
+.cardContent {
+  @apply flex-1 min-w-0;
+}
+
+.cardTitle {
+  @apply text-xl font-semibold mb-2 flex items-center gap-2 flex-wrap;
+  color: var(--ifm-color-emphasis-900);
+}
+
+.cardTitleEn {
+  @apply text-sm font-normal;
+  color: var(--ifm-color-emphasis-500);
+}
+
+.cardDescription {
+  @apply text-sm line-clamp-2;
+  color: var(--ifm-color-emphasis-600);
+  line-height: 1.6;
+}
+
+/* 卡片箭头 */
+.cardArrow {
+  @apply flex items-center justify-center flex-shrink-0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-500);
+  transition: all 0.2s ease;
+}
+
+.card:hover .cardArrow {
+  background: var(--ifm-color-primary);
+  color: white;
+  transform: translateX(4px);
+}
+
+/* 底部 */
+.footer {
+  @apply text-center mt-12;
+  color: var(--ifm-color-emphasis-500);
+}
+
+.footer p {
+  @apply text-sm;
+}
+
+/* 空状态 */
+.emptyState {
+  @apply text-center py-16;
+  color: var(--ifm-color-emphasis-500);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 2rem 0 3rem;
+  }
+
+  .header {
+    @apply mb-8;
+  }
+
+  .headerIcon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .headerIcon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .headerTitle {
+    @apply text-2xl;
+  }
+
+  .grid {
+    @apply gap-4;
+  }
+
+  .cardLink {
+    @apply p-5 gap-4;
+  }
+
+  .cardIcon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .cardIcon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .cardTitle {
+    @apply text-lg mb-1;
+  }
+
+  .cardArrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cardArrow svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .headerIcon {
+  background: linear-gradient(135deg, rgba(37, 194, 160, 0.15) 0%, rgba(46, 133, 85, 0.15) 100%);
+}
+
+[data-theme='dark'] .card:hover {
+  box-shadow: 0 12px 40px rgba(37, 194, 160, 0.1);
+}

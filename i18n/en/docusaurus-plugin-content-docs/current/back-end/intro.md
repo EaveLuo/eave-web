@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+icon: Server
+color: '#10b981'
 keywords:
   - Backend
   - Backend development
