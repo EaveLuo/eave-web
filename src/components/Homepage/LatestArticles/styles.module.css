@@ -192,16 +192,19 @@
 }
 
 .viewAllLink {
-  @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200;
-  background: var(--ifm-color-primary);
-  color: white;
+  @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200;
+  background: transparent;
+  color: var(--ifm-color-primary);
+  border: 1px solid var(--ifm-color-emphasis-300);
   text-decoration: none;
 }
 
 .viewAllLink:hover {
-  background: var(--ifm-color-primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(46, 133, 85, 0.3);
+  background: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(46, 133, 85, 0.2);
 }
 
 /* 空状态 */
