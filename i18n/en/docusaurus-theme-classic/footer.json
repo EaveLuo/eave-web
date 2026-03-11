@@ -42,5 +42,9 @@
   "copyright": {
     "message": "<p>Copyright © 2020-2024 Eave Luo. Built with Docusaurus.</p>",
     "description": "The footer copyright"
+  },
+  "link.item.label.AI": {
+    "message": "AI",
+    "description": "The label of footer link with label=AI linking to /docs/ai/intro"
   }
 }

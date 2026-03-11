@@ -38,5 +38,13 @@
   "link.item.label.GitHub": {
     "message": "GitHub",
     "description": "The label of footer link with label=GitHub linking to https://github.com/eaveluo"
+  },
+  "link.item.label.AI": {
+    "message": "AI",
+    "description": "The label of footer link with label=AI linking to /docs/ai/intro"
+  },
+  "copyright": {
+    "message": "\n          <p style=\"margin-bottom: 0;\">\n            <a href=\"http://beian.miit.gov.cn/\">湘ICP备2024069005号-1</a>\n          </p>\n          <p style=\"display: inline-flex; align-items: center;\">\n            <img\n              style=\"height:20px;margin-right: 0.5rem;\"\n              src=\"/img/police.png\"\n              alt=\"police\"\n              height=\"20\"\n            />\n            <a\n              href=\"http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43011102002452\"\n            >\n              湘公网安备43011102002452号\n            </a>\n          </p>\n          <p>Copyright © 2020-2026 Eave Luo. Built with Docusaurus.</p>",
+    "description": "The footer copyright"
   }
 }

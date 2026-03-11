@@ -5,18 +5,30 @@
   },
   "sidebar.operationSidebar.category.nginx": {
     "message": "nginx",
-    "description": "The label for category nginx in sidebar operationSidebar"
+    "description": "The label for category 'nginx' in sidebar 'operationSidebar'"
   },
   "sidebar.operationSidebar.category.linux": {
     "message": "linux",
-    "description": "The label for category linux in sidebar operationSidebar"
+    "description": "The label for category 'linux' in sidebar 'operationSidebar'"
   },
   "sidebar.frontEndSidebar.category.webpack5": {
     "message": "Webpack5",
     "description": "The label for category Webpack5 in sidebar frontEndSidebar"
   },
-  "sidebar.aiSidebar.category.72h-ai-updates": {
+  "sidebar.frontEndSidebar.category.Webpack 5": {
+    "message": "Webpack 5",
+    "description": "The label for category 'Webpack 5' in sidebar 'frontEndSidebar'"
+  },
+  "sidebar.backEndSidebar.category.Go": {
+    "message": "Go",
+    "description": "The label for category 'Go' in sidebar 'backEndSidebar'"
+  },
+  "sidebar.backEndSidebar.category.node": {
+    "message": "node",
+    "description": "The label for category 'node' in sidebar 'backEndSidebar'"
+  },
+  "sidebar.aiSidebar.category.72h AI 前沿": {
     "message": "72 小时 AI 前沿动态",
-    "description": "The label for category 72h-ai-updates in sidebar aiSidebar"
+    "description": "The label for category '72h AI 前沿' in sidebar 'aiSidebar'"
   }
 }
