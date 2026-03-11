@@ -27,7 +27,6 @@ const DEFAULT_COLOR = '#2e8555';
 interface DocCategory {
   id: string;
   title: string;
-  titleEn: string;
   description: string;
   icon: string;
   color: string | null;
@@ -68,10 +67,7 @@ function CategoryCard({
         </div>
 
         <div className={styles.cardContent}>
-          <h2 className={styles.cardTitle}>
-            {category.title}
-            <span className={styles.cardTitleEn}>{category.titleEn}</span>
-          </h2>
+          <h2 className={styles.cardTitle}>{category.title}</h2>
           <p className={styles.cardDescription}>{category.description}</p>
         </div>
 
