@@ -17,6 +17,10 @@ description: >-
   microservices and other core backend technologies.
 ---
 
+import DocCategoryIndex from '@site/src/components/DocCategoryIndex';
+
 # Backend
 
 This module mainly introduces technologies related to backend development, including backend development frameworks, tools, programming languages, etc.
+
+<DocCategoryIndex />

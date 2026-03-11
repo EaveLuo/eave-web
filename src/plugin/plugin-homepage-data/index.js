@@ -258,17 +258,84 @@ function getDocCategories(siteDir, locale, defaultLocale) {
       // 根据语言生成路径
       const pathPrefix = locale === defaultLocale ? '/docs' : `/${locale}/docs`;
 
-      // titleEn 优先从 front matter 读取，否则用自动生成的
-      const titleEn = frontmatterData.titleEn || entry.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      // 扫描一级子目录
+      const subCategories = [];
+      try {
+        const subEntries = fs.readdirSync(categoryDir, { withFileTypes: true });
+        for (const subEntry of subEntries) {
+          if (subEntry.isDirectory() && !subEntry.name.startsWith('_')) {
+            const subDirPath = path.join(categoryDir, subEntry.name);
+            const subIntroPath = path.join(subDirPath, 'intro.md');
+            const subPrefacePath = path.join(subDirPath, 'preface.md');
+            
+            // 扫描子目录下的所有 markdown 文件，找到 sidebar_position 最小的
+            let firstDocPath = null;
+            let firstDocSlug = null;
+            let minPosition = Infinity;
+            
+            try {
+              const docFiles = fs.readdirSync(subDirPath, { withFileTypes: true })
+                .filter(f => f.isFile() && f.name.endsWith('.md') && !f.name.startsWith('_'))
+                .map(f => f.name);
+              
+              for (const docFile of docFiles) {
+                const docPath = path.join(subDirPath, docFile);
+                try {
+                  const docContent = fs.readFileSync(docPath, 'utf-8');
+                  const { data: docData } = matter(docContent);
+                  const position = docData.sidebar_position || Infinity;
+                  
+                  if (position < minPosition) {
+                    minPosition = position;
+                    // 提取 slug：优先使用 front matter 的 slug，否则使用文件名（去掉 .md）
+                    const fileName = docFile.replace(/\.md$/, '');
+                    firstDocSlug = docData.slug || fileName;
+                    firstDocPath = `${pathPrefix}/${entry.name}/${subEntry.name}/${firstDocSlug}`;
+                  }
+                } catch (e) {
+                  // 忽略读取失败的文件
+                }
+              }
+            } catch (e) {
+              // 目录读取失败
+            }
+            
+            // 优先读取 _category_.json 的 label
+            const categoryJsonPath = path.join(subDirPath, '_category_.json');
+            let subTitle = subEntry.name;
+            
+            if (fs.existsSync(categoryJsonPath)) {
+              try {
+                const categoryJson = JSON.parse(fs.readFileSync(categoryJsonPath, 'utf-8'));
+                if (categoryJson.label) {
+                  subTitle = categoryJson.label;
+                }
+              } catch (e) {
+                // 使用目录名作为标题
+              }
+            }
+
+            if (firstDocPath) {
+              subCategories.push({
+                id: subEntry.name,
+                title: subTitle,
+                path: firstDocPath,
+              });
+            }
+          }
+        }
+      } catch (error) {
+        console.warn(`[HomepageData] Failed to scan subdirectories for ${entry.name}:`, error.message);
+      }
 
       categories.push({
         id: entry.name,
         title,
-        titleEn,
         description,
         icon,
         color,
         path: `${pathPrefix}/${entry.name}/intro`,
+        subCategories: subCategories.sort((a, b) => a.id.localeCompare(b.id)),
       });
     }
   }
