@@ -123,6 +123,37 @@ tags: [AI 资讯, 72 小时动态, ...]
 - Mapping key format: `sidebar.{sidebarId}.category.{label}`
 - Example: `72h-ai-updates` → `72 小时 AI 前沿动态` (zh-CN) / `72h AI Frontier Updates` (en)
 
+### 🚨 CRITICAL: i18n Translation Workflow
+
+**ALWAYS run this command after ANY sidebar/category changes:**
+
+```bash
+npm run write-translations
+```
+
+This command auto-generates translation keys in `i18n/{locale}/docusaurus-plugin-content-docs/current.json`.
+
+**When to run:**
+- ✅ After adding new category/folder
+- ✅ After renaming category
+- ✅ After modifying `_category_.json` label
+- ✅ After changing sidebar structure
+
+**Manual verification:**
+```bash
+# Check if translation keys exist
+cat i18n/en/docusaurus-plugin-content-docs/current.json | grep "sidebar."
+
+# Example output:
+# "sidebar.aiSidebar.category.72h AI 前沿": {
+#   "message": "72h AI Frontier Updates"
+# }
+```
+
+**Common mistake:**
+- ❌ Only updating `_category_.json` label (doesn't affect sidebar display)
+- ✅ Running `write-translations` then editing `current.json` message values
+
 ## Performance Goals
 
 - FCP: < 2.0s (achieved: ~1.8s, optimized from 3.33s)
