@@ -88,17 +88,35 @@ function getBlogPosts(siteDir, locale, defaultLocale) {
           // 只读取有日期的文章
           if (data.date) {
             const relativePath = path.relative(blogDir, fullPath);
-            const slug = relativePath.replace(/\.md$/, '').replace(/\/index$/, '');
+            // 提取 slug：去掉 .md 后缀
+            const slugWithDate = relativePath.replace(/\.md$/, '').replace(/\/index$/, '');
 
             // 根据语言生成路径
             const pathPrefix = locale === defaultLocale ? '/blog' : `/${locale}/blog`;
 
+            // 检查文件名是否包含日期后缀（如 -2026-03-12）
+            const dateSuffixMatch = slugWithDate.match(/-(\d{4})-(\d{2})-(\d{2})$/);
+
+            let permalink;
+            if (dateSuffixMatch) {
+              // 文件名包含日期后缀：Docusaurus 会生成 /blog/YYYY/MM/DD/slug- 格式
+              // slug 是去掉日期后的部分，末尾加 -
+              const slug = slugWithDate.replace(/-\d{4}-\d{2}-\d{2}$/, '') + '-';
+              const year = dateSuffixMatch[1];
+              const month = dateSuffixMatch[2];
+              const day = dateSuffixMatch[3];
+              permalink = `${pathPrefix}/${year}/${month}/${day}/${slug}`;
+            } else {
+              // 文件名不包含日期后缀：Docusaurus 直接使用文件名作为 slug
+              permalink = `${pathPrefix}/${slugWithDate}`;
+            }
+
             posts.push({
-              id: slug,
-              title: data.title || slug,
+              id: slugWithDate,
+              title: data.title || slugWithDate,
               description: extractDescription(data.description, body, 120),
               date: formatDate(data.date),
-              path: `${pathPrefix}/${slug}`,
+              path: permalink,
               type: 'blog',
               tags: data.tags || [],
             });
