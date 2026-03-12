@@ -344,7 +344,7 @@ const config: Config = {
           [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
         ],
         editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
-        showLastUpdateTime: true,
+        showLastUpdateTime: false,
       },
     ],
     // 自定义文档插件 - 注入 front matter 到全局数据
