@@ -1,0 +1,8 @@
+{
+  "label": "OpenClaw",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "OpenClaw is an open-source AI agent orchestration framework that supports multi-agent collaboration, tool integration, and session management, enabling AI assistants to safely and efficiently help you accomplish complex tasks"
+  }
+}
