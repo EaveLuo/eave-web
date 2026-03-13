@@ -1,0 +1,8 @@
+{
+  "label": "OpenClaw",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "OpenClaw 是一个开源的 AI 智能体编排框架，支持多智能体协作、工具集成和会话管理，让 AI 助手能够安全、高效地帮你完成复杂任务"
+  }
+}
