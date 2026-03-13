@@ -5,6 +5,7 @@ author: Eave
 date: 2026-03-13
 tags: [openclaw, acp, agent-protocol, claude-code, codex]
 category: ai
+sidebar_position: 1
 ---
 
 # ACP (Agent Collaboration Protocol) 深度解析
