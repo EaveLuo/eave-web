@@ -30,5 +30,13 @@
   "sidebar.aiSidebar.category.72h AI 前沿": {
     "message": "72h AI Frontier Updates",
     "description": "The label for category '72h AI 前沿' in sidebar 'aiSidebar'"
+  },
+  "sidebar.aiSidebar.category.OpenClaw": {
+    "message": "OpenClaw",
+    "description": "The label for category 'OpenClaw' in sidebar 'aiSidebar'"
+  },
+  "sidebar.aiSidebar.category.OpenClaw.link.generated-index.description": {
+    "message": "OpenClaw is an open-source AI agent orchestration framework that supports multi-agent collaboration, tool integration, and session management, enabling AI assistants to safely and efficiently help you accomplish complex tasks",
+    "description": "The generated-index page description for category 'OpenClaw' in sidebar 'aiSidebar'"
   }
 }

@@ -339,6 +339,13 @@ function getDocCategories(siteDir, locale, defaultLocale) {
                 title: subTitle,
                 path: firstDocPath,
               });
+            } else {
+              // 强规则：子目录下必须有带 sidebar_position 的文章
+              const errorMessage = `[HomepageData] ERROR: 文档子目录 "${entry.name}/${subEntry.name}" 下没有带 sidebar_position 的文章\n` +
+                `请确保 ${subDirPath} 下的至少一个 markdown 文件包含以下 front matter 字段:\n` +
+                `  - sidebar_position: 数字 (如: 1, 2, 3)`;
+              console.error(errorMessage);
+              throw new Error(`文档子目录 "${entry.name}/${subEntry.name}" 配置不完整，请检查文章 front matter`);
             }
           }
         }
