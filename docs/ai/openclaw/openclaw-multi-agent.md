@@ -1,4 +1,5 @@
 ---
+
 title: OpenClaw 多智能体架构深度解析
 description: 全面剖析 OpenClaw 多智能体系统的设计理念、通信模式、会话管理与编排机制
 author: Eave
@@ -765,6 +766,237 @@ openclaw sessions export <session-id> --format json
     }
   }
 }
+```
+
+### 7.5 多智能体记忆与心跳机制
+
+在多智能体架构中，每个智能体拥有独立的记忆系统和心跳机制，确保行为和记忆的完整性与隔离性。
+
+#### 7.5.1 工作区记忆文件结构
+
+每个智能体的工作区应包含以下记忆相关文件：
+
+```
+workspace/
+├── MEMORY.md              # 长期记忆归档
+├── HEARTBEAT.md           # 心跳任务清单
+└── memory/
+    ├── 2026-03-18.md      # 每日记忆文件
+    ├── 2026-03-17.md
+    └── ...
+```
+
+**MEMORY.md - 长期记忆：**
+
+```markdown
+# MEMORY.md - Long-term Memory
+
+## 📝 记忆维护规则（每日必做）
+
+**每天结束时必须**：
+1. 创建或更新 `memory/YYYY-MM-DD.md`
+2. 提炼当天重要事件、决策、教训
+3. 有价值的内容归档到本文件
+
+**养成习惯的方法**：
+- 每次会话开始 → 检查今日 memory 是否存在
+- 每次会话结束 → 强制更新今日 memory
+- 收到 heartbeat → 检查是否需要补充记忆
+
+---
+
+## 关键信息
+
+### 开发规范
+- 技术栈: React + Next.js
+- 最佳实践: Vercel 官方指南
+
+---
+
+*持续更新中...*
+```
+
+**HEARTBEAT.md - 心跳任务清单：**
+
+```markdown
+# HEARTBEAT.md
+
+## Daily Checklist
+
+When receiving heartbeat poll, check in this order:
+
+### 1. Memory Maintenance
+- [ ] Read today's memory file (`memory/YYYY-MM-DD.md`)
+- [ ] Create if missing
+- [ ] Review yesterday's memory
+
+### 2. Self-Improvement Review
+- [ ] Check `~/self-improving/corrections.md` for pending patterns
+- [ ] Review recent learnings (last 7 days)
+
+### 3. Proactive Actions
+- [ ] Organize workspace files
+- [ ] Update documentation if needed
+
+## Response Rules
+
+**Reply with actual findings** — not just `HEARTBEAT_OK`
+
+**When to stay silent:**
+- Nothing new since last check (<30 min)
+- Late night (02:00-08:00) unless urgent
+- Human clearly busy
+
+**When to reach out:**
+- Important alerts from monitored services
+- Calendar events <2h away
+- Been >8h since last message
+```
+
+#### 7.5.2 Heartbeat 配置（关键最佳实践）
+
+**⚠️ 重要提示：`agents.defaults.heartbeat` 不会自动继承给所有智能体**
+
+当 `agents.list` 中**任意智能体**定义了 `heartbeat` 字段时，**只有这些定义了 heartbeat 的智能体**才会运行心跳。未定义的智能体会显示为 `disabled`。
+
+**正确配置方式（每个智能体独立配置）：**
+
+```json5
+{
+  agents: {
+    list: [
+      {
+        id: "main",
+        default: true,
+        workspace: "~/.openclaw/workspace",
+        agentDir: "~/.openclaw/agents/main/agent",
+        model: "anthropic/claude-sonnet-4-5",
+        heartbeat: {
+          every: "30m",           // 每30分钟执行一次
+          target: "last",         // 发送到最近活跃的会话
+          directPolicy: "allow"   // 允许 DM 形式的心跳
+        },
+        skills: ["github", "weather", "healthcheck"]
+      },
+      {
+        id: "coding",
+        workspace: "~/.openclaw/workspace-coding",
+        agentDir: "~/.openclaw/agents/coding/agent",
+        model: "anthropic/claude-opus-4-6",
+        heartbeat: {
+          every: "30m",
+          target: "last",
+          directPolicy: "allow"
+        },
+        skills: ["github", "building-components", "next-best-practices"]
+      },
+      {
+        id: "research",
+        workspace: "~/.openclaw/workspace-research",
+        agentDir: "~/.openclaw/agents/research/agent",
+        model: "openai/gpt-5.2",
+        heartbeat: {
+          every: "1h",            // 研究型智能体可设置更长间隔
+          target: "last",
+          directPolicy: "allow"
+        },
+        skills: ["tavily", "summarize", "agent-browser"]
+      }
+    ]
+  }
+}
+```
+
+**验证配置生效：**
+
+```bash
+# 检查所有智能体的心跳状态
+openclaw status | grep Heartbeat
+
+# 期望输出：
+# Heartbeat: 30m (main), 30m (coding), 1h (research)
+```
+
+#### 7.5.3 Hooks 配置（会话记忆持久化）
+
+启用 `session-memory` hook 可在执行 `/new` 或 `/reset` 时自动保存会话上下文：
+
+```json5
+{
+  hooks: {
+    internal: {
+      enabled: true,
+      entries: {
+        session_memory: {
+          enabled: true    // 保存会话到 memory/YYYY-MM-DD-slug.md
+        },
+        boot_md: {
+          enabled: true    // 启动时执行 BOOT.md
+        },
+        command_logger: {
+          enabled: false   // 按需启用命令日志
+        }
+      }
+    }
+  }
+}
+```
+
+**session-memory hook 工作方式：**
+
+1. 当用户执行 `/new` 或 `/reset` 时触发
+2. 提取会话最后 15 行对话
+3. 使用 LLM 生成描述性文件名（如 `2026-03-18-api-design.md`）
+4. 保存到 `<workspace>/memory/`
+
+#### 7.5.4 多智能体记忆隔离检查清单
+
+- [ ] 每个智能体有独立的 `MEMORY.md`（不是全局共享）
+- [ ] 每个智能体有独立的 `HEARTBEAT.md`（根据智能体职责定制任务）
+- [ ] `memory/` 目录存在且有写入权限
+- [ ] `session-memory` hook 已启用
+- [ ] 每个智能体都有 `heartbeat` 配置（非空对象）
+- [ ] 心跳间隔根据智能体职责合理设置（开发型 30m，研究型 1h）
+
+#### 7.5.5 常见问题排查
+
+**问题1：Heartbeat 显示 `disabled`**
+
+```bash
+# 症状
+Heartbeat: 30m (main), disabled (coding), disabled (research)
+
+# 原因
+agents.list 中某些智能体缺少 heartbeat 配置
+
+# 解决
+为每个智能体添加 heartbeat: {} 或完整配置
+```
+
+**问题2：HEARTBEAT.md 内容被忽略**
+
+```bash
+# 症状
+心跳运行但没有任何输出，或总是回复 HEARTBEAT_OK
+
+# 原因
+HEARTBEAT.md 文件为空或只有注释
+
+# 解决
+确保文件包含实际的任务清单（带 - [ ] 复选框）
+```
+
+**问题3：Session memory 未保存**
+
+```bash
+# 症状
+执行 /new 后 memory/ 目录没有新文件
+
+# 排查步骤
+1. 检查 hooks 状态: openclaw hooks check
+2. 确认 session-memory hook 已启用
+3. 检查 workspace 写入权限
+4. 查看日志: openclaw logs --follow | grep session-memory
 ```
 
 ---

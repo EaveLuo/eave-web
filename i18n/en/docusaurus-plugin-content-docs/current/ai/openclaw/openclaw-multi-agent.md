@@ -644,9 +644,365 @@ Each agent should focus on one clear domain or task type.
 - [ ] Enable sandbox mode for untrusted inputs
 - [ ] Configure tool allow/deny policies
 
+### 7.4 Monitoring and Debugging
+
+**Log Viewing:**
+
+```bash
+# View logs for specific sub-agent
+openclaw subagents log <id> --tools
+
+# Real-time monitoring of all sub-agents
+openclaw subagents list --watch
+
+# Export session transcript
+openclaw sessions export <session-id> --format json
+```
+
+**Metrics Monitoring:**
+
+```json5
+{
+  agents: {
+    defaults: {
+      telemetry: {
+        enabled: true,
+        metrics: ["token_usage", "latency", "error_rate"],
+        export: {
+          type: "prometheus",
+          endpoint: "http://metrics:9090"
+        }
+      }
+    }
+  }
+}
+```
+
+### 7.5 Multi-Agent Memory and Heartbeat Mechanism
+
+In a multi-agent architecture, each agent has an independent memory system and heartbeat mechanism to ensure behavioral and memory integrity and isolation.
+
+#### 7.5.1 Workspace Memory File Structure
+
+Each agent's workspace should contain the following memory-related files:
+
+```
+workspace/
+├── MEMORY.md              # Long-term memory archive
+├── HEARTBEAT.md           # Heartbeat task checklist
+└── memory/
+    ├── 2026-03-18.md      # Daily memory files
+    ├── 2026-03-17.md
+    └── ...
+```
+
+**MEMORY.md - Long-term Memory:**
+
+```markdown
+# MEMORY.md - Long-term Memory
+
+## 📝 Memory Maintenance Rules (Daily Required)
+
+**Must do at end of day:**
+1. Create or update `memory/YYYY-MM-DD.md`
+2. Extract important events, decisions, lessons
+3. Archive valuable content to this file
+
+**Habit formation:**
+- Session start → Check if today's memory exists
+- Session end → Force update today's memory
+- Receive heartbeat → Check if memory needs supplement
+
 ---
 
-## 8. Conclusion
+## Key Information
+
+### Development Standards
+- Tech stack: React + Next.js
+- Best practices: Vercel official guidelines
+
+---
+
+*Continuously updated...*
+```
+
+**HEARTBEAT.md - Heartbeat Task Checklist:**
+
+```markdown
+# HEARTBEAT.md
+
+## Daily Checklist
+
+When receiving heartbeat poll, check in this order:
+
+### 1. Memory Maintenance
+- [ ] Read today's memory file (`memory/YYYY-MM-DD.md`)
+- [ ] Create if missing
+- [ ] Review yesterday's memory
+
+### 2. Self-Improvement Review
+- [ ] Check `~/self-improving/corrections.md` for pending patterns
+- [ ] Review recent learnings (last 7 days)
+
+### 3. Proactive Actions
+- [ ] Organize workspace files
+- [ ] Update documentation if needed
+
+## Response Rules
+
+**Reply with actual findings** — not just `HEARTBEAT_OK`
+
+**When to stay silent:**
+- Nothing new since last check (<30 min)
+- Late night (02:00-08:00) unless urgent
+- Human clearly busy
+
+**When to reach out:**
+- Important alerts from monitored services
+- Calendar events <2h away
+- Been >8h since last message
+```
+
+#### 7.5.2 Heartbeat Configuration (Critical Best Practices)
+
+**⚠️ Important: `agents.defaults.heartbeat` does NOT automatically inherit to all agents**
+
+When **any agent** in `agents.list` defines a `heartbeat` field, **only those agents with heartbeat defined** will run heartbeats. Agents without heartbeat configuration will show as `disabled`.
+
+**Correct Configuration (per-agent independent config):**
+
+```json5
+{
+  agents: {
+    list: [
+      {
+        id: "main",
+        default: true,
+        workspace: "~/.openclaw/workspace",
+        agentDir: "~/.openclaw/agents/main/agent",
+        model: "anthropic/claude-sonnet-4-5",
+        heartbeat: {
+          every: "30m",           // Execute every 30 minutes
+          target: "last",         // Send to most recent active session
+          directPolicy: "allow"   // Allow DM heartbeats
+        },
+        skills: ["github", "weather", "healthcheck"]
+      },
+      {
+        id: "coding",
+        workspace: "~/.openclaw/workspace-coding",
+        agentDir: "~/.openclaw/agents/coding/agent",
+        model: "anthropic/claude-opus-4-6",
+        heartbeat: {
+          every: "30m",
+          target: "last",
+          directPolicy: "allow"
+        },
+        skills: ["github", "building-components", "next-best-practices"]
+      },
+      {
+        id: "research",
+        workspace: "~/.openclaw/workspace-research",
+        agentDir: "~/.openclaw/agents/research/agent",
+        model: "openai/gpt-5.2",
+        heartbeat: {
+          every: "1h",            // Research agents can use longer intervals
+          target: "last",
+          directPolicy: "allow"
+        },
+        skills: ["tavily", "summarize", "agent-browser"]
+      }
+    ]
+  }
+}
+```
+
+**Verify Configuration:**
+
+```bash
+# Check heartbeat status for all agents
+openclaw status | grep Heartbeat
+
+# Expected output:
+# Heartbeat: 30m (main), 30m (coding), 1h (research)
+```
+
+#### 7.5.3 Hooks Configuration (Session Memory Persistence)
+
+Enable the `session-memory` hook to automatically save session context when executing `/new` or `/reset`:
+
+```json5
+{
+  hooks: {
+    internal: {
+      enabled: true,
+      entries: {
+        session_memory: {
+          enabled: true    // Save session to memory/YYYY-MM-DD-slug.md
+        },
+        boot_md: {
+          enabled: true    // Execute BOOT.md on startup
+        },
+        command_logger: {
+          enabled: false   // Enable command logging as needed
+        }
+      }
+    }
+  }
+}
+```
+
+**How session-memory hook works:**
+
+1. Triggered when user executes `/new` or `/reset`
+2. Extracts last 15 lines of conversation
+3. Generates descriptive filename using LLM (e.g., `2026-03-18-api-design.md`)
+4. Saves to `<workspace>/memory/`
+
+#### 7.5.4 Multi-Agent Memory Isolation Checklist
+
+- [ ] Each agent has independent `MEMORY.md` (not globally shared)
+- [ ] Each agent has independent `HEARTBEAT.md` (customized for agent responsibilities)
+- [ ] `memory/` directory exists with write permissions
+- [ ] `session-memory` hook is enabled
+- [ ] Each agent has `heartbeat` configuration (non-empty object)
+- [ ] Heartbeat intervals reasonably set based on agent role (dev: 30m, research: 1h)
+
+#### 7.5.5 Troubleshooting Common Issues
+
+**Issue 1: Heartbeat shows `disabled`**
+
+```bash
+# Symptom
+Heartbeat: 30m (main), disabled (coding), disabled (research)
+
+# Cause
+Some agents in agents.list missing heartbeat configuration
+
+# Solution
+Add heartbeat: {} or complete config for each agent
+```
+
+**Issue 2: HEARTBEAT.md content ignored**
+
+```bash
+# Symptom
+Heartbeat runs but no output, or always replies HEARTBEAT_OK
+
+# Cause
+HEARTBEAT.md file is empty or contains only comments
+
+# Solution
+Ensure file contains actual task checklists (with - [ ] checkboxes)
+```
+
+**Issue 3: Session memory not saved**
+
+```bash
+# Symptom
+No new files in memory/ directory after executing /new
+
+# Troubleshooting steps
+1. Check hooks status: openclaw hooks check
+2. Confirm session-memory hook is enabled
+3. Check workspace write permissions
+4. View logs: openclaw logs --follow | grep session-memory
+```
+
+---
+
+## 8. Common Issues and Solutions
+
+### 8.1 Agent Not Spawning Sub-agents
+
+**Problem:** Calling `sessions_spawn` has no response
+
+**Troubleshooting Steps:**
+
+1. Check if tool policy allows `sessions_spawn`
+2. Confirm current agent hasn't reached `maxChildrenPerAgent` limit
+3. Verify model supports tool calling
+4. Check gateway logs for permission errors
+
+### 8.2 Session Context Leakage
+
+**Problem:** Unexpected context sharing between different agents
+
+**Solutions:**
+
+- Ensure each agent has independent `workspace` path
+- Check `agentDir` configuration is properly separated
+- Verify session key format follows specifications
+
+### 8.3 Binding Route Not Working
+
+**Problem:** Messages not routed to expected agent
+
+**Troubleshooting Steps:**
+
+1. Use `openclaw agents list --bindings` to verify binding configuration
+2. Check priority order of matching conditions
+3. Confirm channel account configuration is correct
+4. Review gateway logs for routing decisions
+
+---
+
+## 9. Future Development Trends
+
+### 9.1 Agent Marketplace and Ecosystem
+
+The OpenClaw community is developing an agent marketplace allowing users to share and reuse pre-configured agents:
+
+```
+┌─────────────────────────────────────────┐
+│          OpenClaw Hub                   │
+├─────────────────────────────────────────┤
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐  │
+│  │Security │ │ DevOps  │ │ Writing │  │
+│  │ Agent   │ │ Agent   │ │ Agent   │  │
+│  └─────────┘ └─────────┘ └─────────┘  │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐  │
+│  │Research │ │ Analysis│ │ Support │  │
+│  │ Agent   │ │ Agent   │ │ Agent   │  │
+│  └─────────┘ └─────────┘ └─────────┘  │
+└─────────────────────────────────────────┘
+```
+
+### 9.2 Inter-Agent Protocol Standardization
+
+The industry is exploring standard protocols for agent communication:
+
+- **MCP (Model Context Protocol)**: Standardizing agent-data source interaction
+- **ACP (Agent Client Protocol)**: Standardizing agent-editor integration
+- **A2A (Agent-to-Agent)**: Direct agent communication protocol (exploratory)
+
+### 9.3 Autonomous Agent Networks
+
+Future possibilities include fully autonomous agent networks:
+
+```
+┌─────────────────────────────────────────┐
+│      Autonomous Agent Network           │
+├─────────────────────────────────────────┤
+│                                         │
+│   ┌─────┐    ┌─────┐    ┌─────┐       │
+│   │Agent│◀──▶│Agent│◀──▶│Agent│       │
+│   │  A  │    │  B  │    │  C  │       │
+│   └──┬──┘    └──┬──┘    └──┬──┘       │
+│      │          │          │           │
+│      └──────────┼──────────┘           │
+│                 │                      │
+│            ┌────┴────┐                 │
+│            │Consensus│                 │
+│            │ Layer   │                 │
+│            └─────────┘                 │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## 10. Conclusion
 
 OpenClaw's multi-agent architecture provides a powerful and flexible platform for building complex AI applications. Its core design principles include:
 
