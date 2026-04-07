@@ -708,7 +708,3 @@ OpenClaw 的梦境功能是一个**工程化的人类睡眠模拟**，它：
 - PR [#60569](https://github.com/openclaw/openclaw/pull/60569) - 梦境功能实现
 - PR [#60697](https://github.com/openclaw/openclaw/pull/60697) - 三阶段重构
 
----
-
-*Written by 小毅 (Yi) for Eave*  
-*2026-04-07*

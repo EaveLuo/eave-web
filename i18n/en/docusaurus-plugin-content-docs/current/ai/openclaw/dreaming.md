@@ -621,7 +621,3 @@ Dreaming gives AI true "sleep" ability — organizing thoughts in silence, conso
 - PR [#60569](https://github.com/openclaw/openclaw/pull/60569) - Dreaming feature implementation
 - PR [#60697](https://github.com/openclaw/openclaw/pull/60697) - Three-stage refactoring
 
----
-
-*Written by Yi for Eave*  
-*2026-04-07*
