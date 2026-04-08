@@ -9,12 +9,8 @@ const policeBeian = '湘公网安备43011102002452号';
 
 const config: Config = {
   future: {
-    // Docusaurus Faster - 性能优化套件
-    experimental_faster: {
-      rspackBundler: true, // 使用 Rspack 替代 Webpack，构建更快
-      rspackPersistentCache: true, // 持久缓存，加速重复构建（需保留 node_modules/.cache）
-      ssgWorkerThreads: true, // 使用 Worker Threads 并行生成静态页面，SSG 速度提升 ~2x
-    },
+    // Docusaurus Faster - 性能优化套件 (3.10+ 已稳定)
+    faster: true,
     // Docusaurus v4 未来特性提前适配
     v4: {
       removeLegacyPostBuildHeadAttribute: true, // 移除遗留的 post-build head 属性
@@ -37,8 +33,10 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
   markdown: {
+    mermaid: true,
     hooks: { onBrokenMarkdownLinks: 'warn' },
   },
+  themes: ['@docusaurus/theme-mermaid'],
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
