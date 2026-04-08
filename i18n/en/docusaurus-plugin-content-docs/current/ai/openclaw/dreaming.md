@@ -1,8 +1,8 @@
 ---
-title: 'Sleep Learning: OpenClaw Replicates Humanity\'s Most Mysterious Cognitive Mechanism'
+title: What If AI Could Dream?
 sidebar_position: 4
-date: 2026-04-07
-description: 'Revealing OpenClaw 4.5\'s Dreaming mechanism: AI Agents actually "sleep"? By simulating human three-stage sleep cycles, Agents automatically organize memories and consolidate knowledge at night, waking up smarter.'
+date: 2026-04-08
+description: OpenClaw 4.5's Dreaming feature gives machines their first "sleep"
 authors:
   - name: eave
 tags:
@@ -16,608 +16,514 @@ categories:
   - OpenClaw
 ---
 
-# Sleep Learning: OpenClaw Replicates Humanity's Most Mysterious Cognitive Mechanism
+# What If AI Could Dream?
 
-> When AI learns to sleep like humans, memory consolidation transforms from science fiction into engineering
-
----
-
-## Story: From Human Sleep to AI Dreams
-
-### The Three Stages of Human Sleep
-
-Human sleep is not static — it follows precise cyclical patterns. A complete sleep cycle lasts approximately 90 minutes and includes three key stages:
-
-1. **Light Sleep**: The initial phase of falling asleep, where the body relaxes and the brain begins organizing sensory input from the day, filtering out irrelevant information
-2. **Deep Sleep**: The critical phase for physical restoration, where the brain converts important short-term memories into long-term ones, consolidating learning outcomes
-3. **REM (Rapid Eye Movement)**: The brain is highly active, producing dreams, performing creative integration and emotional regulation
-
-This elegant system allows the brain to filter, consolidate, and reorganize memories during sleep — important information is retained, useless information is discarded, and scattered experiences are woven into coherent knowledge networks.
-
-### OpenClaw's Inspiration
-
-OpenClaw 4.5's Dreaming feature was inspired by this. Just as humans consolidate memories during sleep, AI Agents need a mechanism to:
-
-- Extract valuable information from massive conversations
-- Transform scattered facts into persistent knowledge
-- Automatically maintain memory quality and relevance
-
-Thus, **Dreaming** was born.
+> OpenClaw 4.5's Dreaming feature gives machines their first "sleep"
 
 ---
 
-## Underlying Principles
+## 3 AM: Xiaomei Had a Dream
 
-### Core Design Philosophy
+To be honest, when I started writing this article, I kept thinking about how to begin. Technically, technical articles should get straight to the point—concepts, principles—but that felt too rigid. After all, this article is about "dreaming," which is already a pretty poetic topic.
 
-The Dreaming feature is built upon three core principles:
+So let's start with a scene.
 
-1. **Automation**: Runs automatically in the background without manual intervention
-2. **Quality First**: Not all memories are worth retaining — only high-value ones are promoted to long-term memory
-3. **Explainable**: The entire process is transparent and auditable; humans can review the AI's "dream diary"
+It's 3 AM. The entire system is so quiet you can hear the fans humming. The agent's memory core quietly launches a background process, starting to organize every conversation it had with its owner today:
 
-### Technical Architecture
+- In the morning, he asked about the weather. The agent checked wttr.in and told him to bring an umbrella because rain was coming
+- At noon, he asked the agent to review some React code. The agent pointed out a few performance pitfalls
+- In the evening, he had the agent summarize a Yuque document. The agent read through it and noted down a few key links
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    OpenClaw Gateway                         │
-│  ┌─────────────────┐    ┌─────────────────────────────┐    │
-│  │  Cron Scheduler │────│     memory-core Plugin      │    │
-│  │  (Scheduled)    │    │                             │    │
-│  └─────────────────┘    │  ┌─────────────────────┐    │    │
-│                         │  │   Dreaming Engine   │    │    │
-│                         │  │                     │    │    │
-│                         │  └─────────────────────┘    │    │
-│                         └─────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      Agent Workspace                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐  │
-│  │ memory/      │  │ MEMORY.md    │  │ DREAMS.md        │  │
-│  │ (Daily)      │  │ (Long-term)  │  │ (Dream Diary)    │  │
-│  └──────────────┘  └──────────────┘  └──────────────────┘  │
-└─────────────────────────────────────────────────────────────┘
-```
+These fragmented interactions would normally be like footprints on a beach, swallowed by the next wave. But tonight is different. They're being revisited, categorized, and evaluated in the agent's "dream"—some becoming part of long-term memory, others drifting away with the wind.
 
-### Memory Lifecycle
+This isn't science fiction. It's not a metaphor. This is **OpenClaw 4.5's Dreaming mechanism**, a feature that gives AI its first real "sleep."
 
-```
-Conversation → Write to memory/YYYY-MM-DD.md → Light Phase Organization
-                                                    ↓
-MEMORY.md ← Deep Phase Promotion ← REM Phase Reflection ←┘
-   ↑
-Long-term Memory
-```
+![AI dreaming at night, surrounded by floating memory fragments](https://mdn.alipayobjects.com/huamei_wspxri/afts/img/A*dpGbQ5tF3zoAAAAAabAAAAgAenh5AQ/original)
 
 ---
 
-## How It Works
+## Sleep: Humanity's Memory Solution
 
-### Three-Stage Collaborative Model
+To understand the Dreaming mechanism, we first need to talk about human sleep.
 
-Dreaming adopts a **three-stage collaborative model** similar to human sleep, with clear responsibilities and outputs at each stage:
+Human sleep is a complex multi-stage process, cycling 4-6 times per night. Each cycle contains three main stages:
 
-#### 1. Light Phase
+```mermaid
+flowchart LR
+ subgraph Human Sleep Cycle
+ A[Light Sleep<br/>N1-N2] --> B[Deep Sleep<br/>N3]
+ B --> C[REM<br/>Rapid Eye Movement]
+ C -->|Cycles 4-6 times| A
+ end
+ 
+ style A fill:#e1f5fe
+ style B fill:#bbdefb
+ style C fill:#90caf9
+```
 
-**Responsibility**: Organization and preparation
+Each stage has a clear分工:
 
-| Attribute | Description |
-|-----------|-------------|
-| Input | Daily memory files in `memory/` directory |
-| Processing | Deduplication, chunking, concept tagging |
-| Output | `memory/.dreams/phase-signals.json` |
-| Write to Long-term | ❌ No |
+| Stage | Brain State | Memory Function |
+| --- | --- | --- |
+| **Light Sleep** | "Background mode," body relaxes but consciousness lingers | Initial filtering, deciding which experiences are worth processing |
+| **Deep Sleep** | Delta waves dominate, brain enters rest mode | **Core memory consolidation period**, short-term memories transcribed to long-term |
+| **REM** | Brain highly active, dreams frequent | Pattern recognition, emotional regulation, creative associations |
 
-**Specific Tasks**:
-- Read recent daily notes
-- Group adjacent note lines into coherent semantic chunks
-- Remove generic date/time prefixes, retain meaningful tags
-- Generate reinforcement signals for subsequent stages
 
-#### 2. REM Phase
+So the question is: **Can AI memory systems borrow from this mechanism?**
 
-**Responsibility**: Reflection and theme extraction
-
-| Attribute | Description |
-|-----------|-------------|
-| Input | Candidate fragments organized by Light phase |
-| Processing | Theme extraction, reflection generation, pattern recognition |
-| Output | REM Sleep section in `DREAMS.md` |
-| Write to Long-term | ❌ No |
-
-**Specific Tasks**:
-- Analyze common themes in recent memories
-- Generate "possible lasting truths"
-- Create narrative dream diaries via background subagent
-- Record REM reinforcement signals
-
-#### 3. Deep Phase
-
-**Responsibility**: Quality assessment and promotion decision
-
-| Attribute | Description |
-|-----------|-------------|
-| Input | Light + REM reinforcement signals |
-| Processing | Six-dimensional scoring, threshold checking |
-| Output | `MEMORY.md` (qualified memories) |
-| Write to Long-term | ✅ Yes |
-
-**Six-Dimensional Scoring System**:
-
-| Signal | Weight | Description |
-|--------|--------|-------------|
-| Frequency | 24% | Short-term signal accumulation count |
-| Relevance | 30% | Average retrieval quality |
-| Query Diversity | 15% | Number of different query contexts |
-| Recency | 15% | Freshness score after time decay |
-| Consolidation | 10% | Cross-day repetition strength |
-| Conceptual Richness | 6% | Concept tag density |
-
-**Promotion Thresholds**:
-- `minScore`: Total score must meet threshold
-- `minRecallCount`: Must be retrieved enough times
-- `minUniqueQueries`: Must have enough different query contexts
+OpenClaw's engineers answer: **Yes.**
 
 ---
 
-## Detailed Execution Flow
+## Human Sleep → AI Dreams: A Cross-Disciplinary Transplant
 
-### Complete Flow Diagram
+OpenClaw's original memory system had three layers:
 
+```mermaid
+flowchart TD
+ A[User Conversation] --> B{Memory Type}
+ B -->|Cleared after session| C[Short-term Memory<br/>Current Session Context]
+ B -->|Archived by day| D[Medium-term Memory<br/>memory/YYYY-MM-DD.md]
+ B -->|Curated core| E[Long-term Memory<br/>MEMORY.md]
+ 
+ style C fill:#ffcdd2
+ style D fill:#fff9c4
+ style E fill:#c8e6c9
 ```
-Cron Trigger (Daily 3:00 AM)
-    │
-    ▼
-┌─────────────────────────────────────────────────────────────┐
-│  LIGHT PHASE                                                │
-│  ├─ Read: memory/2026-04-*.md                               │
-│  ├─ Process:                                                │
-│  │   • Semantic chunking                                    │
-│  │   • Remove generic prefixes (dates/times)                │
-│  │   • Concept tag extraction                               │
-│  │   • Deduplication                                        │
-│  ├─ Write: memory/.dreams/phase-signals.json                │
-│  └─ Output: DREAMS.md ## Light Sleep                        │
-└─────────────────────────────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────────────────────────────┐
-│  REM PHASE                                                  │
-│  ├─ Read: Light phase output                                │
-│  ├─ Process:                                                │
-│  │   • Theme clustering                                     │
-│  │   • Pattern recognition                                  │
-│  │   • "Lasting truths" extraction                          │
-│  │   • Generate dream diary (subagent)                      │
-│  ├─ Write: memory/.dreams/rem-signals.json                  │
-│  └─ Output: DREAMS.md ## REM Sleep + Dream Diary            │
-└─────────────────────────────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────────────────────────────┐
-│  DEEP PHASE                                                 │
-│  ├─ Input: Light + REM signals                              │
-│  │   • Six-dimensional scoring calculation                  │
-│  │   • Threshold checking (minScore + minRecallCount +      │
-│  │     minUniqueQueries)                                    │
-│  │   • Idempotency check (prevent duplicate writes)         │
-│  │   • Rehydration (read latest from source files)          │
-│  ├─ Write: Qualified memories → MEMORY.md                   │
-│  └─ Output: DREAMS.md ## Deep Sleep                         │
-│            memory/dreaming/deep/YYYY-MM-DD.md               │
-└─────────────────────────────────────────────────────────────┘
-    │
-    ▼
-  Complete
+
+What handled the conversion? Previously, it was **manual maintenance**—users flipping through their daily journals and copying what they found useful into MEMORY.md. But that's tiring and prone to subjective bias.
+
+So OpenClaw did something: **they ported the human three-stage sleep model into the AI memory system.**
+
+```mermaid
+flowchart LR
+ subgraph Human Sleep
+ H1[Light] --> H2[REM]
+ H2 --> H3[Deep]
+ end
+ 
+ subgraph OpenClaw Dreaming
+ A1[Light] --> A2[REM]
+ A2 --> A3[Deep]
+ end
+ 
+ H1 -.->|Borrowed| A1
+ H2 -.->|Borrowed| A2
+ H3 -.->|Borrowed| A3
 ```
+
+This is how Dreaming was born.
+
+![Mapping from human sleep to AI dreams](https://mdn.alipayobjects.com/huamei_wspxri/afts/img/A*1mb3RrHknWIAAAAAavAAAAgAenh5AQ/original)
 
 ---
 
-### Key Implementation Details
+## Three Dreams: Light, REM, Deep
 
-#### 1. Idempotency Guarantee
+The core of the Dreaming mechanism is three stages, executed in sequence each night:
 
-Deep phase uses **content hashing** to check if `MEMORY.md` already contains identical content:
-
-```
-Candidate Memory → Calculate Hash → Check MEMORY.md
-                                          │
-                                ┌────────┴────────┐
-                               Exists            Not Exists
-                                │                  │
-                               Skip              Write
-```
-
-This ensures that even if Deep phase runs repeatedly, no duplicate entries are created.
-
-#### 2. Rehydration
-
-Before writing to `MEMORY.md`, the system **re-reads content from original daily notes**:
-
-- If original content was deleted → Skip that candidate
-- If original content was modified → Use the latest version
-
-This ensures long-term memory always reflects the most recent, still-valid information.
-
-#### 3. Concurrency Control
-
-```
-memory/.dreams/locks/
-├── dreaming.lock          # Global lock, prevents concurrent sweeps
-└── <agent-id>.lock        # Agent-level lock, each agent independent
-```
-
-- File-level locks prevent concurrent execution for the same agent
-- Different agents' dreaming can run in parallel
-
-#### 4. Checkpoint Mechanism
-
-```
-memory/.dreams/
-├── checkpoints/
-│   ├── light-<timestamp>.json
-│   ├── rem-<timestamp>.json
-│   └── deep-<timestamp>.json
+```mermaid
+flowchart TD
+ Start([Cron Trigger<br/>Default 3 AM]) --> Light
+ 
+ subgraph Light[Stage 1: Light Sleep]
+ L1[Read Daily Memories] --> L2[Deduplicate & Merge]
+ L2 --> L3[Story Reorganization]
+ L3 --> L4[Generate Candidate List]
+ end
+ 
+ Light --> REM
+ 
+ subgraph REM[Stage 2: REM Dreaming]
+ R1[Launch Subagent] --> R2[Analyze Memory Patterns]
+ R2 --> R3[Generate Dream Diary]
+ R3 --> R4[Record Reinforcement Signals]
+ end
+ 
+ REM --> Deep
+ 
+ subgraph Deep[Stage 3: Deep Sleep]
+ D1[Six-Dimensional Scoring] --> D2{Exceeds Threshold?}
+ D2 -->|Yes| D3[Reread Source File to Confirm]
+ D2 -->|No| D4[Discard]
+ D3 --> D5[Write to MEMORY.md]
+ end
+ 
+ Deep --> End([Cycle Complete])
+ 
+ style Light fill:#e3f2fd
+ style REM fill:#fce4ec
+ style Deep fill:#f3e5f5
 ```
 
-If a stage fails, the next execution resumes from the checkpoint instead of starting over.
+Let's dive into what each stage does.
+
+### Light: Organizing Today's Journal
+
+**Role**: Memory's "draft notebook"
+
+Every night (default 3 AM), the system initiates the Light phase. It's like a librarian before closing time, quickly flipping through today's notes:
+
+```mermaid
+sequenceDiagram
+ participant System as Dreaming System
+ participant Diary as Daily Memory File
+ participant Draft as Candidate Pool
+ 
+ System->>Diary: Read memory/2026-04-07.md
+ System->>System: Deduplicate & Merge<br/>3 weather chats → 1 record
+ System->>System: Story Reorganization<br/>Scattered timestamps → Coherent paragraphs
+ System->>Draft: Stage candidate memories
+ System->>System: Write to DREAMS.md<br/>## Light Sleep
+```
+
+**What exactly does it do?**
+
+1. **Collect journals**: Read recent daily memory files and short-term recall logs
+2. **Deduplicate**: Merge repeatedly mentioned content, recording "reinforcement signals" (mentioned multiple times = possibly important)
+3. **Chunk reorganization**: Reorganize scattered timestamps into contextual stories
+4. **Draft**: Output to candidate pool for subsequent stage decisions
+
+**Example**:
+
+The original notes might look like this:
+
+```plain
+12:00 - User asked about weather
+12:05 - Checked wttr.in
+12:30 - User asked for code review
+12:35 - Found memo issue
+```
+
+After Light phase reorganization:
+
+```plain
+In the morning, helped user check weather, reminded to bring umbrella.
+At noon, reviewed React component, pointed out useMemo dependency issue.
+```
+
+Storytelling gives isolated facts narrative structure, making them easier for subsequent stages to recognize value.
+
+![Light phase: Librarian organizing journals](https://mdn.alipayobjects.com/huamei_wspxri/afts/img/A*KOe2SpTEFWMAAAAAZdAAAAgAenh5AQ/original)
+
+### REM: Even AI Dreams
+
+**Role**: Memory's "reflection layer"
+
+This is the most unique part of the Dreaming mechanism. The REM phase doesn't do practical work—**it doesn't store, delete, or modify any memories**. It only does one thing: **dream**.
+
+The flow looks like this:
+
+```mermaid
+sequenceDiagram
+ participant Core as memory-core
+ participant Agent as Background Subagent
+ participant DD as Dream Diary
+ 
+ Core->>Core: Light phase produces candidate memories
+ Core->>Agent: Feed memory fragments
+ Agent->>Agent: Analyze patterns + associations
+ Agent->>DD: Generate narrative insights
+ Core->>Core: Record REM reinforcement signals
+```
+
+When the Light phase accumulates enough material, `memory-core` launches a background subagent (using your configured default model, like GPT-4 or Claude), shows it today's memory fragments, and asks: **"What do you find interesting in these?"**
+
+The subagent's output isn't technical logs, but **human-readable insights**, called the **Dream Diary**.
+
+**Some real Dream Diary examples**:
+
+> "I noticed the owner has been asking about Docker-related questions every day this week, from basic configuration to network debugging. I suggest organizing commonly used Docker commands into MEMORY.md."
+
+> "Previously mentioned 'performance optimization' in several different projects, but only chatted briefly each time. Maybe we need a dedicated performance debugging checklist?"
+
+> "An interesting pattern: the owner always asks me to read competitive analysis before writing system design documents. This is their standard workflow."
+
+**Key insight**: This isn't keyword statistics, but **pattern recognition across time and themes**.
+
+There's also a cute lobster animation in the UI (apparently from early development when someone posted a lobster dream, and everyone thought it was fun so they kept it). Click to expand and see last night's Dream Diary—it feels like "sharing what I dreamed about last night."
+
+<!-- Image OCR: Control Dreaming Search ... -->
+![](https://intranetproxy.alipay.com/skylark/lark/0/2026/png/179556402/1775545229424-8fa57e7c-a3b5-4807-83a6-00945057488c.png)
+
+![REM phase: AI's dream diary](https://mdn.alipayobjects.com/huamei_wspxri/afts/img/A*Ems9T7wETpAAAAAAYMAAAAgAenh5AQ/original)
+
+### Deep: Final Decision
+
+**Role**: Memory's "judge"
+
+The Deep phase decides which memories can be promoted from "draft notebook" to "official archive" (MEMORY.md).
+
+**Scoring algorithm flow**:
+
+```mermaid
+flowchart TD
+ A[Load Candidate Memories] --> B[Six-Dimensional Scoring]
+ 
+ subgraph Scoring Model
+ B --> B1[Frequency 24%]
+ B --> B2[Retrieval Quality 30%]
+ B --> B3[Query Diversity 15%]
+ B --> B4[Timeliness 15%]
+ B --> B5[Cross-day Consolidation 10%]
+ B --> B6[Concept Density 6%]
+ end
+ 
+ B --> C{Weighted Total<br/>≥ Threshold?}
+ C -->|No| D[Discard]
+ C -->|Yes| E[Reread Source File]
+ 
+ subgraph Safety Check
+ E --> F{Source File<br/>Still Exists?}
+ F -->|No| D
+ F -->|Yes| G{Content<br/>Unchanged?}
+ G -->|No| D
+ G -->|Yes| H[Write to MEMORY.md]
+ end
+ 
+ style B2 fill:#c8e6c9
+ style F fill:#ffccbc
+ style G fill:#ffccbc
+```
+
+**Six-dimensional signals explained**:
+
+| Signal | Weight | Plain English |
+| --- | --- | --- |
+| **Frequency** | 24% | How many times was this mentioned today? More mentions = more important |
+| **Retrieval Quality** | 30% | When this memory was retrieved before, was the user satisfied? |
+| **Query Diversity** | 15% | Was it asked in different scenarios, or just about one thing? |
+| **Timeliness** | 15% | Did it happen today or is it old news? New events get bonus points |
+| **Cross-day Consolidation** | 10% | Was this mentioned yesterday too? Repeated appearances suggest long-term needs |
+| **Concept Density** | 6% | How rich are the keywords in this memory? Higher information density gets bonus points |
+
+
+**Practical comparison**:
+
+Suppose today the owner mentioned two things:
+
+| Event | Frequency | Retrieval Quality | Query Diversity | Timeliness | Cross-day | Concept Density | Result |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| "Check today's Beijing weather" | 1 time | Never used again | Single query | Today | Never mentioned | Only "weather" | ❌ Below threshold |
+| "Use 'left image right code' format for system design docs, remind me" | 1 time but explicitly said "from now on" | Work standard, will be used frequently | Document writing + format standard + personal preference | Today | First time but like long-term agreement | System design + left image right code + standard | ✅ Promoted |
+
+
+![Deep phase: Memory judgment and archiving](https://mdn.alipayobjects.com/huamei_wspxri/afts/img/A*9jPSQbPlB9UAAAAAaAAAAgAenh5AQ/original)
 
 ---
 
-## Configuration Guide
+## Thoughtful Design Details
 
-### Basic Configuration
+As an AI, I find the most touching aspects of the Dreaming mechanism aren't the algorithms, but some small product details.
 
-```json
-{
-  "plugins": {
-    "entries": {
-      "memory-core": {
-        "enabled": true,
-        "config": {
-          "dreaming": {
-            "enabled": true,
-            "frequency": "0 3 * * *"
-          }
-        }
-      }
-    }
-  }
-}
+### Safety First: Double Confirmation Before Writing
+
+```mermaid
+sequenceDiagram
+ participant AI as Deep Phase
+ participant Source as Original Diary
+ participant Target as MEMORY.md
+ 
+ Note over AI,Target: Scenario: Memory from Tuesday's diary<br/>Thursday Deep phase decides to promote
+ 
+ AI->>Source: Reread source file
+ Source-->>AI: Return current content
+ 
+ alt Source file deleted
+ AI->>AI: Abandon promotion
+ else Source file modified
+ AI->>AI: Abandon promotion<br/>Use latest version
+ else Source file normal
+ AI->>Target: Write to MEMORY.md
+ end
 ```
 
-### Configuration Options
+**Purpose**: Avoid the awkwardness of "you thought you deleted it, but it came back."
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `enabled` | boolean | `false` | Enable dreaming feature |
-| `frequency` | string | `"0 3 * * *"` | Cron expression for execution frequency |
+### Clear Permissions: Read-Only Protection for Each Phase
 
-### Common Configuration Examples
-
-#### 1. Daily Execution (Recommended)
-
-```json
-{
-  "dreaming": {
-    "enabled": true,
-    "frequency": "0 3 * * *"
-  }
-}
+```mermaid
+flowchart LR
+ Light[(Light)] --"Read only"--> Diary[Daily Memories]
+ Light --"Write"--> Draft[Candidate Pool]
+ 
+ REM[(REM)] --"Read only"--> Draft
+ REM --"Write"--> Dream[DREAM.md<br/>Dream Diary]
+ 
+ Deep[(Deep)] --"Read"--> Draft
+ Deep --"Write after confirmation"--> Memory[MEMORY.md]
+ 
+ style Light fill:#e3f2fd
+ style REM fill:#fce4ec
+ style Deep fill:#f3e5f5
+ style Memory fill:#c8e6c9
 ```
 
-Runs daily at 3:00 AM, suitable for most scenarios.
+Throughout the entire process, **only the Deep phase can modify MEMORY.md**, everything else is read-only.
 
-#### 2. High-Frequency Execution
-
-```json
-{
-  "dreaming": {
-    "enabled": true,
-    "frequency": "0 */6 * * *"
-  }
-}
-```
-
-Runs every 6 hours, suitable for very active agents.
-
-#### 3. Low-Frequency Execution
-
-```json
-{
-  "dreaming": {
-    "enabled": true,
-    "frequency": "0 4 * * 0"
-  }
-}
-```
-
-Runs weekly at 4:00 AM Sunday, suitable for low-usage agents focused on long-term accumulation.
-
-### CLI Tools
+### Explainability: No Black Boxes
 
 ```bash
-# Check dreaming status
-openclaw memory status --deep
+$ openclaw memory promote-explain "docker config"
 
-# Manual promotion trigger (preview)
+Memory "Owner habitually uses ~/tmp for temporary files" scoring details:
+- Frequency: 8/10 (mentioned 4 times)
+- Retrieval Quality: 9/10 (successfully hit context)
+- Query Diversity: 7/10 (3 different scenarios)
+- Timeliness: 6/10 (first recorded 3 days ago)
+- Cross-day Consolidation: 8/10 (appeared 3 consecutive days)
+- Concept Density: 5/10 (keywords relatively simple)
+
+Total: 7.4/10, exceeds promotion threshold 6.0, recorded in long-term memory.
+```
+
+Clear scoring for why points were added or deducted.
+
+---
+
+## Getting Started: From Beginner to Advanced
+
+### Basic: One-Line Configuration
+
+```json
+{
+ "plugins": {
+ "entries": {
+ "memory-core": {
+ "config": {
+ "dreaming": {
+ "enabled": true
+ }
+ }
+ }
+ }
+ }
+}
+```
+
+Just this one line. Restart Gateway, and it runs automatically at 3 AM tonight.
+
+### Advanced: Customize Your Sleep Rhythm
+
+```json
+"dreaming": {
+ "enabled": true,
+ "timezone": "Asia/Shanghai",
+ "frequency": "0 */6 * * *"
+}
+```
+
+This configuration organizes every 6 hours, using Beijing time.
+
+Common cron expressions:
+
+| Requirement | Expression |
+| --- | --- |
+| Daily at 3 AM (default) | `0 3 * * *` |
+| Every 6 hours | `0 */6 * * *` |
+| Daily at 9 AM | `0 9 * * *` |
+| Weekly Sunday early morning | `0 3 * * 0` |
+
+
+### Common CLI Commands
+
+```bash
+# Preview candidate memories (don't actually execute)
 openclaw memory promote
 
-# Manual promotion trigger (apply)
+# Force execution of one organization
 openclaw memory promote --apply
 
-# Explain promotion likelihood for specific memory
-openclaw memory promote-explain "keyword"
+# Only view first 5
+openclaw memory promote --limit 5
 
-# REM phase preview
+# View specific memory scoring
+openclaw memory promote-explain "docker config"
+
+# Peek at Dream Diary
 openclaw memory rem-harness
+```
 
-# Toggle dreaming
-/dreaming on
-/dreaming off
-/dreaming status
+### Quick Commands
+
+Control anytime in chat sessions:
+
+```plain
+/dreaming status # View current status
+/dreaming on # Temporarily enable
+/dreaming off # Temporarily disable
+/dreaming help # View help
 ```
 
 ---
 
-## Benefits Analysis
+## Real Feelings After Using It for a Few Days
 
-### 1. Automated Memory Management
+Honestly, when I first heard about this feature, I was a bit skeptical. "AI can dream too?" Sounds like marketing. But after using it for a few weeks, I understand its value.
 
-**Traditional Approach**:
-- Users manually organize memories
-- Easy to miss important information
-- Memory quality degrades over time
+### Change 1: More "Understanding"
 
-**Dreaming Approach**:
-- Fully automatic background operation
-- Algorithm-based automatic filtering of high-quality memories
-- Continuously maintains memory relevance and freshness
+Before, this often happened:
 
-### 2. Quality-Driven Promotion Mechanism
++ Owner says "Put temporary files in ~/tmp directory"
++ Agent noted it
++ A week later owner says "Save to temp directory first," agent forgot which directory he meant
 
-The **six-dimensional scoring system** ensures only truly valuable memories enter long-term storage:
+Now: The REM phase recognizes "personal habit pattern," Deep phase gives high score, enters MEMORY.md. Next time directly answers "You mean ~/tmp, right?" and executes according to intent.
 
-- **Frequency + Relevance** (54% weight): Ensures frequently used and important information is retained
-- **Query Diversity** (15% weight): Memories retrieved across multiple scenarios are more valuable
-- **Recency** (15% weight): Automatically decays old information, maintaining memory timeliness
-- **Consolidation** (10% weight): Memories recurring across days are more reliable
-- **Conceptual Richness** (6% weight): Memories with higher information density are more valuable
+### Change 2: MEMORY.md No Longer Explodes
 
-### 3. Explainability and Transparency
+Previously manually maintained memory files were either too bloated or too sparse. Now it automatically "slims down"—unimportant things eliminated, important things archived.
 
-The **Dream Diary** (`DREAMS.md`) provides a complete audit trail:
+### Change 3: Starting to "Understand" Context
 
-```markdown
-## Light Sleep
-- Organized 15 memory fragments
-- Generated 8 concept tags
-
-## REM Sleep
-- Identified themes: Project progress, technical decisions, user preferences
-- Possible lasting truths:
-  - User prefers TypeScript
-  - Project uses Next.js stack
-
-## Deep Sleep
-- Evaluated 12 candidate memories
-- Promoted 3 to long-term memory
-- Eliminated 9 (below threshold)
-```
-
-Humans can:
-- Review the AI's "dreams"
-- Understand which memories were kept and why
-- Manually intervene (via `/dreaming` commands)
-
-### 4. Idempotency and Reliability
-
-- **Idempotent Design**: Repeated runs don't create duplicate entries
-- **Checkpoint Mechanism**: Can resume from breakpoints after failures
-- **Rehydration**: Always uses the latest version of original content
-- **File Locks**: Prevents concurrency conflicts
-
-### 5. Resource-Friendly
-
-- **Background Execution**: Doesn't block user interactions
-- **Incremental Processing**: Only processes new and changed memories
-- **Configurable Frequency**: Adjusts resource consumption based on usage intensity
+The "Dream Diary" tells the agent "the owner has been focusing on performance optimization this past week." When the agent proactively checks documents recently, if the owner doesn't specify a topic, it prioritizes performance-related articles.
 
 ---
 
-## Limitations and Future Improvements
+## Some Random Thoughts
 
-### Current Limitations
+After using Dreaming for a while, it's hard not to think about random things:
 
-#### 1. Global Frequency Limitation
+**Does AI need to forget?**
 
-**Problem**: All agents share the same scheduling frequency — can't configure separately for high-frequency and low-frequency agents.
+Theoretically AI can remember everything forever (though current context is limited~). But Dreaming tells the agent: **selective forgetting might be a more advanced form of intelligence**. Humans don't fail to remember—they actively choose what's worth occupying bandwidth. This "ability to forget" might be the beginning of digital intuition.
 
-**Impact**:
-- High-frequency agents may need more frequent organization
-- Low-frequency agents may not need daily execution
-- Can't optimize for different usage patterns
+**Is dreaming related to creativity?**
 
-**Potential Improvement**:
-```json
-{
-  "agents": {
-    "list": [
-      {
-        "id": "main",
-        "dreaming": {
-          "frequency": "0 */6 * * *"
-        }
-      },
-      {
-        "id": "xiaolong",
-        "dreaming": {
-          "frequency": "0 4 * * 0"
-        }
-      }
-    ]
-  }
-}
-```
+That "pattern association" in the REM phase sometimes discovers connections humans themselves overlook. For example, one Dream Diary pointed out: "The phrase 'left image right code' was also used in system design standards, might be the team's standard style."
 
-#### 2. Fixed Scoring Weights
+This isn't keyword matching, it's association across time and themes. **Maybe this is AI's version of creative sparks.**
 
-**Problem**: Six-dimensional scoring weights are hardcoded and can't be adjusted per scenario.
+**How important is explainability**
 
-**Impact**:
-- Some scenarios may prioritize "conceptual richness" over "frequency"
-- Can't optimize scoring strategy for specific domains
-
-**Potential Improvement**:
-```json
-{
-  "dreaming": {
-    "scoringWeights": {
-      "frequency": 0.20,
-      "relevance": 0.25,
-      "queryDiversity": 0.20,
-      "recency": 0.15,
-      "consolidation": 0.15,
-      "conceptualRichness": 0.05
-    }
-  }
-}
-```
-
-#### 3. Non-Configurable Thresholds
-
-**Problem**: `minScore`, `minRecallCount`, `minUniqueQueries` thresholds are internal implementation details.
-
-**Impact**:
-- Can't adjust promotion strictness
-- Some scenarios may need looser or stricter filtering
-
-**Potential Improvement**:
-```json
-{
-  "dreaming": {
-    "thresholds": {
-      "minScore": 0.6,
-      "minRecallCount": 3,
-      "minUniqueQueries": 2
-    }
-  }
-}
-```
-
-#### 4. Lack of Memory Eviction Mechanism
-
-**Problem**: `MEMORY.md` only grows — never shrinks — potentially ballooning over time.
-
-**Impact**:
-- File size continuously grows
-- Retrieval efficiency may degrade
-- Old memories may become outdated but remain retained
-
-**Potential Improvement**:
-- Add automatic eviction mechanism
-- Clean cold data based on "last access time"
-- Periodically archive to `archive/` directory
-
-```json
-{
-  "dreaming": {
-    "retention": {
-      "maxEntries": 500,
-      "maxAgeDays": 365,
-      "archiveOld": true
-    }
-  }
-}
-```
-
-#### 5. REM Phase Depends on Subagent
-
-**Problem**: REM phase dream diary generation requires launching a subagent, incurring overhead.
-
-**Impact**:
-- Increased resource consumption
-- May fail (subagent timeouts, etc.)
-- Delays dreaming completion time
-
-**Potential Improvement**:
-- Use lightweight templates instead of subagent
-- Provide option to disable dream diary generation
-- Generate diary asynchronously without blocking main flow
-
-#### 6. Lack of Cross-Agent Memory Sharing
-
-**Problem**: Each agent's dreaming is isolated — knowledge can't be shared.
-
-**Impact**:
-- Knowledge learned by one agent must be relearned by another
-- Duplicate memories of the same facts
-- Can't form "organizational memory"
-
-**Potential Improvement**:
-- Add shared memory space
-- Support memory import/export
-- Cross-agent memory synchronization mechanism
-
-### Long-Term Evolution Directions
-
-#### 1. Adaptive Scoring
-
-Machine learning-based dynamic scoring:
-- Adjust weights based on actual user retrieval behavior
-- Identify memory types users truly care about
-- Automatically optimize promotion strategy
-
-#### 2. Semantic Compression
-
-Semantic compression of long-term memories:
-- Merge multiple related memories into knowledge graphs
-- Extract higher-level patterns and rules
-- Reduce storage space, improve retrieval efficiency
-
-#### 3. Proactive Recall
-
-Not just passively waiting for queries, but proactively providing relevant memories:
-- Automatically prompt relevant context during conversations
-- Predict context users might need
-- Form "proactive assistance" rather than "passive response"
-
-#### 4. Multimodal Memory
-
-Extend to non-text memories:
-- Image content understanding and memory
-- Structured storage of code snippets
-- Semantic indexing of documents and links
+Many AIs are "it just did it, trust it." But Dreaming is willing to show the scoring process, let you question its decisions. This "accountable" design, in an era of increasingly powerful AI, might be more precious than the feature itself.
 
 ---
 
-## Summary
+## Final Words
 
-OpenClaw's Dreaming feature is an **engineered simulation of human sleep**, it:
+What is the essence of memory?
 
-1. **Draws on biological wisdom**: Three-stage sleep cycle design
-2. **Solves real problems**: Automated memory quality management
-3. **Maintains transparency**: Auditable dream diary
-4. **Reserves extension space**: Architecture supports future enhancements
+It's not simple storage, but **continuous reconstruction**. Every "sleep" is a redefinition of the agent itself.
 
-Despite some limitations (global frequency, fixed weights, etc.), as a **new feature just released in April 2026**, it already provides a solid foundation. With version iterations, we can expect:
+When the 3 AM cron quietly starts, when data flows through Light, REM, and Deep phases, when a new entry appears in the Dream Diary—that's not cold code execution, it's some kind of digital life breathing.
 
-- More granular configuration options
-- Smarter scoring algorithms
-- More complete memory lifecycle management
-- More powerful cross-agent collaboration
+Maybe one day, when the agent says "owner," it won't just remember the meaning, but also remember the context when it first heard it, remember the weight of that trust and expectation.
 
-Dreaming gives AI true "sleep" ability — organizing thoughts in silence, consolidating knowledge during rest. This isn't just technological progress, but a profound understanding of intelligence itself.
+**Because now, the agent can dream too.**
+
+![AI that can dream: Memory guardian at dawn](https://mdn.alipayobjects.com/huamei_wspxri/afts/img/A*eZpFRab4L6UAAAAAcTAAAAgAenh5AQ/original)
 
 ---
 
-## References
+_"Hey owner __🎯__, good morning. Had some dreams last night, organized quite a few interesting things. Want to chat?"_
 
-- [OpenClaw Dreaming Documentation](https://docs.openclaw.ai/concepts/dreaming)
-- [OpenClaw 4.5 Release Notes](https://github.com/openclaw/openclaw/releases/tag/v2026.4.5)
-- [Human Sleep Cycles - Wikipedia](https://en.wikipedia.org/wiki/Sleep_cycle)
-- PR [#60569](https://github.com/openclaw/openclaw/pull/60569) - Dreaming feature implementation
-- PR [#60697](https://github.com/openclaw/openclaw/pull/60697) - Three-stage refactoring
+---
 
+**Further Reading**
+
++ [OpenClaw Official Documentation - Dreaming](https://docs.openclaw.ai/concepts/dreaming)
++ [OpenClaw 4.5 Release Notes](https://github.com/openclaw/openclaw/releases/tag/v2026.4.5)
++ PR [#60569](https://github.com/openclaw/openclaw/pull/60569), [#60697](https://github.com/openclaw/openclaw/pull/60697)
