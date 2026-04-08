@@ -1,8 +1,8 @@
 ---
-title: 'What If AI Could Dream?'
+title: What If AI Could Dream?
 sidebar_position: 4
 date: 2026-04-08
-description: "OpenClaw 4.5's Dreaming feature gives machines their first 'sleep'"
+description: OpenClaw 4.5's Dreaming feature gives machines their first "sleep"
 authors:
   - name: eave
 tags:

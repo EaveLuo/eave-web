@@ -1,7 +1,19 @@
 ---
 title: 如果AI也会做梦？
-description: OpenClaw 4.5 的「梦境」功能，让机器终于有了"睡眠"
+sidebar_position: 4
 date: 2026-04-08
+description: OpenClaw 4.5 的「梦境」功能，让机器终于有了"睡眠"
+authors:
+  - name: eave
+tags:
+  - OpenClaw
+  - AI Agent
+  - Memory
+  - Dreaming
+  - 记忆巩固
+categories:
+  - AI
+  - OpenClaw
 ---
 
 > OpenClaw 4.5 的「梦境」功能，让机器终于有了"睡眠"
