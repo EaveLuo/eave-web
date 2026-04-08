@@ -42,7 +42,7 @@
     "postcss": "^8.4.38",
     "tailwind-merge": "^3.0.0",
     "tailwindcss": "^4.0.0",
-    "typescript": "~5.9.0"
+    "typescript": "~6.0.0"
   },
   "browserslist": {
     "production": [
