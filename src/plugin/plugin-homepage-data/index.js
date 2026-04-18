@@ -7,6 +7,63 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
+const LATEST_ARTICLES_LIMIT = 12;
+
+function toPosixPath(filePath) {
+  return filePath.replace(/\\/g, '/');
+}
+
+function trimLeadingSlash(value) {
+  return value.replace(/^\/+/, '');
+}
+
+function trimTrailingSlash(value) {
+  return value.replace(/\/+$/, '');
+}
+
+function joinUrlPath(...parts) {
+  const normalized = parts
+    .filter(Boolean)
+    .map((part, index) => {
+      const posixPart = toPosixPath(String(part));
+      if (index === 0) {
+        return trimTrailingSlash(posixPart) || '/';
+      }
+      return trimLeadingSlash(trimTrailingSlash(posixPart));
+    })
+    .filter((part, index) => !(index > 0 && !part));
+
+  if (normalized.length === 0) {
+    return '/';
+  }
+
+  return normalized.reduce((acc, part, index) => {
+    if (index === 0) {
+      return part;
+    }
+    return `${trimTrailingSlash(acc)}/${part}`;
+  });
+}
+
+function resolveDocPermalink(relativePath, frontMatter, locale, defaultLocale) {
+  const pathPrefix = locale === defaultLocale ? '/docs' : `/${locale}/docs`;
+  const normalizedRelativePath = toPosixPath(relativePath).replace(/\.md$/, '');
+  const slugValue = typeof frontMatter.slug === 'string' ? frontMatter.slug.trim() : '';
+
+  if (!slugValue) {
+    return joinUrlPath(pathPrefix, normalizedRelativePath);
+  }
+
+  if (slugValue.startsWith('/')) {
+    return joinUrlPath(pathPrefix, slugValue);
+  }
+
+  const pathSegments = normalizedRelativePath.split('/');
+  pathSegments[pathSegments.length - 1] = slugValue;
+
+  return joinUrlPath(pathPrefix, pathSegments.join('/'));
+}
+
 // 提取纯文本描述（优先使用 frontMatter description，否则从内容提取）
 function extractDescription(frontMatterDesc, content, maxLength = 120) {
   // 优先使用 frontMatter 的 description
@@ -87,7 +144,7 @@ function getBlogPosts(siteDir, locale, defaultLocale) {
 
           // 只读取有日期的文章
           if (data.date) {
-            const relativePath = path.relative(blogDir, fullPath);
+            const relativePath = toPosixPath(path.relative(blogDir, fullPath));
             // 提取 slug：去掉 .md 后缀
             const slugWithDate = relativePath.replace(/\.md$/, '').replace(/\/index$/, '');
 
@@ -105,10 +162,10 @@ function getBlogPosts(siteDir, locale, defaultLocale) {
               const year = dateSuffixMatch[1];
               const month = dateSuffixMatch[2];
               const day = dateSuffixMatch[3];
-              permalink = `${pathPrefix}/${year}/${month}/${day}/${slug}`;
+              permalink = joinUrlPath(pathPrefix, year, month, day, slug);
             } else {
               // 文件名不包含日期后缀：Docusaurus 直接使用文件名作为 slug
-              permalink = `${pathPrefix}/${slugWithDate}`;
+              permalink = joinUrlPath(pathPrefix, slugWithDate);
             }
 
             posts.push({
@@ -132,8 +189,7 @@ function getBlogPosts(siteDir, locale, defaultLocale) {
 
   // 按日期排序，取最新的 6 篇
   return posts
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 6);
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 // 读取文档 - 支持多语言
@@ -169,18 +225,16 @@ function getDocs(siteDir, locale, defaultLocale) {
 
           // 只读取有日期且不是 intro 的文档
           if (data.date && !entry.name.includes('intro')) {
-            const relativePath = path.relative(docsDir, fullPath);
+            const relativePath = toPosixPath(path.relative(docsDir, fullPath));
             const slug = relativePath.replace(/\.md$/, '');
 
             // 根据语言生成路径
-            const pathPrefix = locale === defaultLocale ? '/docs' : `/${locale}/docs`;
-
             docs.push({
               id: slug,
               title: data.title || data.sidebar_label || slug,
               description: extractDescription(data.description, body, 120),
               date: formatDate(data.date),
-              path: `${pathPrefix}/${slug}`,
+              path: resolveDocPermalink(relativePath, data, locale, defaultLocale),
               type: 'doc',
               tags: data.tags || [],
             });
@@ -196,8 +250,13 @@ function getDocs(siteDir, locale, defaultLocale) {
 
   // 按日期排序，取最新的 6 篇
   return docs
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+function getLatestArticles(blogs, docs, limit = LATEST_ARTICLES_LIMIT) {
+  return [...blogs, ...docs]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 6);
+    .slice(0, limit);
 }
 
 // 读取文档分类 - 支持多语言
@@ -384,26 +443,29 @@ function homepageDataPlugin(context, options) {
       // 读取最新博客和文档（根据当前语言）
       const latestBlogs = getBlogPosts(siteDir, currentLocale, defaultLocale);
       const latestDocs = getDocs(siteDir, currentLocale, defaultLocale);
+      const latestArticles = getLatestArticles(latestBlogs, latestDocs);
       const docCategories = getDocCategories(siteDir, currentLocale, defaultLocale);
 
-      console.log(`[HomepageData] Loaded ${latestBlogs.length} blogs, ${latestDocs.length} docs, ${docCategories.length} categories for ${currentLocale}`);
+      console.log(`[HomepageData] Loaded ${latestBlogs.length} blogs, ${latestDocs.length} docs, ${latestArticles.length} homepage items, ${docCategories.length} categories for ${currentLocale}`);
 
       return {
         latestBlogs,
         latestDocs,
+        latestArticles,
         docCategories,
       };
     },
 
     async contentLoaded({ content, actions }) {
       const { setGlobalData } = actions;
-      const { latestBlogs, latestDocs, docCategories } = content;
+      const { latestBlogs, latestDocs, latestArticles, docCategories } = content;
 
       // 注入全局数据 - 这些将在 SSG 时预渲染到 HTML 中
       setGlobalData({
         latestArticles: {
-          blogs: latestBlogs,
-          docs: latestDocs,
+          items: latestArticles,
+          blogs: latestBlogs.slice(0, LATEST_ARTICLES_LIMIT),
+          docs: latestDocs.slice(0, LATEST_ARTICLES_LIMIT),
           lastUpdated: new Date().toISOString(),
         },
         docCategories,

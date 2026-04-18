@@ -1,78 +1,153 @@
 @reference "../../../css/custom.css";
 
-/* 区块样式 */
 .section {
-  @apply w-full py-20 relative;
+  @apply relative w-full py-20;
   background: linear-gradient(180deg, transparent 0%, rgba(46, 133, 85, 0.03) 50%, transparent 100%);
 }
 
 .container {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 xl:max-w-[88rem] 2xl:max-w-[96rem];
 }
 
-/* 模块样式 */
-.module {
-  @apply mb-16 last:mb-0;
+.header {
+  @apply relative mb-14 flex flex-col items-center text-center;
 }
 
-/* 模块头部 */
-.moduleHeader {
-  @apply text-center mb-10;
+.header::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: min(640px, 80%);
+  height: 220px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(37, 194, 160, 0.18) 0%,
+    rgba(37, 194, 160, 0.06) 40%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.moduleTitleWrapper {
-  @apply flex items-center justify-center gap-3 mb-3;
-  width: 100%;
+.eyebrow {
+  @apply relative inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ifm-color-primary-light);
+  background: rgba(37, 194, 160, 0.08);
+  border: 1px solid rgba(37, 194, 160, 0.22);
+  backdrop-filter: blur(6px);
+  z-index: 1;
 }
 
-.moduleIcon,
-.moduleIconDoc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.moduleIcon {
-  color: var(--ifm-color-primary);
-}
-
-.moduleIconDoc {
+.eyebrowIcon {
   color: var(--ifm-color-primary-light);
 }
 
-.moduleTitle {
-  @apply text-2xl md:text-3xl font-bold;
-  color: var(--ifm-color-primary);
-  letter-spacing: -0.02em;
-  margin: 0;
-  padding: 0;
+.eyebrowText {
+  @apply leading-none;
 }
 
-.moduleSubtitle {
-  @apply text-base;
+.sectionTitle {
+  @apply relative m-0 mt-5 text-3xl font-extrabold md:text-5xl;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary-lighter) 0%,
+    var(--ifm-color-primary) 45%,
+    var(--ifm-color-primary-dark) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: 1;
+}
+
+.subtitleRow {
+  @apply relative mt-5 flex w-full items-center justify-center gap-4;
+  z-index: 1;
+}
+
+.subtitleLine {
+  @apply hidden md:block;
+  height: 1px;
+  width: clamp(2rem, 10vw, 6rem);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ifm-color-emphasis-300) 50%,
+    transparent 100%
+  );
+}
+
+.sectionSubtitle {
+  @apply m-0 text-sm md:text-[0.95rem];
+  max-width: 32rem;
   color: var(--ifm-color-emphasis-600);
-  margin: 0;
-  padding: 0;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  font-style: italic;
 }
 
-/* 网格布局 */
 .grid {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  @apply grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
 }
 
-/* 卡片样式 - 纯 CSS 滚动触发动画 */
+/* 按断点隐藏多余卡片，保证每行都是完整行 */
+@media (max-width: 767px) {
+  .card:nth-child(n + 7) {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .card:nth-child(n + 9) {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .card:nth-child(n + 10) {
+    display: none;
+  }
+}
+
 .card {
-  @apply relative rounded-xl overflow-hidden;
+  @apply relative overflow-hidden rounded-2xl;
   background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
   border: 1px solid var(--ifm-color-emphasis-200);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   will-change: transform;
 }
 
-/* 现代浏览器：使用 animation-timeline 实现滚动触发动画 */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(37, 194, 160, 0.35),
+    transparent 40%,
+    transparent 60%,
+    rgba(46, 133, 85, 0.25)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
 @supports (animation-timeline: view()) {
   .card {
     opacity: 0;
@@ -82,12 +157,13 @@
     animation-range: entry 10% cover 20%;
     animation-delay: calc(var(--card-index, 0) * 0.08s);
   }
-  
+
   @keyframes cardFadeIn {
     from {
       opacity: 0;
       transform: translateY(30px) scale(0.95);
     }
+
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
@@ -95,7 +171,6 @@
   }
 }
 
-/* 旧浏览器：直接显示 */
 @supports not (animation-timeline: view()) {
   .card {
     opacity: 1;
@@ -109,7 +184,6 @@
   border-color: var(--ifm-color-primary-lighter);
 }
 
-/* 减少动画偏好 */
 @media (prefers-reduced-motion: reduce) {
   .card {
     opacity: 1;
@@ -119,20 +193,18 @@
   }
 }
 
-/* 卡片链接 */
 .cardLink {
-  @apply block p-6 h-full;
+  @apply block h-full p-6;
   text-decoration: none;
   color: inherit;
 }
 
-/* 卡片头部 */
 .cardHeader {
-  @apply flex items-center justify-between mb-3;
+  @apply mb-3 flex items-center justify-between gap-3;
 }
 
 .badge {
-  @apply px-2 py-1 text-xs font-medium rounded-full;
+  @apply rounded-full px-2 py-1 text-xs font-medium;
 }
 
 .badgeBlog {
@@ -150,32 +222,28 @@
   color: var(--ifm-color-emphasis-500);
 }
 
-/* 标题 */
 .title {
-  @apply text-lg font-semibold mb-2 line-clamp-2;
+  @apply mb-2 line-clamp-2 text-lg font-semibold;
   color: var(--ifm-color-emphasis-900);
   line-height: 1.4;
 }
 
-/* 描述 */
 .description {
-  @apply text-sm line-clamp-3 mb-4;
+  @apply mb-4 line-clamp-3 text-sm;
   color: var(--ifm-color-emphasis-600);
   line-height: 1.6;
 }
 
-/* 标签 */
 .tags {
-  @apply flex flex-wrap gap-2 mb-4;
+  @apply mb-4 flex flex-wrap gap-2;
 }
 
 .tag {
-  @apply px-2 py-0.5 text-xs rounded;
+  @apply rounded px-2 py-0.5 text-xs;
   background: var(--ifm-color-emphasis-100);
   color: var(--ifm-color-emphasis-700);
 }
 
-/* 阅读更多 */
 .readMore {
   @apply flex items-center gap-1 text-sm font-medium;
   color: var(--ifm-color-primary);
@@ -186,13 +254,12 @@
   gap: 0.5rem;
 }
 
-/* 模块底部 */
-.moduleFooter {
-  @apply mt-8 text-center;
+.footer {
+  @apply mt-12 flex flex-wrap justify-center gap-4;
 }
 
 .viewAllLink {
-  @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200;
+  @apply inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-200;
   background: transparent;
   color: var(--ifm-color-primary);
   border: 1px solid var(--ifm-color-emphasis-300);
@@ -201,21 +268,38 @@
 
 .viewAllLink:hover {
   background: var(--ifm-color-primary);
-  color: white;
+  color: #fff;
   border-color: var(--ifm-color-primary);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(46, 133, 85, 0.2);
 }
 
-/* 空状态 */
-.emptyMessage {
-  @apply text-center py-12;
+.emptyState {
+  @apply py-12 text-center;
   color: var(--ifm-color-emphasis-500);
 }
 
-/* 响应式 */
 @media (max-width: 768px) {
-  .grid {
-    @apply grid-cols-1;
+  .header {
+    @apply mb-10;
+  }
+
+  .sectionTitle {
+    @apply text-[2rem];
+  }
+
+  .sectionSubtitle {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .footer {
+    @apply mt-10 grid grid-cols-2 gap-3;
+  }
+
+  .viewAllLink {
+    @apply justify-center px-3 py-2 text-[13px];
+    gap: 0.375rem;
+    min-width: 0;
   }
 }

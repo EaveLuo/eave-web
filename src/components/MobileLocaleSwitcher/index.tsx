@@ -149,7 +149,7 @@ function MobileLocaleSwitcher({ className }: MobileLocaleSwitcherProps) {
 
   // 点击外部关闭下拉菜单
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: Event) => {
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)

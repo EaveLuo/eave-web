@@ -4,7 +4,7 @@ import Layout from '@theme/Layout';
 import { translate } from '@docusaurus/Translate';
 
 import Hero from '@site/src/components/Homepage/Hero';
-import LatestArticles from '@site/src/components/Homepage/LatestArticles/index-ssg';
+import LatestArticles from '@site/src/components/Homepage/LatestArticles';
 import BackgroundEffects from '@site/src/components/Homepage/BackgroundEffects';
 
 export default function Home(): ReactNode {

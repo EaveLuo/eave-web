@@ -3,6 +3,24 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import type { GiscusConfig } from '@site/src/components/Comment';
 
+type BlogEditUrlParams = {
+  locale: string;
+  blogDirPath: string;
+  blogPath: string;
+  permalink: string;
+};
+
+type ReadingTimeParams = {
+  content: string;
+  frontMatter: Record<string, unknown>;
+  defaultReadingTime: (args: {
+    content: string;
+    options: {
+      wordsPerMinute: number;
+    };
+  }) => number;
+};
+
 /** 备案信息 */
 const icpBeian = '湘ICP备2024069005号-1';
 const policeBeian = '湘公网安备43011102002452号';
@@ -315,14 +333,14 @@ const config: Config = {
       './src/plugin/plugin-content-blog',
       {
         path: 'blog',
-        editUrl: ({ locale, blogDirPath, blogPath, permalink }) =>
+        editUrl: ({ locale, blogDirPath, blogPath, permalink }: BlogEditUrlParams) =>
           `https://github.com/EaveLuo/eave-web/edit/main/${blogDirPath}/${blogPath}`,
         editLocalizedFiles: false,
         blogSidebarCount: 12,
         blogSidebarTitle: '历史博文',
         postsPerPage: 10,
         showReadingTime: true,
-        readingTime: ({ content, frontMatter, defaultReadingTime }) =>
+        readingTime: ({ content, frontMatter, defaultReadingTime }: ReadingTimeParams) =>
           defaultReadingTime({ content, options: { wordsPerMinute: 300 } }),
         feedOptions: {
           type: 'all',

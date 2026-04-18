@@ -55,6 +55,18 @@
   "homepage.latestArticles.noDocs": {
     "message": "暂无文档"
   },
+  "homepage.latestArticles.sectionEyebrow": {
+    "message": "最新速递"
+  },
+  "homepage.latestArticles.sectionTitle": {
+    "message": "最新动态"
+  },
+  "homepage.latestArticles.sectionSubtitle": {
+    "message": "时间从不回答我们，但它总会留下回声。"
+  },
+  "homepage.latestArticles.noItems": {
+    "message": "暂无内容"
+  },
   "theme.ErrorPageContent.title": {
     "message": "页面已崩溃。",
     "description": "The title of the fallback page when the page crashed"

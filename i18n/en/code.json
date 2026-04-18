@@ -55,6 +55,18 @@
   "homepage.latestArticles.noDocs": {
     "message": "No documents yet"
   },
+  "homepage.latestArticles.sectionEyebrow": {
+    "message": "What's New"
+  },
+  "homepage.latestArticles.sectionTitle": {
+    "message": "Latest Updates"
+  },
+  "homepage.latestArticles.sectionSubtitle": {
+    "message": "Time never answers us, but it always leaves an echo."
+  },
+  "homepage.latestArticles.noItems": {
+    "message": "No content yet"
+  },
   "tag.前端": {
     "message": "Frontend",
     "description": "Tag for frontend content"
