@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Translate, { translate } from '@docusaurus/Translate';
 import { ArrowUpRight, Heart, Mail, Rss } from 'lucide-react';
+import { getNavLinks } from './links';
 import styles from './styles.module.css';
 
 // 备案信息
@@ -12,29 +14,13 @@ const policeBeian = '湘公网安备43011102002452号';
 // 当前年份
 const currentYear = new Date().getFullYear();
 
-// 导航链接数据
-const getNavLinks = () => [
-  {
-    title: translate({ id: 'footer.knowledge', message: '知识库' }),
-    links: [
-      { label: translate({ id: 'footer.frontend', message: '前端开发' }), to: '/docs/front-end/intro' },
-      { label: translate({ id: 'footer.backend', message: '后端开发' }), to: '/docs/back-end/intro' },
-      { label: translate({ id: 'footer.operation', message: '运维部署' }), to: '/docs/operation/intro' },
-      { label: translate({ id: 'footer.ai', message: '人工智能' }), to: '/docs/ai/intro' },
-    ],
-  },
-  {
-    title: translate({ id: 'footer.more', message: '更多' }),
-    links: [
-      { label: translate({ id: 'footer.blog', message: '博客文章' }), to: '/blog' },
-      { label: translate({ id: 'footer.about', message: '关于我' }), to: '/about' },
-      { label: translate({ id: 'footer.rss', message: 'RSS 订阅' }), href: '/blog/rss.xml', external: true },
-    ],
-  },
-];
+const translateFooterMessage = (id: string, message: string) =>
+  translate({ id, message });
 
 function Footer(): React.ReactElement | null {
   const { siteConfig } = useDocusaurusContext();
+  const rssHref = useBaseUrl('/blog/rss.xml');
+  const navLinks = getNavLinks(rssHref, translateFooterMessage);
 
   return (
     <footer className={styles.footer}>
@@ -107,7 +93,7 @@ function Footer(): React.ReactElement | null {
                 </svg>
               </a>
               <a
-                href="/blog/rss.xml"
+                href={rssHref}
                 className={styles.socialLink}
                 aria-label="RSS"
               >
@@ -118,7 +104,7 @@ function Footer(): React.ReactElement | null {
 
           {/* 右侧：导航链接 */}
           <div className={styles.right}>
-            {getNavLinks().map((section) => (
+            {navLinks.map((section) => (
               <div key={section.title} className={styles.linkSection}>
                 <h3 className={styles.linkTitle}>{section.title}</h3>
                 <ul className={styles.linkList}>
