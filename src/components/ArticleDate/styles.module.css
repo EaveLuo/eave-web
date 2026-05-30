@@ -1,0 +1,11 @@
+.articleDate {
+  margin-top: -0.35rem;
+  margin-bottom: 1.35rem;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.articleDate time {
+  font-variant-numeric: tabular-nums;
+}
