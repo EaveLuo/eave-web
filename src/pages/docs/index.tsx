@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import Translate from '@docusaurus/Translate';
 import { usePluginData } from '@docusaurus/useGlobalData';
+import { BackButton } from '@site/src/components/BackButton';
 import { FileText, ArrowRight, Code, Server, Cpu, Settings, Database, Smartphone, Shield, Globe, Terminal, Cloud } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -128,6 +129,7 @@ export default function DocsIndexPage(): ReactNode {
               </Translate>
             </p>
           </div>
+          <BackButton />
         </div>
       </div>
     </Layout>

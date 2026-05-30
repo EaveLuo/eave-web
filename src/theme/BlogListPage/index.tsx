@@ -11,6 +11,7 @@ import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Translate from '@docusaurus/Translate';
 import SearchMetadata from '@theme/SearchMetadata';
+import { BackButton } from '@site/src/components/BackButton';
 import type { Props } from '@theme/BlogListPage';
 import BlogListPageStructuredData from '@theme/BlogListPage/StructuredData';
 import { Calendar, ArrowRight, Tag, Clock } from 'lucide-react';
@@ -177,6 +178,7 @@ function BlogListPageContent(props: Props): ReactNode {
               )}
             </nav>
           )}
+          <BackButton />
         </div>
       </div>
     </Layout>
