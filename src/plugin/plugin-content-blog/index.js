@@ -5,6 +5,10 @@
 const blogPluginExports = require('@docusaurus/plugin-content-blog');
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { default: blogPlugin } = blogPluginExports;
+const {
+  collectFullSiteFeedItems,
+  writeFullSiteFeedFiles,
+} = require('./fullSiteFeed');
 
 /**
  * 增强的博客插件 - 包装原始插件并注入全局数据
@@ -14,6 +18,9 @@ const { default: blogPlugin } = blogPluginExports;
  */
 async function blogPluginEnhanced(context, options) {
   const blogPluginInstance = await blogPlugin(context, options);
+  const { i18n, siteConfig, siteDir } = context;
+  const currentLocale = i18n.currentLocale;
+  const defaultLocale = i18n.defaultLocale;
 
   return {
     ...blogPluginInstance,
@@ -49,6 +56,38 @@ async function blogPluginEnhanced(context, options) {
         })),
         postNum: blogPosts.length,
         tagNum: Object.keys(blogTags).length,
+      });
+    },
+
+    async postBuild(props) {
+      if (blogPluginInstance.postBuild) {
+        await blogPluginInstance.postBuild(props);
+      }
+
+      const feedOptions = options.feedOptions || {};
+      if (!feedOptions.type) {
+        return;
+      }
+
+      const items = collectFullSiteFeedItems({
+        blogPosts: props.content.blogPosts,
+        siteDir,
+        locale: currentLocale,
+        defaultLocale,
+        siteConfig,
+      });
+
+      await writeFullSiteFeedFiles({
+        items,
+        outDir: props.outDir,
+        routeBasePath: options.routeBasePath || 'blog',
+        locale: currentLocale,
+        defaultLocale,
+        siteConfig,
+        feedOptions: {
+          ...feedOptions,
+          description: feedOptions.description || `${siteConfig.title} articles`,
+        },
       });
     },
   };
