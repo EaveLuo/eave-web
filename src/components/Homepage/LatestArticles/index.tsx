@@ -2,6 +2,7 @@ import { memo, type CSSProperties } from 'react';
 import Link from '@docusaurus/Link';
 import Translate from '@docusaurus/Translate';
 import { usePluginData } from '@docusaurus/useGlobalData';
+import { ActionButton } from '@site/src/components/ActionButton';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -161,14 +162,12 @@ function LatestArticles() {
         )}
 
         <div className={styles.footer}>
-          <Link to="/docs" className={styles.viewAllLink}>
+          <ActionButton to="/docs" icon={<ArrowRight size={16} aria-hidden="true" />}>
             <Translate id="homepage.latestArticles.viewAllDocs">View All Docs</Translate>
-            <ArrowRight size={16} />
-          </Link>
-          <Link to="/blog" className={styles.viewAllLink}>
+          </ActionButton>
+          <ActionButton to="/blog" icon={<ArrowRight size={16} aria-hidden="true" />}>
             <Translate id="homepage.latestArticles.viewAllBlog">View All Blogs</Translate>
-            <ArrowRight size={16} />
-          </Link>
+          </ActionButton>
         </div>
       </div>
     </section>

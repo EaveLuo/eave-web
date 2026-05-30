@@ -210,6 +210,9 @@
     "message": "Edit this page",
     "description": "The link label to edit the current page"
   },
+  "theme.common.back": {
+    "message": "Back"
+  },
   "theme.common.headingLinkTitle": {
     "message": "Direct link to {heading}",
     "description": "Title for link to heading"
