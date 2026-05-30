@@ -109,11 +109,23 @@
 }
 
 .circle {
-  @apply absolute top-0 w-full h-full bg-gradient-to-r from-[rgb(150,255,244,0.81)] to-[rgb(0,71,252,0.81)] rounded-full opacity-30;
-  filter: blur(80px);
+  @apply absolute top-[5%] w-[84%] h-[84%] rounded-[10px] opacity-85;
+  background:
+    linear-gradient(135deg, rgba(46, 133, 85, 0.1), transparent 42%),
+    linear-gradient(90deg, transparent 0 48%, rgba(46, 133, 85, 0.12) 48.1% 48.35%, transparent 48.5% 100%),
+    linear-gradient(0deg, transparent 0 46%, rgba(37, 99, 123, 0.1) 46.1% 46.35%, transparent 46.5% 100%),
+    repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.05) 0 1px, transparent 1px 20px);
+  border: 1px solid rgba(46, 133, 85, 0.14);
   z-index: -1;
-  will-change: transform;
-  transform: translateZ(0); /* 启用 GPU 加速 */
+}
+
+[data-theme='dark'] .circle {
+  background:
+    linear-gradient(135deg, rgba(37, 194, 160, 0.11), transparent 42%),
+    linear-gradient(90deg, transparent 0 48%, rgba(37, 194, 160, 0.14) 48.1% 48.35%, transparent 48.5% 100%),
+    linear-gradient(0deg, transparent 0 46%, rgba(96, 165, 250, 0.11) 46.1% 46.35%, transparent 46.5% 100%),
+    repeating-linear-gradient(0deg, rgba(240, 253, 250, 0.05) 0 1px, transparent 1px 20px);
+  border-color: rgba(37, 194, 160, 0.16);
 }
 
 .button_text {
