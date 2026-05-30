@@ -1,289 +1,105 @@
-/* 优化版 CSS 背景效果 - 动态但不干扰阅读 */
-
 .background {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: -1;
   overflow: hidden;
+  background: #fbfdfb;
 }
 
-/* ===== 柔和渐变背景 ===== */
-.gradientBase {
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(46, 133, 85, 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(37, 194, 160, 0.05), transparent),
-    radial-gradient(ellipse 50% 30% at 20% 80%, rgba(46, 133, 85, 0.06), transparent);
-}
-
-/* ===== 缓慢呼吸的光晕 ===== */
-.glowOrb {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at center,
-    rgba(46, 133, 85, 0.12) 0%,
-    rgba(46, 133, 85, 0.04) 40%,
-    transparent 70%
-  );
-  top: 10%;
-  right: -150px;
-  animation: breathe 15s ease-in-out infinite;
-  will-change: opacity, transform;
-}
-
-.glowOrbSecondary {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at center,
-    rgba(37, 194, 160, 0.1) 0%,
-    rgba(37, 194, 160, 0.03) 40%,
-    transparent 70%
-  );
-  bottom: 15%;
-  left: -100px;
-  animation: breathe 18s ease-in-out infinite reverse;
-  will-change: opacity, transform;
-}
-
-/* ===== 极淡的网格线 ===== */
-.gridLines {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(46, 133, 85, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(46, 133, 85, 0.015) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-}
-
-/* ===== 微妙的浮动点 ===== */
-.floatingDots {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.floatingDots::before,
-.floatingDots::after {
-  content: '';
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: rgba(46, 133, 85, 0.2);
-  border-radius: 50%;
-  animation: floatUp 25s linear infinite;
-}
-
-.floatingDots::before {
-  left: 20%;
-  bottom: -10px;
-  animation-delay: 0s;
-}
-
-.floatingDots::after {
-  left: 80%;
-  bottom: -10px;
-  animation-delay: 12s;
-  width: 3px;
-  height: 3px;
-}
-
-/* ===== 装饰性圆环（极淡） ===== */
-.decorativeRing {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border: 1px solid rgba(46, 133, 85, 0.06);
-  border-radius: 50%;
-  top: 30%;
-  right: 10%;
-  animation: rotate 60s linear infinite;
-  will-change: transform;
-}
-
-.decorativeRing::before {
-  content: '';
-  position: absolute;
-  inset: 30px;
-  border: 1px solid rgba(37, 194, 160, 0.04);
-  border-radius: 50%;
-}
-
-/* ===== 底部渐变遮罩（确保文字可读） ===== */
+.paper,
+.grid,
+.sectionBands,
+.traceLines,
 .readabilityMask {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    transparent 60%,
-    rgba(255, 255, 255, 0.5) 100%
-  );
-  pointer-events: none;
 }
 
-/* ===== 动画定义 ===== */
-
-/* 呼吸效果 - 极缓慢 */
-@keyframes breathe {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1) translate(0, 0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1) translate(-20px, 10px);
-  }
+.paper {
+  background:
+    linear-gradient(115deg, rgba(247, 250, 248, 0.96) 0%, rgba(255, 255, 255, 0.92) 42%, rgba(240, 248, 244, 0.88) 100%),
+    repeating-linear-gradient(0deg, rgba(16, 24, 20, 0.025) 0 1px, transparent 1px 4px);
 }
 
-/* 向上浮动 */
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.6;
-  }
-  90% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(-100vh) scale(0.5);
-    opacity: 0;
-  }
+.grid {
+  background-image:
+    linear-gradient(rgba(46, 133, 85, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 133, 85, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(10, 28, 22, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 28, 22, 0.035) 1px, transparent 1px);
+  background-size: 128px 128px, 128px 128px, 32px 32px, 32px 32px;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 74%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 74%, transparent 100%);
 }
 
-/* 缓慢旋转 */
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sectionBands {
+  background:
+    linear-gradient(152deg, transparent 0 16%, rgba(46, 133, 85, 0.08) 16.1% 16.35%, transparent 16.45% 100%),
+    linear-gradient(152deg, transparent 0 30%, rgba(18, 95, 88, 0.05) 30.1% 30.35%, transparent 30.45% 100%),
+    linear-gradient(152deg, transparent 0 54%, rgba(46, 133, 85, 0.055) 54.1% 54.3%, transparent 54.4% 100%),
+    linear-gradient(152deg, transparent 0 82%, rgba(18, 95, 88, 0.06) 82.1% 82.28%, transparent 82.38% 100%);
 }
 
-/* ===== 深色模式 ===== */
-[data-theme='dark'] .gradientBase {
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(37, 194, 160, 0.06), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(46, 133, 85, 0.04), transparent),
-    radial-gradient(ellipse 50% 30% at 20% 80%, rgba(37, 194, 160, 0.05), transparent);
+.traceLines {
+  opacity: 0.7;
+  background:
+    linear-gradient(90deg, transparent 0 8%, rgba(46, 133, 85, 0.08) 8.05% 8.18%, transparent 8.25% 100%),
+    linear-gradient(90deg, transparent 0 72%, rgba(18, 95, 88, 0.07) 72.05% 72.16%, transparent 72.25% 100%),
+    linear-gradient(0deg, transparent 0 23%, rgba(46, 133, 85, 0.06) 23.04% 23.16%, transparent 23.25% 100%);
 }
 
-[data-theme='dark'] .glowOrb {
-  background: radial-gradient(
-    circle at center,
-    rgba(37, 194, 160, 0.1) 0%,
-    rgba(37, 194, 160, 0.03) 40%,
-    transparent 70%
-  );
+.readabilityMask {
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.42) 44%, transparent 72%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.72) 0%, transparent 34%, rgba(255, 255, 255, 0.78) 100%);
 }
 
-[data-theme='dark'] .glowOrbSecondary {
-  background: radial-gradient(
-    circle at center,
-    rgba(46, 133, 85, 0.08) 0%,
-    rgba(46, 133, 85, 0.02) 40%,
-    transparent 70%
-  );
+[data-theme='dark'] .background {
+  background: #07110e;
 }
 
-[data-theme='dark'] .gridLines {
-  background-image: 
-    linear-gradient(rgba(37, 194, 160, 0.01) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 194, 160, 0.01) 1px, transparent 1px);
+[data-theme='dark'] .paper {
+  background:
+    linear-gradient(115deg, rgba(5, 13, 11, 0.98) 0%, rgba(7, 16, 14, 0.96) 48%, rgba(4, 24, 20, 0.92) 100%),
+    repeating-linear-gradient(0deg, rgba(230, 255, 248, 0.025) 0 1px, transparent 1px 4px);
 }
 
-[data-theme='dark'] .floatingDots::before,
-[data-theme='dark'] .floatingDots::after {
-  background: rgba(37, 194, 160, 0.15);
+[data-theme='dark'] .grid {
+  background-image:
+    linear-gradient(rgba(37, 194, 160, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 194, 160, 0.075) 1px, transparent 1px),
+    linear-gradient(rgba(237, 255, 249, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(237, 255, 249, 0.035) 1px, transparent 1px);
 }
 
-[data-theme='dark'] .decorativeRing {
-  border-color: rgba(37, 194, 160, 0.05);
+[data-theme='dark'] .sectionBands {
+  background:
+    linear-gradient(152deg, transparent 0 16%, rgba(37, 194, 160, 0.11) 16.1% 16.35%, transparent 16.45% 100%),
+    linear-gradient(152deg, transparent 0 30%, rgba(95, 232, 205, 0.055) 30.1% 30.35%, transparent 30.45% 100%),
+    linear-gradient(152deg, transparent 0 54%, rgba(37, 194, 160, 0.08) 54.1% 54.3%, transparent 54.4% 100%),
+    linear-gradient(152deg, transparent 0 82%, rgba(95, 232, 205, 0.065) 82.1% 82.28%, transparent 82.38% 100%);
 }
 
-[data-theme='dark'] .decorativeRing::before {
-  border-color: rgba(46, 133, 85, 0.03);
+[data-theme='dark'] .traceLines {
+  background:
+    linear-gradient(90deg, transparent 0 8%, rgba(37, 194, 160, 0.11) 8.05% 8.18%, transparent 8.25% 100%),
+    linear-gradient(90deg, transparent 0 72%, rgba(95, 232, 205, 0.08) 72.05% 72.16%, transparent 72.25% 100%),
+    linear-gradient(0deg, transparent 0 23%, rgba(37, 194, 160, 0.08) 23.04% 23.16%, transparent 23.25% 100%);
 }
 
 [data-theme='dark'] .readabilityMask {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    transparent 60%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
+  background:
+    linear-gradient(to right, rgba(5, 13, 11, 0.92) 0%, rgba(5, 13, 11, 0.38) 44%, transparent 72%),
+    linear-gradient(to bottom, rgba(5, 13, 11, 0.78) 0%, transparent 38%, rgba(5, 13, 11, 0.86) 100%);
 }
 
-/* ===== 减少动画偏好 ===== */
-@media (prefers-reduced-motion: reduce) {
-  .glowOrb,
-  .glowOrbSecondary {
-    animation: none;
-    opacity: 0.8;
-  }
-  
-  .decorativeRing {
-    animation: none;
-  }
-  
-  .floatingDots::before,
-  .floatingDots::after {
-    animation: none;
-    opacity: 0;
-  }
-}
-
-/* ===== 移动端优化 ===== */
 @media (max-width: 768px) {
-  .glowOrb {
-    width: 300px;
-    height: 300px;
-    right: -100px;
-    opacity: 0.7;
+  .grid {
+    background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
   }
-  
-  .glowOrbSecondary {
-    width: 250px;
-    height: 250px;
-    left: -80px;
-    opacity: 0.6;
-  }
-  
-  .decorativeRing {
-    display: none;
-  }
-  
-  .gridLines {
-    background-size: 60px 60px;
-  }
-  
-  .floatingDots::before,
-  .floatingDots::after {
-    display: none;
+
+  .traceLines {
+    opacity: 0.45;
   }
 }
