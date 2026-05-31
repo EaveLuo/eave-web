@@ -27,10 +27,6 @@
     "message": "node",
     "description": "The label for category 'node' in sidebar 'backEndSidebar'"
   },
-  "sidebar.aiSidebar.category.72h AI 前沿": {
-    "message": "72 小时 AI 前沿动态",
-    "description": "The label for category '72h AI 前沿' in sidebar 'aiSidebar'"
-  },
   "sidebar.aiSidebar.category.OpenClaw": {
     "message": "OpenClaw",
     "description": "The label for category 'OpenClaw' in sidebar 'aiSidebar'"
