@@ -34,7 +34,7 @@ That caution made sense. Large products have to deal with privacy, misrememberin
 
 So OpenAI talking openly about dreaming feels less like chasing a metaphor and more like a signal: once an AI assistant becomes a long-running agent, memory can no longer remain a little notebook on the side.
 
-![A cute sci-fi agent dreaming inside a memory pod](/img/ai/chatgpt-dreaming/night-memory-map.png)
+![A cute sci-fi agent dreaming inside a memory pod](https://assets.eaveluo.com/blog/2026/06/night-memory-map.png)
 
 ## Open-Source Agents Hit This Problem First
 
@@ -102,7 +102,7 @@ That also explains why Pulse and Dreaming belong on the same product path. Pulse
 
 Without dreaming, Pulse risks becoming an AI version of “recommended for you.” With dreaming, it has a chance to become “here is what seems genuinely useful for you now.”
 
-![Small open-source agents sending memory crystals into a large platform](/img/ai/chatgpt-dreaming/morning-pulse-cards.png)
+![Small open-source agents sending memory crystals into a large platform](https://assets.eaveluo.com/blog/2026/06/morning-pulse-cards.png)
 
 ## Dreaming Is An Anti-Entropy System
 
