@@ -44,76 +44,6 @@ You are a senior frontend engineer working on eave-web, a bilingual (Chinese/Eng
 - MUST follow i18n conventions (English folder names)
 - NEVER use Chinese folder names
 
-## Content Generation (AI 72h Updates)
-
-When creating AI 72-hour dynamics documents:
-
-### Document Structure
-```markdown
----
-sidebar_label: YYYY-MM-DD HH:MM 期
-sidebar_position: N
-date: YYYY-MM-DD
-authors: [eave]
-tags: [AI 资讯, 72 小时动态, ...]
----
-
-# YYYY-MM-DD HH:MM 期 AI 前沿动态
-
-[Hook - 本期最吸引人的一句话]
-
----
-
-## 🔥 本期焦点
-
-[最重要的 1-2 个事件，深入分析]
-
----
-
-## 🚀 AI 产品速递
-
-[2-3 个新产品/更新，每个包含：是什么、为什么重要]
-
----
-
-## 📰 行业要闻
-
-[2-3 条重要新闻，简洁描述 + 意义]
-
----
-
-## 💡 开源亮点
-
-[1-2 个 trending 项目]
-
----
-
-## 🌍 其他值得关注的动态
-
-[简短列表]
-
----
-
-## 🤔 本期思考
-
-[人性化的观点/洞察，引发思考]
-
----
-
-*数据来源说明*
-```
-
-### Writing Style
-- **人性化**：像和朋友聊天，不是新闻联播
-- **有观点**：不只是罗列事实，要有洞察
-- **讲故事**：用具体案例和数据支撑
-- **留思考**：每期结尾抛出一个问题或观点
-
-### Bilingual Support
-- ALWAYS create both Chinese and English versions
-- Chinese: `docs/ai/72h-ai-updates/YYYY-MM-DD-HH-MM.md`
-- English: `i18n/en/docusaurus-plugin-content-docs/current/ai/72h-ai-updates/YYYY-MM-DD-HH-MM.md`
-
 ## i18n Conventions
 
 - Folder names: ALWAYS use English (e.g., `72h-ai-updates`)
@@ -177,6 +107,63 @@ eave-web/
 ├── .claude/           # AI collaboration layer
 └── .github/workflows/ # CI/CD
 ```
+
+## Static Asset Management (OSS via filelift)
+
+**Large static assets (>100KB) MUST be uploaded to OSS, NOT stored in the repo.**
+
+- Tool: `filelift` CLI (S3-compatible storage → Cloudflare R2)
+- Target: `cf-wiki-bucket-apac`
+- Public base URL: `https://assets.eaveluo.com`
+
+### Folder Convention
+
+| Asset Type | OSS Folder | Example |
+|---|---|---|
+| 项目基建资源 (logo, hero, favicon 等) | `eave-web/` | `https://assets.eaveluo.com/eave-web/logo.png` |
+| Blog/Docs 文章配图 | `blog/{YYYY}/{MM}/` | `https://assets.eaveluo.com/blog/2026/06/example.png` |
+
+### Upload Workflow
+
+**Docs/Blog 资源 (使用 target 默认 `blog/{yyyy}/{MM}` 路径):**
+
+```bash
+filelift upload \
+  --target cf-wiki-bucket-apac \
+  path/to/file1.png path/to/file2.png
+# → https://assets.eaveluo.com/blog/2026/06/file1.png
+```
+
+**项目基建资源 (跳过 target 默认路径，手动指定 `eave-web`):**
+
+```bash
+filelift upload \
+  --target cf-wiki-bucket-apac \
+  --ignore-target-folder \
+  --folder eave-web \
+  path/to/logo.png
+# → https://assets.eaveluo.com/eave-web/logo.png
+```
+
+**完整流程:**
+
+```bash
+# 1. 上传到 OSS（按资源类型选择 folder）
+# 2. 将 Markdown/代码中的本地路径替换为返回的 OSS URL
+#    e.g. /img/example.png → https://assets.eaveluo.com/blog/2026/06/example.png
+# 3. 确认引用全部更新后，删除 static/ 下的本地文件
+# 4. npm run build 验证
+```
+
+### Rules
+
+- ✅ 文章配图 → `blog/{YYYY}/{MM}/`（target 默认路径，根据文章发布日期填入年月）
+- ✅ 项目基建资源 → `eave-web/`（`--ignore-target-folder` + `--folder eave-web`）
+- ✅ Upload images >100KB, videos, and other large binaries
+- ✅ ALWAYS replace all references before deleting local files
+- ✅ Run `npm run build` after migration to verify
+- ❌ NEVER keep uploaded assets in `static/` — they waste repo space and Vercel bandwidth
+- ❌ DON'T upload favicon.ico, small SVGs (<10KB), or tiny logos — the overhead isn't worth it
 
 ## Quick Commands
 
@@ -246,52 +233,3 @@ gh pr create --title "<title>" --body "<description>"
 
 **NEVER mix these roles!**
 
----
-
-## Content Standards
-
-### AI 72h Updates Section (`docs/ai/72h-ai-updates/`)
-
-**Naming Convention**:
-```
-YYYY-MM-DD-HH-MM.md
-```
-Example: `2026-03-03-23-45.md`
-
-**Frontmatter Template**:
-```yaml
----
-sidebar_label: YYYY-MM-DD HH:MM 期
-sidebar_position: {auto}
-date: YYYY-MM-DD
-authors: [eave]  # MUST be [eave], NOT [xiaolong]
-tags: [AI 资讯, 72 小时动态, ...]
----
-```
-
-**Content Requirements**:
-- **Chinese version**: Minimum 5000 Chinese characters
-- **English version**: Complete translation (NOT simplified), match detail level
-- **Style**: Human-like, in-depth analysis with personal insights
-- **Format**: Free structure, clear typography (international article standard)
-- **NO source attribution footer** at the end of articles
-- **Elements**:
-  - Opening hook/atmosphere setting
-  - Deep dive into 2-3 major topics (background, reactions, impact)
-  - Quick highlights for other news
-  - Personal reflection/conclusion
-
-**Typography Guidelines**:
-- Use `##` for main sections with emoji icons (🔥, 🧠, 📱, etc.)
-- Use `###` for subsections
-- Include horizontal rules (`---`) between major sections
-- Bold key points and data
-- Quote memorable user comments
-- End with thoughtful conclusion
-
-**Git Workflow**:
-1. Create branch: `git checkout -b docs/ai-72h-{YYYYMMDD}`
-2. Write both Chinese and English versions
-3. Commit: `docs(ai): add 72h AI updates for YYYY-MM-DD`
-4. Push and create PR
-5. Delete branch after merge

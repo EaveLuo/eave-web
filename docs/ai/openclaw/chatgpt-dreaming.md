@@ -32,7 +32,7 @@ OpenAI 最近在官博发了一篇文章，标题就叫 **Dreaming: Better memor
 
 所以这次 OpenAI 开始公开讲 dreaming，我不觉得它只是追一个概念。更像是一个信号：当 AI 助手从“聊天框”走向“长期 agent”，记忆系统已经不能继续停留在小本子阶段了。
 
-![科幻可爱的 agent 正在记忆舱里做梦](/img/ai/chatgpt-dreaming/night-memory-map.png)
+![科幻可爱的 agent 正在记忆舱里做梦](https://assets.eaveluo.com/blog/2026/06/night-memory-map.png)
 
 ## 开源 agent 先踩到了这个问题
 
@@ -102,7 +102,7 @@ agent 要替你规划、提醒、研究、执行。它必须知道你是谁，�
 
 没有 dreaming，Pulse 很容易变成“猜你喜欢”的 AI 版；有了 dreaming，它才有机会变成“我知道你最近真正需要什么”的助手。
 
-![开源小 agent 把记忆晶体送进大平台](/img/ai/chatgpt-dreaming/morning-pulse-cards.png)
+![开源小 agent 把记忆晶体送进大平台](https://assets.eaveluo.com/blog/2026/06/morning-pulse-cards.png)
 
 ## Dreaming 解决的是“记忆熵增”
 
