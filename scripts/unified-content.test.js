@@ -62,3 +62,36 @@ test('all publishable content lives in the bilingual Blog roots', () => {
   }
 });
 
+
+test('Vercel permanently redirects legacy Docs routes before catch-all rules', () => {
+  const config = JSON.parse(
+    fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'),
+  );
+
+  assert.ok(config.redirects.every((rule) => rule.permanent === true));
+  assert.deepEqual(config.redirects.slice(-2), [
+    {
+      source: '/docs/:path*',
+      destination: '/blog/:path*',
+      permanent: true,
+    },
+    {
+      source: '/en/docs/:path*',
+      destination: '/en/blog/:path*',
+      permanent: true,
+    },
+  ]);
+
+  for (const source of [
+    '/docs',
+    '/docs/front-end/intro',
+    '/docs/category/node',
+  ]) {
+    assert.ok(
+      config.redirects
+        .slice(0, -2)
+        .some((rule) => rule.source === source),
+      `${source} needs an explicit redirect before the catch-all rules`,
+    );
+  }
+});
