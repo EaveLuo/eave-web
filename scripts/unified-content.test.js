@@ -102,3 +102,44 @@ test('Vercel permanently redirects legacy Docs routes before catch-all rules', (
     );
   }
 });
+
+test('runtime and article links no longer depend on Docs', () => {
+  const sourceExtensions = /\.(?:js|jsx|ts|tsx)$/;
+  const listSourceFiles = (dir) =>
+    fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        return listSourceFiles(fullPath);
+      }
+      return sourceExtensions.test(entry.name) ? [fullPath] : [];
+    });
+
+  const runtimeFiles = [
+    path.join(root, 'docusaurus.config.ts'),
+    ...listSourceFiles(path.join(root, 'src')),
+  ];
+  const runtimePattern =
+    /docSidebar|plugin-content-docs|to=["']\/docs|to:\s*["']\/docs/;
+
+  for (const file of runtimeFiles) {
+    const source = fs.readFileSync(file, 'utf8');
+    assert.doesNotMatch(
+      source,
+      runtimePattern,
+      `${file} still contains Docs runtime configuration`,
+    );
+  }
+
+  const articleFiles = [
+    ...listMarkdown(zhRoot),
+    ...listMarkdown(enRoot),
+  ];
+  for (const file of articleFiles) {
+    const source = fs.readFileSync(file, 'utf8');
+    assert.doesNotMatch(
+      source,
+      /\]\(\/docs(?:\/|[)#?])/,
+      `${file} still contains an internal Docs link`,
+    );
+  }
+});

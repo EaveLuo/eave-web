@@ -22,7 +22,7 @@ This article will introduce the common methods of the `fs` module, including wri
 
 ## Write to a file
 
-File writing is to write data to a file. The `fs` module provides [synchronous and asynchronous](/docs/back-end/node/sync-async) writing methods.
+File writing is to write data to a file. The `fs` module provides [synchronous and asynchronous](/blog/back-end/node/sync-async) writing methods.
 
 ### writeFile asynchronously writes files
 
@@ -225,7 +225,7 @@ When **`need to persist data`**, you should think of **`file writing`**
 
 ## Reading files
 
-File reading is generally speaking reading data from a file. The `fs` module provides [synchronous and asynchronous](/docs/back-end/node/sync-async) reading methods.
+File reading is generally speaking reading data from a file. The `fs` module provides [synchronous and asynchronous](/blog/back-end/node/sync-async) reading methods.
 
 ### readFile asynchronously reads files
 

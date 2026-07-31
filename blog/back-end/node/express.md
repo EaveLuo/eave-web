@@ -126,7 +126,7 @@ app.listen(port, () => {
 node app.js
 ```
 
-此时建议使用[接口调试工具](/docs/back-end/web-api#接口调试工具)来测试这些路由。
+此时建议使用[接口调试工具](/blog/back-end/web-api#接口调试工具)来测试这些路由。
 
 - GET 请求，`http://localhost:8080/`：响应内容为 `GET request to the homepage`。
 - POST 请求， `http://localhost:8080/`： 响应内容为 `POST request to the homepage`。

@@ -103,7 +103,7 @@ Buffer 提供了多种方法来读写和操作其内容：
 
 ## 示例代码
 
-以下是一个使用 `Buffer` 读取文件内容并将其转换为字符串的示例 **（此处用到了后文的 fs 模块，具体用法请参考[fs 模块的文档](/docs/back-end/node/fs)）**：
+以下是一个使用 `Buffer` 读取文件内容并将其转换为字符串的示例 **（此处用到了后文的 fs 模块，具体用法请参考[fs 模块的文档](/blog/back-end/node/fs)）**：
 
 ```javascript
 const fs = require('fs');

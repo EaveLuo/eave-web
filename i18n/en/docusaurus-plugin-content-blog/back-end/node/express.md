@@ -131,7 +131,7 @@ Run the application:
 node app.js
 ```
 
-At this time, it is recommended to use the [Interface Debug Tool](/docs/back-end/web-api#Interface Debug Tool) to test these routes.
+At this time, it is recommended to use the [Interface Debug Tool](/blog/back-end/web-api#Interface Debug Tool) to test these routes.
 
 - GET request, `http://localhost:8080/`: The response content is `GET request to the homepage`.
 - POST request, `http://localhost:8080/`: The response content is `POST request to the homepage`.

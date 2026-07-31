@@ -68,8 +68,8 @@ const config: Config = {
     [
       'classic',
       {
-        docs: false, // 禁用默认文档插件，使用自定义插件
-        blog: false, // 禁用默认博客插件，使用自定义插件
+        docs: false, // Site content is published exclusively through Blog
+        blog: false, // The Blog plugin is configured exactly once below
         // SVGR 插件配置（3.7 新特性）- 可自定义 SVG 导入行为
         svgr: {
           svgrConfig: {
@@ -303,10 +303,9 @@ const config: Config = {
     ],
     'docusaurus-plugin-image-zoom',
     '@docusaurus/theme-live-codeblock',
-    // 自定义博客插件 - 将博客数据注入全局数据
-    // 自定义博客插件
+    // Standard Blog content plugin
     [
-      './src/plugin/plugin-content-blog',
+      '@docusaurus/plugin-content-blog',
       {
         path: 'blog',
         editUrl: ({ locale, blogDirPath, blogPath, permalink }: BlogEditUrlParams) =>
@@ -323,28 +322,6 @@ const config: Config = {
           title: 'Eave Luo',
           copyright: `Copyright © ${new Date().getFullYear()} Eave Luo. Built with Docusaurus.`,
         },
-      },
-    ],
-    // 原始文档插件 - 用于创建路由和 sidebars
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'default',
-        path: 'docs',
-        sidebarPath: './sidebars.ts',
-        remarkPlugins: [
-          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
-        ],
-        editUrl: 'https://github.com/EaveLuo/eave-web/tree/master',
-        showLastUpdateTime: false,
-      },
-    ],
-    // 自定义文档插件 - 注入 front matter 到全局数据
-    [
-      './src/plugin/plugin-content-docs',
-      {
-        id: 'enhanced',
-        path: 'docs',
       },
     ],
     // 首页数据插件 - SSG 预渲染最新文章

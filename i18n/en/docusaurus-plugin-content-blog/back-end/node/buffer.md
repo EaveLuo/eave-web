@@ -110,7 +110,7 @@ console.log(buf1.compare(buf2)); // Output negative number, because buf1 is less
 
 ## Example code
 
-Here is an example of using `Buffer` to read the contents of a file and convert it into a string **(the fs module is used later here, please refer to the [fs module documentation](/docs/back-end/node/fs) for specific usage)**:
+Here is an example of using `Buffer` to read the contents of a file and convert it into a string **(the fs module is used later here, please refer to the [fs module documentation](/blog/back-end/node/fs) for specific usage)**:
 
 ```javascript
 const fs = require('fs');

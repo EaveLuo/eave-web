@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}', './docs/**/*.mdx', './blog/**/*.mdx'],
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    './blog/**/*.{md,mdx}',
+    './i18n/en/docusaurus-plugin-content-blog/**/*.{md,mdx}',
+  ],
   theme: {
     extend: {
       /** shimmer-button.tsx */
