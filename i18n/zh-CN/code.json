@@ -14,46 +14,12 @@
   "homepage.hero.button.text": {
     "message": "了解更多"
   },
-  "homepage.latestArticles.blogTitle": {
-    "message": "最新博客"
-  },
-  "homepage.latestArticles.blogSubtitle": {
-    "message": "探索最新的技术分享与思考"
-  },
-  "homepage.latestArticles.docsTitle": {
-    "message": "最新文档"
-  },
-  "homepage.latestArticles.docsSubtitle": {
-    "message": "浏览最新的技术文档与教程"
-  },
   "homepage.latestArticles.readMore": {
     "message": "阅读更多"
-  },
-  "homepage.latestArticles.viewAllBlog": {
-    "message": "查看全部博客"
-  },
-  "homepage.latestArticles.viewAllDocs": {
-    "message": "查看全部文档"
   },
   "homepage.latestArticles.noDescription": {
     "message": "暂无描述",
     "description": "无描述时的 fallback 文本"
-  },
-  "homepage.latestArticles.docDescription": {
-    "message": "技术文档",
-    "description": "文档默认描述"
-  },
-  "homepage.latestArticles.badgeBlog": {
-    "message": "Blog"
-  },
-  "homepage.latestArticles.badgeDoc": {
-    "message": "Doc"
-  },
-  "homepage.latestArticles.noBlogPosts": {
-    "message": "暂无博客文章"
-  },
-  "homepage.latestArticles.noDocs": {
-    "message": "暂无文档"
   },
   "homepage.latestArticles.sectionEyebrow": {
     "message": "最新速递"
@@ -377,17 +343,14 @@
   "languagePrompt.close": {
     "message": "关闭"
   },
-  "blogListPage.badge": {
-    "message": "Blog"
-  },
   "blogListPage.title": {
-    "message": "全部博客"
+    "message": "????"
   },
   "blogListPage.subtitle": {
     "message": "探索技术分享、经验总结与思考"
   },
   "blogListPage.noPosts": {
-    "message": "暂无博客文章"
+    "message": "????"
   },
   "docsIndexPage.title": {
     "message": "技术文档"
@@ -723,5 +686,11 @@
   "theme.contentVisibility.draftBanner.message": {
     "message": "此页面是草稿，仅在开发环境中可见，不会包含在正式版本中。",
     "description": "The draft content banner message"
+  },
+  "homepage.latestArticles.viewAll": {
+    "message": "??????"
+  },
+  "blogListPage.viewTags": {
+    "message": "?????"
   }
 }

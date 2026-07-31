@@ -27,3 +27,18 @@ test('getNavLinks uses the locale-aware RSS href provided by the footer', () => 
   assert.equal(rssLink.href, rssHref);
   assert.equal(rssLink.external, true);
 });
+
+test('getNavLinks exposes Blog tag groups and no Docs routes', () => {
+  const sections = getNavLinks('/blog/rss.xml', (_id, message) => message);
+  const serialized = JSON.stringify(sections);
+
+  assert.doesNotMatch(serialized, /\/docs(?:\/|")/);
+  for (const tag of [
+    'frontend',
+    'backend',
+    'operations',
+    'ai',
+  ]) {
+    assert.match(serialized, new RegExp(`/blog/tags/${tag}`));
+  }
+});

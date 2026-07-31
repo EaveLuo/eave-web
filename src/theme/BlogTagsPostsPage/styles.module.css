@@ -42,17 +42,12 @@
 .headerSubtitle {
   @apply text-base md:text-lg;
   color: var(--ifm-color-emphasis-600);
-  max-width: 500px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
 .headerActions {
   @apply mt-6 flex justify-center;
-}
-
-.emptyState {
-  @apply py-16 text-center;
-  color: var(--ifm-color-emphasis-500);
 }
 
 .pagination {

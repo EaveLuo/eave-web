@@ -31,10 +31,10 @@ export function getNavLinks(
       id: 'knowledge',
       title: translateMessage('footer.knowledge', '知识库'),
       links: [
-        { id: 'frontend', label: translateMessage('footer.frontend', '前端开发'), to: '/docs/front-end/intro' },
-        { id: 'backend', label: translateMessage('footer.backend', '后端开发'), to: '/docs/back-end/intro' },
-        { id: 'operation', label: translateMessage('footer.operation', '运维部署'), to: '/docs/operation/intro' },
-        { id: 'ai', label: translateMessage('footer.ai', '人工智能'), to: '/docs/ai/intro' },
+        { id: 'frontend', label: translateMessage('footer.frontend', '前端开发'), to: '/blog/tags/frontend' },
+        { id: 'backend', label: translateMessage('footer.backend', '后端开发'), to: '/blog/tags/backend' },
+        { id: 'operation', label: translateMessage('footer.operation', '运维部署'), to: '/blog/tags/operations' },
+        { id: 'ai', label: translateMessage('footer.ai', '人工智能'), to: '/blog/tags/ai' },
       ],
     },
     {

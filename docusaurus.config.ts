@@ -134,30 +134,6 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'frontEndSidebar',
-          position: 'right',
-          label: 'Front end',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'backEndSidebar',
-          position: 'right',
-          label: 'Back end',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'operationSidebar',
-          position: 'right',
-          label: 'Operation',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'aiSidebar',
-          position: 'right',
-          label: 'AI',
-        },
-        {
           to: '/blog',
           label: 'Blog',
           position: 'right',
@@ -176,19 +152,19 @@ const config: Config = {
           items: [
             {
               label: 'Front end',
-              to: '/docs/front-end/intro',
+              to: '/blog/tags/frontend',
             },
             {
               label: 'Back end',
-              to: '/docs/back-end/intro',
+              to: '/blog/tags/backend',
             },
             {
               label: 'Operation',
-              to: '/docs/operation/intro',
+              to: '/blog/tags/operations',
             },
             {
               label: 'AI',
-              to: '/docs/ai/intro',
+              to: '/blog/tags/ai',
             },
           ],
         },

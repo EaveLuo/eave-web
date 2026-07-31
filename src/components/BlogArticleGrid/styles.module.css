@@ -1,0 +1,135 @@
+@reference "../../css/custom.css";
+
+.grid {
+  @apply grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.card {
+  @apply relative overflow-hidden rounded-xl;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+@supports (animation-timeline: view()) {
+  .card {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: cardFadeIn 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation-timeline: view();
+    animation-range: entry 10% cover 20%;
+    animation-delay: calc(var(--card-index, 0) * 0.08s);
+  }
+
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .card {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(46, 133, 85, 0.15);
+  border-color: var(--ifm-color-primary-lighter);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+}
+
+.cardInner {
+  @apply flex h-full flex-col p-6;
+}
+
+.cardHeader {
+  @apply mb-3 flex items-center justify-end;
+}
+
+.date {
+  @apply text-sm;
+  color: var(--ifm-color-emphasis-500);
+}
+
+.articleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.articleLink:hover {
+  text-decoration: none;
+}
+
+.title {
+  @apply mb-2 line-clamp-2 text-lg font-semibold;
+  color: var(--ifm-color-emphasis-900);
+  line-height: 1.4;
+}
+
+.description {
+  @apply mb-4 line-clamp-3 text-sm;
+  color: var(--ifm-color-emphasis-600);
+  line-height: 1.6;
+}
+
+.tags {
+  @apply mb-4 flex flex-wrap gap-2;
+}
+
+.tag {
+  @apply inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-700);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tag:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  text-decoration: none;
+}
+
+.readMore {
+  @apply mt-auto flex items-center gap-1 text-sm font-medium;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.card:hover .readMore {
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    @apply grid-cols-1 gap-4;
+  }
+
+  .cardInner {
+    @apply p-5;
+  }
+}
+
+[data-theme='dark'] .card:hover {
+  box-shadow: 0 12px 40px rgba(37, 194, 160, 0.12);
+}
