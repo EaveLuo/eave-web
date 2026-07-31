@@ -1,5 +1,5 @@
 ---
-slug: code-splitting
+slug: /front-end/webpack5/code-splitting
 title: Configure code splitting
 tags:
   - frontend

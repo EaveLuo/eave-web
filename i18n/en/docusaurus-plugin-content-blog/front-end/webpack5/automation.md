@@ -1,5 +1,5 @@
 ---
-slug: automation
+slug: /front-end/webpack5/automation
 title: Automatic compilation using devServer
 tags:
   - frontend

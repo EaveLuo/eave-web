@@ -1,5 +1,5 @@
 ---
-slug: web-api
+slug: /back-end/web-api
 title: Application Programming Interface (API)
 description: >-
   Web API design principles and best practices including RESTful conventions,

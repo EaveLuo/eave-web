@@ -1,5 +1,5 @@
 ---
-slug: fs
+slug: /back-end/node/fs
 title: fs module
 description: >-
   Node.js file system module (fs) comprehensive guide including sync/async

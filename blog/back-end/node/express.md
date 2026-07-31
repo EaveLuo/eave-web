@@ -1,5 +1,5 @@
 ---
-slug: express
+slug: /back-end/node/express
 title: Express 框架
 description: >-
   Express.js 框架入门到进阶，包括路由定义、中间件机制、请求处理、错误处理、模板引擎等。通过实例讲解如何使用 Express 快速构建

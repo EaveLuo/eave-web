@@ -1,5 +1,5 @@
 ---
-slug: auto-clean
+slug: /front-end/webpack5/auto-clean
 title: Automatically clear the last packaged resources
 tags:
   - frontend

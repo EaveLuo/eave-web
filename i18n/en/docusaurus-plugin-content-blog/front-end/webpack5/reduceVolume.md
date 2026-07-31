@@ -1,5 +1,5 @@
 ---
-slug: reduce-volume
+slug: /front-end/webpack5/reduce-volume
 title: Reduce code size
 tags:
   - frontend

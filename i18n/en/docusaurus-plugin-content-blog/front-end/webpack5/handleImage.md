@@ -1,5 +1,5 @@
 ---
-slug: handle-images
+slug: /front-end/webpack5/handle-images
 title: handle image resources
 tags:
   - frontend

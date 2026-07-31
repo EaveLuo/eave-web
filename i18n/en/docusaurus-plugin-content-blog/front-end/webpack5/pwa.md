@@ -1,5 +1,5 @@
 ---
-slug: pwa
+slug: /front-end/webpack5/pwa
 title: PWA
 tags:
   - frontend

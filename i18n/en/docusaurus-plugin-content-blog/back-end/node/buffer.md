@@ -1,5 +1,5 @@
 ---
-slug: buffer
+slug: /back-end/node/buffer
 title: Buffer
 description: >-
   Node.js Buffer module for handling binary data. Covers Buffer creation,

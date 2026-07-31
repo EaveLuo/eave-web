@@ -1,5 +1,5 @@
 ---
-slug: handle-Other
+slug: /front-end/webpack5/handle-Other
 title: 'Handle fonts, icons, audio, video and other resources'
 tags:
   - frontend

@@ -1,5 +1,5 @@
 ---
-slug: ssh-key-login-host
+slug: /operation/linux/ssh-key-login-host
 title: 通过SSH密钥登录主机
 tags:
   - operations

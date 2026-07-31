@@ -1,5 +1,5 @@
 ---
-slug: modularity
+slug: /back-end/node/modularity
 title: 模块化
 description: >-
   Node.js 模块化机制，包括 CommonJS 和 ES Modules 两种模块系统、require/import

@@ -1,5 +1,5 @@
 ---
-slug: handle-html
+slug: /front-end/webpack5/handle-html
 title: Handle HTML files
 tags:
   - frontend

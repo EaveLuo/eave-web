@@ -1,5 +1,5 @@
 ---
-slug: http
+slug: /back-end/node/http
 title: http 模块
 description: Node.js HTTP 模块详解，从基础服务器创建到请求/响应处理、路由实现、静态文件服务等。帮助理解 Express 等框架的底层原理。
 tags:

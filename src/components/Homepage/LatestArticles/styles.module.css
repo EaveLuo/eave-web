@@ -193,28 +193,21 @@
   }
 }
 
-.cardLink {
-  @apply block h-full p-6;
+.cardInner {
+  @apply flex h-full flex-col p-6;
+}
+
+.articleLink {
   text-decoration: none;
   color: inherit;
 }
 
+.articleLink:hover {
+  text-decoration: none;
+}
+
 .cardHeader {
-  @apply mb-3 flex items-center justify-between gap-3;
-}
-
-.badge {
-  @apply rounded-full px-2 py-1 text-xs font-medium;
-}
-
-.badgeBlog {
-  background: rgba(46, 133, 85, 0.1);
-  color: var(--ifm-color-primary);
-}
-
-.badgeDoc {
-  background: rgba(37, 194, 160, 0.1);
-  color: var(--ifm-color-primary-light);
+  @apply mb-3 flex items-center justify-end;
 }
 
 .date {
@@ -242,11 +235,20 @@
   @apply rounded px-2 py-0.5 text-xs;
   background: var(--ifm-color-emphasis-100);
   color: var(--ifm-color-emphasis-700);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tag:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  text-decoration: none;
 }
 
 .readMore {
-  @apply flex items-center gap-1 text-sm font-medium;
+  @apply mt-auto flex items-center gap-1 text-sm font-medium;
   color: var(--ifm-color-primary);
+  text-decoration: none;
   transition: gap 0.2s ease;
 }
 
@@ -278,6 +280,6 @@
   }
 
   .footer {
-    @apply mt-10 grid grid-cols-2 gap-3;
+    @apply mt-10;
   }
 }

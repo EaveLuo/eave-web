@@ -1,5 +1,5 @@
 ---
-slug: preface
+slug: /front-end/webpack5/preface
 title: 前言
 date: 2024-06-27T10:32:08.000Z
 tags:

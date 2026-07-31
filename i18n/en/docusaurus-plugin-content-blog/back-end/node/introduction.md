@@ -1,5 +1,5 @@
 ---
-slug: introduction
+slug: /back-end/node/introduction
 title: What is Node.js?
 description: >-
   Node.js introduction covering event-driven, non-blocking I/O model,

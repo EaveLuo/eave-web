@@ -1,5 +1,5 @@
 ---
-slug: create-plugin
+slug: /front-end/webpack5/create-plugin
 title: Create Plugin
 tags:
   - frontend

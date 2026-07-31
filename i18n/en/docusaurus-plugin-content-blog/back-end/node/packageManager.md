@@ -1,5 +1,5 @@
 ---
-slug: package-manager
+slug: /back-end/node/package-manager
 title: Package Manager
 description: >-
   Node.js package manager comparison and usage, detailed comparison of npm,

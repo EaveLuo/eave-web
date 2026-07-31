@@ -48,6 +48,13 @@ test('all publishable content lives in the bilingual Blog roots', () => {
       Array.isArray(data.tags) && data.tags.length > 0,
       `${file} needs tags`,
     );
+    if (data.slug !== undefined) {
+      assert.match(
+        data.slug,
+        /^\//,
+        `${file} needs an absolute Blog slug to preserve its directory route`,
+      );
+    }
 
     for (const field of [
       'sidebar_position',

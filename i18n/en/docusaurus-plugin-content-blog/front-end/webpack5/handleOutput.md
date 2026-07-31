@@ -1,5 +1,5 @@
 ---
-slug: handle-output
+slug: /front-end/webpack5/handle-output
 title: Modify the name and path of output resources
 tags:
   - frontend

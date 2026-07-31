@@ -1,5 +1,5 @@
 ---
-slug: handle-style
+slug: /front-end/webpack5/handle-style
 title: Processing style resources
 tags:
   - frontend

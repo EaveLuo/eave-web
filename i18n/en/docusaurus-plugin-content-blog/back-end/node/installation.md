@@ -1,5 +1,5 @@
 ---
-slug: installation
+slug: /back-end/node/installation
 title: Installation and version management
 description: >-
   Node.js installation guide including nvm version manager, multi-version

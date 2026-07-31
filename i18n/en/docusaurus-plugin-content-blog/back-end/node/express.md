@@ -1,5 +1,5 @@
 ---
-slug: express
+slug: /back-end/node/express
 title: Express framework
 description: >-
   Express.js framework from basics to advanced including routing, middleware

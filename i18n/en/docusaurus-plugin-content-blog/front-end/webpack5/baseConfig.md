@@ -1,5 +1,5 @@
 ---
-slug: base-config
+slug: /front-end/webpack5/base-config
 title: Basic Configuration
 tags:
   - frontend

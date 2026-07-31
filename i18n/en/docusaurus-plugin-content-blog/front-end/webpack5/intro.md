@@ -1,5 +1,5 @@
 ---
-slug: preface
+slug: /front-end/webpack5/preface
 title: preface
 tags:
   - frontend

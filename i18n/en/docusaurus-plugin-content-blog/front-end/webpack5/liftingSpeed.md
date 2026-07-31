@@ -1,5 +1,5 @@
 ---
-slug: lifting-speed
+slug: /front-end/webpack5/lifting-speed
 title: Improve the speed of packaging and building
 tags:
   - frontend

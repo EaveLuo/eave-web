@@ -1,5 +1,5 @@
 ---
-slug: sync-async
+slug: /back-end/node/sync-async
 title: Sync and Asynchrony
 description: >-
   Node.js synchronous and asynchronous programming patterns including callbacks,

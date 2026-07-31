@@ -1,5 +1,5 @@
 ---
-slug: package-manager
+slug: /back-end/node/package-manager
 title: 包管理器
 description: >-
   Node.js 包管理器对比与使用，详细比较 npm、yarn、pnpm 的优缺点，讲解 package.json 配置、依赖版本管理、lockfile

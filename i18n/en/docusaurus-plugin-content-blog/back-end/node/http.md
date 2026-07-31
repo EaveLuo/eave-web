@@ -1,5 +1,5 @@
 ---
-slug: http
+slug: /back-end/node/http
 title: http module
 description: >-
   Node.js HTTP module from basic server creation to request/response handling,

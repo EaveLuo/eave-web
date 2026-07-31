@@ -1,5 +1,5 @@
 ---
-slug: history-router-problem
+slug: /operation/nginx/history-router-problem
 title: history路由问题
 tags:
   - operations

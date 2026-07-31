@@ -1,5 +1,5 @@
 ---
-slug: web-api
+slug: /back-end/web-api
 title: 应用编程接口（API）
 description: Web API 设计原则与最佳实践，包括 RESTful 规范、版本控制、认证授权、限流熔断、文档生成等，帮助设计高质量的 API 接口。
 tags:

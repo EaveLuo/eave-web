@@ -1,5 +1,5 @@
 ---
-slug: modularity
+slug: /back-end/node/modularity
 title: modularity
 description: >-
   Node.js module system including CommonJS and ES Modules, require/import

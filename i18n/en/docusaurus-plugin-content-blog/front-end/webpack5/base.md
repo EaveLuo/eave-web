@@ -1,5 +1,5 @@
 ---
-slug: base
+slug: /front-end/webpack5/base
 title: Basic Usage
 description: >-
   Webpack 5 basics introduction covering core concepts (entry, output, loader,

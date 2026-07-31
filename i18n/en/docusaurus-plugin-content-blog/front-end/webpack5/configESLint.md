@@ -1,5 +1,5 @@
 ---
-slug: config-eslint
+slug: /front-end/webpack5/config-eslint
 title: Configure code checking tool ESLint
 tags:
   - frontend

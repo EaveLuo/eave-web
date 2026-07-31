@@ -1,5 +1,5 @@
 ---
-slug: different-environments
+slug: /front-end/webpack5/different-environments
 title: Build development environment and production environment separately
 tags:
   - frontend

@@ -6,7 +6,11 @@ import { ActionButton } from '@site/src/components/ActionButton';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import styles from './styles.module.css';
 
-type ArticleTag = string | { label?: string };
+interface ArticleTag {
+  id: string;
+  label: string;
+  permalink: string;
+}
 
 interface ArticleItem {
   id: string;
@@ -14,7 +18,6 @@ interface ArticleItem {
   description: string;
   date: string;
   path: string;
-  type: 'blog' | 'doc';
   tags: ArticleTag[];
 }
 
@@ -42,18 +45,6 @@ function formatDate(dateString: string): string {
   return `${year}-${month}-${day}`;
 }
 
-function getTagLabel(tag: ArticleTag): string {
-  if (typeof tag === 'string') {
-    return tag;
-  }
-
-  if (tag?.label) {
-    return tag.label;
-  }
-
-  return '';
-}
-
 function ArticleCard({
   article,
   index,
@@ -61,53 +52,48 @@ function ArticleCard({
   article: ArticleItem;
   index: number;
 }) {
-  const tagLabels = article.tags.map(getTagLabel).filter(Boolean).slice(0, 3);
-
   return (
     <article
       className={styles.card}
       style={{ '--card-index': index } as CSSProperties}
     >
-      <Link to={article.path} className={styles.cardLink}>
-        <div className={styles.cardHeader}>
-          <span
-            className={`${styles.badge} ${
-              article.type === 'blog' ? styles.badgeBlog : styles.badgeDoc
-            }`}
-          >
-            {article.type === 'blog' ? (
-              <Translate id="homepage.latestArticles.badgeBlog">Blog</Translate>
-            ) : (
-              <Translate id="homepage.latestArticles.badgeDoc">Doc</Translate>
+      <div className={styles.cardInner}>
+        {article.date && (
+          <div className={styles.cardHeader}>
+            <time className={styles.date}>{formatDate(article.date)}</time>
+          </div>
+        )}
+
+        <Link to={article.path} className={styles.articleLink}>
+          <h3 className={styles.title}>{article.title}</h3>
+          <p className={styles.description}>
+            {article.description || (
+              <Translate id="homepage.latestArticles.noDescription">
+                No description available
+              </Translate>
             )}
-          </span>
-          {article.date && <time className={styles.date}>{formatDate(article.date)}</time>}
-        </div>
+          </p>
+        </Link>
 
-        <h3 className={styles.title}>{article.title}</h3>
-        <p className={styles.description}>
-          {article.description || (
-            <Translate id="homepage.latestArticles.noDescription">
-              No description available
-            </Translate>
-          )}
-        </p>
-
-        {tagLabels.length > 0 && (
+        {article.tags.length > 0 && (
           <div className={styles.tags}>
-            {tagLabels.map((tag) => (
-              <span key={tag} className={styles.tag}>
-                {tag}
-              </span>
+            {article.tags.slice(0, 3).map((tag) => (
+              <Link
+                key={tag.id}
+                to={tag.permalink}
+                className={styles.tag}
+              >
+                {tag.label}
+              </Link>
             ))}
           </div>
         )}
 
-        <div className={styles.readMore}>
+        <Link to={article.path} className={styles.readMore}>
           <Translate id="homepage.latestArticles.readMore">Read More</Translate>
-          <ArrowRight size={14} />
-        </div>
-      </Link>
+          <ArrowRight size={14} aria-hidden="true" />
+        </Link>
+      </div>
     </article>
   );
 }
@@ -149,7 +135,7 @@ function LatestArticles() {
           <div className={styles.grid}>
             {latestItems.map((article, index) => (
               <ArticleCard
-                key={`${article.type}-${article.id}`}
+                key={article.id}
                 article={article}
                 index={index}
               />
@@ -162,11 +148,8 @@ function LatestArticles() {
         )}
 
         <div className={styles.footer}>
-          <ActionButton to="/docs" icon={<ArrowRight size={16} aria-hidden="true" />}>
-            <Translate id="homepage.latestArticles.viewAllDocs">View All Docs</Translate>
-          </ActionButton>
           <ActionButton to="/blog" icon={<ArrowRight size={16} aria-hidden="true" />}>
-            <Translate id="homepage.latestArticles.viewAllBlog">View All Blogs</Translate>
+            <Translate id="homepage.latestArticles.viewAll">View All Articles</Translate>
           </ActionButton>
         </div>
       </div>

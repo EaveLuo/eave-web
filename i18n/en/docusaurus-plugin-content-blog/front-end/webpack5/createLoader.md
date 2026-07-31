@@ -1,5 +1,5 @@
 ---
-slug: create-loader
+slug: /front-end/webpack5/create-loader
 title: Create Loader
 tags:
   - frontend

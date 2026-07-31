@@ -1,5 +1,5 @@
 ---
-slug: path
+slug: /back-end/node/path
 title: path module
 description: >-
   Node.js path module for handling and transforming file paths. Covers path

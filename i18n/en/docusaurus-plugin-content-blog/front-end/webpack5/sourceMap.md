@@ -1,5 +1,5 @@
 ---
-slug: source-map
+slug: /front-end/webpack5/source-map
 title: Configure SourceMap
 tags:
   - frontend

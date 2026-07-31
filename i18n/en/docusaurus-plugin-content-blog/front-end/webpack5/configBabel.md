@@ -1,5 +1,5 @@
 ---
-slug: config-babel
+slug: /front-end/webpack5/config-babel
 title: Configure code compatibility processing tool Babel
 tags:
   - frontend

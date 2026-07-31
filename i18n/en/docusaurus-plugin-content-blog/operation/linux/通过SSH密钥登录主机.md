@@ -1,5 +1,5 @@
 ---
-slug: ssh-key-login-host
+slug: /operation/linux/ssh-key-login-host
 title: Log in to the host via SSH key
 tags:
   - operations

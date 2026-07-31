@@ -1,5 +1,5 @@
 ---
-slug: optimize-css
+slug: /front-end/webpack5/optimize-css
 title: Optimize CSS processing
 tags:
   - frontend
