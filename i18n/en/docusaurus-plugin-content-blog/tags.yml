@@ -1,0 +1,132 @@
+frontend:
+  label: "Frontend"
+  permalink: /frontend
+  description: "Articles about Frontend"
+backend:
+  label: "Backend"
+  permalink: /backend
+  description: "Articles about Backend"
+operations:
+  label: "Operations"
+  permalink: /operations
+  description: "Articles about Operations"
+ai:
+  label: "AI"
+  permalink: /ai
+  description: "Articles about AI"
+go:
+  label: "Go"
+  permalink: /go
+  description: "Articles about Go"
+node-js:
+  label: "Node.js"
+  permalink: /node-js
+  description: "Articles about Node.js"
+webpack-5:
+  label: "Webpack 5"
+  permalink: /webpack-5
+  description: "Articles about Webpack 5"
+linux:
+  label: "Linux"
+  permalink: /linux
+  description: "Articles about Linux"
+nginx:
+  label: "Nginx"
+  permalink: /nginx
+  description: "Articles about Nginx"
+openclaw:
+  label: "OpenClaw"
+  permalink: /openclaw
+  description: "Articles about OpenClaw"
+agents:
+  label: "AI Agents"
+  permalink: /agents
+  description: "Articles about AI Agents"
+memory:
+  label: "Memory"
+  permalink: /memory
+  description: "Articles about Memory"
+memory-consolidation:
+  label: "Memory Consolidation"
+  permalink: /memory-consolidation
+  description: "Articles about Memory Consolidation"
+dreaming:
+  label: "Dreaming"
+  permalink: /dreaming
+  description: "Articles about Dreaming"
+chatgpt:
+  label: "ChatGPT"
+  permalink: /chatgpt
+  description: "Articles about ChatGPT"
+openai:
+  label: "OpenAI"
+  permalink: /openai
+  description: "Articles about OpenAI"
+qmd:
+  label: "QMD"
+  permalink: /qmd
+  description: "Articles about QMD"
+rag:
+  label: "RAG"
+  permalink: /rag
+  description: "Articles about RAG"
+local-search:
+  label: "Local Search"
+  permalink: /local-search
+  description: "Articles about Local Search"
+acp:
+  label: "ACP"
+  permalink: /acp
+  description: "Articles about ACP"
+agent-protocol:
+  label: "Agent Protocol"
+  permalink: /agent-protocol
+  description: "Articles about Agent Protocol"
+claude-code:
+  label: "Claude Code"
+  permalink: /claude-code
+  description: "Articles about Claude Code"
+codex:
+  label: "Codex"
+  permalink: /codex
+  description: "Articles about Codex"
+multi-agent:
+  label: "Multi-agent"
+  permalink: /multi-agent
+  description: "Articles about Multi-agent"
+architecture:
+  label: "Architecture"
+  permalink: /architecture
+  description: "Articles about Architecture"
+website:
+  label: "Website"
+  permalink: /website
+  description: "Articles about Website"
+docusaurus:
+  label: "Docusaurus"
+  permalink: /docusaurus
+  description: "Articles about Docusaurus"
+performance:
+  label: "Performance"
+  permalink: /performance
+  description: "Articles about Performance"
+ux:
+  label: "UX"
+  permalink: /ux
+  description: "Articles about UX"
+i18n:
+  label: "Internationalization"
+  permalink: /i18n
+  description: "Articles about Internationalization"
+documentation:
+  label: "Documentation"
+  permalink: /documentation
+  description: "Articles about Documentation"
+release:
+  label: "Release"
+  permalink: /release
+  description: "Articles about Release"
+daily:
+  label: "Daily Life"
+  permalink: /daily
+  description: "Articles about Daily Life"

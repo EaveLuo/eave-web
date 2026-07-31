@@ -1,0 +1,132 @@
+frontend:
+  label: "前端"
+  permalink: /frontend
+  description: "前端相关文章"
+backend:
+  label: "后端"
+  permalink: /backend
+  description: "后端相关文章"
+operations:
+  label: "运维"
+  permalink: /operations
+  description: "运维相关文章"
+ai:
+  label: "AI"
+  permalink: /ai
+  description: "AI相关文章"
+go:
+  label: "Go"
+  permalink: /go
+  description: "Go相关文章"
+node-js:
+  label: "Node.js"
+  permalink: /node-js
+  description: "Node.js相关文章"
+webpack-5:
+  label: "Webpack 5"
+  permalink: /webpack-5
+  description: "Webpack 5相关文章"
+linux:
+  label: "Linux"
+  permalink: /linux
+  description: "Linux相关文章"
+nginx:
+  label: "Nginx"
+  permalink: /nginx
+  description: "Nginx相关文章"
+openclaw:
+  label: "OpenClaw"
+  permalink: /openclaw
+  description: "OpenClaw相关文章"
+agents:
+  label: "AI Agent"
+  permalink: /agents
+  description: "AI Agent相关文章"
+memory:
+  label: "记忆"
+  permalink: /memory
+  description: "记忆相关文章"
+memory-consolidation:
+  label: "记忆巩固"
+  permalink: /memory-consolidation
+  description: "记忆巩固相关文章"
+dreaming:
+  label: "Dreaming"
+  permalink: /dreaming
+  description: "Dreaming相关文章"
+chatgpt:
+  label: "ChatGPT"
+  permalink: /chatgpt
+  description: "ChatGPT相关文章"
+openai:
+  label: "OpenAI"
+  permalink: /openai
+  description: "OpenAI相关文章"
+qmd:
+  label: "QMD"
+  permalink: /qmd
+  description: "QMD相关文章"
+rag:
+  label: "RAG"
+  permalink: /rag
+  description: "RAG相关文章"
+local-search:
+  label: "本地搜索"
+  permalink: /local-search
+  description: "本地搜索相关文章"
+acp:
+  label: "ACP"
+  permalink: /acp
+  description: "ACP相关文章"
+agent-protocol:
+  label: "Agent Protocol"
+  permalink: /agent-protocol
+  description: "Agent Protocol相关文章"
+claude-code:
+  label: "Claude Code"
+  permalink: /claude-code
+  description: "Claude Code相关文章"
+codex:
+  label: "Codex"
+  permalink: /codex
+  description: "Codex相关文章"
+multi-agent:
+  label: "多智能体"
+  permalink: /multi-agent
+  description: "多智能体相关文章"
+architecture:
+  label: "架构"
+  permalink: /architecture
+  description: "架构相关文章"
+website:
+  label: "站点建设"
+  permalink: /website
+  description: "站点建设相关文章"
+docusaurus:
+  label: "Docusaurus"
+  permalink: /docusaurus
+  description: "Docusaurus相关文章"
+performance:
+  label: "性能优化"
+  permalink: /performance
+  description: "性能优化相关文章"
+ux:
+  label: "UX"
+  permalink: /ux
+  description: "UX相关文章"
+i18n:
+  label: "国际化"
+  permalink: /i18n
+  description: "国际化相关文章"
+documentation:
+  label: "文档规范"
+  permalink: /documentation
+  description: "文档规范相关文章"
+release:
+  label: "版本发布"
+  permalink: /release
+  description: "版本发布相关文章"
+daily:
+  label: "日常"
+  permalink: /daily
+  description: "日常相关文章"

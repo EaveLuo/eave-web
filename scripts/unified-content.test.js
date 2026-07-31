@@ -1,0 +1,64 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const test = require('node:test');
+const matter = require('gray-matter');
+
+const root = path.resolve(__dirname, '..');
+const zhRoot = path.join(root, 'blog');
+const enRoot = path.join(
+  root,
+  'i18n',
+  'en',
+  'docusaurus-plugin-content-blog',
+);
+
+function listMarkdown(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      return listMarkdown(fullPath);
+    }
+
+    return /\.mdx?$/.test(entry.name) ? [fullPath] : [];
+  });
+}
+
+function relativePosts(dir) {
+  return listMarkdown(dir)
+    .map((file) => path.relative(dir, file).replace(/\\/g, '/'))
+    .sort();
+}
+
+test('all publishable content lives in the bilingual Blog roots', () => {
+  const zh = relativePosts(zhRoot);
+  const en = relativePosts(enRoot);
+
+  assert.equal(zh.length, 76);
+  assert.deepEqual(en, zh);
+
+  for (const file of [...listMarkdown(zhRoot), ...listMarkdown(enRoot)]) {
+    const { data } = matter(fs.readFileSync(file, 'utf8'));
+
+    assert.equal(typeof data.title, 'string', `${file} needs title`);
+    assert.ok(data.description, `${file} needs description`);
+    assert.ok(data.date, `${file} needs date`);
+    assert.deepEqual(data.authors, ['eave'], `${file} needs the stable author id`);
+    assert.ok(
+      Array.isArray(data.tags) && data.tags.length > 0,
+      `${file} needs tags`,
+    );
+
+    for (const field of [
+      'sidebar_position',
+      'sidebar_label',
+      'icon',
+      'color',
+      'categories',
+      'author',
+    ]) {
+      assert.equal(data[field], undefined, `${file} still has ${field}`);
+    }
+  }
+});
+
