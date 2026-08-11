@@ -313,6 +313,16 @@ test('blog post pages use the responsive reading workspace', () => {
     /\.navbar\.navbar-sidebar--show\s*\{[^}]*z-index:\s*var\(--site-navigation-overlay-z-index\)/s,
     'the open mobile sidebar must sit above the floating article TOC',
   );
+  assert.match(
+    globalStyles,
+    /\.navbar\.navbar-sidebar--show\s*\{[^}]*will-change:\s*auto/s,
+    'the open mobile sidebar must use the viewport as its fixed-position containing block',
+  );
+  assert.match(
+    globalStyles,
+    /\.navbar\.navbar-sidebar--show\s*\{[^}]*backdrop-filter:\s*none/s,
+    'the open mobile sidebar must not be contained by the navbar backdrop filter',
+  );
   const navbarStyles = fs.readFileSync(
     path.join(root, 'src', 'theme', 'Navbar', 'styles.module.css'),
     'utf8',
@@ -361,15 +371,25 @@ test('blog post pages use the responsive reading workspace', () => {
   assert.match(globalStyles, /backdrop-filter:\s*blur\(var\(--liquid-glass-blur\)\)/);
   assert.ok(navbarStyles.includes('@media (max-width: 1180px)'));
   assert.ok(navbarStyles.includes('@media (max-width: 540px)'));
-  assert.ok(navbarStyles.includes(".mobileLeft :global(.navbar__logo)"));
   assert.ok(navbarStyles.includes(".mobileLeft :global(.navbar__toggle)"));
   assert.ok(navbarStyles.includes(".mobileRight > :global(.navbar__item)"));
   assert.ok(navbarStyles.includes('.DocSearch-Button-Placeholder'));
   assert.match(navbarLayoutSource, /getHashAnchor/);
   assert.match(navbarLayoutSource, /decodeURIComponent\(hashId\)/);
-  assert.doesNotMatch(
+  assert.match(
     navbarStyles,
-    /@media \(max-width: 540px\)[\s\S]*?navbar__title[\s\S]*?display:\s*none/,
+    /@media \(max-width: 540px\)[\s\S]*?\.mobileLeft :global\(\.navbar__logo\)\s*\{[^}]*display:\s*none/s,
+    'small screens should hide the logo before hiding the full mobile brand',
+  );
+  assert.match(
+    navbarStyles,
+    /@media \(max-width: 540px\)[\s\S]*?\.mobileLeft :global\(\.navbar__title\)\s*\{[^}]*font-size:\s*clamp\(/s,
+    'the mobile title should shrink continuously as the viewport narrows',
+  );
+  assert.match(
+    navbarStyles,
+    /@media \(max-width: 380px\)[\s\S]*?\.mobileLeft :global\(\.navbar__brand\)\s*\{[^}]*display:\s*none/s,
+    'very small screens should hide the full mobile brand',
   );
   assert.match(
     globalStyles,

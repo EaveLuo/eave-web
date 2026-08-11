@@ -99,6 +99,9 @@
 @media (max-width: 1180px) {
   .navbar.navbar-sidebar--show {
     z-index: var(--site-navigation-overlay-z-index);
+    will-change: auto;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 
