@@ -42,28 +42,20 @@ English
 
 ## 📊 目录结构
 
-```bash
-├── blog                           # 博客
-│   ├── first-blog.md
-├── docs                           # 文档/笔记
-│   └── doc.md
-├── i18n                           # 国际化
-├── src
-│   ├── components                 # 组件
-│   ├── css                        # 自定义CSS
-│   ├── pages                      # 自定义页面
-│   └── theme                      # 自定义主题组件
-├── static                         # 静态资源文件
-│   └── img                        # 静态图片
-├── docusaurus.config.ts           # 站点的配置信息
-├── sidebars.ts                    # 文档的侧边栏
-├── package.json
-├── tsconfig.json                  # TypeScript配置
-├── tailwind.config.js             # TailwindCSS配置
-├── postcss.config.js              # PostCSS配置
-└── renovate.json                  # Renovate 配置
+```text
+├── blog/                          # 中文文章、tags.yml 和 authors.yml
+├── i18n/en/docusaurus-plugin-content-blog/
+│   └── ...                            # 英文文章，与 blog/ 保持相同相对路径
+├── docs/superpowers/              # 项目设计与实施记录，不作为站点内容发布
+├── src/                            # 页面、组件、主题与构建插件
+├── static/                         # 静态资源
+├── docusaurus.config.ts            # 站点配置
+├── vercel.json                     # 旧 Docs 路由的永久重定向
+├── tailwind.config.js              # Tailwind CSS 配置
+└── package.json
 ```
 
+新文章统一发布到 `blog/`；英文翻译在对应的 i18n Blog 目录维护。列表按 front matter 中的 `date` 倒序展示，分组使用 `tags`。
 ## 📥 运行
 
 ```bash

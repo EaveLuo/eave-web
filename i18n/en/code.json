@@ -14,46 +14,12 @@
   "homepage.hero.button.text": {
     "message": "Learn More"
   },
-  "homepage.latestArticles.blogTitle": {
-    "message": "Latest Blog"
-  },
-  "homepage.latestArticles.blogSubtitle": {
-    "message": "Explore the latest technical insights and thoughts"
-  },
-  "homepage.latestArticles.docsTitle": {
-    "message": "Latest Docs"
-  },
-  "homepage.latestArticles.docsSubtitle": {
-    "message": "Browse the latest technical documentation and tutorials"
-  },
   "homepage.latestArticles.readMore": {
     "message": "Read More"
-  },
-  "homepage.latestArticles.viewAllBlog": {
-    "message": "View All Blogs"
-  },
-  "homepage.latestArticles.viewAllDocs": {
-    "message": "View All Docs"
   },
   "homepage.latestArticles.noDescription": {
     "message": "No description available",
     "description": "Fallback when no description is available"
-  },
-  "homepage.latestArticles.docDescription": {
-    "message": "Technical Documentation",
-    "description": "Default description for documents"
-  },
-  "homepage.latestArticles.badgeBlog": {
-    "message": "Blog"
-  },
-  "homepage.latestArticles.badgeDoc": {
-    "message": "Doc"
-  },
-  "homepage.latestArticles.noBlogPosts": {
-    "message": "No blog posts yet"
-  },
-  "homepage.latestArticles.noDocs": {
-    "message": "No documents yet"
   },
   "homepage.latestArticles.sectionEyebrow": {
     "message": "What's New"
@@ -408,21 +374,6 @@
   "languagePrompt.close": {
     "message": "Close"
   },
-  "footer.knowledge": {
-    "message": "Knowledge Base"
-  },
-  "footer.frontend": {
-    "message": "Frontend"
-  },
-  "footer.backend": {
-    "message": "Backend"
-  },
-  "footer.operation": {
-    "message": "DevOps"
-  },
-  "footer.ai": {
-    "message": "AI"
-  },
   "footer.more": {
     "message": "More"
   },
@@ -444,17 +395,14 @@
   "footer.builtWith": {
     "message": "Built with"
   },
-  "blogListPage.badge": {
-    "message": "Blog"
-  },
   "blogListPage.title": {
-    "message": "All Blog Posts"
+    "message": "All Articles"
   },
   "blogListPage.subtitle": {
     "message": "Explore technical insights, experiences, and thoughts"
   },
   "blogListPage.noPosts": {
-    "message": "No blog posts yet"
+    "message": "No articles yet"
   },
   "docsIndexPage.title": {
     "message": "Documentation"
@@ -754,5 +702,32 @@
   "theme.contentVisibility.draftBanner.message": {
     "message": "This page is a draft. It will only be visible in dev and be excluded from the production build.",
     "description": "The draft content banner message"
+  },
+  "homepage.latestArticles.readLatest": {
+    "message": "Read Latest Article"
+  },
+  "blogListPage.viewTags": {
+    "message": "Browse by Tag"
+  },
+  "article.sidebar.collapse": {
+    "message": "Collapse article list"
+  },
+  "article.sidebar.expand": {
+    "message": "Expand article list"
+  },
+  "article.toc.title": {
+    "message": "On this page"
+  },
+  "article.toc.progress": {
+    "message": "Reading progress"
+  },
+  "article.toc.jumpHint": {
+    "message": "Jump to a section"
+  },
+  "article.toc.mobileTitle": {
+    "message": "TOC"
+  },
+  "article.toc.completed": {
+    "message": "All read~"
   }
 }

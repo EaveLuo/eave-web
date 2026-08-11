@@ -1,0 +1,224 @@
+{
+  "redirects": [
+    {
+      "source": "/docs",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/docs/front-end/intro",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/docs/back-end/intro",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/docs/operation/intro",
+      "destination": "/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/docs/ai/intro",
+      "destination": "/blog/tags/ai",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/ai",
+      "destination": "/blog/tags/ai",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/openclaw",
+      "destination": "/blog/tags/openclaw",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/go",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/node",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/webpack-5",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/linux",
+      "destination": "/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/nginx",
+      "destination": "/blog/tags/nginx",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/front-end/intro",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/back-end/intro",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/operation/intro",
+      "destination": "/en/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/ai/intro",
+      "destination": "/en/blog/tags/ai",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/category/ai",
+      "destination": "/en/blog/tags/ai",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/category/openclaw",
+      "destination": "/en/blog/tags/openclaw",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/category/go",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/category/node",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/category/webpack-5",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/category/linux",
+      "destination": "/en/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/category/nginx",
+      "destination": "/en/blog/tags/nginx",
+      "permanent": true
+    },
+    {
+      "source": "/docs/back-end/go/:path*",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/docs/back-end/node/:path*",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/docs/front-end/webpack5/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/docs/operation/linux/:path*",
+      "destination": "/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/blog/back-end/go/:path*",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/blog/back-end/node/:path*",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/blog/front-end/webpack5/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/operation/linux/ssh-key-login-host",
+      "destination": "/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/blog/website/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/back-end/go/:path*",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/back-end/node/:path*",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/front-end/webpack5/:path*",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/operation/linux/:path*",
+      "destination": "/en/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/back-end/go/:path*",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/back-end/node/:path*",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/front-end/webpack5/:path*",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/operation/linux/ssh-key-login-host",
+      "destination": "/en/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/website/:path*",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "/blog/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/:path*",
+      "destination": "/en/blog/:path*",
+      "permanent": true
+    }
+  ]
+}

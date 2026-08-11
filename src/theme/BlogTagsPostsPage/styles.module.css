@@ -1,0 +1,82 @@
+@reference "../../css/custom.css";
+
+.pageContainer {
+  @apply relative min-h-screen w-full;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(46, 133, 85, 0.03) 30%,
+    rgba(46, 133, 85, 0.03) 70%,
+    transparent 100%
+  );
+  padding: 3rem 0 4rem;
+}
+
+.container {
+  @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+.header {
+  @apply mb-12 text-center;
+}
+
+.headerIcon {
+  @apply mb-4 inline-flex items-center justify-center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(46, 133, 85, 0.1) 0%,
+    rgba(37, 194, 160, 0.1) 100%
+  );
+  color: var(--ifm-color-primary);
+}
+
+.headerTitle {
+  @apply mb-3 text-3xl font-bold md:text-4xl;
+  color: var(--ifm-color-emphasis-900);
+  letter-spacing: -0.02em;
+}
+
+.headerSubtitle {
+  @apply text-base md:text-lg;
+  color: var(--ifm-color-emphasis-600);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.headerActions {
+  @apply mt-6 flex justify-center;
+}
+
+.pagination {
+  @apply mt-12;
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 2rem 0 3rem;
+  }
+
+  .header {
+    @apply mb-8;
+  }
+
+  .headerIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .headerTitle {
+    @apply text-2xl;
+  }
+}
+
+[data-theme='dark'] .headerIcon {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 194, 160, 0.15) 0%,
+    rgba(46, 133, 85, 0.15) 100%
+  );
+}

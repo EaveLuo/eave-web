@@ -17,7 +17,7 @@ import ContentVisibility from '@theme/ContentVisibility';
 import type { Props } from '@theme/BlogPostPage';
 import type { BlogSidebar } from '@docusaurus/plugin-content-blog';
 
-// 以下两组件是swizzle后动的地方，全局渲染comment组件，如果后续组件更新，全局替换node_modules/@docusaurus/theme-classic/src/theme下对应的模块即可
+// This page keeps the site-wide comment section after each article.
 import Comment from '@site/src/components/Comment';
 import { cn } from '@site/src/lib/utils';
 

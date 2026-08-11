@@ -42,28 +42,20 @@ If you want to build a similar site, you can directly [Fork](https://github.com/
 
 ## 📊 Directory structure
 
-```bash
-├── blog # blog
-│ ├── first-blog.md
-├── docs # documents/notes
-│ └── doc.md
-├── i18n # internationalization
-├── src
-│ ├── components # components
-│ ├── css # custom CSS
-│ ├── pages # custom pages
-│ └── theme # custom theme components
-├── static # static resource files
-│ └── img # Static images
-├── docusaurus.config.ts # Site configuration information
-├── sidebars.ts # Document sidebar
-├── package.json
-├── tsconfig.json # TypeScript configuration
-├── tailwind.config.js # TailwindCSS configuration
-├── postcss.config.js # PostCSS configuration
-└── renovate.json # Renovate configuration
+```text
+├── blog/                          # Chinese articles, tags.yml, and authors.yml
+├── i18n/en/docusaurus-plugin-content-blog/
+│   └── ...                            # English articles mirroring blog/ paths
+├── docs/superpowers/              # Project design records, not published site content
+├── src/                            # Pages, components, themes, and build plugins
+├── static/                         # Static assets
+├── docusaurus.config.ts            # Site configuration
+├── vercel.json                     # Permanent redirects for legacy Docs routes
+├── tailwind.config.js              # Tailwind CSS configuration
+└── package.json
 ```
 
+Publish all new articles under `blog/`, with English translations in the matching i18n Blog path. Lists are ordered newest-first by the front matter `date`, and `tags` provide article groups.
 ## 📥 Run
 
 ```bash

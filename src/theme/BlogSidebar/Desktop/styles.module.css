@@ -1,0 +1,184 @@
+.aside {
+  position: relative;
+  max-height: var(--reading-rail-height);
+  min-width: 0;
+}
+
+.sidebar {
+  display: flex;
+  max-height: var(--reading-rail-height);
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0.8rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--site-panel-radius);
+  background: color-mix(
+    in srgb,
+    var(--ifm-background-surface-color) 92%,
+    transparent
+  );
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.15rem 0.15rem 0.65rem 0.45rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.sidebarTitle {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ifm-color-emphasis-900);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.sidebarTitle span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebarContent {
+  min-height: 0;
+  flex: 0 1 auto;
+  overflow: hidden auto;
+  padding-top: 0.45rem;
+  padding-right: 0.15rem;
+  scrollbar-gutter: stable;
+}
+
+.sidebarItemList {
+  font-size: 0.84rem;
+}
+
+.sidebarItem {
+  margin: 0.12rem 0;
+}
+
+.sidebarItemLink {
+  display: block;
+  padding: 0.48rem 0.6rem;
+  border-radius: 0.65rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.45;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebarItemLink:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-900);
+  text-decoration: none;
+}
+
+.sidebarItemLinkActive {
+  background: color-mix(in srgb, var(--ifm-color-primary) 12%, transparent);
+  color: var(--ifm-color-primary) !important;
+  box-shadow: inset 2px 0 0 var(--ifm-color-primary);
+  font-weight: 650;
+}
+
+.yearGroupHeading {
+  margin: 1.1rem 0.6rem 0.35rem;
+  color: var(--ifm-color-emphasis-500);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.edgeToggle {
+  position: absolute;
+  z-index: 4;
+  display: inline-flex;
+  width: 1.8rem;
+  height: 3.4rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-color-emphasis-600);
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.edgeToggle:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+}
+
+.edgeToggle:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+.collapseHandle {
+  top: 50%;
+  right: -0.85rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(-0.3rem);
+}
+
+.aside:hover .collapseHandle,
+.aside:focus-within .collapseHandle {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(0);
+}
+
+.expandHandle {
+  position: fixed;
+  top: 50vh;
+  top: 50dvh;
+  left: 0;
+  width: 1.55rem;
+  border-left: 0;
+  border-radius: 0 0.75rem 0.75rem 0;
+  opacity: 0.78;
+  transform: translateY(-50%);
+}
+
+.expandHandle:hover,
+.expandHandle:focus-visible {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .collapseHandle {
+    opacity: 0.82;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edgeToggle,
+  .sidebarItemLink {
+    transition: none;
+  }
+}
+
+[data-theme='dark'] .sidebar {
+  background: color-mix(
+    in srgb,
+    var(--ifm-background-surface-color) 88%,
+    transparent
+  );
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+}
