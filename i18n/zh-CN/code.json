@@ -364,18 +364,6 @@
   "docsIndexPage.footer": {
     "message": "点击任意分类开始探索，或使用顶部导航快速访问"
   },
-  "footer.knowledge": {
-    "message": "知识库"
-  },
-  "footer.backend": {
-    "message": "后端开发"
-  },
-  "footer.operation": {
-    "message": "运维部署"
-  },
-  "footer.ai": {
-    "message": "人工智能"
-  },
   "footer.more": {
     "message": "更多"
   },

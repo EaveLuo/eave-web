@@ -29,27 +29,29 @@ test('getNavLinks uses the locale-aware RSS href provided by the footer', () => 
   assert.equal(rssLink.external, true);
 });
 
-test('getNavLinks exposes Blog tag groups and no Docs routes', () => {
+test('getNavLinks exposes only the remaining general links', () => {
   const sections = getNavLinks('/blog/rss.xml', (_id, message) => message);
   const serialized = JSON.stringify(sections);
 
+  assert.deepEqual(sections.map((section) => section.id), ['more']);
   assert.doesNotMatch(serialized, /\/docs(?:\/|")/);
-  assert.doesNotMatch(serialized, /\/blog\/tags\/frontend/);
-  for (const tag of [
-    'backend',
-    'operations',
-    'ai',
-  ]) {
-    assert.match(serialized, new RegExp(`/blog/tags/${tag}`));
-  }
+  assert.doesNotMatch(serialized, /\/blog\/tags\//);
 });
 
-test('removed frontend navigation translations do not linger', () => {
+test('removed knowledge navigation translations do not linger', () => {
   const root = path.resolve(__dirname, '..', '..', '..');
   for (const locale of ['en', 'zh-CN']) {
     const messages = JSON.parse(
       fs.readFileSync(path.join(root, 'i18n', locale, 'code.json'), 'utf8'),
     );
-    assert.equal(messages['footer.frontend'], undefined);
+    for (const id of [
+      'footer.frontend',
+      'footer.knowledge',
+      'footer.backend',
+      'footer.operation',
+      'footer.ai',
+    ]) {
+      assert.equal(messages[id], undefined);
+    }
   }
 });

@@ -374,18 +374,6 @@
   "languagePrompt.close": {
     "message": "Close"
   },
-  "footer.knowledge": {
-    "message": "Knowledge Base"
-  },
-  "footer.backend": {
-    "message": "Backend"
-  },
-  "footer.operation": {
-    "message": "DevOps"
-  },
-  "footer.ai": {
-    "message": "AI"
-  },
   "footer.more": {
     "message": "More"
   },

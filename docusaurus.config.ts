@@ -148,23 +148,6 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Knowledge base',
-          items: [
-            {
-              label: 'Back end',
-              to: '/blog/tags/backend',
-            },
-            {
-              label: 'Operation',
-              to: '/blog/tags/operations',
-            },
-            {
-              label: 'AI',
-              to: '/blog/tags/ai',
-            },
-          ],
-        },
-        {
           title: 'Community',
           items: [
             {

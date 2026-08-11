@@ -28,15 +28,6 @@ export function getNavLinks(
 ): FooterLinkSection[] {
   return [
     {
-      id: 'knowledge',
-      title: translateMessage('footer.knowledge', '知识库'),
-      links: [
-        { id: 'backend', label: translateMessage('footer.backend', '后端开发'), to: '/blog/tags/backend' },
-        { id: 'operation', label: translateMessage('footer.operation', '运维部署'), to: '/blog/tags/operations' },
-        { id: 'ai', label: translateMessage('footer.ai', '人工智能'), to: '/blog/tags/ai' },
-      ],
-    },
-    {
       id: 'more',
       title: translateMessage('footer.more', '更多'),
       links: [
