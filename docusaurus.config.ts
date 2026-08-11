@@ -151,10 +151,6 @@ const config: Config = {
           title: 'Knowledge base',
           items: [
             {
-              label: 'Front end',
-              to: '/blog/tags/frontend',
-            },
-            {
               label: 'Back end',
               to: '/blog/tags/backend',
             },
@@ -303,7 +299,7 @@ const config: Config = {
     ],
     'docusaurus-plugin-image-zoom',
     '@docusaurus/theme-live-codeblock',
-    // Standard Blog content plugin
+    // Standard Blog content plugin; every post is listed individually on the left
     [
       '@docusaurus/plugin-content-blog',
       {
@@ -311,9 +307,11 @@ const config: Config = {
         editUrl: ({ locale, blogDirPath, blogPath, permalink }: BlogEditUrlParams) =>
           `https://github.com/EaveLuo/eave-web/edit/main/${blogDirPath}/${blogPath}`,
         editLocalizedFiles: false,
-        blogSidebarCount: 12,
+        blogSidebarCount: 'ALL',
         blogSidebarTitle: '历史博文',
         postsPerPage: 10,
+        // Custom cards use front matter descriptions instead of post body previews.
+        onUntruncatedBlogPosts: 'ignore',
         showReadingTime: true,
         readingTime: ({ content, frontMatter, defaultReadingTime }: ReadingTimeParams) =>
           defaultReadingTime({ content, options: { wordsPerMinute: 300 } }),

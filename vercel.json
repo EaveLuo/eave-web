@@ -7,7 +7,7 @@
     },
     {
       "source": "/docs/front-end/intro",
-      "destination": "/blog/tags/frontend",
+      "destination": "/blog",
       "permanent": true
     },
     {
@@ -37,22 +37,22 @@
     },
     {
       "source": "/docs/category/go",
-      "destination": "/blog/tags/go",
+      "destination": "/blog/tags/backend",
       "permanent": true
     },
     {
       "source": "/docs/category/node",
-      "destination": "/blog/tags/node-js",
+      "destination": "/blog/tags/backend",
       "permanent": true
     },
     {
       "source": "/docs/category/webpack-5",
-      "destination": "/blog/tags/webpack-5",
+      "destination": "/blog",
       "permanent": true
     },
     {
       "source": "/docs/category/linux",
-      "destination": "/blog/tags/linux",
+      "destination": "/blog/tags/operations",
       "permanent": true
     },
     {
@@ -67,7 +67,7 @@
     },
     {
       "source": "/en/docs/front-end/intro",
-      "destination": "/en/blog/tags/frontend",
+      "destination": "/en/blog",
       "permanent": true
     },
     {
@@ -97,27 +97,117 @@
     },
     {
       "source": "/en/docs/category/go",
-      "destination": "/en/blog/tags/go",
+      "destination": "/en/blog/tags/backend",
       "permanent": true
     },
     {
       "source": "/en/docs/category/node",
-      "destination": "/en/blog/tags/node-js",
+      "destination": "/en/blog/tags/backend",
       "permanent": true
     },
     {
       "source": "/en/docs/category/webpack-5",
-      "destination": "/en/blog/tags/webpack-5",
+      "destination": "/en/blog",
       "permanent": true
     },
     {
       "source": "/en/docs/category/linux",
-      "destination": "/en/blog/tags/linux",
+      "destination": "/en/blog/tags/operations",
       "permanent": true
     },
     {
       "source": "/en/docs/category/nginx",
       "destination": "/en/blog/tags/nginx",
+      "permanent": true
+    },
+    {
+      "source": "/docs/back-end/go/:path*",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/docs/back-end/node/:path*",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/docs/front-end/webpack5/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/docs/operation/linux/:path*",
+      "destination": "/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/blog/back-end/go/:path*",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/blog/back-end/node/:path*",
+      "destination": "/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/blog/front-end/webpack5/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/operation/linux/ssh-key-login-host",
+      "destination": "/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/blog/website/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/back-end/go/:path*",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/back-end/node/:path*",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/front-end/webpack5/:path*",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/operation/linux/:path*",
+      "destination": "/en/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/back-end/go/:path*",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/back-end/node/:path*",
+      "destination": "/en/blog/tags/backend",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/front-end/webpack5/:path*",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/operation/linux/ssh-key-login-host",
+      "destination": "/en/blog/tags/operations",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/website/:path*",
+      "destination": "/en/blog",
       "permanent": true
     },
     {

@@ -46,7 +46,7 @@ test('readBlogArticles loads the unified Blog tree and resolved tag links', () =
   const siteDir = path.resolve(__dirname, '..', '..', '..');
   const articles = readBlogArticles(siteDir, 'zh-CN', 'zh-CN');
 
-  assert.equal(articles.length, 76);
+  assert.equal(articles.length, 8);
   assert.ok(
     articles.every((article) =>
       article.tags.every(

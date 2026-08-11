@@ -14,7 +14,7 @@
 }
 
 /* ========== Mobile端样式 (<= 996px) ========== */
-@media (max-width: 996px) {
+@media (max-width: 1180px) {
   .desktopOnly {
     display: none;
   }
@@ -37,11 +37,19 @@
     min-width: 0;
   }
 
+  .mobileLeft :global(.navbar__toggle) {
+    display: flex;
+  }
+
   .mobileRight {
     display: flex;
     align-items: center;
     gap: 8px;
     flex-shrink: 0;
+  }
+
+  .mobileRight > :global(.navbar__item) {
+    display: none;
   }
 
   /* 搜索按钮覆盖绝对定位 */
@@ -55,10 +63,26 @@
     position: static !important;
     right: auto !important;
   }
+
+  .mobileSearch :global(.DocSearch-Button) {
+    width: 38px;
+    height: 38px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .mobileSearch :global(.DocSearch-Button-Container) {
+    margin: 0;
+  }
+
+  .mobileSearch :global(.DocSearch-Button-Placeholder),
+  .mobileSearch :global(.DocSearch-Button-Keys) {
+    display: none;
+  }
 }
 
 /* 768px - 996px: 语言切换显示图标+文字 */
-@media (min-width: 768px) and (max-width: 996px) {
+@media (min-width: 768px) and (max-width: 1180px) {
   .mobileRight {
     gap: 12px;
   }
@@ -96,7 +120,20 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 540px) {
+  .mobileLeft :global(.navbar__logo) {
+    display: none;
+  }
+
+  .mobileLeft :global(.navbar__title) {
+    display: inline-flex;
+    margin-left: 0;
+  }
+
+  .mobileLeft :global(.navbar__brand) {
+    margin-right: 0;
+  }
+
   .mobileRight {
     gap: 4px;
   }
@@ -104,5 +141,15 @@
   .mobileLocaleSwitcher :global(.button) {
     width: 34px !important;
     height: 34px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .mobileLeft {
+    gap: 0.35rem;
+  }
+
+  .mobileLeft :global(.navbar__title) {
+    font-size: 0.88rem;
   }
 }

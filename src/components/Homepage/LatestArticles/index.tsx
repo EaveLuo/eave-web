@@ -1,9 +1,9 @@
-import { memo, type CSSProperties } from 'react';
-import Link from '@docusaurus/Link';
+import { memo } from 'react';
 import Translate from '@docusaurus/Translate';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import { ActionButton } from '@site/src/components/ActionButton';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import ArticleCard from '@site/src/components/ArticleCard';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
 import styles from './styles.module.css';
 
 interface ArticleTag {
@@ -28,82 +28,13 @@ interface HomepageData {
   };
 }
 
-function formatDate(dateString: string): string {
-  if (!dateString) {
-    return '';
-  }
-
-  const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) {
-    return '';
-  }
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}
-
-function ArticleCard({
-  article,
-  index,
-}: {
-  article: ArticleItem;
-  index: number;
-}) {
-  return (
-    <article
-      className={styles.card}
-      style={{ '--card-index': index } as CSSProperties}
-    >
-      <div className={styles.cardInner}>
-        {article.date && (
-          <div className={styles.cardHeader}>
-            <time className={styles.date}>{formatDate(article.date)}</time>
-          </div>
-        )}
-
-        <Link to={article.path} className={styles.articleLink}>
-          <h3 className={styles.title}>{article.title}</h3>
-          <p className={styles.description}>
-            {article.description || (
-              <Translate id="homepage.latestArticles.noDescription">
-                No description available
-              </Translate>
-            )}
-          </p>
-        </Link>
-
-        {article.tags.length > 0 && (
-          <div className={styles.tags}>
-            {article.tags.slice(0, 3).map((tag) => (
-              <Link
-                key={tag.id}
-                to={tag.permalink}
-                className={styles.tag}
-              >
-                {tag.label}
-              </Link>
-            ))}
-          </div>
-        )}
-
-        <Link to={article.path} className={styles.readMore}>
-          <Translate id="homepage.latestArticles.readMore">Read More</Translate>
-          <ArrowRight size={14} aria-hidden="true" />
-        </Link>
-      </div>
-    </article>
-  );
-}
-
 function LatestArticles() {
   const homepageData = usePluginData(
     'docusaurus-plugin-homepage-data',
   ) as HomepageData | undefined;
 
   const latestItems = homepageData?.latestArticles?.items ?? [];
+  const latestArticle = latestItems[0];
 
   return (
     <section className={styles.section}>
@@ -137,7 +68,9 @@ function LatestArticles() {
               <ArticleCard
                 key={article.id}
                 article={article}
+                permalink={article.path}
                 index={index}
+                headingLevel="h3"
               />
             ))}
           </div>
@@ -147,11 +80,18 @@ function LatestArticles() {
           </p>
         )}
 
-        <div className={styles.footer}>
-          <ActionButton to="/blog" icon={<ArrowRight size={16} aria-hidden="true" />}>
-            <Translate id="homepage.latestArticles.viewAll">View All Articles</Translate>
-          </ActionButton>
-        </div>
+        {latestArticle ? (
+          <div className={styles.footer}>
+            <ActionButton
+              to={latestArticle.path}
+              icon={<ArrowUpRight size={16} aria-hidden="true" />}
+            >
+              <Translate id="homepage.latestArticles.readLatest">
+                Read Latest Article
+              </Translate>
+            </ActionButton>
+          </div>
+        ) : null}
       </div>
     </section>
   );

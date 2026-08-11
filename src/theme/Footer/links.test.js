@@ -1,5 +1,6 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const path = require('node:path');
 const test = require('node:test');
 const ts = require('typescript');
 
@@ -33,12 +34,22 @@ test('getNavLinks exposes Blog tag groups and no Docs routes', () => {
   const serialized = JSON.stringify(sections);
 
   assert.doesNotMatch(serialized, /\/docs(?:\/|")/);
+  assert.doesNotMatch(serialized, /\/blog\/tags\/frontend/);
   for (const tag of [
-    'frontend',
     'backend',
     'operations',
     'ai',
   ]) {
     assert.match(serialized, new RegExp(`/blog/tags/${tag}`));
+  }
+});
+
+test('removed frontend navigation translations do not linger', () => {
+  const root = path.resolve(__dirname, '..', '..', '..');
+  for (const locale of ['en', 'zh-CN']) {
+    const messages = JSON.parse(
+      fs.readFileSync(path.join(root, 'i18n', locale, 'code.json'), 'utf8'),
+    );
+    assert.equal(messages['footer.frontend'], undefined);
   }
 });

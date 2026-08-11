@@ -344,7 +344,7 @@
     "message": "关闭"
   },
   "blogListPage.title": {
-    "message": "????"
+    "message": "全部文章"
   },
   "blogListPage.subtitle": {
     "message": "探索技术分享、经验总结与思考"
@@ -366,9 +366,6 @@
   },
   "footer.knowledge": {
     "message": "知识库"
-  },
-  "footer.frontend": {
-    "message": "前端开发"
   },
   "footer.backend": {
     "message": "后端开发"
@@ -687,10 +684,31 @@
     "message": "此页面是草稿，仅在开发环境中可见，不会包含在正式版本中。",
     "description": "The draft content banner message"
   },
-  "homepage.latestArticles.viewAll": {
-    "message": "??????"
+  "homepage.latestArticles.readLatest": {
+    "message": "阅读最新文章"
   },
   "blogListPage.viewTags": {
-    "message": "?????"
+    "message": "按标签浏览"
+  },
+  "article.sidebar.collapse": {
+    "message": "收起文章列表"
+  },
+  "article.sidebar.expand": {
+    "message": "展开文章列表"
+  },
+  "article.toc.title": {
+    "message": "本文目录"
+  },
+  "article.toc.progress": {
+    "message": "阅读进度"
+  },
+  "article.toc.jumpHint": {
+    "message": "快速定位章节"
+  },
+  "article.toc.mobileTitle": {
+    "message": "目录"
+  },
+  "article.toc.completed": {
+    "message": "阅读完啦~"
   }
 }

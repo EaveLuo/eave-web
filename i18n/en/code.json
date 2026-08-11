@@ -377,9 +377,6 @@
   "footer.knowledge": {
     "message": "Knowledge Base"
   },
-  "footer.frontend": {
-    "message": "Frontend"
-  },
   "footer.backend": {
     "message": "Backend"
   },
@@ -718,10 +715,31 @@
     "message": "This page is a draft. It will only be visible in dev and be excluded from the production build.",
     "description": "The draft content banner message"
   },
-  "homepage.latestArticles.viewAll": {
-    "message": "View All Articles"
+  "homepage.latestArticles.readLatest": {
+    "message": "Read Latest Article"
   },
   "blogListPage.viewTags": {
     "message": "Browse by Tag"
+  },
+  "article.sidebar.collapse": {
+    "message": "Collapse article list"
+  },
+  "article.sidebar.expand": {
+    "message": "Expand article list"
+  },
+  "article.toc.title": {
+    "message": "On this page"
+  },
+  "article.toc.progress": {
+    "message": "Reading progress"
+  },
+  "article.toc.jumpHint": {
+    "message": "Jump to a section"
+  },
+  "article.toc.mobileTitle": {
+    "message": "TOC"
+  },
+  "article.toc.completed": {
+    "message": "All read~"
   }
 }

@@ -1,7 +1,3 @@
-frontend:
-  label: "Frontend"
-  permalink: /frontend
-  description: "Articles about Frontend"
 backend:
   label: "Backend"
   permalink: /backend
@@ -14,22 +10,6 @@ ai:
   label: "AI"
   permalink: /ai
   description: "Articles about AI"
-go:
-  label: "Go"
-  permalink: /go
-  description: "Articles about Go"
-node-js:
-  label: "Node.js"
-  permalink: /node-js
-  description: "Articles about Node.js"
-webpack-5:
-  label: "Webpack 5"
-  permalink: /webpack-5
-  description: "Articles about Webpack 5"
-linux:
-  label: "Linux"
-  permalink: /linux
-  description: "Articles about Linux"
 nginx:
   label: "Nginx"
   permalink: /nginx
@@ -98,10 +78,6 @@ architecture:
   label: "Architecture"
   permalink: /architecture
   description: "Articles about Architecture"
-website:
-  label: "Website"
-  permalink: /website
-  description: "Articles about Website"
 docusaurus:
   label: "Docusaurus"
   permalink: /docusaurus
@@ -114,18 +90,10 @@ ux:
   label: "UX"
   permalink: /ux
   description: "Articles about UX"
-i18n:
-  label: "Internationalization"
-  permalink: /i18n
-  description: "Articles about Internationalization"
 documentation:
   label: "Documentation"
   permalink: /documentation
   description: "Articles about Documentation"
-release:
-  label: "Release"
-  permalink: /release
-  description: "Articles about Release"
 daily:
   label: "Daily Life"
   permalink: /daily
