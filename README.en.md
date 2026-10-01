@@ -58,19 +58,32 @@ If you want to build a similar site, you can directly [Fork](https://github.com/
 Publish all new articles under `blog/`, with English translations in the matching i18n Blog path. Lists are ordered newest-first by the front matter `date`, and `tags` provide article groups.
 ## 📥 Run
 
+Requires Node.js **22.12.0 or newer**. CI uses Node.js 24 and checks both npm and Bun 1.4.2 installations. Mermaid 12 diagrams require a modern ES2024-capable browser, with Safari / iOS Safari 17.4 or newer.
+
 ```bash
 git clone https://github.com/EaveLuo/eave-web.git
 cd eave-web
 
-yarn
-yarn start
+npm ci
+npm start
 ```
 
-Build
+Alternatively, use Bun (remove the old `node_modules` before switching package managers, then install from the corresponding lockfile):
 
 ```bash
-yarn build
+bun install --frozen-lockfile
+bun run start
 ```
+
+Validate before submitting changes (replace `npm run` with `bun run` for Bun):
+
+```bash
+npm run typecheck
+npm run test
+npm run build
+```
+
+Dependency updates must maintain both `package-lock.json` and `bun.lock` and pass checks with both installation methods. Tests use Node's built-in TypeScript type stripping; experimental warnings on Node 22.12 are expected.
 
 ## 📝 License
 

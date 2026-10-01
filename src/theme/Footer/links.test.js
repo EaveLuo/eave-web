@@ -2,21 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
-const ts = require('typescript');
-
-require.extensions['.ts'] = (module, filename) => {
-  const source = fs.readFileSync(filename, 'utf8');
-  const { outputText } = ts.transpileModule(source, {
-    compilerOptions: {
-      module: ts.ModuleKind.CommonJS,
-      target: ts.ScriptTarget.ES2020,
-    },
-    fileName: filename,
-  });
-
-  module._compile(outputText, filename);
-};
-
+// The test command enables Node's type stripping; TypeScript 7 has no compiler API.
 const { getNavLinks } = require('./links.ts');
 
 test('getNavLinks uses the locale-aware RSS href provided by the footer', () => {

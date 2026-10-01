@@ -114,6 +114,11 @@ const config: Config = {
   ],
   tagline: "Eave Luo's homepage, blog.",
   themeConfig: {
+    mermaid: {
+      // Preserve the existing diagram layout and appearance with Mermaid 12.
+      theme: { light: 'default', dark: 'dark' },
+      options: { layout: 'dagre', look: 'classic' },
+    },
     metadata: [
       {
         name: 'author',

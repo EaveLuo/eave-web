@@ -58,19 +58,32 @@ English
 新文章统一发布到 `blog/`；英文翻译在对应的 i18n Blog 目录维护。列表按 front matter 中的 `date` 倒序展示，分组使用 `tags`。
 ## 📥 运行
 
+需要 Node.js **22.12.0 或更新版本**；CI 使用 Node.js 24，并验证 npm 和 Bun 1.4.2 两种安装方式。Mermaid 12 图表需要支持 ES2024 的现代浏览器，Safari / iOS Safari 至少为 17.4。
+
 ```bash
 git clone https://github.com/EaveLuo/eave-web.git
 cd eave-web
 
-yarn
-yarn start
+npm ci
+npm start
 ```
 
-构建
+也可以使用 Bun（切换包管理器时，先移除旧的 `node_modules`，再从对应锁文件安装）：
 
 ```bash
-yarn build
+bun install --frozen-lockfile
+bun run start
 ```
+
+提交前验证（使用 Bun 时，将 `npm run` 换成 `bun run`）：
+
+```bash
+npm run typecheck
+npm run test
+npm run build
+```
+
+依赖更新需同时维护 `package-lock.json` 和 `bun.lock`，并通过两种安装方式的检查。测试使用 Node 内置的 TypeScript 类型剥离；Node 22.12 上的实验性提示属于预期行为。
 
 ## 📝 许可证
 
