@@ -369,7 +369,7 @@ test('blog post pages use the responsive reading workspace', () => {
   assert.match(globalStyles, /--liquid-glass-blur:\s*22px/);
   assert.match(globalStyles, /\.liquid-glass-surface/);
   assert.match(globalStyles, /backdrop-filter:\s*blur\(var\(--liquid-glass-blur\)\)/);
-  assert.ok(navbarStyles.includes('@media (max-width: 1180px)'));
+  assert.ok(navbarStyles.includes('@media (max-width: 996px)'));
   assert.ok(navbarStyles.includes('@media (max-width: 540px)'));
   assert.ok(navbarStyles.includes(".mobileLeft :global(.navbar__toggle)"));
   assert.ok(navbarStyles.includes(".mobileRight > :global(.navbar__item)"));

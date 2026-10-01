@@ -13,8 +13,9 @@
   display: none;
 }
 
+/* Match Docusaurus useWindowSize and Infima: the sidebar mounts only at <=996px. */
 /* ========== Mobile端样式 (<= 996px) ========== */
-@media (max-width: 1180px) {
+@media (max-width: 996px) {
   .desktopOnly {
     display: none;
   }
@@ -82,7 +83,7 @@
 }
 
 /* 768px - 996px: 语言切换显示图标+文字 */
-@media (min-width: 768px) and (max-width: 1180px) {
+@media (min-width: 768px) and (max-width: 996px) {
   .mobileRight {
     gap: 12px;
   }

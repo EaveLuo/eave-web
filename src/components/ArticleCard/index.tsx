@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import Translate from '@docusaurus/Translate';
 import { ArrowUpRight, CalendarDays } from 'lucide-react';
 
+import { formatDate } from './formatDate';
 import styles from './styles.module.css';
 
 export interface ArticleCardTag {
@@ -16,19 +17,6 @@ export interface ArticleCardItem {
   description?: string;
   date: string;
   tags: ArticleCardTag[];
-}
-
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) {
-    return '';
-  }
-
-  return [
-    date.getFullYear(),
-    String(date.getMonth() + 1).padStart(2, '0'),
-    String(date.getDate()).padStart(2, '0'),
-  ].join('-');
 }
 
 export default function ArticleCard({

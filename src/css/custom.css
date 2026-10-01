@@ -96,7 +96,7 @@
   box-shadow: none;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 996px) {
   .navbar.navbar-sidebar--show {
     z-index: var(--site-navigation-overlay-z-index);
     will-change: auto;
