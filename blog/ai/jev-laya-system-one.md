@@ -22,8 +22,6 @@ tags: [ai, agents, jev, laya, architecture, performance]
 
 ![温暖的纸艺图书馆里，小小的向导为请求点亮通往知识库与提示词卡片的路线](https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png)
 
-本文整理截至 **2026 年 10 月 2 日** 的公开资料。评测数值引用标注的官方或第三方报告，比较时应结合各报告的模型版本、数据集和运行环境。
-
 ## 先认识 Jev 和 Laya
 
 Jev 来自 TypeSafe AI。创始人 Diogo Almeida 曾参与 InstructGPT 相关工作，团队在 2026 年 9 月 15 日公布 Jev，并开放 early access。他们把这一产品方向命名为 **System One models**，强调快速、结构化、可被软件直接消费的判断。[来源：TypeSafe 发布文章](https://typesafe.ai/blog/introducing-system-one-models-and-jev)

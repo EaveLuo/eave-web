@@ -22,8 +22,6 @@ Let's look at where Jev and Laya came from, why they suit fast judgments, and wh
 
 ![In a warm papercraft library, a tiny guide lights up routes from a request to knowledge bases and prompt cards](https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png)
 
-This article draws on public information available as of **October 2, 2026**. Benchmark numbers are cited from the official or third-party reports below. Comparisons should account for each report's model versions, datasets, and runtime environment.
-
 ## Meet Jev and Laya
 
 Jev comes from TypeSafe AI. Its founder, Diogo Almeida, previously contributed to work on InstructGPT. The team announced Jev and opened early access on September 15, 2026. They call this product direction **System One models**, emphasizing fast, structured judgments that software can consume directly. [Source: TypeSafe launch post](https://typesafe.ai/blog/introducing-system-one-models-and-jev)
