@@ -34,7 +34,7 @@ test('all publishable content lives in the bilingual Blog roots', () => {
   const zh = relativePosts(zhRoot);
   const en = relativePosts(enRoot);
 
-  assert.equal(zh.length, 8);
+  assert.equal(zh.length, 9);
   assert.deepEqual(en, zh);
 
   for (const file of [...listMarkdown(zhRoot), ...listMarkdown(enRoot)]) {
@@ -66,6 +66,38 @@ test('all publishable content lives in the bilingual Blog roots', () => {
     ]) {
       assert.equal(data[field], undefined, `${file} still has ${field}`);
     }
+  }
+});
+
+test('the Jev and Laya article preserves bilingual metadata, sources, and illustrations', () => {
+  const relativePath = 'ai/jev-laya-system-one.md';
+  const [zh, en] = [zhRoot, enRoot].map((dir) =>
+    matter(fs.readFileSync(path.join(dir, relativePath), 'utf8')),
+  );
+
+  for (const field of ['date', 'authors', 'tags']) {
+    assert.deepEqual(en.data[field], zh.data[field], `${field} differs by locale`);
+  }
+  assert.notEqual(en.data.title, zh.data.title);
+  assert.notEqual(en.data.description, zh.data.description);
+
+  const links = (content) =>
+    [...content.matchAll(/\]\((https:\/\/[^\s)]+)\)/g)]
+      .map((match) => match[1])
+      .sort();
+  const illustrations = (content) =>
+    [...content.matchAll(/!\[[^\]]+\]\(([^)]+)\)/g)]
+      .map((match) => match[1]);
+  assert.deepEqual(links(en.content), links(zh.content));
+
+  for (const { content } of [zh, en]) {
+    assert.match(content, /<!-- truncate -->/);
+    assert.deepEqual(illustrations(content), [
+      'https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png',
+      'https://assets.eaveluo.com/blog/2026/10/agent-station-routing.png',
+    ]);
+    assert.equal((content.match(/^```mermaid$/gm) ?? []).length, 1);
+    assert.doesNotMatch(content, /^# /m, 'the page header already renders the title');
   }
 });
 
