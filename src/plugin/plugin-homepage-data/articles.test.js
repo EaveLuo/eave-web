@@ -77,7 +77,15 @@ test('the Jev and Laya article is the latest entry in both locales', () => {
     );
     assert.deepEqual(
       latest.tags.map((tag) => tag.id),
-      ['ai', 'agents', 'architecture', 'performance'],
+      ['ai', 'agents', 'jev', 'laya', 'architecture', 'performance'],
     );
+    for (const id of ['jev', 'laya']) {
+      const tag = latest.tags.find((entry) => entry.id === id);
+      assert.equal(tag.label, id === 'jev' ? 'Jev' : 'Laya');
+      assert.equal(
+        tag.permalink,
+        `${locale === 'en' ? '/en' : ''}/blog/tags/${id}`,
+      );
+    }
   }
 });

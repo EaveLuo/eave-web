@@ -98,3 +98,11 @@ daily:
   label: "日常"
   permalink: /daily
   description: "日常相关文章"
+jev:
+  label: "Jev"
+  permalink: /jev
+  description: "Jev相关文章"
+laya:
+  label: "Laya"
+  permalink: /laya
+  description: "Laya相关文章"

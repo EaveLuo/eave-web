@@ -1,24 +1,28 @@
 ---
 title: 'The Best Models for Agent Routing? Jev and Laya Decision Models'
-description: 'As knowledge bases and preset prompts multiply, how can users put them to work sooner? An Agent Station perspective on Jev and Laya, their routing approach, model mechanics, and public benchmarks.'
+description: 'As knowledge bases and preset prompts multiply, how can users put them to work sooner? An agent-workspace perspective on Jev and Laya, their routing approach, model mechanics, and public benchmarks.'
 date: 2026-10-02T00:00:00.000Z
 authors: [eave]
-tags: [ai, agents, architecture, performance]
+tags: [ai, agents, jev, laya, architecture, performance]
 ---
 
-We're building an internal workspace called Agent Station. Lately, I've been thinking about a possibility: suppose the workspace gradually accumulates a large collection of knowledge bases and preset prompts. As those resources grow, **how do we put the right ones to work as soon as a user tells us what they need?**
+We're building an agent workspace. Our earliest approach used Skills to route requests to specific agents. The problem was that, before the request reached its target agent, the interface would often show a long stretch of reasoning or other output. That slowed responses and left users confused: they had simply asked for something, so why was the system saying so much first?
 
-Looking up product information, putting together a proposal, and troubleshooting a problem may all begin with one sentence in a text box. Behind the scenes, though, they can call for very different knowledge bases and prompts. We can hardly ask users to memorize the resource directory and assemble the right combination themselves. Ideally, they hand over a request, and the workspace helps it find its way.
+We later switched to injecting a System Prompt through parameters. Performance improved substantially, and that is the approach we currently use. However, routing policies remain spread across entry points such as the web interface and CLI, with each maintaining its own routing logic. The capability is still organized as an external add-on rather than a unified workflow inside the agent.
 
-That led me to Jev and Laya. Could Agent Station use a nimble little router to pick the right resources quickly, then pass the work to an agent that's ready to go? If that choice is both accurate and fast, the savings could extend beyond a single wait: less time choosing resources, explaining things again, and starting over after a wrong turn.
+As knowledge bases and preset prompts grow, role selection is only part of what needs to be coordinated. Looking up product information, preparing a proposal, and troubleshooting may call for different knowledge bases, prompts, and ways of handling the task. Having each entry point make its own decisions adds maintenance work and can send the same request down different paths.
 
-This is still an idea to test. I haven't completed deployments or head-to-head tests of the two in Agent Station. For now, I want to explain where they came from, why they might be faster, and what the public benchmarks actually show, then consider how to try this approach.
+**Bringing Jev or Laya into a unified routing workflow inside the agent could be a strong approach.** A dedicated decision model first chooses the knowledge bases and preset prompt. The execution layer then loads the configuration, retrieves the material, and passes the task to an agent that's ready to go. Entry points such as the web interface and CLI receive requests, while routing decisions happen within the same workflow.
+
+With those pieces connected, users could make requests through whichever entry point they already use, and the system would prepare the appropriate knowledge and approach consistently. If routing is both accurate and fast, the savings extend beyond waiting: less time choosing resources, explaining things again, and starting over after a wrong turn.
+
+Let's look at where Jev and Laya came from, why they suit fast judgments, and what the public benchmarks show, then place this routing approach within the agent workspace's full workflow.
 
 <!-- truncate -->
 
 ![In a warm papercraft library, a tiny guide lights up routes from a request to knowledge bases and prompt cards](https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png)
 
-This article draws on public information available as of **October 2, 2026**. Benchmark numbers come from the official or third-party reports cited below; I have not rerun the models. The proposed Agent Station design and its potential benefits remain hypotheses to validate.
+This article draws on public information available as of **October 2, 2026**. Benchmark numbers are cited from the official or third-party reports below. Comparisons should account for each report's model versions, datasets, and runtime environment.
 
 ## Meet Jev and Laya
 
@@ -50,7 +54,7 @@ Ordinary chat models are good at elaborating on an answer. Routing often needs o
 
 You supply `state`: the request and context needed for this decision. You also supply `questions`, specifying the question, candidate answers, or rating levels. Here, state means **the content passed into this particular call**. It doesn't mean the model already remembers everything in the workspace. The interface centers on three primitives. [Source: TypeSafe Introduction](https://docs.typesafe.ai/introduction)
 
-| Primitive | What might Agent Station ask? | What the output means |
+| Primitive | What might the agent workspace ask? | What the output means |
 | --- | --- | --- |
 | Choice | Which candidate prompt best fits the current task? | Selects one candidate and returns the probability of each option |
 | Score | Has the user provided enough information to begin? | Returns a rating on an ordered scale and its probability distribution |
@@ -166,13 +170,15 @@ These results support testing on your own Chinese-language use cases. They do no
 
 In the third-party evaluation above, Emotion P50 latency was 349.09 ms for Jev and 31.30 ms for Laya. The former measured successful remote API requests from an Australian client at concurrency 8. The latter measured local MPS FP32 inference on an M1 Max, with batch size 1 and 10 warm-up runs. These are real experiences of two deployment setups, but they do not isolate the speed difference between the neural network architectures. [Sources: evaluation summary](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/frozen_primary_plain/summary.json), [environment record](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/frozen_primary_plain/env.json)
 
-A “single forward pass” does not mean constant computation, either. The number of questions, input length, and deployment location all affect latency. Self-hosting removes the per-call API bill, but hardware, memory, and operations still count toward the cost. For Agent Station, these numbers give the little-router idea a reason to be tested. To find out how much sooner users could get a usable result, we need to measure the whole path.
+A “single forward pass” does not mean constant computation, either. The number of questions, input length, and deployment location all affect latency. Self-hosting removes the per-call API bill, but hardware, memory, and operations still count toward the cost. For an agent workspace, these numbers provide a reference for choosing a routing model. How much sooner users can get a usable result needs to be measured across the whole path.
 
-## Help Agent Station's resources get to work sooner
+## Help the agent workspace's resources get to work sooner
 
-After looking through the models and benchmarks, what I most want to try is letting users spend less time wondering which resource to use. In this proposed setup, knowledge bases hold the material, preset prompts capture ways of doing the work, and routing connects both to the request at hand.
+The key is to bring routing policies scattered across entry points into one workflow inside the agent. The web interface, CLI, and other entry points can pass in requests and the necessary context. A shared routing module then selects the role, knowledge bases, and preset prompt before configuration loading, retrieval, and execution.
 
-My earlier exploration focused more on reusing the same agent templates, Skills, and MCP across clients. I considered Skills and Hooks, then moved toward System Prompts, and later connected three clients through a web interface I built. Requests arriving directly through curl or a DingTalk bot do not automatically read the web-side configuration; the configuration still has to be fetched by querying the API through the CLI. That background explains my interest in routing. This time, though, I want to look one step further: **beyond choosing a role, can we make it easier to choose knowledge bases, prompts, and the way a task is handled together?**
+Jev or Laya would serve as the dedicated decision model in this workflow. The agent could call Jev's hosted API or connect to a self-hosted Laya instance, with the module returning choices that can be validated. Existing System Prompt parameter injection and configuration lookup can still be reused to prepare tasks around that shared decision. The configuration approach that has already improved responsiveness can stay in place, while shared routing can reduce inconsistencies caused by maintaining that logic separately at each entry point.
+
+Knowledge bases hold the material, preset prompts capture ways of doing the work, and routing connects both to the request at hand. **Roles, knowledge bases, prompts, and the way a task is handled can work together around the same request**, leaving users less to figure out for themselves.
 
 ![A friendly little router lights up branching paths, sending selected books and prompt cards to a workspace](https://assets.eaveluo.com/blog/2026/10/agent-station-routing.png)
 
@@ -196,28 +202,28 @@ For prompts, I'd rather choose among variants that have already been reviewed, s
 
 There also needs to be a door marked “not sure yet.” If a request is too vague, none of the candidates fits, or one request spans several tasks, the system can retain multiple candidates, ask a clarifying question, or hand off to a more general workflow. Always forcing a single choice may look decisive while merely leaving the trouble for later.
 
-### The potential gains span the whole experience
+### Efficiency gains come from the whole experience
 
-If the choices are accurate enough, I see several concrete sources of improvement:
+If the choices are accurate enough, this approach has several concrete sources of improvement:
 
 - Users can start work with less directory browsing and fewer prompt experiments
 - Routing can reduce long-form generation and serial waiting
 - Downstream retrieval can focus on relevant resources, leaving the agent less irrelevant material to read
 - A better match between resources and tasks can reduce off-target answers, restarts, and changes of approach midway through
 
-If these parts improve together, the efficiency gains could be substantial. For users who currently spend time repeatedly finding material and trying templates, fewer manual steps and less rework may matter more than a few dozen milliseconds. But I can't yet put a speedup multiplier on Agent Station.
+If these parts improve together, the efficiency gains could be substantial. For users who currently spend time repeatedly finding material and trying templates, fewer manual steps and less rework may matter more than a few dozen milliseconds. The gains should be measured using the full time spent on routing, retrieval, agent execution, and fallbacks.
 
 Those gains have conditions. Candidate filtering needs enough recall, routing must not frequently choose the wrong resources, and extra retrieval or fallbacks must not consume the time saved. If every knowledge base and the entire prompt set still end up being sent to the large model unchanged, the earlier selection is unlikely to reduce input costs.
 
-Several engineering basics also need to be settled: can every entry point retrieve the same configuration version, does each request actually pass through routing, and does the selected configuration take effect in the target client? Switching models will not solve these issues automatically. Routing doesn't grant permissions, either. Data access and tool calls still require independent checks. Getting those boundaries right is what makes a lightweight approach useful.
+The engineering also needs to get several basics right: can every entry point retrieve the same configuration version, does each request actually pass through routing, and does the selected configuration take effect in the target client? Switching models will not solve these issues automatically. Routing doesn't grant permissions, either. Data access and tool calls still require independent checks. Getting those boundaries right is what makes a lightweight approach useful.
 
 ## How will we know the little router is helping?
 
-I'd begin with a held-out set of real requests. It should cover tasks needing one knowledge base, cross-base searches, no retrieval, similar prompt variants, missing information, task changes midway through a conversation, and both Chinese and mixed Chinese-English inputs. At first, I'd let the router make suggestions on the side without changing execution, then inspect where its recommendations differ from what was actually needed.
+Evaluating this routing approach starts with a held-out set of real requests. It should cover tasks needing one knowledge base, cross-base searches, no retrieval, similar prompt variants, missing information, task changes midway through a conversation, and both Chinese and mixed Chinese-English inputs. The router can first make suggestions on the side while the existing execution flow stays in place, allowing its recommendations to be compared with what was actually needed.
 
 The comparisons need to be fair, too. Record the current workflow, then test the same resource directory with rules or an existing model, and finally add Jev and Laya. Keep configuration caching, candidate filtering, and retrieval strategies as consistent as possible, rather than crediting the new model for improvements made elsewhere. If labels are stable and training data is available, a traditional classifier is worth including.
 
-These are the results I'd focus on:
+These are the results to focus on:
 
 | Question to answer | What to measure |
 | --- | --- |
@@ -231,7 +237,7 @@ Record timings separately for candidate filtering, configuration lookup, routing
 
 Thresholds also need more than one attractive set of numbers. Keep the calibration set separate from the final test set, pin both the model and resource-directory versions, and separately test new resources, unfamiliar phrasing, long inputs, stale or invalid configurations, and manipulative text. High confidence will not automatically detect every unfamiliar situation. If most requests still need a large model to double-check the result, adding routing could make the workflow slower.
 
-My final acceptance criterion is simple: while maintaining answer quality, users spend less effort deciding which resources to use and get a usable result sooner.
+The acceptance criterion is simple: while maintaining answer quality, users spend less effort deciding which resources to use and get a usable result sooner.
 
 ## Find the route, then let the task take the stage
 
@@ -239,7 +245,7 @@ What appeals to me about Jev and Laya is that they make “a quick judgment” i
 
 Jev provides a hosted service. Laya gives developers more room to inspect the implementation, deploy it, and fine-tune it. Public benchmarks haven't produced a winner for every setting, but they have pointed toward worthwhile experiments and highlighted differences in probabilities, languages, and versions.
 
-For Agent Station, I want to test a simpler experience: users start by saying what they want to accomplish, and the system quickly prepares the right knowledge and approach. Let the little router find the way, so the good resources can get to work sooner.
+Moving from Skill-based routing to injecting a System Prompt through parameters has already improved the workspace's responsiveness. Bringing routing policies into a unified workflow inside the agent could then let different entry points share the same selection and execution process. Whether users make a request through the web interface or CLI, that workflow could prepare the appropriate knowledge and approach. Let the little router find the way, so the good resources can get to work sooner.
 
 ## Sources and places to dig deeper
 
