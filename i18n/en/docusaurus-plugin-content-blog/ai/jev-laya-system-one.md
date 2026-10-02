@@ -1,5 +1,5 @@
 ---
-title: 'Jev and Laya: A Little Router for Agent Station'
+title: 'The Best Models for Agent Routing? Jev and Laya Decision Models'
 description: 'As knowledge bases and preset prompts multiply, how can users put them to work sooner? An Agent Station perspective on Jev and Laya, their routing approach, model mechanics, and public benchmarks.'
 date: 2026-10-02T00:00:00.000Z
 authors: [eave]
@@ -17,8 +17,6 @@ This is still an idea to test. I haven't completed deployments or head-to-head t
 <!-- truncate -->
 
 ![In a warm papercraft library, a tiny guide lights up routes from a request to knowledge bases and prompt cards](https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png)
-
-*A little router helps a request find the right resources. This illustration is a conceptual metaphor, not the actual Agent Station interface.*
 
 This article draws on public information available as of **October 2, 2026**. Benchmark numbers come from the official or third-party reports cited below; I have not rerun the models. The proposed Agent Station design and its potential benefits remain hypotheses to validate.
 

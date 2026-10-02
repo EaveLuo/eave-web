@@ -1,5 +1,5 @@
 ---
-title: 'Jev 与 Laya：给 Agent Station 装一个小路由器'
+title: 'Agent 路由器最佳模型？Jev 与 Laya 决策型模型'
 description: '知识库和预设 Prompt 越来越多，怎样让用户更快用对它们？从 Agent Station 出发，看看 Jev 与 Laya 的路由思路、模型原理和公开评测。'
 date: 2026-10-02T00:00:00.000Z
 authors: [eave]
@@ -17,8 +17,6 @@ tags: [ai, agents, architecture, performance]
 <!-- truncate -->
 
 ![温暖的纸艺图书馆里，小小的向导为请求点亮通往知识库与提示词卡片的路线](https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png)
-
-*一个小路由器，帮请求找到合适的资源。插图是概念比喻，并非 Agent Station 的实际界面。*
 
 本文整理截至 **2026 年 10 月 2 日** 的公开资料。评测数值来自标注的官方或第三方报告，本文未重新运行模型；涉及 Agent Station 的方案与收益，均是接下来需要验证的设想。
 
