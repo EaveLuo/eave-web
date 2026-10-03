@@ -251,7 +251,7 @@ Moving from Skill-based routing to injecting a System Prompt through parameters 
 
 ## References {#references}
 
-<ol>
+<ol className="article-references">
 <li id="ref-1"><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe AI. Introducing System One models and Jev</a></li>
 <li id="ref-2"><a href="https://laya.convaiinnovations.com/">ConvAI Innovations. Laya project introduction</a></li>
 <li id="ref-3"><a href="https://pypi.org/project/laya/#history">PyPI. laya package release history</a></li>

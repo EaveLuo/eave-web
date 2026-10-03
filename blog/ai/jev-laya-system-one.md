@@ -251,7 +251,7 @@ Jev 提供托管服务，Laya 给开发者更多检查实现、部署和微调�
 
 ## 引用 {#references}
 
-<ol>
+<ol className="article-references">
 <li id="ref-1"><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe AI. Jev 与 System One models 发布说明</a></li>
 <li id="ref-2"><a href="https://laya.convaiinnovations.com/">ConvAI Innovations. Laya 项目介绍</a></li>
 <li id="ref-3"><a href="https://pypi.org/project/laya/#history">PyPI. laya 软件包发布记录</a></li>

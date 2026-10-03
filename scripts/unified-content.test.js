@@ -118,6 +118,7 @@ test('Jev and Laya citations resolve to a shared bilingual reference list', () =
     const content = fs.readFileSync(path.join(dir, 'ai/jev-laya-system-one.md'), 'utf8');
     const [body, references] = content.split(`## ${heading} {#references}`);
     assert.ok(references, `${heading} section is missing`);
+    assert.match(references, /<ol className="article-references">/);
     const entries = [...references.matchAll(/<li id="ref-(\d+)"><a href="([^"]+)">/g)];
     assert.equal(entries.length, 32);
     assert.deepEqual(entries.map((entry) => Number(entry[1])), Array.from({ length: 32 }, (_, i) => i + 1));
@@ -139,6 +140,9 @@ test('Jev and Laya citations resolve to a shared bilingual reference list', () =
   }
   assert.deepEqual(referenceLists[0], referenceLists[1]);
   assert.deepEqual(citationSequences[0], citationSequences[1]);
+  const styles = fs.readFileSync(path.join(root, 'src/css/custom.css'), 'utf8');
+  assert.match(styles, /\.article-references > li\s*\{[^}]*scroll-margin-top:\s*calc\(var\(--ifm-navbar-height\) \+ 2rem\)/s);
+
 });
 
 test('the left Blog sidebar lists only the retained individual posts', () => {
