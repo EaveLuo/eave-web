@@ -98,3 +98,15 @@ daily:
   label: "Daily Life"
   permalink: /daily
   description: "Articles about Daily Life"
+jev:
+  label: "Jev"
+  permalink: /jev
+  description: "Articles about Jev"
+laya:
+  label: "Laya"
+  permalink: /laya
+  description: "Articles about Laya"
+clef:
+  label: "Clef"
+  permalink: /clef
+  description: "Articles about Clef"

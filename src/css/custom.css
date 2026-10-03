@@ -151,3 +151,8 @@ article .markdown img {
   display: flex;
   margin: 0 auto;
 }
+
+/* Keep numbered references visible below the floating navbar after citation jumps. */
+article .markdown .article-references > li {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 2rem);
+}

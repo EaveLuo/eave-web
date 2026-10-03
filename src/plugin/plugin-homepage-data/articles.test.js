@@ -46,7 +46,7 @@ test('readBlogArticles loads the unified Blog tree and resolved tag links', () =
   const siteDir = path.resolve(__dirname, '..', '..', '..');
   const articles = readBlogArticles(siteDir, 'zh-CN', 'zh-CN');
 
-  assert.equal(articles.length, 8);
+  assert.equal(articles.length, 9);
   assert.ok(
     articles.every((article) =>
       article.tags.every(
@@ -62,4 +62,30 @@ test('readBlogArticles loads the unified Blog tree and resolved tag links', () =
       .map((article) => article.date)
       .sort((a, b) => new Date(b).getTime() - new Date(a).getTime()),
   );
+});
+
+test('the Jev, Laya, and Clef article is the latest entry in both locales', () => {
+  const siteDir = path.resolve(__dirname, '..', '..', '..');
+
+  for (const locale of ['zh-CN', 'en']) {
+    const [latest] = readBlogArticles(siteDir, locale, 'zh-CN');
+    assert.equal(latest.id, 'ai/jev-laya-system-one');
+    assert.equal(latest.date, '2026-10-02T00:00:00.000Z');
+    assert.equal(
+      latest.path,
+      `${locale === 'en' ? '/en' : ''}/blog/ai/jev-laya-system-one`,
+    );
+    assert.deepEqual(
+      latest.tags.map((tag) => tag.id),
+      ['ai', 'agents', 'jev', 'laya', 'clef', 'architecture', 'performance'],
+    );
+    for (const id of ['jev', 'laya', 'clef']) {
+      const tag = latest.tags.find((entry) => entry.id === id);
+      assert.equal(tag.label, { jev: 'Jev', laya: 'Laya', clef: 'Clef' }[id]);
+      assert.equal(
+        tag.permalink,
+        `${locale === 'en' ? '/en' : ''}/blog/tags/${id}`,
+      );
+    }
+  }
 });
