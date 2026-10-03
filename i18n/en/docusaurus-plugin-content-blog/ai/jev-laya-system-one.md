@@ -20,7 +20,7 @@ Let's look at where Jev and Laya came from, why they suit fast judgments, and wh
 
 <!-- truncate -->
 
-![In a warm papercraft library, a tiny guide lights up routes from a request to knowledge bases and prompt cards](https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png)
+![Lulu connects role, knowledge, and prompt cards with a star wand under the title “Jev & Laya: Choose first. Then act.”](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-cover-en.png?v=9af5b4e9cf11)
 
 ## Meet Jev and Laya
 
@@ -43,6 +43,8 @@ Putting their current offerings side by side makes it easier to decide which to 
 | Domain adaptation | Adjust the state, questions, and application logic | Adjust the same inputs, with weight fine-tuning also available |
 | Language and length | Performs best in English; the native API has both total-request and per-question budgets | Separate English, multilingual, and other checkpoints; routing and truncation need attention |
 | Main engineering responsibilities | Network access, service rate limits, version updates, and data transmission | Hardware, dependencies, throughput, calibration, and model maintenance |
+
+![Lulu compares Jev’s hosted API and SDK with self-hosted Laya, including code, weights, and fine-tuning tools](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-deployment-en.png?v=11084cc76450)
 
 Jev lets you start by connecting to a service. Laya leaves more debugging and deployment choices in the developer's hands. Now let's take a closer look at how they answer questions.
 
@@ -178,9 +180,7 @@ Jev or Laya would serve as the dedicated decision model in this workflow. The ag
 
 Knowledge bases hold the material, preset prompts capture ways of doing the work, and routing connects both to the request at hand. **Roles, knowledge bases, prompts, and the way a task is handled can work together around the same request**, leaving users less to figure out for themselves.
 
-![A friendly little router lights up branching paths, sending selected books and prompt cards to a workspace](https://assets.eaveluo.com/blog/2026/10/agent-station-routing.png)
-
-*Conceptual illustration: inspect the resource directory, then choose a route. Retrieve the actual material only after selecting the knowledge bases. Routing can also return several candidates, or indicate that more information is needed.*
+![Lulu shows routing evolving from lengthy Skill-based output to the current System Prompt setup, then toward unified in-agent routing for Web and CLI entry points](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-evolution-en.png?v=69bd3c92820c)
 
 ### Give each resource a useful little calling card
 
@@ -197,6 +197,10 @@ Choice selects one option from a candidate set, but real tasks aren't always mul
 We could make separate judgments for “knowledge resources” and “prompt variant,” or assess the relevance of each knowledge base in a small candidate set, then combine the results in code. If we use Choice probabilities to retain several candidates, we should remember that they form a shortlist from a single-choice distribution. They are not independent probabilities that each knowledge base is relevant. Cross-base retrieval, result merging, and deduplication remain downstream work.
 
 For prompts, I'd rather choose among variants that have already been reviewed, such as “quick answer,” “in-depth troubleshooting,” and “write it up” for the same subject. The router returns an ID that can be validated, and the execution layer loads the corresponding configuration. This avoids having the routing step invent a template that doesn't exist.
+
+![Lulu browses role, knowledge, and prompt cards, selects a route, loads configuration and retrieves material, then executes the task; the model selects and the execution layer loads and runs](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-flow-en.png?v=9a30255c4e0e)
+
+*Conceptual illustration: inspect the resource directory, then choose a route. Retrieve the actual material only after selecting the knowledge bases. Routing can also return several candidates, or indicate that more information is needed.*
 
 There also needs to be a door marked “not sure yet.” If a request is too vague, none of the candidates fits, or one request spans several tasks, the system can retain multiple candidates, ask a clarifying question, or hand off to a more general workflow. Always forcing a single choice may look decisive while merely leaving the trouble for later.
 

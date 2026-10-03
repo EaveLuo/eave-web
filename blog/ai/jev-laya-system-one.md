@@ -20,7 +20,7 @@ tags: [ai, agents, jev, laya, architecture, performance]
 
 <!-- truncate -->
 
-![温暖的纸艺图书馆里，小小的向导为请求点亮通往知识库与提示词卡片的路线](https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png)
+![水豚噜噜用星星魔法棒串起角色、知识库和 Prompt，主题为“Jev 与 Laya：先选好，再行动”](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-cover-zh.png?v=65dffd99dbaf)
 
 ## 先认识 Jev 和 Laya
 
@@ -43,6 +43,8 @@ Jev 来自 TypeSafe AI。创始人 Diogo Almeida 曾参与 InstructGPT 相关工
 | 领域适配 | 调整 state、问题和业务逻辑 | 同样可改接口输入，也可微调权重 |
 | 语言与长度 | 英语表现最好；原生 API 有总请求与单题两种预算 | 英语、多语等不同 checkpoint；需管理路由与截断 |
 | 主要工程负担 | 网络、服务限流、版本更新与数据传输 | 设备、依赖、吞吐、校准与模型维护 |
+
+![噜噜对比两种接入方式：Jev 通过托管 API 与 SDK，Laya 自托管并提供代码、权重与微调工具](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-deployment-zh.png?v=1ea3e5270e9b)
 
 Jev 的路线是先把服务接起来，Laya 则把更多调试与部署的选择留给开发者。接下来，把镜头拉近一点，看看它们究竟怎样回答问题。
 
@@ -178,9 +180,7 @@ Jev 或 Laya 在这里承担专门的决策模型角色。Agent 可以调用 Jev
 
 资料放在知识库，做事的方法沉淀为预设 Prompt，路由把两者与眼前的需求接起来。**角色、知识库、Prompt 和处理方式围绕同一个请求配合起来**，用户就能少操心“该用哪个”。
 
-![可爱的小路由器点亮分岔路径，把选中的书本与 Prompt 卡片送往工作台](https://assets.eaveluo.com/blog/2026/10/agent-station-routing.png)
-
-*概念示意：先看资源目录，再选路；选好知识库以后，才去检索具体资料。路由结果也可以是多个候选，或暂时需要补充信息。*
+![噜噜展示路由演进：Skills 分流输出冗长，当前通过参数注入 System Prompt，下一步把 Web、CLI 等入口收拢到 Agent 内部统一路由](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-evolution-zh.png?v=6d04cd26d7e9)
 
 ### 给资源一张容易认的小名片
 
@@ -197,6 +197,10 @@ Choice 适合从候选项里做单选，但业务不一定是单选题。前面�
 可以分别判断“知识资源”和“Prompt 变体”，也可以对少量候选知识库逐个判断相关性，再由代码组合结果。如果采用 Choice 的概率来保留若干候选，要记住那是单选分布上的候选清单，并不等于每个库独立相关的概率。跨库检索、合并结果和去重，仍属于后续流程。
 
 对于 Prompt，我更愿意从已经审阅过的变体中选择，例如同一主题下的“快速答疑”“深入排查”“整理成文”。路由返回的是可校验的 ID，执行层再读取对应配置，避免让这一步临时编出一份不存在的模板。
+
+![噜噜依次浏览角色、知识库和 Prompt 目录，做路由选择，加载配置并检索资料，最后执行任务；模型负责选择，执行层加载与执行](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-flow-zh.png?v=a9dee955a3b8)
+
+*概念示意：先看资源目录，再选路；选好知识库以后，才去检索具体资料。路由结果也可以是多个候选，或暂时需要补充信息。*
 
 还要留一扇“暂时不确定”的门。问题太含糊、候选项都不合适，或一次请求横跨多个任务时，可以保留候选、补问一句，或交给更通用的流程。每次都硬选一个，看起来干脆，可能只是把麻烦留到了后面。
 

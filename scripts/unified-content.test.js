@@ -82,7 +82,7 @@ test('the Jev and Laya article preserves bilingual metadata, sources, and illust
   assert.notEqual(en.data.description, zh.data.description);
 
   const links = (content) =>
-    [...content.matchAll(/\]\((https:\/\/[^\s)]+)\)/g)]
+    [...content.matchAll(/(?<!!)\[[^\]]*\]\((https:\/\/[^\s)]+)\)/g)]
       .map((match) => match[1])
       .sort();
   const illustrations = (content) =>
@@ -90,11 +90,17 @@ test('the Jev and Laya article preserves bilingual metadata, sources, and illust
       .map((match) => match[1]);
   assert.deepEqual(links(en.content), links(zh.content));
 
-  for (const { content } of [zh, en]) {
+  const imageVersions = {
+    zh: ['65dffd99dbaf', '1ea3e5270e9b', '6d04cd26d7e9', 'a9dee955a3b8'],
+    en: ['9af5b4e9cf11', '11084cc76450', '69bd3c92820c', '9a30255c4e0e'],
+  };
+  for (const [locale, { content }] of [['zh', zh], ['en', en]]) {
     assert.match(content, /<!-- truncate -->/);
     assert.deepEqual(illustrations(content), [
-      'https://assets.eaveluo.com/blog/2026/10/jev-laya-cover.png',
-      'https://assets.eaveluo.com/blog/2026/10/agent-station-routing.png',
+      ...['cover', 'deployment', 'evolution', 'flow'].map(
+        (name, index) =>
+          `https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-${name}-${locale}.png?v=${imageVersions[locale][index]}`,
+      ),
     ]);
     assert.equal((content.match(/^```mermaid$/gm) ?? []).length, 1);
     assert.doesNotMatch(content, /^# /m, 'the page header already renders the title');
