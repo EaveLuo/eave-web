@@ -106,3 +106,7 @@ laya:
   label: "Laya"
   permalink: /laya
   description: "Laya相关文章"
+clef:
+  label: "Clef"
+  permalink: /clef
+  description: "Clef相关文章"

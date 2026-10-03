@@ -69,7 +69,7 @@ test('all publishable content lives in the bilingual Blog roots', () => {
   }
 });
 
-test('the Jev and Laya article preserves bilingual metadata, sources, and illustrations', () => {
+test('the four-model routing article preserves bilingual metadata, sources, and illustrations', () => {
   const relativePath = 'ai/jev-laya-system-one.md';
   const [zh, en] = [zhRoot, enRoot].map((dir) =>
     matter(fs.readFileSync(path.join(dir, relativePath), 'utf8')),
@@ -91,24 +91,36 @@ test('the Jev and Laya article preserves bilingual metadata, sources, and illust
       .map((match) => match[1]);
   assert.deepEqual(links(en.content), links(zh.content));
 
-  const imageVersions = {
-    zh: ['65dffd99dbaf', '1ea3e5270e9b', '6d04cd26d7e9', 'a9dee955a3b8'],
-    en: ['9af5b4e9cf11', '11084cc76450', '69bd3c92820c', '9a30255c4e0e'],
-  };
+  const expectedImages = {
+  "zh": [
+    "https://assets.eaveluo.com/blog/2026/10/lulu-four-models-cover-zh.png?v=abfe1bb80eec",
+    "https://assets.eaveluo.com/blog/2026/10/lulu-four-models-deployment-zh.png?v=fb580a53150f",
+    "https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-evolution-zh.png?v=6d04cd26d7e9",
+    "https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-flow-zh.png?v=a9dee955a3b8"
+  ],
+  "en": [
+    "https://assets.eaveluo.com/blog/2026/10/lulu-four-models-cover-en.png?v=5fcbcf06177a",
+    "https://assets.eaveluo.com/blog/2026/10/lulu-four-models-deployment-en.png?v=67aae4a61509",
+    "https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-evolution-en.png?v=69bd3c92820c",
+    "https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-flow-en.png?v=9a30255c4e0e"
+  ]
+};
   for (const [locale, { content }] of [['zh', zh], ['en', en]]) {
     assert.match(content, /<!-- truncate -->/);
-    assert.deepEqual(illustrations(content), [
-      ...['cover', 'deployment', 'evolution', 'flow'].map(
-        (name, index) =>
-          `https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-${name}-${locale}.png?v=${imageVersions[locale][index]}`,
-      ),
-    ]);
+    assert.deepEqual(illustrations(content), expectedImages[locale]);
+    assert.match(content, /Clef 27B/);
+    assert.match(content, /Clef-Flash 9B/);
+    assert.match(content, /Qwen3\.8-27B/);
+    assert.match(content, /Qwen3\.5-9B/);
+    assert.match(content, /When2Call/);
+    assert.match(content, /BRIGHT/);
+    assert.match(content, /RAGTruth/);
     assert.equal((content.match(/^```mermaid$/gm) ?? []).length, 1);
     assert.doesNotMatch(content, /^# /m, 'the page header already renders the title');
   }
 });
 
-test('Jev and Laya citations resolve to a shared bilingual reference list', () => {
+test('Four-model citations resolve to a shared bilingual reference list', () => {
   const referenceLists = [];
   const citationSequences = [];
   for (const [dir, heading, label] of [
@@ -120,10 +132,10 @@ test('Jev and Laya citations resolve to a shared bilingual reference list', () =
     assert.ok(references, `${heading} section is missing`);
     assert.match(references, /<ol className="article-references">/);
     const entries = [...references.matchAll(/<li id="ref-(\d+)"><a href="([^"]+)">/g)];
-    assert.equal(entries.length, 32);
-    assert.deepEqual(entries.map((entry) => Number(entry[1])), Array.from({ length: 32 }, (_, i) => i + 1));
+    assert.equal(entries.length, 41);
+    assert.deepEqual(entries.map((entry) => Number(entry[1])), Array.from({ length: 41 }, (_, i) => i + 1));
     const urls = entries.map((entry) => entry[2]);
-    assert.equal(new Set(urls).size, 32, 'duplicate sources must reuse the same reference');
+    assert.equal(new Set(urls).size, 41, 'duplicate sources must reuse the same reference');
     assert.ok(urls.every((url) => !url.includes('assets.eaveluo.com')));
     referenceLists.push(urls);
     const citations = [...body.matchAll(/<a href="#ref-(\d+)" aria-label="([^"]+)">\[(\d+)\]<\/a>/g)];
@@ -133,7 +145,7 @@ test('Jev and Laya citations resolve to a shared bilingual reference list', () =
       assert.equal(accessibleLabel, `${label} ${number}`);
       assert.ok(Number(id) >= 1 && Number(id) <= entries.length);
     }
-    assert.deepEqual([...new Set(citations.map((citation) => Number(citation[1])))].sort((a, b) => a - b), Array.from({ length: 32 }, (_, i) => i + 1));
+    assert.deepEqual([...new Set(citations.map((citation) => Number(citation[1])))].sort((a, b) => a - b), Array.from({ length: 41 }, (_, i) => i + 1));
     assert.doesNotMatch(body, /(?<!!)\[[^\]]*\]\(https:\/\//, 'body sources should use superscripts');
     assert.doesNotMatch(body, /\[来源：|\[Sources?:/);
     citationSequences.push(citations.map((citation) => citation[1]));
