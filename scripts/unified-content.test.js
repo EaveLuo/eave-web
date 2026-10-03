@@ -82,9 +82,10 @@ test('the Jev and Laya article preserves bilingual metadata, sources, and illust
   assert.notEqual(en.data.description, zh.data.description);
 
   const links = (content) =>
-    [...content.matchAll(/(?<!!)\[[^\]]*\]\((https:\/\/[^\s)]+)\)/g)]
-      .map((match) => match[1])
-      .sort();
+    [
+      ...content.matchAll(/(?<!!)\[[^\]]*\]\((https:\/\/[^\s)]+)\)/g),
+      ...content.matchAll(/<a href="(https:\/\/[^"]+)"/g),
+    ].map((match) => match[1]).sort();
   const illustrations = (content) =>
     [...content.matchAll(/!\[[^\]]+\]\(([^)]+)\)/g)]
       .map((match) => match[1]);
@@ -105,6 +106,39 @@ test('the Jev and Laya article preserves bilingual metadata, sources, and illust
     assert.equal((content.match(/^```mermaid$/gm) ?? []).length, 1);
     assert.doesNotMatch(content, /^# /m, 'the page header already renders the title');
   }
+});
+
+test('Jev and Laya citations resolve to a shared bilingual reference list', () => {
+  const referenceLists = [];
+  const citationSequences = [];
+  for (const [dir, heading, label] of [
+    [zhRoot, '引用', '引用'],
+    [enRoot, 'References', 'Reference'],
+  ]) {
+    const content = fs.readFileSync(path.join(dir, 'ai/jev-laya-system-one.md'), 'utf8');
+    const [body, references] = content.split(`## ${heading} {#references}`);
+    assert.ok(references, `${heading} section is missing`);
+    const entries = [...references.matchAll(/<li id="ref-(\d+)"><a href="([^"]+)">/g)];
+    assert.equal(entries.length, 32);
+    assert.deepEqual(entries.map((entry) => Number(entry[1])), Array.from({ length: 32 }, (_, i) => i + 1));
+    const urls = entries.map((entry) => entry[2]);
+    assert.equal(new Set(urls).size, 32, 'duplicate sources must reuse the same reference');
+    assert.ok(urls.every((url) => !url.includes('assets.eaveluo.com')));
+    referenceLists.push(urls);
+    const citations = [...body.matchAll(/<a href="#ref-(\d+)" aria-label="([^"]+)">\[(\d+)\]<\/a>/g)];
+    assert.ok(citations.length > entries.length, 'repeated citations should reuse reference numbers');
+    for (const [, id, accessibleLabel, number] of citations) {
+      assert.equal(id, number);
+      assert.equal(accessibleLabel, `${label} ${number}`);
+      assert.ok(Number(id) >= 1 && Number(id) <= entries.length);
+    }
+    assert.deepEqual([...new Set(citations.map((citation) => Number(citation[1])))].sort((a, b) => a - b), Array.from({ length: 32 }, (_, i) => i + 1));
+    assert.doesNotMatch(body, /(?<!!)\[[^\]]*\]\(https:\/\//, 'body sources should use superscripts');
+    assert.doesNotMatch(body, /\[来源：|\[Sources?:/);
+    citationSequences.push(citations.map((citation) => citation[1]));
+  }
+  assert.deepEqual(referenceLists[0], referenceLists[1]);
+  assert.deepEqual(citationSequences[0], citationSequences[1]);
 });
 
 test('the left Blog sidebar lists only the retained individual posts', () => {

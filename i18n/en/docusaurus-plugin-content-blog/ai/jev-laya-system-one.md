@@ -8,13 +8,13 @@ tags: [ai, agents, jev, laya, architecture, performance]
 
 We're building an agent workspace. Our earliest approach used Skills to route requests to specific agents. The problem was that, before the request reached its target agent, the interface would often show a long stretch of reasoning or other output. That slowed responses and left users confused: they had simply asked for something, so why was the system saying so much first?
 
-We later switched to injecting a System Prompt through parameters. Performance improved substantially, and that is the approach we currently use. However, routing policies remain spread across entry points such as the web interface and CLI, with each maintaining its own routing logic. The capability is still organized as an external add-on rather than a unified workflow inside the agent.
+We later switched to injecting a System Prompt through parameters. Responses became noticeably faster, and that's the approach we use today. Routing logic still sits outside the agent, though, maintained separately by entry points such as the web interface and CLI. We haven't yet brought it into one shared workflow inside the agent.
 
 As knowledge bases and preset prompts grow, role selection is only part of what needs to be coordinated. Looking up product information, preparing a proposal, and troubleshooting may call for different knowledge bases, prompts, and ways of handling the task. Having each entry point make its own decisions adds maintenance work and can send the same request down different paths.
 
-**Bringing Jev or Laya into a unified routing workflow inside the agent could be a strong approach.** A dedicated decision model first chooses the knowledge bases and preset prompt. The execution layer then loads the configuration, retrieves the material, and passes the task to an agent that's ready to go. Entry points such as the web interface and CLI receive requests, while routing decisions happen within the same workflow.
+**Bringing Jev or Laya into a unified routing workflow inside the agent looks like a worthwhile next step.** A dedicated decision model could first choose the knowledge bases and preset prompt. The execution layer would then load the configuration, retrieve the material, and pass the task to an agent that's ready to go. Entry points such as the web interface and CLI would receive requests, while routing decisions would happen within the same workflow.
 
-With those pieces connected, users could make requests through whichever entry point they already use, and the system would prepare the appropriate knowledge and approach consistently. If routing is both accurate and fast, the savings extend beyond waiting: less time choosing resources, explaining things again, and starting over after a wrong turn.
+If this works, users could make requests through whichever entry point they already use, and the system would consistently prepare the right knowledge and approach. Accurate, fast routing could mean less browsing through directories, fewer repeated explanations, and fewer rounds of “wrong choice, let's start again.”
 
 Let's look at where Jev and Laya came from, why they suit fast judgments, and what the public benchmarks show, then place this routing approach within the agent workspace's full workflow.
 
@@ -24,17 +24,17 @@ Let's look at where Jev and Laya came from, why they suit fast judgments, and wh
 
 ## Meet Jev and Laya
 
-Jev comes from TypeSafe AI. Its founder, Diogo Almeida, previously contributed to work on InstructGPT. The team announced Jev and opened early access on September 15, 2026. They call this product direction **System One models**, emphasizing fast, structured judgments that software can consume directly. [Source: TypeSafe launch post](https://typesafe.ai/blog/introducing-system-one-models-and-jev)
+Jev comes from TypeSafe AI. Its founder, Diogo Almeida, previously contributed to work on InstructGPT. The team announced Jev and opened early access on September 15, 2026. They call this product direction **System One models**, emphasizing fast, structured judgments that software can use directly. <sup><a href="#ref-1" aria-label="Reference 1">[1]</a></sup>
 
 System One borrows the idea of fast, intuitive judgment. It isn't a unified industry standard, nor does it mean the models have reproduced the two systems of human cognition. Classifiers, encoders, and probability calibration have been around for some time. The interesting question here is how they come together in a general-purpose developer interface.
 
-Laya followed, developed by Nandakishor Mukkunnoth of ConvAI Innovations, with code in `NandhaKishorM/laya`. The author traces his approach to earlier research on predicting conversion in sales conversations. He explicitly says that, after Jev launched, he decided to extend that experience into a more general, open decision model. Version 0.1.0 of the `laya` package appeared on PyPI on September 18. That is the package's initial release date, which should not be treated as the date when all model weights became available. [Sources: Laya project introduction](https://laya.convaiinnovations.com/), [PyPI release history](https://pypi.org/project/laya/#history)
+Laya followed, developed by Nandakishor Mukkunnoth of ConvAI Innovations, with code in `NandhaKishorM/laya`. The author traces his approach to earlier research on predicting conversion in sales conversations. He explicitly says that, after Jev launched, he decided to extend that experience into a more general, open decision model. Version 0.1.0 of the `laya` package appeared on PyPI on September 18. That is the package's initial release date, which should not be treated as the date when all model weights became available. <sup><a href="#ref-2" aria-label="Reference 2">[2]</a>, <a href="#ref-3" aria-label="Reference 3">[3]</a></sup>
 
 We can therefore say that Laya's public project appeared after Jev, and that its interface and product direction were clearly inspired by it. There is currently no public evidence that Laya inherited Jev's code, weights, or training implementation. Both use the name RLCD, but that alone does not establish that their training algorithms are the same.
 
-The two already differ substantially in how they are delivered. Jev offers a hosted API without public weights for its core model. Laya provides code and open weights, supporting local deployment and domain fine-tuning. TypeSafe's open-source SDK does not make the Jev model itself open source. [Sources: TypeSafe model documentation](https://docs.typesafe.ai/models), [Laya repository](https://github.com/NandhaKishorM/laya)
+The two already differ substantially in how they are delivered. Jev offers a hosted API without public weights for its core model. Laya provides code and open weights, supporting local deployment and domain fine-tuning. TypeSafe's open-source SDK does not make the Jev model itself open source. <sup><a href="#ref-4" aria-label="Reference 4">[4]</a>, <a href="#ref-5" aria-label="Reference 5">[5]</a></sup>
 
-Putting their current offerings side by side makes it easier to decide which to try first:
+Looking at the setup and maintenance differences side by side makes it easier to decide which to try first:
 
 | Dimension | Jev | Laya |
 | --- | --- | --- |
@@ -46,13 +46,13 @@ Putting their current offerings side by side makes it easier to decide which to 
 
 ![Lulu compares Jev’s hosted API and SDK with self-hosted Laya, including code, weights, and fine-tuning tools](https://assets.eaveluo.com/blog/2026/10/lulu-jev-laya-deployment-en.png?v=11084cc76450)
 
-Jev lets you start by connecting to a service. Laya leaves more debugging and deployment choices in the developer's hands. Now let's take a closer look at how they answer questions.
+With Jev, you can start by connecting to the service. Laya leaves more debugging and deployment choices in the developer's hands. Once connected, what does it look like to ask either model a question?
 
 ## Give the little router a multiple-choice question
 
-Ordinary chat models are good at elaborating on an answer. Routing often needs only a tiny output: which resources to choose, which prompt to use, or whether there's enough information to proceed. Jev and Laya give these judgments an explicit interface.
+Ordinary chat models are good at elaborating on an answer. At the routing step, we often just want to know a few things: which resources to choose, which prompt to use, and whether there's enough information to proceed. Jev and Laya give these brief judgments an explicit interface.
 
-You supply `state`: the request and context needed for this decision. You also supply `questions`, specifying the question, candidate answers, or rating levels. Here, state means **the content passed into this particular call**. It doesn't mean the model already remembers everything in the workspace. The interface centers on three primitives. [Source: TypeSafe Introduction](https://docs.typesafe.ai/introduction)
+You supply `state`: the request and context needed for this decision. You also supply `questions`, specifying the question, candidate answers, or rating levels. Here, state means **the content passed into this particular call**. It doesn't mean the model already remembers everything in the workspace. The interface centers on three primitives. <sup><a href="#ref-6" aria-label="Reference 6">[6]</a></sup>
 
 | Primitive | What might the agent workspace ask? | What the output means |
 | --- | --- | --- |
@@ -60,7 +60,7 @@ You supply `state`: the request and context needed for this decision. You also s
 | Score | Has the user provided enough information to begin? | Returns a rating on an ordered scale and its probability distribution |
 | Noul | Does this task require looking up an internal knowledge base? | Returns the probability of “yes,” from 0 to 1 |
 
-Score requires predefined levels, such as “goal unclear,” “goal clear but key requirements missing,” and “ready to begin.” It works for ordered judgments like these, rather than arbitrary real-number calculations. [Source: Score documentation](https://docs.typesafe.ai/primitives/score)
+Score requires predefined levels, such as “goal unclear,” “goal clear but key requirements missing,” and “ready to begin.” It works for ordered judgments like these, rather than arbitrary real-number calculations. <sup><a href="#ref-7" aria-label="Reference 7">[7]</a></sup>
 
 Consider a hypothetical request: “Check the integration limits for Product A, then put together an explanation for a customer.” The system could first present a short candidate directory containing the product documentation, an integration FAQ knowledge base, and descriptions of prompts such as “technical troubleshooting” and “customer explanation.” The model would judge which resources fit. Downstream code would then load the configuration, retrieve the actual content, and assemble the task.
 
@@ -68,23 +68,23 @@ Consider a hypothetical request: “Check the integration limits for Product A, 
 
 Modern generative models can also produce structured output. What's interesting here is the computation: Jev and Laya output judgments and probabilities directly, skipping the process of writing an answer token by token. Deterministic configuration, permissions, and execution logic remain the responsibility of code.
 
-Some questions can be asked together. Jev's documentation recommends putting independent judgments into a single request, such as “Is retrieval needed?” and “Has the user specified the audience?” This reduces serial round trips. [Source: Speculative fan-out](https://docs.typesafe.ai/patterns/fan-out) If a later judgment depends on an earlier answer, however, that dependency must be handled explicitly. Parallel answers are not guaranteed to be mutually consistent, either. Code still needs to enforce mutual exclusions and business constraints.
+Some questions can be asked together. Jev's documentation recommends putting independent judgments into a single request, such as “Is retrieval needed?” and “Has the user specified the audience?” This reduces serial round trips. <sup><a href="#ref-8" aria-label="Reference 8">[8]</a></sup> If a later judgment depends on an earlier answer, however, that dependency must be handled explicitly. Parallel answers are not guaranteed to be mutually consistent, either. Code still needs to enforce mutual exclusions and business constraints.
 
 ## Why it can be fast
 
 ### Jev outputs the judgment directly
 
-TypeSafe has disclosed a non-autoregressive, parallel output approach and a training direction called RLCD, or Reinforcement Learning for Calibrated Decisions. The aim is to output decision distributions directly, rather than write an answer token by token. [Source: TypeSafe AI primer](https://docs.typesafe.ai/introduction/machine-learning-primer)
+TypeSafe has disclosed a non-autoregressive, parallel output approach and a training direction called RLCD, or Reinforcement Learning for Calibrated Decisions. The aim is to output decision distributions directly, rather than write an answer token by token. <sup><a href="#ref-9" aria-label="Reference 9">[9]</a></sup>
 
 As of this article, however, public information does not provide a sufficiently complete account of the core architecture, parameter count, or training recipe. We can discuss its observable behavior, but we cannot diagram it as a confirmed “small BERT,” or lump both models together as “small language models.”
 
-Jev 1.13, the version listed in the current documentation, accepts text. It has a total budget of 64k tokens per request, with a 32k budget for `state` plus the longest individual question. It does not read images or audio directly, and customers cannot perform their own LoRA fine-tuning on the hosted weights. In practice, pin the version and record the model ID in the response so an alias update doesn't quietly invalidate your thresholds. [Source: Models](https://docs.typesafe.ai/models)
+Jev 1.13, the version listed in the current documentation, accepts text. It has a total budget of 64k tokens per request, with a 32k budget for `state` plus the longest individual question. It does not read images or audio directly, and customers cannot perform their own LoRA fine-tuning on the hosted weights. In practice, pin the version and record the model ID in the response so an alias update doesn't quietly invalidate your thresholds. <sup><a href="#ref-4" aria-label="Reference 4">[4]</a></sup>
 
 ### Laya shows us where the computation happens
 
-Laya's English base model uses ModernBERT-large, with approximately 421 million parameters. The multilingual version uses mmBERT-base, with approximately 322 million. The repository provides Apache-2.0 code, and the listed model cards also specify the corresponding open-weight licenses. When deploying, still check the exact model and revision you download. Sources: [code license](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/LICENSE), [English model card](https://huggingface.co/convaiinnovations/laya), [multilingual model card](https://huggingface.co/convaiinnovations/laya-multilingual).
+Laya's English base model uses ModernBERT-large, with approximately 421 million parameters. The multilingual version uses mmBERT-base, with approximately 322 million. The repository provides Apache-2.0 code, and the listed model cards also specify the corresponding open-weight licenses. When deploying, still check the exact model and revision you download. <sup><a href="#ref-10" aria-label="Reference 10">[10]</a>, <a href="#ref-11" aria-label="Reference 11">[11]</a>, <a href="#ref-12" aria-label="Reference 12">[12]</a></sup>
 
-In the public code, each question's type, description, candidate answers, and state are assembled into one input sequence. Markers are inserted before the candidates. The full sequence passes through a bidirectional encoder and additional Transformer layers. The representations at the candidate markers are then read to produce logits, which become probabilities through temperature scaling and softmax. Intuitively, the model reads the question and supporting material, then scores the candidates without first composing a written answer. There is no decoding loop generating the answer token by token. [Source: pinned common.py](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/laya/common.py)
+In the public code, each question's type, description, candidate answers, and state are assembled into one input sequence. Markers are inserted before the candidates. The full sequence passes through a bidirectional encoder and additional Transformer layers. The representations at the candidate markers are then read to produce logits, which become probabilities through temperature scaling and softmax. Put simply, the model reads the question and supporting material, then scores the candidates directly, skipping the decoding loop that would write an answer token by token. <sup><a href="#ref-13" aria-label="Reference 13">[13]</a>, <a href="#ref-14" aria-label="Reference 14">[14]</a></sup>
 
 ```mermaid
 flowchart TB
@@ -99,39 +99,39 @@ flowchart TB
     P --> O["Choice, Score, or Noul"]
 ```
 
-This also shows why a multi-question interface doesn't mean the underlying context is encoded only once. Laya can batch questions into a forward pass, but each question still re-encodes its own sequence containing the state. What is shared is the tokenization cache. It isn't a case of “encode the context once, then add as many questions as you like for free.” [Source: agent batching implementation](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/laya/agent.py)
+This also shows why a multi-question interface doesn't mean the underlying context is encoded only once. Laya can batch questions into a forward pass, but each question still re-encodes its own sequence containing the state. What is shared is the tokenization cache. It isn't a case of “encode the context once, then add as many questions as you like for free.” <sup><a href="#ref-15" aria-label="Reference 15">[15]</a></sup>
 
-Candidate descriptions also consume the token budget. The default English checkpoint has a total length of 512 tokens; the multilingual checkpoint has 1,024. Only the space remaining after the question and options is available for state. A very long candidate list may lead to compressed descriptions. By default, overly long string or object states may lose information at the end, while conversations supplied as lists prioritize the most recent content. Even if the underlying model supports a longer context, check the actual configuration and what gets truncated. [Sources: input construction code](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/laya/common.py), [project usage guide](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/README.md)
+Candidate descriptions also consume the token budget. The default English checkpoint has a total length of 512 tokens; the multilingual checkpoint has 1,024. Only the space remaining after the question and options is available for state. A very long candidate list may lead to compressed descriptions. By default, overly long string or object states may lose information at the end, while conversations supplied as lists prioritize the most recent content. Even if the underlying model supports a longer context, check the actual configuration and what gets truncated. <sup><a href="#ref-13" aria-label="Reference 13">[13]</a>, <a href="#ref-16" aria-label="Reference 16">[16]</a></sup>
 
-Laya's public typed-decisions fine-tuning script also shows concrete training mechanics. It perturbs logits, constructs rewards using log score, spherical score, and ranked probability score for ordered rating tasks, then combines reward-based updates with a cross-entropy objective. Temperature can be fitted afterward. This implementation shows that RLCD is more than an interface label, but it does not establish that every historical set of weights was trained with exactly this script. It certainly doesn't let us infer Jev's training details. [Source: public fine-tuning script](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/notebooks/laya_finetune_typed_decisions_mps.py)
+To look further into training, Laya's public typed-decisions fine-tuning script is a useful place to start. It perturbs logits, constructs rewards using log score, spherical score, and ranked probability score for ordered rating tasks, then combines reward-based updates with a cross-entropy objective. Temperature can be fitted afterward. This implementation shows that RLCD is more than an interface label, but it does not establish that every historical set of weights was trained with exactly this script. It certainly doesn't let us infer Jev's training details. <sup><a href="#ref-17" aria-label="Reference 17">[17]</a></sup>
 
 ## Those probabilities look nice. Are they reliable?
 
-Suppose a group of predictions all assign an event a probability of 0.8. If, over time, those events actually occur about 80% of the time, we can call that portion of the predictions reasonably well calibrated. Calibration describes a statistical relationship across a set of predictions. It cannot guarantee that any individual decision is correct. [Source: TypeSafe AI primer](https://docs.typesafe.ai/introduction/machine-learning-primer)
+Suppose a group of predictions all assign an event a probability of 0.8. If, over time, those events actually occur about 80% of the time, we can call that portion of the predictions reasonably well calibrated. Calibration describes a statistical relationship across a set of predictions. It cannot guarantee that any individual decision is correct. <sup><a href="#ref-9" aria-label="Reference 9">[9]</a></sup>
 
-We also need to distinguish probability from `confidence`.
+One detail is easy to mix up: probability and `confidence` need to be read separately.
 
-In the current Jev documentation, `confidence` for Choice and Score is a summary calculated from the existing probability distribution. It is not a separate, magical module that estimates “Did I understand this?” Noul has no separate `confidence` field. A concentrated distribution tells us the model is certain; it doesn't rule out being confidently wrong. [Source: Confidence](https://docs.typesafe.ai/confidence)
+In the current Jev documentation, `confidence` for Choice and Score is a summary calculated from the existing probability distribution. Noul has no separate `confidence` field. Don't read this field as an extra “Did I understand this?” check. A concentrated distribution shows a strong preference for an answer, but the model can still be confidently wrong. <sup><a href="#ref-18" aria-label="Reference 18">[18]</a></sup>
 
-Laya's current implementation uses a different definition. Its `confidence` measures distribution concentration using normalized entropy, while `answer_confidence` is the probability of the selected answer. Abstention thresholds mainly use the latter. Similar field names conceal different calculations, so thresholds cannot simply be copied from one system to the other. [Sources: Laya probability handling](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/laya/common.py), [confidence gating](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/laya/confidence.py)
+Laya's current implementation uses a different definition. Its `confidence` measures distribution concentration using normalized entropy, while `answer_confidence` is the probability of the selected answer. Abstention thresholds mainly use the latter. Similar field names conceal different calculations, so thresholds cannot simply be copied from one system to the other. <sup><a href="#ref-13" aria-label="Reference 13">[13]</a>, <a href="#ref-19" aria-label="Reference 19">[19]</a></sup>
 
-“The output conforms to its type” and “the judgment is semantically correct” are therefore different guarantees. A model can restrict its answer to the supplied candidates and still pick the wrong resource. Instructions hidden in the input can also push it toward the wrong answer. Jev's official known-issues page lists failures involving adversarial content, numerical precision, date comparisons, and long irrelevant context. [Source: Jev 1.13 jaggedness](https://docs.typesafe.ai/model-jaggedness/jev-1.13)
+“The output conforms to its type” and “the judgment is semantically correct” are therefore different guarantees. A model can restrict its answer to the supplied candidates and still pick the wrong resource. Instructions hidden in the input can also push it toward the wrong answer. Jev's official known-issues page lists failures involving adversarial content, numerical precision, date comparisons, and long irrelevant context. <sup><a href="#ref-20" aria-label="Reference 20">[20]</a></sup>
 
 ## A closer look at the public benchmarks
 
 ### The headline numbers are impressive. What do they compare?
 
-At launch, Jev advertised a 193.6× speedup and a 444.6× cost reduction. Those figures came from four types of workflow designed by the team, with reference answers aggregated from predictions by strong models. The measurements therefore include agreement with reference models; they should not be read directly as human-verified business accuracy. The team also acknowledges that these gains sit toward the high end of real-world results, and that requiring full probability outputs from the LLM baselines increases their generation cost. [Sources: launch post](https://typesafe.ai/blog/introducing-system-one-models-and-jev), [public WorkflowEvals code and data](https://github.com/typesafe-ai/WorkflowEvals)
+At launch, Jev advertised a 193.6× speedup and a 444.6× cost reduction. Those figures came from four types of workflow designed by the team, with reference answers aggregated from predictions by strong models. The measurements therefore include agreement with reference models; they should not be read directly as human-verified business accuracy. The team also acknowledges that these gains sit toward the high end of real-world results, and that requiring full probability outputs from the LLM baselines increases their generation cost. <sup><a href="#ref-1" aria-label="Reference 1">[1]</a>, <a href="#ref-21" aria-label="Reference 21">[21]</a></sup>
 
-These materials do provide a starting point for closer inspection. But test location, workflow decomposition, and baseline output requirements all affect the results. The headline multipliers cannot be applied to every API request. Jev's native API is currently listed at US$0.042 per million input tokens, with no separate output charge. Whether it is inexpensive for you depends on your input volume, retries, and fallback rate. [Source: Models](https://docs.typesafe.ai/models)
+The public code and data let us inspect these numbers more closely. Test location, workflow decomposition, and baseline output requirements all affect the results, though, so the headline multipliers cannot be applied to every API request. Jev's native API is currently listed at US$0.042 per million input tokens, with no separate output charge. To work out whether it's economical for your own application, you'll need to count input volume, retries, and fallbacks together. <sup><a href="#ref-4" aria-label="Reference 4">[4]</a></sup>
 
-Laya's homepage comparisons also need unpacking. The project's `BENCHMARKS.md` explicitly says that the Jev scores in its tables come from third-party reports, with differences in some prompts and sample counts. The typed-decisions score of 0.766 comes from a task-specific fine-tuned checkpoint, and a corresponding raw-results file has not yet been included. For the same task and 2,000 decisions, the committed records show 0.362 for the base English model, 0.3515 for the multilingual model, and 0.461 for the majority-class baseline. Treating the fine-tuned 0.766 as the base model's zero-shot capability would give a misleading picture of deployment difficulty. [Sources: pinned benchmark notes](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/BENCHMARKS.md), [raw T4 results](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/research/results/t4_colab_benchmark.json)
+The scores on Laya's homepage need to be read alongside their test conditions, too. The project's `BENCHMARKS.md` explicitly says that the Jev scores in its tables come from third-party reports, with differences in some prompts and sample counts. The typed-decisions score of 0.766 comes from a task-specific fine-tuned checkpoint, and a corresponding raw-results file has not yet been included. For the same task and 2,000 decisions, the committed records show 0.362 for the base English model, 0.3515 for the multilingual model, and 0.461 for the majority-class baseline. Treating the fine-tuned 0.766 as the base model's zero-shot capability would give a misleading picture of deployment difficulty. <sup><a href="#ref-22" aria-label="Reference 22">[22]</a>, <a href="#ref-23" aria-label="Reference 23">[23]</a></sup>
 
 ### How do they perform on the same questions?
 
-On September 20, `elcronos/jev-vs-open-decision-models` documented a shared classification protocol and published per-example results, cached API responses, and environment snapshots. The results below use its plain setting: short English texts, one Choice question, the original label order, and no examples or task-specific tuning. [Source: pinned protocol](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/PROTOCOL.md)
+On September 20, `elcronos/jev-vs-open-decision-models` documented a shared classification protocol and published per-example results, cached API responses, and environment snapshots. The results below use its plain setting: short English texts, one Choice question, the original label order, and no examples or task-specific tuning. <sup><a href="#ref-24" aria-label="Reference 24">[24]</a>, <a href="#ref-25" aria-label="Reference 25">[25]</a></sup>
 
-The model versions matter. Jev was `typesafe/jev-1.13-20260917`. Laya used **package version 0.3.3 and the English base weights available at the time**, at weight revision `c5d7873…`. The evaluation did not test the later 0.3.23 release, the multilingual model, or task-specific fine-tuned weights.
+The model versions matter. Jev was `typesafe/jev-1.13-20260917`. Laya used **package version 0.3.3 and the English base weights available at the time**, at weight revision `c5d7873…`. The evaluation did not test the later 0.3.23 release, the multilingual model, or task-specific fine-tuned weights. <sup><a href="#ref-26" aria-label="Reference 26">[26]</a></sup>
 
 Each result cell shows **accuracy / Macro-F1**, both expressed as percentages. N is the number of test texts; K is the number of candidate classes.
 
@@ -142,13 +142,13 @@ Each result cell shows **accuracy / Macro-F1**, both expressed as percentages. N
 | Financial News Topic | 4,117 / 20 | 66.99 / 62.98 | 34.20 / 36.23 |
 | DailyDialog single-utterance emotion | 7,740 / 7 | 70.99 / 38.47 | 61.43 / 27.48 |
 
-Source: [cross-dataset summary](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/cross_dataset_summary.csv). This is a summary of published results, not a new inference run. Public inventories of training data remain incomplete, so a shared protocol does not prove that the models have never encountered the test content.
+The table summarizes published results; no new inference run was performed for this article.<sup><a href="#ref-27" aria-label="Reference 27">[27]</a></sup> Public inventories of training data remain incomplete, so a shared protocol does not prove that the models have never encountered the test content.
 
-The picture is more specific than a claim that one model wins everywhere. On Emotion, their accuracy differs by just one example, with no statistically significant difference detected. In the other three settings, this version of Jev performs better. Most DailyDialog examples, however, belong to the “no emotion” class. Always selecting that majority class yields **81.67%** accuracy, and the test did not supply conversational context. Overall accuracy alone can obscure the ability to recognize minority emotions. [Source: summary statistics and baselines](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/cross_dataset_summary.json)
+The picture is more specific than a claim that one model wins everywhere. On Emotion, their accuracy differs by just one example, with no statistically significant difference detected. In the other three settings, this version of Jev performs better. Most DailyDialog examples, however, belong to the “no emotion” class. Always selecting that majority class yields **81.67%** accuracy, and the test did not supply conversational context. Overall accuracy alone can obscure the ability to recognize minority emotions. <sup><a href="#ref-28" aria-label="Reference 28">[28]</a></sup>
 
-The probabilities are not automatically trustworthy, either. In financial-topic classification, Laya's mean top-class probability was about **95.2%**, while its accuracy was only **34.2%**, with an ECE15 of **0.6096**. This older result cannot stand in for the current version's calibration, but it is enough to make the point: reading a high probability is not the same as having a production-ready risk threshold. [Source: original task summary](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/fin_topic/summary.json)
+The probabilities are not automatically trustworthy, either. In financial-topic classification, Laya's mean top-class probability was about **95.2%**, while its accuracy was only **34.2%**, with an ECE15 of **0.6096**. This older result cannot stand in for the current version's calibration, but it is enough to make the point: reading a high probability is not the same as having a production-ready risk threshold. <sup><a href="#ref-29" aria-label="Reference 29">[29]</a></sup>
 
-If your application already has stable labels and training data, traditional classifiers should be in the comparison too. In a supplementary experiment from the same project, supervised TF-IDF plus logistic regression reached 82.75% on financial-topic classification. Its training conditions differ from those of zero-shot models, but it still raises a useful selection question: how large a model does this fixed task need? [Source: supplementary supervised experiments](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/supervised_models.json)
+If your application already has stable labels and training data, traditional classifiers should be in the comparison too. In a supplementary experiment from the same project, supervised TF-IDF plus logistic regression reached 82.75% on financial-topic classification. Its training conditions differ from those of zero-shot models, but it still raises a useful selection question: how large a model does this fixed task need? <sup><a href="#ref-30" aria-label="Reference 30">[30]</a></sup>
 
 ### Chinese-language use cases have been tested too
 
@@ -162,21 +162,21 @@ A more relevant reference for Chinese-language developers is `zh-decision-bench`
 | Fraud or prohibited promotion | 21 | 0.952 / 0.073 | 0.714 / 0.286 |
 | Whether to escalate | 55 | 0.600 / 0.164 | 0.564 / 0.230 |
 
-Source: [v0.2 report](https://github.com/CodyQin/zh-decision-bench/blob/7cd016419bcb8291b1f3889c9c2bef92178da20c/reports/metrics.md). N is the number of questions in each category. The test used Laya 0.3.20. For Jev, only the `jev-latest` alias was recorded, without preserving the resolved version; the Laya weight revision was not archived either.
+The table summarizes the published results.<sup><a href="#ref-31" aria-label="Reference 31">[31]</a></sup> N is the number of questions in each category. The test used Laya 0.3.20. For Jev, only the `jev-latest` alias was recorded, without preserving the resolved version; the Laya weight revision was not archived either.
 
-These results support testing on your own Chinese-language use cases. They do not establish a universal ranking of language capability. The voice-routing data comes from a mapping of MASSIVE, while the business examples are synthetic and were labeled by one person. Slices containing only twenty or thirty examples are particularly uncertain. The urgency row also reminds us that accuracy and calibration can move in different directions.
+The most useful takeaway is to test on your own Chinese-language use cases; these results can't establish a universal ranking of language capability. The voice-routing data comes from a mapping of MASSIVE, while the business examples are synthetic and were labeled by one person. Groups of only twenty or thirty examples leave more uncertainty. The urgency row also reminds us that accuracy and calibration can move in different directions.
 
 ### Millisecond latency: which part is fast?
 
-In the third-party evaluation above, Emotion P50 latency was 349.09 ms for Jev and 31.30 ms for Laya. The former measured successful remote API requests from an Australian client at concurrency 8. The latter measured local MPS FP32 inference on an M1 Max, with batch size 1 and 10 warm-up runs. These are real experiences of two deployment setups, but they do not isolate the speed difference between the neural network architectures. [Sources: evaluation summary](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/frozen_primary_plain/summary.json), [environment record](https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/frozen_primary_plain/env.json)
+In the third-party evaluation above, Emotion P50 latency was 349.09 ms for Jev and 31.30 ms for Laya. The former measured successful remote API requests from an Australian client at concurrency 8. The latter measured local MPS FP32 inference on an M1 Max, with batch size 1 and 10 warm-up runs. These are real experiences of two deployment setups, but they do not isolate the speed difference between the neural network architectures. <sup><a href="#ref-32" aria-label="Reference 32">[32]</a>, <a href="#ref-26" aria-label="Reference 26">[26]</a></sup>
 
 A “single forward pass” does not mean constant computation, either. The number of questions, input length, and deployment location all affect latency. Self-hosting removes the per-call API bill, but hardware, memory, and operations still count toward the cost. For an agent workspace, these numbers provide a reference for choosing a routing model. How much sooner users can get a usable result needs to be measured across the whole path.
 
 ## Help the agent workspace's resources get to work sooner
 
-The key is to bring routing policies scattered across entry points into one workflow inside the agent. The web interface, CLI, and other entry points can pass in requests and the necessary context. A shared routing module then selects the role, knowledge bases, and preset prompt before configuration loading, retrieval, and execution.
+Back in the workspace, we'd like every entry point to use the same routing workflow inside the agent. The web interface, CLI, and other entry points would pass in requests and the necessary context. A shared routing module would select the role, knowledge bases, and preset prompt, followed by configuration loading, retrieval, and execution.
 
-Jev or Laya would serve as the dedicated decision model in this workflow. The agent could call Jev's hosted API or connect to a self-hosted Laya instance, with the module returning choices that can be validated. Existing System Prompt parameter injection and configuration lookup can still be reused to prepare tasks around that shared decision. The configuration approach that has already improved responsiveness can stay in place, while shared routing can reduce inconsistencies caused by maintaining that logic separately at each entry point.
+In this proposed workflow, Jev or Laya would make the decisions. The agent could call Jev's hosted API or a self-hosted Laya instance and receive choices it can validate. It could then prepare the task using the existing System Prompt parameter injection and configuration lookup. That would keep the responsiveness improvements we already have, with a chance to reduce the inconsistencies caused by separate routing logic at each entry point.
 
 Knowledge bases hold the material, preset prompts capture ways of doing the work, and routing connects both to the request at hand. **Roles, knowledge bases, prompts, and the way a task is handled can work together around the same request**, leaving users less to figure out for themselves.
 
@@ -186,7 +186,7 @@ Knowledge bases hold the material, preset prompts capture ways of doing the work
 
 If the directory says only “Knowledge Base 1” and “General Assistant,” even a fast model will struggle to know what each one is good at. A practical starting point is a short description for every resource: which topics it covers, which tasks it suits, and when it should not be used, along with a stable ID and version. Prompts need the same treatment, including their intended goal, audience, and output format.
 
-The system should first filter resources by the user's permissions, then give the router directory entries relevant to the request. With a large collection, tags, keywords, or vector search can narrow the candidates before Jev or Laya makes a further judgment. This candidate list needs to retain the relevant resources. If the first step has already missed the right knowledge base, the downstream model cannot select an option it never sees.
+The system should first filter resources by the user's permissions, then give the router directory entries relevant to the request. With a large collection, tags, keywords, or vector search can narrow the candidates before Jev or Laya makes a further judgment. Take care not to filter out the resources the task actually needs. However clever the downstream model is, it can't choose a knowledge base it never gets to see.
 
 The router would usually receive **resource descriptions and the necessary context**. Product documentation, historical records, and long-form material would stay in the knowledge bases until the search scope has been chosen. That gives us a chance to reduce delays and distraction from irrelevant content. Packing every document into state could instead run straight into length limits.
 
@@ -202,7 +202,7 @@ For prompts, I'd rather choose among variants that have already been reviewed, s
 
 *Conceptual illustration: inspect the resource directory, then choose a route. Retrieve the actual material only after selecting the knowledge bases. Routing can also return several candidates, or indicate that more information is needed.*
 
-There also needs to be a door marked “not sure yet.” If a request is too vague, none of the candidates fits, or one request spans several tasks, the system can retain multiple candidates, ask a clarifying question, or hand off to a more general workflow. Always forcing a single choice may look decisive while merely leaving the trouble for later.
+The little router should also be allowed to say, “I can't choose yet.” If a request is too vague, none of the candidates fits, or one request spans several tasks, the system can retain multiple candidates, ask a clarifying question, or hand off to a more general workflow. Always forcing a single choice may look decisive while merely leaving the trouble for later.
 
 ### Efficiency gains come from the whole experience
 
@@ -217,11 +217,11 @@ If these parts improve together, the efficiency gains could be substantial. For 
 
 Those gains have conditions. Candidate filtering needs enough recall, routing must not frequently choose the wrong resources, and extra retrieval or fallbacks must not consume the time saved. If every knowledge base and the entire prompt set still end up being sent to the large model unchanged, the earlier selection is unlikely to reduce input costs.
 
-The engineering also needs to get several basics right: can every entry point retrieve the same configuration version, does each request actually pass through routing, and does the selected configuration take effect in the target client? Switching models will not solve these issues automatically. Routing doesn't grant permissions, either. Data access and tool calls still require independent checks. Getting those boundaries right is what makes a lightweight approach useful.
+There are a few engineering details to check, too: can every entry point retrieve the same configuration version, does each request actually pass through routing, and does the selected configuration take effect in the target client? Switching models won't solve these issues automatically. Routing doesn't grant permissions, either. Data access and tool calls still require independent checks. The time saved is useful only when these details are reliable.
 
 ## How will we know the little router is helping?
 
-Evaluating this routing approach starts with a held-out set of real requests. It should cover tasks needing one knowledge base, cross-base searches, no retrieval, similar prompt variants, missing information, task changes midway through a conversation, and both Chinese and mixed Chinese-English inputs. The router can first make suggestions on the side while the existing execution flow stays in place, allowing its recommendations to be compared with what was actually needed.
+To see whether it's helping, start by holding out a set of real requests for testing. Include tasks needing one knowledge base, cross-base searches, no retrieval, similar prompt variants, missing information, task changes midway through a conversation, and both Chinese and mixed Chinese-English inputs. Let the router make suggestions on the side while the existing execution flow runs as usual, then compare its recommended resources with what each task actually needed.
 
 The comparisons need to be fair, too. Record the current workflow, then test the same resource directory with rules or an existing model, and finally add Jev and Laya. Keep configuration caching, candidate filtering, and retrieval strategies as consistent as possible, rather than crediting the new model for improvements made elsewhere. If labels are stable and training data is available, a traditional classifier is worth including.
 
@@ -239,7 +239,7 @@ Record timings separately for candidate filtering, configuration lookup, routing
 
 Thresholds also need more than one attractive set of numbers. Keep the calibration set separate from the final test set, pin both the model and resource-directory versions, and separately test new resources, unfamiliar phrasing, long inputs, stale or invalid configurations, and manipulative text. High confidence will not automatically detect every unfamiliar situation. If most requests still need a large model to double-check the result, adding routing could make the workflow slower.
 
-The acceptance criterion is simple: while maintaining answer quality, users spend less effort deciding which resources to use and get a usable result sooner.
+The goal is simple: without reducing answer quality, give users less reason to wonder “which one should I use?” and get them a usable result sooner.
 
 ## Find the route, then let the task take the stage
 
@@ -247,11 +247,41 @@ What appeals to me about Jev and Laya is that they make “a quick judgment” i
 
 Jev provides a hosted service. Laya gives developers more room to inspect the implementation, deploy it, and fine-tune it. Public benchmarks haven't produced a winner for every setting, but they have pointed toward worthwhile experiments and highlighted differences in probabilities, languages, and versions.
 
-Moving from Skill-based routing to injecting a System Prompt through parameters has already improved the workspace's responsiveness. Bringing routing policies into a unified workflow inside the agent could then let different entry points share the same selection and execution process. Whether users make a request through the web interface or CLI, that workflow could prepare the appropriate knowledge and approach. Let the little router find the way, so the good resources can get to work sooner.
+Moving from Skill-based routing to injecting a System Prompt through parameters has already made the workspace more responsive. What we'd like to try next is bringing routing inside the agent, so the web interface, CLI, and other entry points can share one resource-selection and execution workflow. Real requests will help us decide whether Jev or Laya is the better fit. With a little router taking care of the preparation, we hope the useful resources can get to work sooner, and so can the user.
 
-## Sources and places to dig deeper
+## References {#references}
 
-- [TypeSafe: Jev launch post](https://typesafe.ai/blog/introducing-system-one-models-and-jev), [developer documentation](https://docs.typesafe.ai/introduction), [WorkflowEvals](https://github.com/typesafe-ai/WorkflowEvals)
-- [Laya: pinned code snapshot](https://github.com/NandhaKishorM/laya/tree/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c), [benchmark notes and results index](https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/BENCHMARKS.md)
-- [Third party: shared-protocol classification evaluation of Jev and open decision models](https://github.com/elcronos/jev-vs-open-decision-models/tree/a1901bc3d520e73936de8d4326545c0cdcf742fb)
-- [Third party: Chinese decision benchmark zh-decision-bench v0.2](https://github.com/CodyQin/zh-decision-bench/blob/7cd016419bcb8291b1f3889c9c2bef92178da20c/reports/metrics.md)
+<ol>
+<li id="ref-1"><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe AI. Introducing System One models and Jev</a></li>
+<li id="ref-2"><a href="https://laya.convaiinnovations.com/">ConvAI Innovations. Laya project introduction</a></li>
+<li id="ref-3"><a href="https://pypi.org/project/laya/#history">PyPI. laya package release history</a></li>
+<li id="ref-4"><a href="https://docs.typesafe.ai/models">TypeSafe AI. Models: versions, input budgets, and pricing</a></li>
+<li id="ref-5"><a href="https://github.com/NandhaKishorM/laya">NandhaKishorM. Laya repository</a></li>
+<li id="ref-6"><a href="https://docs.typesafe.ai/introduction">TypeSafe AI. Interface and decision primitives</a></li>
+<li id="ref-7"><a href="https://docs.typesafe.ai/primitives/score">TypeSafe AI. Score primitive</a></li>
+<li id="ref-8"><a href="https://docs.typesafe.ai/patterns/fan-out">TypeSafe AI. Speculative fan-out</a></li>
+<li id="ref-9"><a href="https://docs.typesafe.ai/introduction/machine-learning-primer">TypeSafe AI. Machine learning primer: decision models and calibration</a></li>
+<li id="ref-10"><a href="https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/LICENSE">Laya. Apache-2.0 code license (4aa6761)</a></li>
+<li id="ref-11"><a href="https://huggingface.co/convaiinnovations/laya">ConvAI Innovations. Laya English model card</a></li>
+<li id="ref-12"><a href="https://huggingface.co/convaiinnovations/laya-multilingual">ConvAI Innovations. Laya multilingual model card</a></li>
+<li id="ref-13"><a href="https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/laya/common.py">Laya. Input construction, encoding, and probabilities: common.py (4aa6761)</a></li>
+<li id="ref-14"><a href="https://github.com/NandhaKishorM/laya/tree/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c">Laya. Pinned code snapshot (4aa6761)</a></li>
+<li id="ref-15"><a href="https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/laya/agent.py">Laya. Agent batching implementation: agent.py (4aa6761)</a></li>
+<li id="ref-16"><a href="https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/README.md">Laya. Usage guide: README (4aa6761)</a></li>
+<li id="ref-17"><a href="https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/notebooks/laya_finetune_typed_decisions_mps.py">Laya. typed-decisions fine-tuning script (4aa6761)</a></li>
+<li id="ref-18"><a href="https://docs.typesafe.ai/confidence">TypeSafe AI. Confidence field documentation</a></li>
+<li id="ref-19"><a href="https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/laya/confidence.py">Laya. Confidence gating: confidence.py (4aa6761)</a></li>
+<li id="ref-20"><a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13">TypeSafe AI. Jev 1.13 jaggedness</a></li>
+<li id="ref-21"><a href="https://github.com/typesafe-ai/WorkflowEvals">TypeSafe AI. WorkflowEvals: evaluation code and data</a></li>
+<li id="ref-22"><a href="https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/BENCHMARKS.md">Laya. Benchmark notes and results index: BENCHMARKS (4aa6761)</a></li>
+<li id="ref-23"><a href="https://github.com/NandhaKishorM/laya/blob/4aa6761be8173de4ce6d92c31b3e40b6eaf59a7c/research/results/t4_colab_benchmark.json">Laya. Raw T4 Colab benchmark results (4aa6761)</a></li>
+<li id="ref-24"><a href="https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/PROTOCOL.md">elcronos. Jev vs. open decision models: evaluation protocol (a1901bc)</a></li>
+<li id="ref-25"><a href="https://github.com/elcronos/jev-vs-open-decision-models/tree/a1901bc3d520e73936de8d4326545c0cdcf742fb">elcronos. Jev vs. open decision models: pinned evaluation snapshot (a1901bc)</a></li>
+<li id="ref-26"><a href="https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/frozen_primary_plain/env.json">elcronos. frozen_primary_plain environment record (a1901bc)</a></li>
+<li id="ref-27"><a href="https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/cross_dataset_summary.csv">elcronos. Cross-dataset results CSV (a1901bc)</a></li>
+<li id="ref-28"><a href="https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/cross_dataset_summary.json">elcronos. Cross-dataset statistics and baselines JSON (a1901bc)</a></li>
+<li id="ref-29"><a href="https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/fin_topic/summary.json">elcronos. Financial-topic results and calibration statistics (a1901bc)</a></li>
+<li id="ref-30"><a href="https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/supervised_models.json">elcronos. Supplementary supervised-model experiments (a1901bc)</a></li>
+<li id="ref-31"><a href="https://github.com/CodyQin/zh-decision-bench/blob/7cd016419bcb8291b1f3889c9c2bef92178da20c/reports/metrics.md">CodyQin. zh-decision-bench v0.2 report (7cd0164)</a></li>
+<li id="ref-32"><a href="https://github.com/elcronos/jev-vs-open-decision-models/blob/a1901bc3d520e73936de8d4326545c0cdcf742fb/results/frozen_primary_plain/summary.json">elcronos. frozen_primary_plain evaluation summary (a1901bc)</a></li>
+</ol>
