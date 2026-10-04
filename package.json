@@ -30,8 +30,8 @@
     "@vercel/speed-insights": "^2.0.0",
     "canvas-confetti": "^1.9.4",
     "docusaurus-plugin-image-zoom": "^3.0.1",
-    "lucide-react": "^1.49.0",
-    "mermaid": "12.0.0",
+    "lucide-react": "^1.52.0",
+    "mermaid": "12.1.0",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
@@ -50,7 +50,7 @@
     "typescript": "~7.0.2"
   },
   "overrides": {
-    "mermaid": "12.0.0"
+    "mermaid": "12.1.0"
   },
   "browserslist": {
     "production": [
