@@ -58,7 +58,7 @@ English
 新文章统一发布到 `blog/`；英文翻译在对应的 i18n Blog 目录维护。列表按 front matter 中的 `date` 倒序展示，分组使用 `tags`。
 ## 📥 运行
 
-需要 Node.js **22.12.0 或更新版本**；CI 使用 Node.js 24，并验证 npm 和 Bun 1.4.2 两种安装方式。Mermaid 12 图表需要支持 ES2024 的现代浏览器，Safari / iOS Safari 至少为 17.4。
+需要 Node.js **22.12.0 或更新版本**；CI 使用 Node.js 24，并验证 npm 和 Bun 1.4.3 两种安装方式。Mermaid 12 图表需要支持 ES2024 的现代浏览器，Safari / iOS Safari 至少为 17.4。
 
 ```bash
 git clone https://github.com/EaveLuo/eave-web.git
