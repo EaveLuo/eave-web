@@ -58,7 +58,7 @@ If you want to build a similar site, you can directly [Fork](https://github.com/
 Publish all new articles under `blog/`, with English translations in the matching i18n Blog path. Lists are ordered newest-first by the front matter `date`, and `tags` provide article groups.
 ## 📥 Run
 
-Requires Node.js **22.12.0 or newer**. CI uses Node.js 24 and checks both npm and Bun 1.4.2 installations. Mermaid 12 diagrams require a modern ES2024-capable browser, with Safari / iOS Safari 17.4 or newer.
+Requires Node.js **22.12.0 or newer**. CI uses Node.js 24 and checks both npm and Bun 1.4.3 installations. Mermaid 12 diagrams require a modern ES2024-capable browser, with Safari / iOS Safari 17.4 or newer.
 
 ```bash
 git clone https://github.com/EaveLuo/eave-web.git
